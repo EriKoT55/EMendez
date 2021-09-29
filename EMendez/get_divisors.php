@@ -26,7 +26,7 @@
             for($i=1;$i<$num;$i++){
 
                 if($num%$i==0){
-                    echo "Divisible por: ".$i;
+                    echo "<br> Divisible por: ".$i;
                 }
             }
 
