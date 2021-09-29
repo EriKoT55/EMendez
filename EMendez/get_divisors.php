@@ -20,7 +20,7 @@
         if(isset($_POST["num"])) {
             $num = intval($_POST["num"]);
 
-            for($i=0;$i<$num;$i++){
+            for($i=1;$i<$num;$i++){
                 if($num/$i==0){
                     echo $i;
                 }
