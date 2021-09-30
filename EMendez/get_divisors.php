@@ -19,7 +19,7 @@
 
         if(isset($_POST["num"])) {
             //isset evalua si una variable esta definida o no.
-            //Como funciona? esta variable de dentro POST busca la parte del formulario de num y cuando tu le metes el numero
+            //La variable de dentro POST busca la parte del formulario de num y cuando tu le metes el numero
             //lo que hace es ver que se ejecuta al enviar el formulario
             $num = intval($_POST["num"]);
 
