@@ -17,12 +17,25 @@
     <?php
     function getDivisors($num){
 
-        if()
+        if(isset($_POST["num"])) {
+
+            $num = intval($_POST["num"]);
+
+            for($i=1;$i<$num;$i++){
+
+                if($num%$i==0){
+                    echo "<br> Divisible por: ".$i;
+                }
+            }
+
+        }
 
     }
 
     function isPrimeNum($num){
-        //TODO: YOUR CODE HERE
+
+
+
     }
 
     if (isset($_POST["num"])) {
