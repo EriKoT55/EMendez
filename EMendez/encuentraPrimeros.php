@@ -15,32 +15,41 @@
 </form>
 <div>
     <?php
+    $array=[];
     function getDivisors($num){
 
-        if(isset($_POST["num"])) {
+            for ($i = 1; $i <= $num; $i++) {
 
-            $num = intval($_POST["num"]);
+                if ($num % $i == 0) {
 
-            for($i=1;$i<$num;$i++){
-
-                if($num%$i==0){
-                    echo "<br> Divisible por: ".$i;
+                    $array[]=$i;
+                    echo '<br>Divisible por: '.$i;
                 }
+            }
+            var_dump($array);
+            return $i;
+        }
+
+    function isPrimeNum($num){
+
+        $divisores = getDivisors($num);
+
+        $count=count();
+
+
+            if($count==2){
+
             }
 
         }
 
-    }
-
-    function isPrimeNum($num){
 
 
 
-    }
 
     if (isset($_POST["num"])) {
         $num = intval($_POST["num"]);
-        //TODO: YOUR CODE HERE
+
     }
     ?>
 </div>
