@@ -47,7 +47,7 @@
     if (isset($_POST["num"])) {
         $num = intval($_POST["num"]);
 
-        echo 'Los '.$num.' primeros primos: <br>';
+        echo 'Los '.$num.' primeros numeros primos: <br>';
         isPrimeNum($num);
 
     }
