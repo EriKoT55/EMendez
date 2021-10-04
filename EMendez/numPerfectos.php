@@ -29,14 +29,13 @@
         $sum = 0;
         $j=1;
         $i=1;
+        $perfecto=getDivisors($i);
         while($j<$num){
-
-            $perfecto=getDivisors($i);
 
             $sum=$sum+$perfecto[$i];
 
             if($sum==$i){
-
+                echo $;//No se que devolver
             }
             $i++;
             $j++;
@@ -48,7 +47,7 @@
         $num = intval($_POST["num"]);
 
         echo 'Los '.$num.' primeros numeros perfectos';
-
+        isPerfectNum($num);
         //
 
     }
