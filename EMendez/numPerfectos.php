@@ -3,7 +3,7 @@
     <title>Find N perfect numbers</title>
 </head>
 <body>
-<form method="post" action="find_n_perfects.php">
+<form method="post" action="numPerfectos.php">
     <label>
         Number:
         <input type="text" name="num"/>
