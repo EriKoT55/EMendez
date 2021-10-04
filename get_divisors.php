@@ -4,7 +4,7 @@
     <title>Get divisors</title>
 </head>
 <body>
-<form method="post" action="pruebas.php">
+<form method="post" action="get_divisors.php">
     <label>
         Number:
         <input type="text" name="num">
@@ -16,19 +16,20 @@
 </form>
 <div>
     <?php
-    $array=[];
-    if(isset($_POST["num"])) {
 
+    if(isset($_POST["num"])) {
+        //isset evalua si una variable esta definida o no.
+        //La variable de dentro POST busca la parte del formulario de num y cuando tu le metes el numero
+        //lo que hace es ver que se ejecuta al enviar el formulario
         $num = intval($_POST["num"]);
 
-        for($i=1;$i<=$num;$i++){
+        for($i=1;$i<$num;$i++){
 
             if($num%$i==0){
                 echo "<br> Divisible por: ".$i;
-                $array[]=$i;
             }
         }
-    var_dump($array);
+
     }
 
     ?>

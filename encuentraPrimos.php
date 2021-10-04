@@ -3,7 +3,7 @@
     <title>Find N prime numbers</title>
 </head>
 <body>
-<form method="post" action="EncuentraPrimos.php">
+<form method="post" action="encuentraPrimos.php">
     <label>
         Number:
         <input type="text" name="num"/>
