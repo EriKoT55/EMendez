@@ -6,7 +6,7 @@
     <title>Encuentra los n primeros numeros</title>
 </head>
 <body>
-<form method="post" action="encuentraPrimeros.php">
+<form method="post" action="encuentraPrimos.php">
     <label>
         Number:
         <input type="text" name="num"/>
