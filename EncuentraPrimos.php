@@ -3,7 +3,7 @@
     <title>Find N prime numbers</title>
 </head>
 <body>
-<form method="post" action="NumPrimos.php">
+<form method="post" action="EncuentraPrimos.php">
     <label>
         Number:
         <input type="text" name="num"/>
@@ -19,17 +19,15 @@
                 if ($num % $i == 0) {
 
                     $array[]=$i;
-
                 }
             }
             return $array;
-            var_dump($array);
+
         }
 
     function isPrimeNum($num){
 
         $j=1;
-
         for($i=1;$j<=$num;$i++) { //condicion: si le paso un 7 me devolvera 7 numeros. j debe ser menor que el numero que le pase para que el bucle continue
 
             $divisores=getDivisors($i);// Guardo en una variable la funcion anterior y miro los divisores de la variable $i
@@ -41,9 +39,7 @@
                 $j++;
             }
         }
-
     }
-
     if (isset($_POST["num"])) {
         $num = intval($_POST["num"]);
 
