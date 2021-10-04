@@ -35,7 +35,7 @@
             $sum=$sum+$perfecto[$i];
 
             if($sum==$i){
-                echo $i;//No se que devolver
+                echo $j;//No se que devolver
                 $j++;
             }
             $i++;
