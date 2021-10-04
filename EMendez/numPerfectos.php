@@ -35,10 +35,11 @@
             $sum=$sum+$perfecto[$i];
 
             if($sum==$i){
-                echo $;//No se que devolver
+                echo $i;//No se que devolver
+                $j++;
             }
             $i++;
-            $j++;
+
         }
 
     }
