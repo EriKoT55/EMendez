@@ -26,20 +26,20 @@
     function isPerfectNum($num){
        // es igual a la suma de sus divisores
 
-        $sum = 0;
-        $j=1;
+        $j=0;
         $i=1;
-        $perfecto=getDivisors($i);
+
         while($j<$num){
 
-            $sum=$sum+$perfecto[$i];
+            $perfecto=getDivisors($i);
+
+            $sum=array_sum($perfecto);
 
             if($sum==$i){
-                echo $i;//No se que devolver
+                echo $i.'<br>';
                 $j++;
             }
             $i++;
-
         }
 
     }
@@ -47,9 +47,9 @@
     if (isset($_POST["num"])) {
         $num = intval($_POST["num"]);
 
-        echo 'Los '.$num.' primeros numeros perfectos';
+        echo 'Los '.$num.' primeros numeros perfectos <br>';
         isPerfectNum($num);
-        //
+
 
     }
     ?>
