@@ -26,16 +26,16 @@
     function isPerfectNum($num){
         // es igual a la suma de sus divisores
 
-        $sum = 0;
+
         $j=1;
         $i=1;
 
         while($j<$num){
             $perfecto=getDivisors($i);
-            $sum=$sum+$perfecto[$i];
+            array_sum($perfecto);
 
-            if($sum==$i){
-                echo $sum;
+            if(array_sum($perfecto[$i])==$i){
+                echo array_sum($perfecto[$i]);
                 $j++;
             }
             $i++;
