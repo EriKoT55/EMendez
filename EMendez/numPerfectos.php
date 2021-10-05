@@ -31,7 +31,7 @@
 
         while($j<$num){
             $perfecto=getDivisors($i);
-            $sum=array_sum($i);
+            $sum=array_sum($perfecto);
 
             if($sum==$i){
                 echo $i.'<br>';
