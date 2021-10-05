@@ -29,13 +29,13 @@
         $sum = 0;
         $j=1;
         $i=1;
-        $perfecto=getDivisors($i);
-        while($j<$num){
 
+        while($j<$num){
+            $perfecto=getDivisors($i);
             $sum=$sum+$perfecto[$i];
 
             if($sum==$i){
-                echo $j;//No se que devolver
+                echo $sum;
                 $j++;
             }
             $i++;
