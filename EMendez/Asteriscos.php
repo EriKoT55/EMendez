@@ -1,6 +1,6 @@
 <html lang="es">
 <head>
-    <title>Find N prime numbers</title>
+    <title>Arbol de Asteriscos</title>
 </head>
 <body>
 <form method="post" action="Asteriscos.php">
@@ -13,7 +13,7 @@
 <div>
     <?php
 
-    function getDivisors($num){
+    function getAsteriscos($num){
 
         /*1*/ for($fila=0;$fila<=$num;$fila++){
 
