@@ -34,6 +34,7 @@
 
     function changeColor($password){
         // son muchos if/ else if
+        // no me da nada
         if(strlen($password)==0) {
             echo '<style> body{
                             background-color: deepskyblue;
