@@ -21,7 +21,7 @@
            /*3*/for($j=$num;$j>$fila;$j--){// Asteriscos lateral izquierdo
                 echo '<span style="color:white">*</span>';
             }
-            /*2*/ for($i=0;$i<$fila;$i++){// Asteriscos central derecho
+            /*2*/for($i=0;$i<$fila;$i++){// Asteriscos central derecho
                 echo '<span style="color:darkorange">*</span>';
 
             }
@@ -35,7 +35,7 @@
 
     if (isset($_POST["num"])) {
         $num = intval($_POST["num"]);
-        getDivisors($num);
+        getAsteriscos($num);
 
     }
     ?>
