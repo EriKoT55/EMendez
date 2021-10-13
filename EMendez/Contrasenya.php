@@ -19,15 +19,7 @@
 <div>
     <?php
 
-    function getPassword($password){
 
-
-
-
-
-
-
-    }
     function timeforCraking($password){
         $numchar=strlen($password);
         $charAscii=pow(256,$numchar);
@@ -35,7 +27,13 @@
 
         $anyosforCracking=$secsCracking/60/60/24/365;
 
-        echo 'Tardara en ser crackeada '.$anyosforCracking.'años';
+        /*if(){
+
+        }*/
+        $mesesforCracking=$anyosforCracking - floor($anyosforCracking);
+        $mesesforCracking= $mesesforCracking*12;
+
+        echo 'Tardara en ser crackeada '.floor($anyosforCracking).' años '.floor($mesesforCracking). ' meses';
 
     }
     function changeColor($password){
