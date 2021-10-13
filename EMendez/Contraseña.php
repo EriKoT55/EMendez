@@ -60,7 +60,7 @@
     }
 
     if (isset($_POST["password"])) {
-        $password = intval($_POST["password"]);
+        $password = int($_POST["password"]);
 
         changeColor($password);
 
