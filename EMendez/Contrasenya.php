@@ -5,7 +5,7 @@
         body{
             background-color: aqua;
             text-align: center;
-            padding: 200px;
+            padding: 250px;
         }
         .password{
             border: 1px solid rgba(0, 0, 0, 0);
