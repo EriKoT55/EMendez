@@ -27,13 +27,18 @@
 
         $anyosforCracking=$secsCracking/60/60/24/365;
 
-        /*if(){
+        //Sacar meses
+        $mesesforCracking=($anyosforCracking - floor($anyosforCracking))*12;
+        //Sacar dias
+        $diasforCraking=($mesesforCracking- floor($mesesforCracking))*365;
+        //Sacar horas
+        $horasforCraking=($diasforCraking-floor($diasforCraking))*24;
+        //Sacar minutos
+        $minutosforCraking=($horasforCraking-floor($horasforCraking))*60;
+        //Sacar segundos
+        $segundosforCraking=($minutosforCraking-floor($minutosforCraking))*60;
 
-        }*/
-        $mesesforCracking=$anyosforCracking - floor($anyosforCracking);
-        $mesesforCracking= $mesesforCracking*12;
-
-        echo 'Tardara en ser crackeada '.floor($anyosforCracking).' años '.floor($mesesforCracking). ' meses';
+        echo 'Tardara en ser crackeada '.floor($anyosforCracking).' años '.floor($mesesforCracking). ' meses '.floor($diasforCraking).' dias '.floor($horasforCraking).' horas '.floor($minutosforCraking).' minutos '.floor($segundosforCraking).' segundos';
 
     }
     function changeColor($password){
