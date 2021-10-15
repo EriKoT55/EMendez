@@ -8,18 +8,19 @@ function getSortedElephantsByNumber($elephants){
     //TODO: Return an array of elephants sorted by it's number (ascending order).
     //NOTES 1: You receive a elephants multidimensional array, you can view it's content with var_dump() function.
     //NOTES 2:You CAN'T use any sorting PHP built-in function.
-    for($i=0;$i<count($elephants);$i++){
-        for($j=0;$j<count($elephants);$j++){
+    for ($i = 0; $i < count($elephants); $i++) {
+        for ($j = 0; $j < count($elephants); $j++) {
 
-            if($elephants[$i]['number']<$elephants[$j]['number']){
-                $aux=$elephants[$i];
-                $elephants[$i]=$elephants[$j];
-                $elephants[$j]=$aux;
+            if ($elephants[$i]['number'] < $elephants[$j]['number']) {
+                $aux = $elephants[$i];
+                $elephants[$i] = $elephants[$j];
+                $elephants[$j] = $aux;
             }
         }
 
     }
     return $elephants;
+
 }
 ?>
 
@@ -39,8 +40,8 @@ function getSortedElephantsByNumber($elephants){
             border-collapse: collapse;
         }
         thead {
-            background-color: black;
-            color:orangered;
+            background-color: darkorange;
+            color:black;
         }
         tbody {
             background-color: black;
@@ -82,16 +83,44 @@ function getSortedElephantsByNumber($elephants){
     <tbody>
     <?php
     //TODO: Logic to print the table body.
-    //Darle otra vuelta para meter la información en la tabla.
+
+    $arrayOrdenado=getSortedElephantsByNumber($elephants);
         for($i=0;$i<count($elephants);$i++){
             echo '<tr>';
-            for($j=0;$j<count($elephants);$j++){
+
                 echo '<td>';
-                echo $elephants[$j]['number'];
+                echo $elephants[$i]['number'];
                 echo '</td>';
-            }
+
+                echo '<td>';
+                echo $elephants[$i]['name'];
+                echo '</td>';
+
+                echo '<td>';
+                echo $elephants[$i]['species'];
+                echo '</td>';
+
+
+
+                echo '<td>';
+                echo $arrayOrdenado[$i]['number'];
+                echo '</td>';
+
+                echo '<td>';
+                echo $arrayOrdenado[$i]['name'];
+                echo '</td>';
+
+                echo '<td>';
+                echo $arrayOrdenado[$i]['species'];
+                echo '</td>';
+
+
+
             echo '</tr>';
+
+
         }
+
     ?>
     </tbody>
 </table>
