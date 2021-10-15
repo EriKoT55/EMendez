@@ -1,6 +1,22 @@
 <?php
 
-    $nums=[7,5,3,9,1,0,8,6,2];
+    $nums=[
+        $a=['7','augusto'],
+        $b=['5','augusto'],
+        $l=['12','augusto'],
+        $c=['3','augusto'],
+        $d=['9','augusto'],
+        $m=['13','augusto'],
+        $e=['1','augusto'],
+        $f=['0','augusto'],
+        $k=['11','augusto'],
+        $g=['8','augusto'],
+        $n=['14','augusto'],
+        $h=['6','augusto'],
+        $i=['2','augusto'],
+        $j=['10','augusto']
+
+    ];
 
     for($i=0;$i<count($nums);$i++){
 
@@ -12,8 +28,11 @@
           }
 
       }
-        var_dump($nums);
+
     }
 
+    foreach (){
+
+    }
 
 ?>
