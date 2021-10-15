@@ -19,7 +19,7 @@ function getSortedElephantsByNumber($elephants){
         }
 
     }
-    var_dump($elephants);
+    return $elephants;
 }
 ?>
 
@@ -52,7 +52,19 @@ function getSortedElephantsByNumber($elephants){
 <table>
     <thead>
     <tr>
-        <th colspan="6">Elephants (<?php ////TODO: Logic to print the number of elephants. ?>)</th>
+        <th colspan="6">Elephants (
+
+            <?php ////TODO: Logic to print the number of elephants.
+
+                $contarElefantes=0;
+
+                for($i=0;$i<count($elephants);$i++){
+                    $contarElefantes++;
+                }
+                echo $contarElefantes;
+             ?>)
+
+        </th>
     </tr>
     <tr>
         <th colspan="3">Unsorted elephants</th>
@@ -70,7 +82,16 @@ function getSortedElephantsByNumber($elephants){
     <tbody>
     <?php
     //TODO: Logic to print the table body.
-    getSortedElephantsByNumber($elephants);
+    //Darle otra vuelta para meter la información en la tabla.
+        for($i=0;$i<count($elephants);$i++){
+            echo '<tr>';
+            for($j=0;$j<count($elephants);$j++){
+                echo '<td>';
+                echo $elephants[$j]['number'];
+                echo '</td>';
+            }
+            echo '</tr>';
+        }
     ?>
     </tbody>
 </table>
