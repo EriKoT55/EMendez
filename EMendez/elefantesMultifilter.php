@@ -186,11 +186,37 @@ if (isset($_GET["sortingCriteria"])) {
         <?php
         //TODO: Logic to print the elephants cards.
         //NOTES 1: You can copy the markup language from the solution deployment.
-        $numbers = getSortedElephantsByNumber($elephants);
-        $birth = getSortedElephantsByBirth($elephants);
-        $image = getSortedElephantsByHavingImage($elephants);
-            for () {
+        $boolean=false;
 
+            while($boolean==false){
+                echo "<div>";
+                for($j=0;$j<39;$j++){
+                    echo "<div style='width: 18rem;'>";
+                        echo "<img src=`$elephants[$j]['image']`>";
+                        echo "<div>";
+                            echo "<h5>";
+                                echo $elephants[$j]['name'];
+                            echo "</h5>";
+                            echo "<h6>";
+                                echo $elephants[$j]['species'];
+                            echo "</h6>";
+                            echo "<h6>";
+                                echo $elephants[$j]['dob'];
+                            echo "</h6>";
+                            echo "<p>";
+                                echo $elephants[$j]['note'];
+                            echo "</p>";
+                            echo "<a href=`$elephants[$j]['wikilink']`>";
+                                echo "<i>";
+                                    echo "Visit elephant";
+                                echo "</i>";
+                            echo "</a>";
+                        echo "</div>";
+                    echo "</div>";
+                    $boolean=true;
+
+                }
+                echo "</div>";
             }
 
         ?>
