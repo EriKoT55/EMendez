@@ -187,11 +187,8 @@ if (isset($_GET["sortingCriteria"])) {
         <?php
         //TODO: Logic to print the elephants cards.
         //NOTES 1: You can copy the markup language from the solution deployment.
-        $boolean=false;
 
-            while($boolean==false){
-
-                for($j=0;$j<39;$j++){
+                for($j=0;$j<count($elephants);$j++){
                     echo "<div class='col-md-4'>";
                     echo "<div class='card' style='width: 18rem;'>";
                         echo '<img class="card-img-top" src="'.$array[$j]["image"].'">';
@@ -216,9 +213,6 @@ if (isset($_GET["sortingCriteria"])) {
                         echo "</div>";
                     echo "</div>";
                     echo "</div>";
-                    $boolean=true;
-
-                }
 
             }
 
