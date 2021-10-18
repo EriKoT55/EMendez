@@ -53,7 +53,8 @@
         //Sacar segundos
         $segundosforCraking=($minutosforCraking-floor($minutosforCraking))*60;
 
-        echo 'Tardara en ser crackeada '.floor($anyosforCracking).' años '.floor($mesesforCracking). ' meses '.floor($diasforCraking).' dias '.floor($horasforCraking).' horas '.floor($minutosforCraking).' minutos '.floor($segundosforCraking).' segundos';
+        echo 'Tardara en ser crackeada '.floor($anyosforCracking).' años '.floor($mesesforCracking). ' meses '.floor($diasforCraking).
+            ' dias '.floor($horasforCraking).' horas '.floor($minutosforCraking).' minutos '.floor($segundosforCraking).' segundos';
 
     }
     function changeColor($password){

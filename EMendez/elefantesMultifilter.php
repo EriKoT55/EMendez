@@ -2,20 +2,21 @@
 $contents = file_get_contents("https://dawsonferrer.com/allabres/apis_solutions/elephants.php");
 $elephants = json_decode($contents, true);
 
-function getSortedElephantsByNumber($elephants){
+function getSortedElephantsByNumber($elephants)
+{
     //TODO: Return an array of elephants sorted by it's number (ascending order).
     //NOTES 1: You receive a elephants multidimensional array, you can view it's content with var_dump() function.
     //NOTES 2:You CAN'T use any sorting PHP built-in function.
 
-    for($i=0;$i<count($elephants);$i++){
+    for ($i = 0; $i < count($elephants); $i++) {
 
-        for($j=0;$j<count($elephants);$j++){
+        for ($j = 0; $j < count($elephants); $j++) {
 
-            if($elephants[$i]['number']<$elephants[$j]['number']){
+            if ($elephants[$i]['number'] < $elephants[$j]['number']) {
 
-                $aux=$elephants[$i];
-                $elephants[$i]=$elephants[$j];
-                $elephants[$j]=$aux;
+                $aux = $elephants[$i];
+                $elephants[$i] = $elephants[$j];
+                $elephants[$j] = $aux;
 
             }
 
@@ -27,20 +28,21 @@ function getSortedElephantsByNumber($elephants){
 
 }
 
-function getSortedElephantsByBirth($elephants){
+function getSortedElephantsByBirth($elephants)
+{
     //TODO: Return an array of elephants sorted by it's birth date (ascending order).
     //NOTES 1: You receive a elephants multidimensional array, you can view it's content with var_dump() function.
     //NOTES 2:You CAN'T use any sorting PHP built-in function.
 
-    for($i=0;$i<count($elephants);$i++){
+    for ($i = 0; $i < count($elephants); $i++) {
 
-        for($j=0;$j<count($elephants);$j++){
+        for ($j = 0; $j < count($elephants); $j++) {
 
-            if($elephants[$i]['dob']<$elephants[$j]['dob']){
+            if ($elephants[$i]['dob'] < $elephants[$j]['dob']) {
 
-                $aux=$elephants[$i];
-                $elephants[$i]=$elephants[$j];
-                $elephants[$j]=$aux;
+                $aux = $elephants[$i];
+                $elephants[$i] = $elephants[$j];
+                $elephants[$j] = $aux;
 
             }
 
@@ -52,19 +54,20 @@ function getSortedElephantsByBirth($elephants){
 
 }
 
-function getSortedElephantsByHavingImage($elephants){
+function getSortedElephantsByHavingImage($elephants)
+{
     //TODO: Return an array of elephants sorted depending on whether they have an image (those who have an image go first).
     //NOTES 1: You receive a elephants multidimensional array, you can view it's content with var_dump() function.
     //NOTES 2:You CAN'T use any sorting PHP built-in function.
-    for($i=0;$i<count($elephants);$i++){
+    for ($i = 0; $i < count($elephants); $i++) {
 
-        for($j=0;$j<count($elephants);$j++){
+        for ($j = 0; $j < count($elephants); $j++) {
 
-            if($elephants[$i]['image']!='https://elephant-api.herokuapp.com/pictures/missing.jpg'){
+            if ($elephants[$i]['image'] != 'https://elephant-api.herokuapp.com/pictures/missing.jpg') {
 
-                $aux=$elephants[$i];
-                $elephants[$i]=$elephants[$j];
-                $elephants[$j]=$aux;
+                $aux = $elephants[$i];
+                $elephants[$i] = $elephants[$j];
+                $elephants[$j] = $aux;
 
             }
 
@@ -75,25 +78,20 @@ function getSortedElephantsByHavingImage($elephants){
     return $elephants;
 }
 
-if(isset($_GET["sortingCriteria"])){
+if (isset($_GET["sortingCriteria"])) {
     //TODO: Logic to call a function depending on the sorting criteria.
-    if($_GET["sortingCriteria"]=="number"){
-    echo "<br>";
-    echo"<pre>";
-        var_dump(getSortedElephantsByNumber($elephants));
-    echo"</pre>";
-    }elseif($_GET["sortingCriteria"]=="birth"){
-        echo "<br>";
-        echo"<pre>";
-        var_dump(getSortedElephantsByBirth($elephants));
+    if ($_GET["sortingCriteria"] == "number") {
 
-        echo"</pre>";
-    }elseif($_GET["sortingCriteria"]=="image"){
-        echo "<br>";
-        echo"<pre>";
-        var_dump(getSortedElephantsByHavingImage($elephants));
+        getSortedElephantsByNumber($elephants);
 
-        echo"</pre>";
+    } elseif ($_GET["sortingCriteria"] == "birth") {
+
+        getSortedElephantsByBirth($elephants);
+
+    } elseif ($_GET["sortingCriteria"] == "image") {
+
+        getSortedElephantsByHavingImage($elephants);
+
     }
 }
 
@@ -102,8 +100,11 @@ if(isset($_GET["sortingCriteria"])){
 <html lang="es">
 <head>
     <title>Elephants</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
 
 
     <style>
@@ -112,7 +113,7 @@ if(isset($_GET["sortingCriteria"])){
         }
 
         body {
-            background: white !important;
+            background: #111 !important;
         }
 
         .card {
@@ -128,7 +129,7 @@ if(isset($_GET["sortingCriteria"])){
             background: var(--gradient) !important;
             -webkit-background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
-            border-image-source:  var(--gradient) !important;
+            border-image-source: var(--gradient) !important;
             text-decoration: none;
             transition: all .4s ease;
         }
@@ -160,6 +161,7 @@ if(isset($_GET["sortingCriteria"])){
             padding-top: 100px;
         }
 
+
     </style>
 </head>
 <body>
@@ -184,6 +186,12 @@ if(isset($_GET["sortingCriteria"])){
         <?php
         //TODO: Logic to print the elephants cards.
         //NOTES 1: You can copy the markup language from the solution deployment.
+        $numbers = getSortedElephantsByNumber($elephants);
+        $birth = getSortedElephantsByBirth($elephants);
+        $image = getSortedElephantsByHavingImage($elephants);
+            for () {
+
+            }
 
         ?>
 
