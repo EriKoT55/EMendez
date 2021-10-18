@@ -57,12 +57,8 @@ function getSortedElephantsByNumber($elephants){
 
             <?php ////TODO: Logic to print the number of elephants.
 
-                $contarElefantes=0;
+                echo count($elephants);
 
-                for($i=0;$i<count($elephants);$i++){
-                    $contarElefantes++;
-                }
-                echo $contarElefantes;
              ?>)
 
         </th>
