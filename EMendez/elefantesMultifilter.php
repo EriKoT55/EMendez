@@ -80,17 +80,18 @@ function getSortedElephantsByHavingImage($elephants)
 
 if (isset($_GET["sortingCriteria"])) {
     //TODO: Logic to call a function depending on the sorting criteria.
+    $array;
     if ($_GET["sortingCriteria"] == "number") {
 
-        getSortedElephantsByNumber($elephants);
+        $array=getSortedElephantsByNumber($elephants);
 
     } elseif ($_GET["sortingCriteria"] == "birth") {
 
-        getSortedElephantsByBirth($elephants);
+        $array= getSortedElephantsByBirth($elephants);
 
     } elseif ($_GET["sortingCriteria"] == "image") {
 
-        getSortedElephantsByHavingImage($elephants);
+        $array=getSortedElephantsByHavingImage($elephants);
 
     }
 }
@@ -189,34 +190,36 @@ if (isset($_GET["sortingCriteria"])) {
         $boolean=false;
 
             while($boolean==false){
-                echo "<div>";
+
                 for($j=0;$j<39;$j++){
-                    echo "<div style='width: 18rem;'>";
-                        echo "<img src=`$elephants[$j]['image']`>";
-                        echo "<div>";
-                            echo "<h5>";
-                                echo $elephants[$j]['name'];
+                    echo "<div class='col-md-4'>";
+                    echo "<div class='card' style='width: 18rem;'>";
+                        echo '<img class="card-img-top" src="'.$array[$j]["image"].'">';
+                        echo "<div class='card-body'>";
+                            echo "<h5 class='card-title'>";
+                                echo $array[$j]['number'].' - '.$array[$j]['name'];
                             echo "</h5>";
-                            echo "<h6>";
-                                echo $elephants[$j]['species'];
+                            echo "<h6 class='card-subtitle mb-2 text-muted'>";
+                                echo $array[$j]['species'];
                             echo "</h6>";
-                            echo "<h6>";
-                                echo $elephants[$j]['dob'];
+                            echo "<h6 class='card-subtitle mb-2 text-muted'>";
+                                echo $array[$j]['dob'];
                             echo "</h6>";
-                            echo "<p>";
-                                echo $elephants[$j]['note'];
+                            echo "<p class='card-text'>";
+                                echo $array[$j]['note'];
                             echo "</p>";
-                            echo "<a href=`$elephants[$j]['wikilink']`>";
-                                echo "<i>";
+                            echo '<a class="btn mr-2" href="'.$array[$j]["wikilink"].'" target="_blank">';
+                                echo "<i class='fas fa-link'></i>";
                                     echo "Visit elephant";
-                                echo "</i>";
+
                             echo "</a>";
                         echo "</div>";
+                    echo "</div>";
                     echo "</div>";
                     $boolean=true;
 
                 }
-                echo "</div>";
+
             }
 
         ?>
