@@ -1,5 +1,5 @@
 <?php
-$contents = file_get_contents("https://dawsonferrer.com/allabres/apis_solutions/world.php");
+$contents = file_get_contents("https://dawsonferrer.com/allabres/apis_solutions/world.php?data=world");
 $world = json_decode($contents, true);
 
 function getUnsortedCities($world){
@@ -9,18 +9,20 @@ function getUnsortedCities($world){
     for($i=0;$i<count($world);$i++){
 
         for($j=0;$j<count($world);$j++){
-            if($world[$i]<$world[$j]){
+            if($world[$i]["Population"]<$world[$j]["Population"] ){
 
                 $aux=$world[$i];
                 $world[$i]=$world[$j];
                 $world[$j]=$aux;
 
             }
-
         }
-    var_dump($world);
 
     }
+    echo "<br>";
+    echo "<pre>";
+    var_dump($world);
+    echo "</pre>";
 }
 
 function getSortedCitiesByPopulation($cities){
