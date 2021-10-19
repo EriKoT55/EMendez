@@ -10,7 +10,7 @@
         $e=['1','augusto'],
         $f=['0','augusto'],
         $k=['11','augusto'],
-        $g=['8','augusto'],
+        $g=['8','augusto',$na=['Manolete']],
         $n=['14','augusto'],
         $h=['6','augusto'],
         $i=['2','augusto'],

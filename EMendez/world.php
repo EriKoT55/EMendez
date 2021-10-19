@@ -8,21 +8,25 @@ function getUnsortedCities($world){
     //NOTES 2:You CAN'T use any sorting PHP built-in function.
     for($i=0;$i<count($world);$i++){
 
-        for($j=0;$j<count($world);$j++){
-            if($world[$i]["Population"]<$world[$j]["Population"] ){
+        for($j=0;$j<count($world);$j++) {
 
-                $aux=$world[$i];
-                $world[$i]=$world[$j];
-                $world[$j]=$aux;
+                if ($world[$i] < $world[$j]) {
+
+                    $aux = $world[$i];
+                    $world[$i] = $world[$j];
+                    $world[$j] = $aux;
+
 
             }
         }
-
+        echo "<br>";
+        echo "<pre>";
+        var_dump($world[$i]["Cities"][$i]["Population"]);
+        echo "</pre>";
     }
-    echo "<br>";
-    echo "<pre>";
-    var_dump($world);
-    echo "</pre>";
+
+
+
 }
 
 function getSortedCitiesByPopulation($cities){
