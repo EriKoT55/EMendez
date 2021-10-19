@@ -7,18 +7,21 @@ function getUnsortedCities($world){
     //NOTES 1: You receive a world multidimensional array, you can view it's content with var_dump() function.
     //NOTES 2:You CAN'T use any sorting PHP built-in function.
 
+    $cities = [];
+
     foreach ($world as $country){
-        foreach($country as $cities){
-           foreach ($cities as $city){
+        foreach($country["Cities"] as $city){
                $cities[]=$city;
-           }
         }
     }
-    var_dump($world);
+    for($i=0;$i<count($cities);$i++){
+        echo $cities[$i]['ID']." ".$cities[$i]['Name']." ".$cities[$i]['Population']."<br>";
+    }
+
     /*for($i=0;$i<count($world);$i++){
 
         for($j=0;$j<count($world);$j++){
-            if($world[$i]["Population"]<$world[$j]["Population"] ){
+            if($world[$i]["Cities"]<$world[$j]["Cities"] ){
 
                 $aux=$world[$i];
                 $world[$i]=$world[$j];
@@ -39,6 +42,9 @@ function getSortedCitiesByPopulation($cities){
     //TODO: Return an array of cities sorted by it's population (ascending order).
     //NOTES 1: You receive a cities multidimensional array, you can view it's content with var_dump() function.
     //NOTES 2:You CAN'T use any sorting PHP built-in function.
+
+
+
 }
 ?>
 <html lang="es">
