@@ -6,14 +6,12 @@ $contents_countries = file_get_contents("https://dawsonferrer.com/allabres/apis_
 $countries = json_decode($contents_countries, true);
 // tengo que asociar el country code con el otro country code nombre de country en cities crear un nuevo array
 // debo crear una nueva columna que se llame country name que haga referencia countri code(cities) y contry code(countris)
-function mapCities()
-{
+function mapCities($countries,$cities){
     //TODO: Your code here
 
 }
 // asignar las ciudades que estan dentro de su pais,
-function mapCountries()
-{
+function mapCountries($cities,$countries){
     //TODO: Your code here
 
 }
