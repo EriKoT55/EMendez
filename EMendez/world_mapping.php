@@ -9,12 +9,41 @@ $countries = json_decode($contents_countries, true);
 function mapCities($countries,$cities){
     //TODO: Your code here
 
+    for($i=0;$i<count($countries);$i++){
+        for($j=0;$j<count($cities);$j++){
+            if($countries[$i]["Code"]==$cities[$j]["CountryCode"]){
+                $cities[$j]["Name of Country"]=$countries[$i]["Name"];
+            }
+        }
+    }
+    echo "<br>";
+    echo "<pre>";
+    return $cities;
+    echo "</pre>";
 }
 // asignar las ciudades que estan dentro de su pais,
-function mapCountries($cities,$countries){
+function mapCountries($countries,$cities){
     //TODO: Your code here
+
+    for($i=0;$i<count($cities);$i++){
+        for($j=0;$j<count($countries);$j++){
+
+            if($countries[$j]["Code"]==$cities[$i]["CountryCode"]){
+
+                        $countries[$j]["Cities"][]=$cities[$i]["Name"];
+
+            }
+
+        }
+    }
+
+    echo "<br>";
+    echo "<pre>";
+    return $countries;
+    echo "</pre>";
 
 }
 
-var_dump(mapCities());
-var_dump(mapCountries());
+var_dump(mapCities($countries,$cities));
+var_dump(mapCountries($countries,$cities));
+?>
