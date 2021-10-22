@@ -252,7 +252,7 @@ $mappedCharacters = mapCharacters($characters);
                                                     echo "</strong>";
                                                 echo "</label>";
                                                 echo "<div id='emailHelp' class='form-text' style='margin-top:0;' >";
-                                                    echo ;
+                                                    /*echo ;*/
                                                 echo "</div>";
                                             echo "</div>";
                                             echo "<div class='mb-3'>";
