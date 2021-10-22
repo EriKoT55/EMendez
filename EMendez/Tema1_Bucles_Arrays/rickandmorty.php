@@ -6,7 +6,7 @@ $api_url = "https://dawsonferrer.com/allabres/apis_solutions/rickandmorty/api.ph
 $characters = json_decode(file_get_contents($api_url . "characters"), true);
 $episodes = json_decode(file_get_contents($api_url . "episodes"), true);
 $locations = json_decode(file_get_contents($api_url . "locations"), true);
-d
+
 function getSortedCharactersById($characters){
     //TODO: Your code here.
 
