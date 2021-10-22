@@ -33,7 +33,8 @@
             $divisores=getDivisors($i);
 
             if(count($divisores)==2){
-
+                echo "<br>".$divisores[1];
+                $j++;
             }
 
         }
