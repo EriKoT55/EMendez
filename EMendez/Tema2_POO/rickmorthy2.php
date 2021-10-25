@@ -101,7 +101,7 @@ class Character{
 }
 
 
-$personajes[] = new Character(); //Creado objeto vacio
+$personajes=[]; //Creado objeto vacio
 
 for($i=0;$i<count($characters);$i++){
 
