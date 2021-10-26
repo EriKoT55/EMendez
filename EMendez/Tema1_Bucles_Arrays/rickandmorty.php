@@ -147,29 +147,23 @@ function mapCharacters($characters){
         }
     }
 
-    // maping episodios, no funciona.
-    /*for($i=0;$i<count($sortedEpisodes);$i++){
-        for($j=0;$j<count($characters[$i]["episodes"]);$j++){
-            if($characters[$j]["episodes"]==$sortedEpisodes[$i]["id"]){
+    // mapping episodes
+    for($i=0;$i<count($sortedEpisodes);$i++){//41
+        for($j=0;$j<count($characters);$j++){//14
+            for($h=0;$h<count($characters[$j]["episodes"]);$h++){//19
 
-                $characters[$j]["episodes"][]=$sortedEpisodes[$i]["name"];
+                if($sortedEpisodes[$i]["id"] == $characters[$j]["episodes"][$h]){
 
+                    $characters[$j]["episodes"][$h]=$sortedEpisodes[$i]["name"];
+
+                }
             }
         }
     }
-*/
-    $episodios=[];
-    for($i=0;$i<count($characters);$i++){
-        for($j=0;$j<count($sortedEpisodes[$i]["characters"]);$j++){
 
-            $episodios[]=$sortedEpisodes[$i]["characters"][$j];
 
-        }
-    }
-    echo("<br>");
-    echo ("<pre>");
-    var_dump($episodios);
-    echo ("</pre>");
+    return $characters;
+
 
 }
 
@@ -275,8 +269,10 @@ $mappedCharacters = mapCharacters($characters);
                 }
                 */
 
-                mapCharacters($characters);
-
+                echo "<br>";
+                echo "<pre>";
+                var_dump(mapCharacters($characters));
+                echo "</pre>";
                 ?>
             </div>
         </div>

@@ -84,17 +84,19 @@ function mapCharacters($characters){
             }
         }
     }
+    // mapping episodes
+    for($i=0;$i<count($sortedEpisodes);$i++){//41
+        for($j=0;$j<count($characters);$j++){//14
+            for($h=0;$h<count($characters[$j]["episodes"]);$h++){//19
 
-    // maping episodios, no funciona.
-    /*for($i=0;$i<count($sortedEpisodes);$i++){
-        for($j=0;$j<count($sortedEpisodes);$j++){
-            if($characters[$j]["episodes"][0]==$sortedEpisodes[$i]["id"]){
+                if($sortedEpisodes[$i]["id"] == $characters[$j]["episodes"][$h]){
 
-                $characters[$j]["episodes"][0]=$sortedEpisodes[$i]["name"];
+                    $characters[$j]["episodes"][$h]=$sortedEpisodes[$i]["name"];
 
+                }
             }
         }
-    }*/
+    }
 
 
     return $characters;
