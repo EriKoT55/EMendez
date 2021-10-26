@@ -29,7 +29,7 @@ class Character{
     }
 
     // Setters
-    public function setID($id){// introduzco valores
+    /*public function setID($id){// introduzco valores
         $this->id=$id;
     }
     public function setName($name){
@@ -61,7 +61,7 @@ class Character{
     }
     public function setEpisodes($episodes){
         $this->episodes = $episodes;
-    }
+    }*/
 
     // Getters
     public function getId(){//Devuelve valores
@@ -105,19 +105,12 @@ $personajes=[]; //Creado objeto vacio
 
 for($i=0;$i<count($characters);$i++){
 
-    $personajes[$i]->setID($characters[$i]["id"]);
-    $personajes[$i]->setName($characters[$i]["name"]);
-    $personajes[$i]->setStatus($characters[$i]["status"]);
-    $personajes[$i]->setSpecies($characters[$i]["species"]);
-    $personajes[$i]->setType($characters[$i]["type"]);
-    $personajes[$i]->setGender($characters[$i]["gender"]);
-    $personajes[$i]->setOrigin($characters[$i]["origin"]);
-    $personajes[$i]->setLocation($characters[$i]["location"]);
-    $personajes[$i]->setImage($characters[$i]["image"]);
-    $personajes[$i]->setCreated($characters[$i]["created"]);
-    $personajes[$i]->setEpisodes($characters[$i]["episodes"]);
+    $personajes[$i]=new Character($characters[$i]["id"],$characters[$i]["name"],$characters[$i]["status"],$characters[$i]["species"],$characters[$i]["type"],$characters[$i]["gender"],$characters[$i]["origin"],$characters[$i]["location"],$characters[$i]["image"],$characters[$i]["created"],$characters[$i]["episodes"]);
 
-    var_dump($personajes[$i]);
 }
+echo("<br>");
+echo ("<pre>");
+var_dump($personajes);
+echo ("</pre>");
 
 ?>

@@ -119,16 +119,16 @@ function getSortedEpisodesById($episodes){
 function mapCharacters($characters){
     //TODO: Your code here.
 
-    global $locations;
-    global $episodes;
+    global $sortedLocations;
+    global $sortedEpisodes;
 
     // mapping origin
-    for($i=0;$i<count($locations);$i++){
+    for($i=0;$i<count($sortedLocations);$i++){
         for($j=0;$j<count($characters);$j++){
 
-            if($characters[$j]["origin"]==$locations[$i]["id"]){
+            if($characters[$j]["origin"]==$sortedLocations[$i]["id"]){
 
-                $characters[$j]["origin"]=$locations[$i]["name"];
+                $characters[$j]["origin"]=$sortedLocations[$i]["name"];
 
             }
 
@@ -137,27 +137,30 @@ function mapCharacters($characters){
 
 
     //mapping location
-    for($i=0;$i<count($locations);$i++){
+    for($i=0;$i<count($sortedLocations);$i++){
         for($j=0;$j<count($characters);$j++){
-            if($characters[$j]["location"]==$locations[$i]["id"]){
+            if($characters[$j]["location"]==$sortedLocations[$i]["id"]){
 
-                $characters[$j]["location"]=$locations[$i]["name"];
+                $characters[$j]["location"]=$sortedLocations[$i]["name"];
 
             }
         }
     }
-
+    echo("<br>");
+    echo ("<pre>");
+    var_dump($characters);
+    echo ("</pre>");
     // maping episodios, mirar si funciona, no estoy 100% seguro.
-    for($i=0;$i<count($episodes);$i++){
-        for($j=0;$j<count($characters);$j++){
-            if($characters[$j]["episodes"][0]==$episodes[$i]["id"]){
+    /*for($i=0;$i<count($sortedEpisodes);$i++){
+        for($j=0;$j<count($sortedEpisodes);$j++){
+            if($characters[$j]["episodes"][0]==$sortedEpisodes[$i]["id"]){
 
-                $characters[$j]["episodes"][0]=$episodes[$i]["name"];
+                $characters[$j]["episodes"][0]=$sortedEpisodes[$i]["name"];
 
             }
         }
     }
-
+*/
 
 
 }
@@ -234,7 +237,7 @@ $mappedCharacters = mapCharacters($characters);
 
             <div class="row">
                 <?php
-                //TODO: Your code here.
+                /* TODO: Your code here.
                 for($i=0;$i<count($characters);$i++) {
                     echo "<div class='col-md-4 col-sm-12 col-xs-12'>";
                         echo "<div class='card mb-4 box-shadow bg-light'>";
@@ -252,7 +255,7 @@ $mappedCharacters = mapCharacters($characters);
                                                     echo "</strong>";
                                                 echo "</label>";
                                                 echo "<div id='emailHelp' class='form-text' style='margin-top:0;' >";
-                                                    /*echo ;*/
+                                                    //echo ;
                                                 echo "</div>";
                                             echo "</div>";
                                             echo "<div class='mb-3'>";
@@ -262,6 +265,10 @@ $mappedCharacters = mapCharacters($characters);
                     echo "</div>";
                     echo "</div>";
                 }
+                */
+
+                mapCharacters($characters);
+
                 ?>
             </div>
         </div>
