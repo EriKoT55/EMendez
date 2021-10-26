@@ -80,7 +80,7 @@ function getSortedElephantsByHavingImage($elephants)
 
 if (isset($_GET["sortingCriteria"])) {
     //TODO: Logic to call a function depending on the sorting criteria.
-    $array;
+    $array=[];
     if ($_GET["sortingCriteria"] == "number") {
 
         $array=getSortedElephantsByNumber($elephants);

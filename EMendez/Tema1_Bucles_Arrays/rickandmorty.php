@@ -147,20 +147,28 @@ function mapCharacters($characters){
         }
     }
 
-    // maping episodios, mirar si funciona, no estoy 100% seguro.
-    for($i=0;$i<count($sortedEpisodes);$i++){
-        for($j=0;$j<count($sortedEpisodes);$j++){
-            if($characters[$j]["episodes"][0]==$sortedEpisodes[$i]["id"]){
+    // maping episodios, no funciona.
+    /*for($i=0;$i<count($sortedEpisodes);$i++){
+        for($j=0;$j<count($characters[$i]["episodes"]);$j++){
+            if($characters[$j]["episodes"]==$sortedEpisodes[$i]["id"]){
 
-                $characters[$j]["episodes"][0]=$sortedEpisodes[$i]["name"];
+                $characters[$j]["episodes"][]=$sortedEpisodes[$i]["name"];
 
             }
         }
     }
+*/
+    $episodios=[];
+    for($i=0;$i<count($characters);$i++){
+        for($j=0;$j<count($sortedEpisodes[$i]["characters"]);$j++){
 
+            $episodios[]=$sortedEpisodes[$i]["characters"][$j];
+
+        }
+    }
     echo("<br>");
     echo ("<pre>");
-    var_dump($characters);
+    var_dump($episodios);
     echo ("</pre>");
 
 }

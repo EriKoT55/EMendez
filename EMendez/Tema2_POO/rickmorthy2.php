@@ -6,11 +6,108 @@ $characters = json_decode(file_get_contents($api_url . "characters"), true);
 $episodes = json_decode(file_get_contents($api_url . "episodes"), true);
 $locations = json_decode(file_get_contents($api_url . "locations"), true);
 
+
 // Mapea en la clase de personajes: origin, location y episodes, pero en vez de con array con objetos
+
+function getSortedLocationsById($locations){
+    //TODO: Your code here.
+
+    for($i=0;$i<count($locations);$i++){
+        for($j=0;$j<count($locations);$j++){
+
+            if($locations[$i]['id']<$locations[$j]['id']){
+
+                $aux=$locations[$i];
+                $locations[$i]=$locations[$j];
+                $locations[$j]=$aux;
+
+            }
+
+        }
+    }
+
+    return $locations;
+
+}
+
+//NOTE: OPTIONAL FUNCTION
+function getSortedEpisodesById($episodes){
+    //TODO: Your code here.
+
+    for($i=0;$i<count($episodes);$i++){
+        for($j=0;$j<count($episodes);$j++){
+
+            if($episodes[$i]['id']<$episodes[$j]['id']){
+
+                $aux=$episodes[$i];
+                $episodes[$i]=$episodes[$j];
+                $episodes[$j]=$aux;
+
+            }
+
+        }
+    }
+
+    return $episodes;
+
+}
+
+
+
+function mapCharacters($characters){
+    //TODO: Your code here.
+
+    global $sortedLocations;
+    global $sortedEpisodes;
+
+    // mapping origin
+    for($i=0;$i<count($sortedLocations);$i++){
+        for($j=0;$j<count($characters);$j++){
+
+            if($characters[$j]["origin"]==$sortedLocations[$i]["id"]){
+
+                $characters[$j]["origin"]=$sortedLocations[$i]["name"];
+
+            }
+
+        }
+    }
+
+
+    //mapping location
+    for($i=0;$i<count($sortedLocations);$i++){
+        for($j=0;$j<count($characters);$j++){
+            if($characters[$j]["location"]==$sortedLocations[$i]["id"]){
+
+                $characters[$j]["location"]=$sortedLocations[$i]["name"];
+
+            }
+        }
+    }
+
+    // maping episodios, no funciona.
+    /*for($i=0;$i<count($sortedEpisodes);$i++){
+        for($j=0;$j<count($sortedEpisodes);$j++){
+            if($characters[$j]["episodes"][0]==$sortedEpisodes[$i]["id"]){
+
+                $characters[$j]["episodes"][0]=$sortedEpisodes[$i]["name"];
+
+            }
+        }
+    }*/
+
+
+    return $characters;
+
+
+}
+$sortedLocations = getSortedLocationsById($locations);
+$sortedEpisodes = getSortedEpisodesById($episodes);
+$mappedCharacters = mapCharacters($characters);
 
 class Character{
 
-    public $id, $name, $status, $species, $type, $gender, $origin, $location, $image, $created, $episodes;
+    private $id, $name, $status, $species, $type, $gender, $origin, $location, $image, $created, $episodes;
 
     //Metodos setters y getters
 
@@ -28,40 +125,6 @@ class Character{
         $this->episodes = $episodes;
     }
 
-    // Setters
-    /*public function setID($id){// introduzco valores
-        $this->id=$id;
-    }
-    public function setName($name){
-        $this->name=$name;
-    }
-    public function setStatus($status){
-        $this->status=$status;
-    }
-    public function setSpecies($species){
-        $this->species=$species;
-    }
-    public function setType($type){
-        $this->type = $type;
-    }
-    public function setGender($gender){
-        $this->gender = $gender;
-    }
-    public function setOrigin($origin){
-        $this->origin = $origin;
-    }
-    public function setLocation($location){
-        $this->location = $location;
-    }
-    public function setImage($image){
-        $this->image = $image;
-    }
-    public function setCreated($created){
-        $this->created = $created;
-    }
-    public function setEpisodes($episodes){
-        $this->episodes = $episodes;
-    }*/
 
     // Getters
     public function getId(){//Devuelve valores
@@ -101,16 +164,17 @@ class Character{
 }
 
 
-$personajes=[]; //Creado objeto vacio
+$personajes=[]; //Creado array
 
 for($i=0;$i<count($characters);$i++){
-
-    $personajes[$i]=new Character($characters[$i]["id"],$characters[$i]["name"],$characters[$i]["status"],$characters[$i]["species"],$characters[$i]["type"],$characters[$i]["gender"],$characters[$i]["origin"],$characters[$i]["location"],$characters[$i]["image"],$characters[$i]["created"],$characters[$i]["episodes"]);
+        // Creo objeto e introduzco los valores
+    $personajes[$i]=new Character($mappedCharacters[$i]["id"],$mappedCharacters[$i]["name"],$mappedCharacters[$i]["status"],$mappedCharacters[$i]["species"],$mappedCharacters[$i]["type"],$mappedCharacters[$i]["gender"],$mappedCharacters[$i]["origin"],$mappedCharacters[$i]["location"],$mappedCharacters[$i]["image"],$mappedCharacters[$i]["created"],$mappedCharacters[$i]["episodes"]);
 
 }
-echo("<br>");
-echo ("<pre>");
+
+echo "<br>";
+echo "<pre>";
 var_dump($personajes);
-echo ("</pre>");
+echo "</pre>";
 
 ?>
