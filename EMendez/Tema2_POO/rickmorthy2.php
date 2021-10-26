@@ -113,7 +113,7 @@ class Character{
 
     //Metodos setters y getters
 
-    public function __construct($id, $name, $status, $species, $type, $gender, $origin, $location, $image, $created, $episodes){
+    public function __construct($id, $name, $status, $species, $type, $gender, $origin, $location, $image, $created, array $episodes){
         $this->id = $id;
         $this->name = $name;
         $this->status = $status;
