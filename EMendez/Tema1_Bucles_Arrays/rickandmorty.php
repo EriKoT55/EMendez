@@ -146,12 +146,9 @@ function mapCharacters($characters){
             }
         }
     }
-    echo("<br>");
-    echo ("<pre>");
-    var_dump($characters);
-    echo ("</pre>");
+
     // maping episodios, mirar si funciona, no estoy 100% seguro.
-    /*for($i=0;$i<count($sortedEpisodes);$i++){
+    for($i=0;$i<count($sortedEpisodes);$i++){
         for($j=0;$j<count($sortedEpisodes);$j++){
             if($characters[$j]["episodes"][0]==$sortedEpisodes[$i]["id"]){
 
@@ -160,8 +157,11 @@ function mapCharacters($characters){
             }
         }
     }
-*/
 
+    echo("<br>");
+    echo ("<pre>");
+    var_dump($characters);
+    echo ("</pre>");
 
 }
 
