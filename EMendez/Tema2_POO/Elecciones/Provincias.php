@@ -4,6 +4,8 @@ class Provincias{
 
     private $nombre,$poblacion,$N_Diputados;
 
+
+
     public function __construct($nombre, $poblacion, $N_Diputados){
         $this->nombre = $nombre;
         $this->poblacion = $poblacion;
