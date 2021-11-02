@@ -2,36 +2,42 @@
 
 class Provincias{
 
-    private $nombre,$poblacion,$N_Diputados;
+    private $id,$name,$delegates;
 
-
-
-    public function __construct($nombre, $poblacion, $N_Diputados){
-        $this->nombre = $nombre;
-        $this->poblacion = $poblacion;
-        $this->N_Diputados = $N_Diputados;
+    public function __construct($id, $name, $delegates){
+        $this->id = $id;
+        $this->name = $name;
+        $this->delegates = $delegates;
     }
 
 
-    public function getNombre(){
-        return $this->nombre;
+    public function getId(){
+        return $this->id;
     }
-    public function setNombre($nombre){
-        $this->nombre = $nombre;
+
+    public function setId($id){
+        $this->id = $id;
         return $this;
     }
-    public function getPoblacion(){
-        return $this->poblacion;
+
+    public function getName(){
+        return $this->name;
     }
-    public function setPoblacion($poblacion){
-        $this->poblacion = $poblacion;
+
+
+    public function setName($name){
+        $this->name = $name;
         return $this;
     }
-    public function getNDiputados(){
-        return $this->N_Diputados;
+
+
+    public function getDelegates(){
+        return $this->delegates;
     }
-    public function setNDiputados($N_Diputados){
-        $this->N_Diputados = $N_Diputados;
+
+
+    public function setDelegates($delegates){
+        $this->delegates = $delegates;
         return $this;
     }
 

@@ -13,7 +13,7 @@ $resultados= json_decode(file_get_contents($api_url . "results"), true);
 
 /*echo "<br>";
 echo "<pre>";
-var_dump($provincias);
+var_dump($resultados);
 echo "</pre>";*/
 
 
@@ -21,11 +21,6 @@ echo "</pre>";*/
 // https://es.wikipedia.org/wiki/Sistema_D%27Hondt#:~:text=El%20n%C3%BAmero%20de%20votos%20recibidos,hasta%20que%20estos%20se%20agoten.
 // https://es.wikipedia.org/wiki/Circunscripciones_electorales_del_Congreso_de_los_Diputados
 
-/*$provincias=["Madrid","Barcelona","Valencia","Alicante","Sevilla", "Malaga","Murica","Cadiz","Baleares","La Coruña", "Las Palmas", "Vizcaya",
-    "Asturias","Granada","Pontevedra","Santa Cruz de Tenerife","Zaragoza","Almeria","Badajoz","Cordiba","Gerona","Guipúzcoa", "Tarragona", "Toledo",
-    "Cantabria","Castellón", "Ciudad Real", "Huelva", "Jaén", "Navarra", "Valladolid", "Álava", "Albacete", "Burgos","Cáceres", "León", "Lérida",
-    "Lugo", "Orense","La Rioja","Salamanca","Ávila", "Cuenca", "Guadalajara", "Huesca", "Palencia","Segovia", "Teruel","Zamora","Soria","Ceuta","Melilla"];
-*/
 
     /*echo "<br>";
     echo "<pre>";
@@ -33,25 +28,38 @@ echo "</pre>";*/
     echo "</pre>";*/
 
 
-
-
-//  Creo array para introducir los valores del objeto
+//  Creo array para introducir los valores al objeto(casting)
 $results_obj = [];
 //con foreach le digo que el array es como el valor que le doy y me guarda en este ultimo
 // los valores del array.
+//Resultados
 foreach ($resultados as $resultado){
     $results_obj[] = new Resultados($resultado["district"], $resultado["party"], $resultado["votes"]);
 }
 
+//Creo array para introducir los valores al objeto(casting)
+// Partidos
+$partidos_obj=[];
+foreach ($partidos as $partido){
+    $partidos_obj[]= new Partidos($partido["id"],$partido["name"],$partido["acronym"],$partido["logo"],$partido["colour"]);
+}
 
+//Creo array para introducir los valores al objeto(casting)
+// Provincias
+$provincias_obj=[];
+foreach ($provincias as $provincia){
+    $provincias_obj[]=new Provincias($provincia["id"],$provincia["name"],$provincia["delegates"]);
+}
+function Escanyos(){
+    global $results_obj;
 
-/*function partidos_por_Comunidad(){
+    for($i=0;$i<count($results_obj);$i++){
+        if($results_obj[$i]->getDistrito()==) {
 
-    for(){
-
+        }
     }
 
-}*/
+}
 
 if (isset($_GET["sortingCriteria"])) {
     //TODO: Logic to call a function depending on the sorting criteria.
@@ -124,10 +132,11 @@ if (isset($_GET["sortingCriteria"])) {
             <form class="d-flex" action="elefantesMultifilter.php">
                 <select class="form-control me-2 form-select" aria-label="Sorting criteria" name="sortingCriteria">
                     <option selected value="unsorted">Selecciona una circumscripción</option>
-                    <option value="Madrid">Madrid</option> <!-- Cambiar los valores para que no pete  -->
-                    <option value="Barcelona">Barcelona</option>
-                    <option value="Valencia">Valencia</option>
-                    <!-- seguir... -->
+                    <?php
+
+                        //Automatizar las selecciones con unos bucles.
+
+                    ?>
                 </select>
                 <button class="btn btn-outline-success" type="submit">Sort</button>
             </form>
@@ -156,7 +165,7 @@ if (isset($_GET["sortingCriteria"])) {
             echo "<tr>";
         }
 
-
+     Escanyos();
      ?>
      </table>
     </div>

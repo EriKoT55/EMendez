@@ -2,13 +2,14 @@
 
 class Resultados{
 
-    private $distrito,$partidos,$votos;
+    private $distrito,$partidos,$votos,$escanyos;
 
 
     public function __construct($distrito, $partidos, $votos){
         $this->distrito = $distrito;
         $this->partidos = $partidos;
         $this->votos = $votos;
+
     }
 
 
@@ -37,7 +38,13 @@ class Resultados{
         $this->votos = $votos;
         return $this;
     }
-
+    public function getEscanyos(){
+        return $this->escanyos;
+    }
+    public function setEscanyos($escanyos){
+        $this->escanyos = $escanyos;
+        return $this;
+    }
 
 
 }

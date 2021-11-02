@@ -2,37 +2,66 @@
 
     class Partidos{
 
-        private $nombre,$comunidades,$votos;
+        private $id,$name,$acronym,$logo,$colour;
 
-        public function __construct($nombre, $comunidades, $votos){
-            $this->nombre = $nombre;
-            $this->comunidades = $comunidades;
-            $this->votos = $votos;
+        public function __construct($id, $name, $acronym, $logo, $colour){
+            $this->id = $id;
+            $this->name = $name;
+            $this->acronym = $acronym;
+            $this->logo = $logo;
+            $this->colour = $colour;
         }
 
-        public function getNombre(){
-            return $this->nombre;
+
+        public function getId(){
+            return $this->id;
         }
 
 
-        public function setNombre($nombre){
-            $this->nombre = $nombre;
+        public function setId($id){
+            $this->id = $id;
             return $this;
         }
 
-        public function getComunidades(){
-            return $this->comunidades;
+
+        public function getName(){
+            return $this->name;
         }
 
-        public function setComunidades($comunidades){
-            $this->comunidades = $comunidades;
+
+        public function setName($name){
+            $this->name = $name;
             return $this;
         }
-        public function getVotos(){
-            return $this->votos;
+
+
+        public function getAcronym(){
+            return $this->acronym;
         }
-        public function setVotos($votos){
-            $this->votos = $votos;
+
+
+        public function setAcronym($acronym){
+            $this->acronym = $acronym;
+            return $this;
+        }
+
+        public function getLogo(){
+            return $this->logo;
+        }
+
+
+        public function setLogo($logo){
+            $this->logo = $logo;
+            return $this;
+        }
+
+        public function getColour(){
+            return $this->colour;
+        }
+
+
+        public function setColour($colour){
+            $this->colour = $colour;
             return $this;
         }
 

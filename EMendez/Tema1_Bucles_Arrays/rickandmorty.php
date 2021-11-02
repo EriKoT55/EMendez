@@ -168,8 +168,7 @@ function mapCharacters($characters){
 }
 
 //NOTE: Function to render each character card HTML. Don't edit.
-function renderCard($character)
-{
+function renderCard($character){
     $ch = curl_init('https://dawsonferrer.com/allabres/apis_solutions/rickandmorty/api.php?data=render');
     $data = array("character" => $character);
     $postData = json_encode($data);
@@ -239,7 +238,7 @@ $mappedCharacters = mapCharacters($characters);
 
             <div class="row">
                 <?php
-                /* TODO: Your code here.
+                //TODO: Your code here.
                 for($i=0;$i<count($characters);$i++) {
                     echo "<div class='col-md-4 col-sm-12 col-xs-12'>";
                         echo "<div class='card mb-4 box-shadow bg-light'>";
@@ -267,12 +266,9 @@ $mappedCharacters = mapCharacters($characters);
                     echo "</div>";
                     echo "</div>";
                 }
-                */
 
-                echo "<br>";
-                echo "<pre>";
-                var_dump(mapCharacters($characters));
-                echo "</pre>";
+
+
                 ?>
             </div>
         </div>
