@@ -54,39 +54,65 @@ $divisor=0;
 // De una provincia cojo el partido que mas votos tiene, a este lo divido entre dos y le sumo un escaño, despues miro quien es el que mas votos tiene y hago la misma operación, si
 // ya tiene un escaño pero sigue siendo el que mas votos tiene dividir entre 3 y sumar otro escaño... asi sucesivamente. Hasta repartir todas las delegaciones en cada provincia.
 // problema no se como automatizar esto que acabo de escribir.
+
 function Escanyos(){
     global $results_obj;
-  for($k=0;$k<count($results_obj);$k++) {
-      for ($i = $k; $i < count($results_obj[$k]->getDistrito()); $i++) {
-          if ($results_obj[$i]->getVotos() < $results_obj[$i]->getVotos()) {
-
+    //Ordeno los votos de mayor a menor
+    for($k=0;$k<count($results_obj);$k++) {
+      for ($i = $k; $i < count($results_obj); $i++) {
+          if ($results_obj[$k]->getVotos() < $results_obj[$i]->getVotos()) {
+                $aux=$results_obj[$k];
+                $results_obj[$k]=$results_obj[$i];
+                $results_obj[$i]=$aux;
           }
+
+              $results_obj[0]->getVotos()/2;
+
       }
   }
-    echo "<br>";
+      echo "<br>";
       echo "<pre>";
       var_dump($results_obj);
       echo "</pre>";
 
 
 }
+function tabla($resultadosProvincias){
+    global $results_obj;
+    echo "<br>";
+    echo "<br>";
+    echo "<br>";
+    echo "<br>";
+    echo "<table>";
+    echo "<tr>";
+    echo "<th>Circumscripción</th>";
+    echo "<th>Partido</th>";
+    echo "<th>Votos</th>";
+    echo "<th>Escaños</th>";
+    echo "</tr>";
+    for($i=0;$i<count($results_obj);$i++){
 
+        echo "<tr>";
+        if($results_obj[$i]->getDistrito()==$resultadosProvincias){
+            echo "<td>" . $results_obj[$i]->getDistrito() . "</td>";
+            echo "<td>" . $results_obj[$i]->getPartidos() . "</td>";
+            echo "<td>" . $results_obj[$i]->getVotos() . "</td>";
+        }
+        echo "<tr>";
+    }
+    echo "</table>";
+}
 if (isset($_GET["sortingCriteria"])) {
     //TODO: Logic to call a function depending on the sorting criteria.
     $array=[];  // entre las comillas poner el criterio por el cual mostrara los datos por ejemplo "Madrid"
-    if ($_GET["sortingCriteria"] == "Madrid") {
+    for($i=0;$i<count($provincias_obj);$i++){
+
+    if ($_GET["sortingCriteria"] == $provincias_obj[$i]->getName()) {
         // meter el array con las circumscripciones ya hechas
-        $array=circumscripcion();
-
-    } elseif ($_GET["sortingCriteria"] == "Barcelona") {
-
-        $array= circumscripcion();
-
-    } elseif ($_GET["sortingCriteria"] == "Valencia") {
-
-        $array=circumscripcion();
-
+        tabla($provincias_obj[$i]->getName());
+        break;
     }
+   }
 }
 
 ?>
@@ -139,13 +165,15 @@ if (isset($_GET["sortingCriteria"])) {
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="d-flex" action="elefantesMultifilter.php">
+            <form class="d-flex" action="main.php">
                 <select class="form-control me-2 form-select" aria-label="Sorting criteria" name="sortingCriteria">
                     <option selected value="unsorted">Selecciona una circumscripción</option>
                     <?php
 
                         //Automatizar las selecciones con unos bucles.
-
+                      for($k=0;$k<count($provincias_obj);$k++){
+                              echo "<option selected value='".$provincias_obj[$k]->getName()."'>".$provincias_obj[$k]->getName()."</option> ";
+                      }
                     ?>
                 </select>
                 <button class="btn btn-outline-success" type="submit">Sort</button>
@@ -155,27 +183,11 @@ if (isset($_GET["sortingCriteria"])) {
 </nav>
 <div class="container mx-auto mt-4 custom">
     <div class="row">
-     <table>
-         <tr>
-             <th>Circumscripción</th>
-             <th>Partido</th>
-             <th>Votos</th>
-             <!--<th>Escaños</th>-->
-         </tr>
+
      <?php
 
-        // Tabla para mostrar los datos
-        /*for($i=0;$i<count($results_obj);$i++){
-            echo "<tr>";
-
-             echo "<td>".$results_obj[$i]->getDistrito() ."</td>";
-             echo "<td>".$results_obj[$i]->getPartidos() ."</td>";
-             echo "<td>".$results_obj[$i]->getVotos() ."</td>";
-
-            echo "<tr>";
-        }*/
-
      Escanyos();
+
      ?>
      </table>
     </div>
