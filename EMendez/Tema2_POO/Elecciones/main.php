@@ -50,14 +50,24 @@ $provincias_obj=[];
 foreach ($provincias as $provincia){
     $provincias_obj[]=new Provincias($provincia["id"],$provincia["name"],$provincia["delegates"]);
 }
+$divisor=0;
+// De una provincia cojo el partido que mas votos tiene, a este lo divido entre dos y le sumo un escaño, despues miro quien es el que mas votos tiene y hago la misma operación, si
+// ya tiene un escaño pero sigue siendo el que mas votos tiene dividir entre 3 y sumar otro escaño... asi sucesivamente. Hasta repartir todas las delegaciones en cada provincia.
+// problema no se como automatizar esto que acabo de escribir.
 function Escanyos(){
     global $results_obj;
+  for($k=0;$k<count($results_obj);$k++) {
+      for ($i = $k; $i < count($results_obj[$k]->getDistrito()); $i++) {
+          if ($results_obj[$i]->getVotos() < $results_obj[$i]->getVotos()) {
 
-    for($i=0;$i<count($results_obj);$i++){
-        if($results_obj[$i]->getDistrito()==) {
+          }
+      }
+  }
+    echo "<br>";
+      echo "<pre>";
+      var_dump($results_obj);
+      echo "</pre>";
 
-        }
-    }
 
 }
 
@@ -155,7 +165,7 @@ if (isset($_GET["sortingCriteria"])) {
      <?php
 
         // Tabla para mostrar los datos
-        for($i=0;$i<count($results_obj);$i++){
+        /*for($i=0;$i<count($results_obj);$i++){
             echo "<tr>";
 
              echo "<td>".$results_obj[$i]->getDistrito() ."</td>";
@@ -163,7 +173,7 @@ if (isset($_GET["sortingCriteria"])) {
              echo "<td>".$results_obj[$i]->getVotos() ."</td>";
 
             echo "<tr>";
-        }
+        }*/
 
      Escanyos();
      ?>
