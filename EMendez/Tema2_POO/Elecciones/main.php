@@ -13,7 +13,7 @@ $resultados= json_decode(file_get_contents($api_url . "results"), true);
 
 /*echo "<br>";
 echo "<pre>";
-var_dump($resultados);
+var_dump($provincias);
 echo "</pre>";*/
 
 
@@ -56,26 +56,48 @@ $divisor=0;
 // problema no se como automatizar esto que acabo de escribir.
 
 function Escanyos(){
+    // Como hago para poder saber que escaños he dado a cada partido,
+    // vale guardo los escaños en un array, el que mas tenga sera el primero
     global $results_obj;
+    global $provincias_obj;
+    $escanyo=[];
+
     //Ordeno los votos de mayor a menor
     for($k=0;$k<count($results_obj);$k++) {
       for ($i = $k; $i < count($results_obj); $i++) {
           if ($results_obj[$k]->getVotos() < $results_obj[$i]->getVotos()) {
-                $aux=$results_obj[$k];
-                $results_obj[$k]=$results_obj[$i];
-                $results_obj[$i]=$aux;
+              $aux = $results_obj[$k];
+              $results_obj[$k] = $results_obj[$i];
+              $results_obj[$i] = $aux;
           }
-
-              $results_obj[0]->getVotos()/2;
+          $divisor = 0;
+          $escanyo = 0;
 
       }
   }
+    // Intento de hacer lo de los escaños en mi cabeza he pensado esto, el tope de veces que se repetira
+    // el bucle seran las diferentes delegaciones que tiene cada provincia, y digo yo vale
+    // despues si en resultados esta en la posicion significa que es el que tiene mas votos
+    // pues se divide entre dos y le damos un escaño. El punto viene que como yo lo tengo echo
+    // me sale un desplegable con todas las provincias y al seleccionarme una deberia hacerlo
+    // de esa provincia, problema no se como enlazarlo, por que claro yo he ordenado los votos
+    // de todo el pais, no dividiendo cada provincia el partido que mas votos tiene.
+    for($h=0;$h<count($provincias_obj);$h++){
+        for ($j=0;$j<count($provincias_obj[$h]->getDelegates());$j++) {
+
+            $results_obj[0]/2;
+
+            if($results_obj[0] && $escanyo==0){
+                $results_obj[0]/2;
+                $escanyo++;
+            }
+
+        }
+    }
       echo "<br>";
       echo "<pre>";
       var_dump($results_obj);
       echo "</pre>";
-
-
 }
 function tabla($resultadosProvincias){
     global $results_obj;
@@ -186,7 +208,7 @@ if (isset($_GET["sortingCriteria"])) {
 
      <?php
 
-     Escanyos();
+     /*Escanyos();*/
 
      ?>
      </table>
