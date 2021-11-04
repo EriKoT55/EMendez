@@ -55,6 +55,16 @@ $divisor=0;
 // ya tiene un escaño pero sigue siendo el que mas votos tiene dividir entre 3 y sumar otro escaño... asi sucesivamente. Hasta repartir todas las delegaciones en cada provincia.
 // problema no se como automatizar esto que acabo de escribir.
 
+function Delegados($provincias_obj,$provinciaSelected){
+
+    for($h=0;$h<count($provincias_obj);$h++){
+        if($provincias_obj[$h]->getName()==$provinciaSelected){
+            return $provincias_obj[$h]->getDelegates();
+        }
+    }
+
+}
+
 function Escanyos(){
     // Como hago para poder saber que escaños he dado a cada partido,
     // vale guardo los escaños en un array, el que mas tenga sera el primero
@@ -62,38 +72,30 @@ function Escanyos(){
     global $provincias_obj;
     $escanyo=[];
 
-    //Ordeno los votos de mayor a menor
-    for($k=0;$k<count($results_obj);$k++) {
-      for ($i = $k; $i < count($results_obj); $i++) {
-          if ($results_obj[$k]->getVotos() < $results_obj[$i]->getVotos()) {
-              $aux = $results_obj[$k];
-              $results_obj[$k] = $results_obj[$i];
-              $results_obj[$i] = $aux;
-          }
-          $divisor = 0;
-          $escanyo = 0;
 
-      }
+    //Ordeno los votos de mayor a menor,
+    for($k=0;$k<count($results_obj);$k++){
+      for ($i = $k; $i < count($results_obj); $i++){
+            if ($results_obj[$k]->getVotos() < $results_obj[$i]->getVotos()) {
+                $aux = $results_obj[$k];
+                $results_obj[$k] = $results_obj[$i];
+                $results_obj[$i] = $aux;
+            }
+        }
   }
-    // Intento de hacer lo de los escaños en mi cabeza he pensado esto, el tope de veces que se repetira
+
+
+
+    $divisor = 2;
+    $escanyo = 0;
+    // Intento hacer lo de los escaños en mi cabeza y he pensado esto, el tope de veces que se repetira
     // el bucle seran las diferentes delegaciones que tiene cada provincia, y digo yo vale
-    // despues si en resultados esta en la posicion significa que es el que tiene mas votos
-    // pues se divide entre dos y le damos un escaño. El punto viene que como yo lo tengo echo
+    // despues si en "resultados" esta en la posicion significa que es el que tiene mas votos
+    // pues se divide entre dos y le damos un escaño. El punto viene que como yo lo tengo hecho
     // me sale un desplegable con todas las provincias y al seleccionarme una deberia hacerlo
     // de esa provincia, problema no se como enlazarlo, por que claro yo he ordenado los votos
-    // de todo el pais, no dividiendo cada provincia el partido que mas votos tiene.
-    for($h=0;$h<count($provincias_obj);$h++){
-        for ($j=0;$j<count($provincias_obj[$h]->getDelegates());$j++) {
+    // de todo el pais, no dividiendo cada provincia por el partido que mas votos tiene.
 
-            $results_obj[0]/2;
-
-            if($results_obj[0] && $escanyo==0){
-                $results_obj[0]/2;
-                $escanyo++;
-            }
-
-        }
-    }
       echo "<br>";
       echo "<pre>";
       var_dump($results_obj);
@@ -126,7 +128,7 @@ function tabla($resultadosProvincias){
 }
 if (isset($_GET["sortingCriteria"])) {
     //TODO: Logic to call a function depending on the sorting criteria.
-    $array=[];  // entre las comillas poner el criterio por el cual mostrara los datos por ejemplo "Madrid"
+      // entre las comillas poner el criterio por el cual mostrara los datos por ejemplo "Madrid"
     for($i=0;$i<count($provincias_obj);$i++){
 
     if ($_GET["sortingCriteria"] == $provincias_obj[$i]->getName()) {
@@ -134,6 +136,8 @@ if (isset($_GET["sortingCriteria"])) {
         tabla($provincias_obj[$i]->getName());
         break;
     }
+
+
    }
 }
 
@@ -189,7 +193,12 @@ if (isset($_GET["sortingCriteria"])) {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form class="d-flex" action="main.php">
                 <select class="form-control me-2 form-select" aria-label="Sorting criteria" name="sortingCriteria">
-                    <option selected value="unsorted">Selecciona una circumscripción</option>
+                    <option selected value="unsorted">Selecciona filtrado</option>
+                    <option selected value="unsorted">Resultados generales</option>
+                    <option selected value="unsorted">Filtrar por provincia</option>
+                    <!--Debo hacer que cuando clique en filtrar por provincia salga otro selector con las provincias -->
+                    <option selected value="unsorted">Filtrar por partido</option>
+                    <!--Debo hacer que cuando clique en filtrar por partidos salga otro selector con los partidos -->
                     <?php
 
                         //Automatizar las selecciones con unos bucles.
@@ -208,7 +217,7 @@ if (isset($_GET["sortingCriteria"])) {
 
      <?php
 
-     /*Escanyos();*/
+     Escanyos();
 
      ?>
      </table>
