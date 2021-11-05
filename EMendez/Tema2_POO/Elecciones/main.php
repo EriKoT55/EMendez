@@ -1,31 +1,22 @@
 <?php
 
-include("Partidos.php");
-include("Provincias.php");
-include("Resultados.php");
-
+require("Partidos.php");
+require("Provincias.php");
+require("Resultados.php");
+error_reporting(0);
 $api_url = "https://dawsonferrer.com/allabres/apis_solutions/elections/api.php?data=";
 
 $partidos = json_decode(file_get_contents($api_url . "parties"), true);
 $provincias = json_decode(file_get_contents($api_url . "districts"), true);
 $resultados = json_decode(file_get_contents($api_url . "results"), true);
 
-
 /*echo "<br>";
 echo "<pre>";
 var_dump($provincias);
 echo "</pre>";*/
 
-
 // https://es.wikipedia.org/wiki/Sistema_D%27Hondt#:~:text=El%20n%C3%BAmero%20de%20votos%20recibidos,hasta%20que%20estos%20se%20agoten.
 // https://es.wikipedia.org/wiki/Circunscripciones_electorales_del_Congreso_de_los_Diputados
-
-
-/*echo "<br>";
-echo "<pre>";
-var_dump($resultados);
-echo "</pre>";*/
-
 
 //  Creo array para introducir los valores al objeto(casting)
 $results_obj = [];
@@ -46,13 +37,9 @@ foreach ($partidos as $partido) {
 //Creo array para introducir los valores al objeto(casting)
 // Provincias
 $provincias_obj = [];
-/*echo "<br>";
-echo "<pre>";
-var_dump($provincias);
-echo "</pre>";*/
+
 foreach ($provincias as $provincia => $valor) {
     $provincias_obj[] = new Provincias($valor["id"], $valor["name"], $valor["delegates"]);
-
 }
 $divisor = 0;
 
@@ -80,7 +67,6 @@ function Escanyos()
     global $provincias_obj;
     $escanyo = [];
 
-
     //Ordeno los votos de mayor a menor,
     for ($k = 0; $k < count($results_obj); $k++) {
         for ($i = $k; $i < count($results_obj); $i++) {
@@ -92,7 +78,6 @@ function Escanyos()
         }
     }
 
-
     $divisor = 2;
     $escanyo = 0;
     // Intento hacer lo de los escaños en mi cabeza y he pensado esto, el tope de veces que se repetira
@@ -103,10 +88,6 @@ function Escanyos()
     // de esa provincia, problema no se como enlazarlo, por que claro yo he ordenado los votos
     // de todo el pais, no dividiendo cada provincia por el partido que mas votos tiene.
 
-    echo "<br>";
-    echo "<pre>";
-    var_dump($results_obj);
-    echo "</pre>";
 }
 
 function tabla($resultadosProvincias)
@@ -136,40 +117,6 @@ function tabla($resultadosProvincias)
     echo "</table>";
 }
 
-if (isset($_GET["sortingCriteria"])) {
-    //TODO: Logic to call a function depending on the sorting criteria.
-
-    /* for ($i = 0; $i < count($provincias_obj); $i++) {
-
-        if ($_GET["sortingCriteria"] == $provincias_obj[$i]->getName()) {
-            // meter el array con las circumscripciones ya hechas
-            tabla($provincias_obj[$i]->getName());
-            break;
-        }
-
-    } */
-
-    if ($_GET["sortingCriteria"] == "Filtrar por provincia") {
-        echo '<form method="get" action="main.php">';
-        echo '<select name="PePe">';
-
-        //Automatizar las selecciones con unos bucles.
-        foreach ($provincias_obj as $provincia => $valores) {
-            echo "<option selected value='" . $valores->getName() . "'>" . $valores->getName() . "</option> ";
-        }
-
-        echo '</select>';
-        echo '<button  type="submit">Sort2</button>';
-        echo '</form>';
-    }
-    /*for ($k = 0; $k < count($provincias_obj); $k++) {
-        echo $_GET["devolverProvincias"];*/
- echo "<br>";
- echo "<pre>";
- var_dump($_GET["PePe"]);
- echo "</pre>";
-    //}
-}
 
 ?>
 <html lang="es">
@@ -186,12 +133,11 @@ if (isset($_GET["sortingCriteria"])) {
 <form method="get" action="main.php">
     <select name="sortingCriteria">
         <option selected value="unsorted">Selecciona filtrado</option>
-        <option selected value="unsorted">Resultados generales</option>
-        <option selected value="Filtrar por provincia">Filtrar por provincia</option>
+        <option selected value="Resultados_generales">Resultados generales</option>
+        <option selected value="Filtrar_por_provincia">Filtrar por provincia</option>
         <!--Debo hacer que cuando clique en filtrar por provincia salga otro selector con las provincias -->
-        <option selected value="unsorted">Filtrar por partido</option>
+        <option selected value="Filtrar_por_partido">Filtrar por partido</option>
         <!--Debo hacer que cuando clique en filtrar por partidos salga otro selector con los partidos -->
-
     </select>
     <button type="submit">Sort</button>
 </form>
@@ -203,9 +149,45 @@ if (isset($_GET["sortingCriteria"])) {
         /*Escanyos();*/
 
         ?>
-        </table>
+
     </div>
 </div>
 
 </body>
 </html>
+<?php
+
+if (isset($_GET["sortingCriteria"])) {
+    //TODO: Logic to call a function depending on the sorting criteria.
+
+    if ($_GET["sortingCriteria"] == "Filtrar_por_provincia") {
+        echo '<form method="get" action="main.php">';
+        echo '<select name="provinciaSelected">';
+
+        //Automatizar las selecciones con unos bucles.
+        foreach ($provincias_obj as $provincia => $valores) {
+            echo "<option selected value='" . $valores->getName() . "'>" . $valores->getName() . "</option> ";
+        }
+
+        echo '</select>';
+        echo '<button  type="submit">Sort2</button>';
+        echo '</form>';
+    }
+
+    if ($_GET["provinciaSelected"] != "") {
+        echo "hola";
+        for ($i = 0; $i < count($provincias_obj); $i++) {
+            if ($_GET["provinciaSelected"] == $provincias_obj[$i]->getName()) {
+                // meter el array con las circumscripciones ya hechas
+                tabla($provincias_obj[$i]->getName());
+                break;
+            }
+        }
+    }
+    /*for ($k = 0; $k < count($provincias_obj); $k++) {
+        echo $_GET["devolverProvincias"];*/
+
+    //}
+}
+
+?>
