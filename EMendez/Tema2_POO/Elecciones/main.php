@@ -93,26 +93,23 @@ function Escanyos()
 function tabla($resultadosProvincias)
 {
     global $results_obj;
-    echo "<br>";
-    echo "<br>";
-    echo "<br>";
-    echo "<br>";
     echo "<table>";
     echo "<tr>";
     echo "<th>Circumscripción</th>";
     echo "<th>Partido</th>";
     echo "<th>Votos</th>";
     echo "<th>Escaños</th>";
-    echo "</tr>";
+    echo "</tr>";echo "<tr>";
     for ($i = 0; $i < count($results_obj); $i++) {
 
-        echo "<tr>";
         if ($results_obj[$i]->getDistrito() == $resultadosProvincias) {
+            echo "<tr>";
             echo "<td>" . $results_obj[$i]->getDistrito() . "</td>";
             echo "<td>" . $results_obj[$i]->getPartidos() . "</td>";
             echo "<td>" . $results_obj[$i]->getVotos() . "</td>";
+            echo "</tr>";
         }
-        echo "<tr>";
+
     }
     echo "</table>";
 }
@@ -157,12 +154,12 @@ function tabla($resultadosProvincias)
 </html>
 <?php
 
-if (isset($_GET["sortingCriteria"])) {
+if (isset($_GET["sortingCriteria"]) || isset($_GET["provincia"])) {
     //TODO: Logic to call a function depending on the sorting criteria.
-
+global $provincias_obj;
     if ($_GET["sortingCriteria"] == "Filtrar_por_provincia") {
         echo '<form method="get" action="main.php">';
-        echo '<select name="provinciaSelected">';
+        echo '<select name="provincia">';
 
         //Automatizar las selecciones con unos bucles.
         foreach ($provincias_obj as $provincia => $valores) {
@@ -174,16 +171,14 @@ if (isset($_GET["sortingCriteria"])) {
         echo '</form>';
     }
 
-    if ($_GET["provinciaSelected"] != "") {
-        echo "hola";
         for ($i = 0; $i < count($provincias_obj); $i++) {
-            if ($_GET["provinciaSelected"] == $provincias_obj[$i]->getName()) {
+            if ($_GET["provincia"] == $provincias_obj[$i]->getName()) {
                 // meter el array con las circumscripciones ya hechas
                 tabla($provincias_obj[$i]->getName());
                 break;
             }
         }
-    }
+
     /*for ($k = 0; $k < count($provincias_obj); $k++) {
         echo $_GET["devolverProvincias"];*/
 
