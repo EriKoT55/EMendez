@@ -43,11 +43,9 @@ foreach ($provincias as $provincia => $valor) {
 }
 $divisor = 0;
 
-// De una provincia cojo el partido que mas votos tiene, a este lo divido entre dos y le sumo un escaño, despues miro quien es el que mas votos tiene y hago la misma operación, si
-// ya tiene un escaño pero sigue siendo el que mas votos tiene dividir entre 3 y sumar otro escaño... asi sucesivamente. Hasta repartir todas las delegaciones en cada provincia.
-// problema no se como automatizar esto que acabo de escribir.
 
-//Funcion para sacar delegaciones
+
+//La funcion me devuleve las delegaciones de la provincia seleccionada.
 function Delegados($provincias_obj, $provinciaSelected)
 {
 
@@ -59,34 +57,75 @@ function Delegados($provincias_obj, $provinciaSelected)
 
 }
 
+//La funcion muestra solo los resultados de la provincia seleccionada
+function ResFiltrados($results_obj)
+{
+
+    $resultsFiltrados = [];
+
+        for ($i = 0; $i < count($results_obj); $i++) {
+
+            if ($results_obj[$i]->getDistrito() == $_GET["provincia"]) {
+
+                $resultsFiltrados[$i] = $results_obj[$i]->getDistrito();
+
+            }
+
+    }
+    return $resultsFiltrados;
+
+}
+
 function Escanyos()
 {
     // Como hago para poder saber que escaños he dado a cada partido,
     // vale guardo los escaños en un array, el que mas tenga sera el primero
     global $results_obj;
     global $provincias_obj;
-    $escanyo = [];
+
+    //Duplicacion de results_obj con la funcion pero podria hacerlo con un foreach pero no
+    //he podido sacar (sacar)
+    $dupResults_obj=[];
+    $dupResults_obj = array_merge($dupResults_obj,$results_obj);
 
     //Ordeno los votos de mayor a menor,
-    for ($k = 0; $k < count($results_obj); $k++) {
-        for ($i = $k; $i < count($results_obj); $i++) {
-            if ($results_obj[$k]->getVotos() < $results_obj[$i]->getVotos()) {
-                $aux = $results_obj[$k];
-                $results_obj[$k] = $results_obj[$i];
-                $results_obj[$i] = $aux;
+    for ($k = 0; $k < count(ResFiltrados($dupResults_obj)); $k++) {
+        for ($i = $k; $i < count(ResFiltrados($dupResults_obj)); $i++) {
+            if ($dupResults_obj[$k]->getVotos() < $dupResults_obj[$i]->getVotos()) {
+                $aux = $dupResults_obj[$k];
+                $dupResults_obj[$k] = $dupResults_obj[$i];
+                $dupResults_obj[$i] = $aux;
             }
         }
     }
 
-    $divisor = 2;
-    $escanyo = 0;
+
     // Intento hacer lo de los escaños en mi cabeza y he pensado esto, el tope de veces que se repetira
     // el bucle seran las diferentes delegaciones que tiene cada provincia, y digo yo vale
-    // despues si en "resultados" esta en la posicion significa que es el que tiene mas votos
+    // despues si en "resultados" esta en la posicion 0 significa que es el que tiene mas votos
     // pues se divide entre dos y le damos un escaño. El punto viene que como yo lo tengo hecho
     // me sale un desplegable con todas las provincias y al seleccionarme una deberia hacerlo
     // de esa provincia, problema no se como enlazarlo, por que claro yo he ordenado los votos
     // de todo el pais, no dividiendo cada provincia por el partido que mas votos tiene.
+
+    $divisor = 2;
+
+    for($j=0;$j<count($dupResults_obj);$j++){
+        $dupResults_obj[$j]->setEscanyos(0);
+    }
+// De una provincia cojo el partido que mas votos tiene, a este lo divido entre dos y le sumo un escaño, despues miro quien es el que mas votos tiene y hago la misma operación, si
+// ya tiene un escaño pero sigue siendo el que mas votos tiene dividir entre 3 y sumar otro escaño... asi sucesivamente. Hasta repartir todas las delegaciones en cada provincia.
+// problema no se como automatizar esto que acabo de escribir.
+
+    //Aqui sacare los escaños,
+    for ($i = 0; $i < count(Delegados($provincias_obj, $_GET["provincia"])); $i++) {
+
+        for($j=0;$j<count(ResFiltrados($results_obj));$j++){
+
+
+
+        }
+    }
 
 }
 
@@ -99,7 +138,8 @@ function tabla($resultadosProvincias)
     echo "<th>Partido</th>";
     echo "<th>Votos</th>";
     echo "<th>Escaños</th>";
-    echo "</tr>";echo "<tr>";
+    echo "</tr>";
+    echo "<tr>";
     for ($i = 0; $i < count($results_obj); $i++) {
 
         if ($results_obj[$i]->getDistrito() == $resultadosProvincias) {
@@ -116,47 +156,48 @@ function tabla($resultadosProvincias)
 
 
 ?>
-<html lang="es">
-<head>
-    <title>Elecciones</title>
+    <html lang="es">
+    <head>
+        <title>Elecciones</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+                crossorigin="anonymous"></script>
 
 
-</head>
-<body>
-<form method="get" action="main.php">
-    <select name="sortingCriteria">
-        <option selected value="unsorted">Selecciona filtrado</option>
-        <option selected value="Resultados_generales">Resultados generales</option>
-        <option selected value="Filtrar_por_provincia">Filtrar por provincia</option>
-        <!--Debo hacer que cuando clique en filtrar por provincia salga otro selector con las provincias -->
-        <option selected value="Filtrar_por_partido">Filtrar por partido</option>
-        <!--Debo hacer que cuando clique en filtrar por partidos salga otro selector con los partidos -->
-    </select>
-    <button type="submit">Sort</button>
-</form>
-<div>
-    <div class="row">
+    </head>
+    <body>
+    <form method="get" action="main.php">
+        <select name="sortingCriteria">
+            <option selected value="unsorted">Selecciona filtrado</option>
+            <option selected value="Resultados_generales">Resultados generales</option>
+            <option selected value="Filtrar_por_provincia">Filtrar por provincia</option>
+            <!--Debo hacer que cuando clique en filtrar por provincia salga otro selector con las provincias -->
+            <option selected value="Filtrar_por_partido">Filtrar por partido</option>
+            <!--Debo hacer que cuando clique en filtrar por partidos salga otro selector con los partidos -->
+        </select>
+        <button type="submit">Sort</button>
+    </form>
+    <div>
+        <div class="row">
 
-        <?php
+            <?php
 
-        /*Escanyos();*/
+            Escanyos();
 
-        ?>
+            ?>
 
+        </div>
     </div>
-</div>
 
-</body>
-</html>
+    </body>
+    </html>
 <?php
 
 if (isset($_GET["sortingCriteria"]) || isset($_GET["provincia"])) {
     //TODO: Logic to call a function depending on the sorting criteria.
-global $provincias_obj;
+    global $provincias_obj;
+
     if ($_GET["sortingCriteria"] == "Filtrar_por_provincia") {
         echo '<form method="get" action="main.php">';
         echo '<select name="provincia">';
@@ -171,13 +212,13 @@ global $provincias_obj;
         echo '</form>';
     }
 
-        for ($i = 0; $i < count($provincias_obj); $i++) {
-            if ($_GET["provincia"] == $provincias_obj[$i]->getName()) {
-                // meter el array con las circumscripciones ya hechas
-                tabla($provincias_obj[$i]->getName());
-                break;
-            }
+    for ($i = 0; $i < count($provincias_obj); $i++) {
+        if ($_GET["provincia"] == $provincias_obj[$i]->getName()) {
+            // meter el array con las circumscripciones ya hechas
+            tabla($provincias_obj[$i]->getName());
+            break;
         }
+    }
 
     /*for ($k = 0; $k < count($provincias_obj); $k++) {
         echo $_GET["devolverProvincias"];*/
