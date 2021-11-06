@@ -43,50 +43,82 @@ foreach ($provincias as $provincia => $valor) {
 }
 $divisor = 0;
 
-// De una provincia cojo el partido que mas votos tiene, a este lo divido entre dos y le sumo un escaño, despues miro quien es el que mas votos tiene y hago la misma operación, si
-// ya tiene un escaño pero sigue siendo el que mas votos tiene dividir entre 3 y sumar otro escaño... asi sucesivamente. Hasta repartir todas las delegaciones en cada provincia.
-// problema no se como automatizar esto que acabo de escribir.
+//Duplicar objeto results, para trabajar en el duplicado e ir dividiendo los votos para sacar los escaños despues pasar los escaños al original
+$resultsDuplicate_obj = $results_obj;
+
+echo "<br>";
+echo "<pre>";
+var_dump($resultsDuplicate_obj);
+echo "</pre>";
 
 //Funcion para sacar delegaciones
 function Delegados($provincias_obj, $provinciaSelected)
 {
 
     for ($h = 0; $h < count($provincias_obj); $h++) {
-        if ($provincias_obj[$h]->getName() == $provinciaSelected) {
+        if ($provincias_obj[$h]->getName() == $provinciaSelected ) {
             return $provincias_obj[$h]->getDelegates();
         }
     }
 
 }
 
+function ResultsFiltrados($resultsDuplicate_obj,$provinciaSelected){
+$resultsFiltrados=[];
+    for($i=0;$i<count($resultsDuplicate_obj);$i++){
+
+        if($resultsDuplicate_obj[$i]->getDistrito() == $provinciaSelected){
+            $resultsFiltrados[$i]=$resultsDuplicate_obj[$i];
+        }
+
+    }
+    return $resultsFiltrados;
+}
+
 function Escanyos()
 {
-    // Como hago para poder saber que escaños he dado a cada partido,
-    // vale guardo los escaños en un array, el que mas tenga sera el primero
+
     global $results_obj;
     global $provincias_obj;
-    $escanyo = [];
+    global $resultsDuplicate_obj;
+    $resultadosFiltrados=ResultsFiltrados($resultsDuplicate_obj,$_GET["provincia"]);
+
 
     //Ordeno los votos de mayor a menor,
-    for ($k = 0; $k < count($results_obj); $k++) {
-        for ($i = $k; $i < count($results_obj); $i++) {
-            if ($results_obj[$k]->getVotos() < $results_obj[$i]->getVotos()) {
-                $aux = $results_obj[$k];
-                $results_obj[$k] = $results_obj[$i];
-                $results_obj[$i] = $aux;
+    /*for ($k = 0; $k < count($resultadosFiltrados); $k++) {
+        for ($i = $k; $i < count($resultadosFiltrados); $i++) {
+            if ($resultadosFiltrados[$k]->getVotos() < $resultadosFiltrados[$i]->getVotos()) {
+                $aux = $resultadosFiltrados[$k];
+                $resultadosFiltrados[$k] = $resultadosFiltrados[$i];
+                $resultadosFiltrados[$i] = $aux;
             }
         }
-    }
+    }*/
+// Hay un momento en el cual se pierden datos y solo muestra los de madrid buscar, en la duplicacion no esta el problema
+    // ya lo he comprobado y se pasan todos los datos al duplicado.
+    for($j=0;$j<count($resultadosFiltrados);$j++){
+        echo "<br>";
+        echo "<pre>";
+        var_dump($resultadosFiltrados[$j]->getVotos());
+        echo "</pre>";
+    }+
+
+
 
     $divisor = 2;
-    $escanyo = 0;
-    // Intento hacer lo de los escaños en mi cabeza y he pensado esto, el tope de veces que se repetira
-    // el bucle seran las diferentes delegaciones que tiene cada provincia, y digo yo vale
-    // despues si en "resultados" esta en la posicion significa que es el que tiene mas votos
-    // pues se divide entre dos y le damos un escaño. El punto viene que como yo lo tengo hecho
-    // me sale un desplegable con todas las provincias y al seleccionarme una deberia hacerlo
-    // de esa provincia, problema no se como enlazarlo, por que claro yo he ordenado los votos
-    // de todo el pais, no dividiendo cada provincia por el partido que mas votos tiene.
+
+
+// De una provincia cojo el partido que mas votos tiene, a este lo divido entre dos y le sumo un escaño, despues miro quien es el que mas votos tiene y hago la misma operación, si
+// ya tiene un escaño pero sigue siendo el que mas votos tiene dividir entre 3 y sumar otro escaño... asi sucesivamente. Hasta repartir todas las delegaciones en cada provincia.
+// problema no se como automatizar esto que acabo de escribir
+   $delegados=Delegados($provincias_obj, $_GET["provincia"]);
+    /*for($k=0;$k<count($delegados);$k++){
+        for($i=0;$i<count($resultadosFiltrados);$i++){
+
+            $resultadosFiltrados[0]/$divisor;
+
+        }
+    }*/
 
 }
 
