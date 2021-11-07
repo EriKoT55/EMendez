@@ -46,7 +46,7 @@ $divisor = 0;
 
 //Duplicar objeto results, para trabajar en el duplicado e ir dividiendo los votos para sacar los escaños despues pasar los escaños al original
 $resultsDuplicate_obj = $results_obj;
-function tabla($resultadosProvincias,$results_obj)
+function tabla($resultSelector, $objUtilizado)
 {
 
     echo "<table>";
@@ -57,14 +57,20 @@ function tabla($resultadosProvincias,$results_obj)
     echo "<th>Escaños</th>";
     echo "</tr>";
     echo "<tr>";
-    for ($i = 0; $i < count($results_obj); $i++) {
-
-        if ($results_obj[$i]->getDistrito() == $resultadosProvincias) {
+    for ($i = 0; $i < count($objUtilizado); $i++) {
+        if($resultSelector=="Resultados_generales"){
             echo "<tr>";
-            echo "<td>" . $results_obj[$i]->getDistrito() . "</td>";
-            echo "<td>" . $results_obj[$i]->getPartidos() . "</td>";
-            echo "<td>" . $results_obj[$i]->getVotos() . "</td>";
-            echo "<td>" . $results_obj[$i]->getEscanyos() . "</td>";
+            echo "<td> Generales </td>";
+            echo "<td>" . $objUtilizado[$i]->getName() . "</td>";
+            echo "<td>" . $objUtilizado[$i]->getVotos() . "</td>";
+            echo "<td>" . $objUtilizado[$i]->getEscanyos() . "</td>";
+            echo "</tr>";
+        } elseif($objUtilizado[$i]->getDistrito() == $resultSelector) {
+            echo "<tr>";
+            echo "<td>" . $objUtilizado[$i]->getDistrito() . "</td>";
+            echo "<td>" . $objUtilizado[$i]->getPartidos() . "</td>";
+            echo "<td>" . $objUtilizado[$i]->getVotos() . "</td>";
+            echo "<td>" . $objUtilizado[$i]->getEscanyos() . "</td>";
             echo "</tr>";
         }
 
@@ -223,7 +229,7 @@ if (isset($_GET["sortingCriteria"]) || isset($_GET["provincia"]) || isset($_GET[
     if ($_GET["sortingCriteria"] == "Resultados_generales") {
         Generales($results_obj,$partidos_obj);
         //Mirar bien, lo puse, pero no esta comprobado su funcionamiento, tocar tabla para mostrar general
-        tabla($results_obj);
+        tabla($_GET["sortingCriteria"],$partidos_obj);
     }
 
     if ($_GET["sortingCriteria"] == "Filtrar_por_provincia") {
@@ -242,7 +248,7 @@ if (isset($_GET["sortingCriteria"]) || isset($_GET["provincia"]) || isset($_GET[
 
     for ($i = 0; $i < count($results_obj); $i++) {
         if ($_GET["provincia"] == $results_obj[$i]->getDistrito()) {
-            // meter el array con las circumscripciones ya hechas
+
             Escanyos($results_obj[$i]->getDistrito());
             tabla($results_obj[$i]->getDistrito(),$results_obj);
             break;
