@@ -5,11 +5,11 @@ class Resultados{
     private $distrito,$partidos,$votos,$escanyos;
 
 
-    public function __construct($distrito, $partidos, $votos){
+    public function __construct($distrito, $partidos, $votos,$escanyos){
         $this->distrito = $distrito;
         $this->partidos = $partidos;
         $this->votos = $votos;
-
+        $this->escanyos = $escanyos;
     }
 
 
