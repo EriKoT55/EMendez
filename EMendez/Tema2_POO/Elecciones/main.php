@@ -16,11 +16,6 @@ echo "<pre>";
 var_dump($provincias);
 echo "</pre>";*/
 
-// https://es.wikipedia.org/wiki/Sistema_D%27Hondt#:~:text=El%20n%C3%BAmero%20de%20votos%20recibidos,hasta%20que%20estos%20se%20agoten.
-// https://es.wikipedia.org/wiki/Circunscripciones_electorales_del_Congreso_de_los_Diputados
-
-
-
 //con foreach le digo que el array es como el valor que le doy y me guarda en este ultimo
 // los valores del array.
 //Resultados
@@ -168,7 +163,7 @@ function Escanyos($provinciaSelected,$results_obj)
 
     }
 
-    return $results_obj;
+ return $results_obj;
 
 }
 
@@ -196,39 +191,33 @@ function Generales($results_obj, $partidos_obj)
 
 }
 
-/*function resultPartidosFilt($results_obj,$partidoSelected){
-
-    $resultsPartidos = [];
-
-    for ($i = 0; $i < count($results_obj); $i++) {
-
-        if ($results_obj[$i]->getPartidos() == $partidoSelected) {
-
-            $resultsPartidos[] = $results_obj[$i];
-        }
-
-    }
-
-   return $resultsPartidos;
-
-}
-
-function EscanyosPartido($results_obj,$partidoSelected){
+function EscanyosPartido($results_obj){
 
     global $provincias_obj;
-
     for($i=0;$i<count($provincias_obj);$i++){
-        $escanyosPartidos=Escanyos($provincias_obj[$i]->getName(),$results_obj);
-        $partidos[]=resultPartidosFilt($escanyosPartidos,$partidoSelected);
+        Escanyos($provincias_obj[$i]->getName(),$results_obj);
     }
-    return $partidos;
-}*/
+    return $results_obj;
+}
 
 ?>
 <html lang="es">
 <head>
     <title>Elecciones</title>
-
+    <style>
+        th{
+            background-color: black;
+            color:white;
+            border:1px solid white;
+            border-collapse: collapse;
+            padding: 10px;
+        }
+        table,tr,td{
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
 <form method="get" action="main.php">
@@ -244,10 +233,6 @@ function EscanyosPartido($results_obj,$partidoSelected){
 </body>
 </html>
 <?php
-echo "<br>";
-echo "<pre>";
-
-echo "</pre>";
 
 if (isset($_GET["sortingCriteria"]) || isset($_GET["provincia"]) || isset($_GET["partido"])) {
     //TODO: Logic to call a function depending on the sorting criteria.
@@ -293,16 +278,13 @@ if (isset($_GET["sortingCriteria"]) || isset($_GET["provincia"]) || isset($_GET[
         echo '<button  type="submit">Sort2</button>';
         echo '</form>';
     }
-    //Meter aquí tabla
 
-    for ($i = 0; $i < count($partidos_obj); $i++) {
+    for ($i = 0; $i < count($results_obj); $i++) {
 
         if ($_GET["partido"] == $results_obj[$i]->getPartidos()) {
-    //No me tira devuelve ningun escaño, solo si cambio getPartidos por getDitrito y solo me muestra uno
-    //El problema que veo en mi codigo es que tengo que estar llamando a la funcion escanyos para poder utilizar
-    //los escaños cuando miro si hay algo en Escanyos me sale null, he probado con rellenar antes con 0 y tampoco
-            Escanyos($results_obj[$i]->getPartidos(),$results_obj);
-            tabla($results_obj[$i]->getPartidos(), $results_obj);
+
+            $escanyosPartidos = EscanyosPartido($results_obj);
+            tabla($results_obj[$i]->getPartidos(), $escanyosPartidos);
             break;
         }
     }
