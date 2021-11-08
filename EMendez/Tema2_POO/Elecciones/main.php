@@ -168,6 +168,8 @@ function Escanyos($provinciaSelected,$results_obj)
 
     }
 
+    return $results_obj;
+
 }
 
 function Generales($results_obj, $partidos_obj)
@@ -194,7 +196,7 @@ function Generales($results_obj, $partidos_obj)
 
 }
 
-function resultPartidosFilt($results_obj,$partidoSelected){
+/*function resultPartidosFilt($results_obj,$partidoSelected){
 
     $resultsPartidos = [];
 
@@ -220,7 +222,7 @@ function EscanyosPartido($results_obj,$partidoSelected){
         $partidos[]=resultPartidosFilt($escanyosPartidos,$partidoSelected);
     }
     return $partidos;
-}
+}*/
 
 ?>
 <html lang="es">
@@ -298,9 +300,9 @@ if (isset($_GET["sortingCriteria"]) || isset($_GET["provincia"]) || isset($_GET[
         if ($_GET["partido"] == $results_obj[$i]->getPartidos()) {
     //No me tira devuelve ningun escaño, solo si cambio getPartidos por getDitrito y solo me muestra uno
     //El problema que veo en mi codigo es que tengo que estar llamando a la funcion escanyos para poder utilizar
-    //los escaños cuando miro si hay algo en Escanyos me sale null, he probado con relenar antes con 0 y tampoco
-            $escanyosPartidos=EscanyosPartido($results_obj,$_GET["partido"]);
-            tabla($results_obj[$i]->getPartidos(), $escanyosPartidos);
+    //los escaños cuando miro si hay algo en Escanyos me sale null, he probado con rellenar antes con 0 y tampoco
+            Escanyos($results_obj[$i]->getPartidos(),$results_obj);
+            tabla($results_obj[$i]->getPartidos(), $results_obj);
             break;
         }
     }
