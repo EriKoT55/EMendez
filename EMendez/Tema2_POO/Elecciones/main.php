@@ -1,8 +1,8 @@
 <?php
+error_reporting(0);
 require("Partidos.php");
 require("Provincias.php");
 require("Resultados.php");
-error_reporting(0);
 
 $api_url = "https://dawsonferrer.com/allabres/apis_solutions/elections/api.php?data=";
 
@@ -16,8 +16,7 @@ echo "<pre>";
 var_dump($provincias);
 echo "</pre>";*/
 
-//con foreach le digo que el array es como el valor que le doy y me guarda en este ultimo
-// los valores del array.
+//con foreach le digo que el array es como el valor que le doy y me guarda en este ultimo los valores del array.
 //Resultados
 //  Creo array para introducir los valores al objeto(casting)
 $results_obj = [];
@@ -35,7 +34,6 @@ foreach ($partidos as $partido) {
 
 //Creo array para introducir los valores al objeto(casting)
 // Provincias
-
 $provincias_obj = [];
 foreach ($provincias as $provincia => $valor) {
     $provincias_obj[] = new Provincias($valor["id"], $valor["name"], $valor["delegates"]);
@@ -43,6 +41,8 @@ foreach ($provincias as $provincia => $valor) {
 
 //Duplicar objeto results, para trabajar en el duplicado e ir dividiendo los votos para sacar los escaños despues pasar los escaños al original
 $resultsDuplicate_obj = $results_obj;
+
+//Tabla para mostrar resultados
 function tabla($resultSelector, $objUtilizado)
 {
 
@@ -111,6 +111,7 @@ function ResultsFiltrados($resultsDuplicate_obj, $provinciaSelected)
     return $resultsFiltrados;
 }
 
+//Calculo escaños por provincia
 function Escanyos($provinciaSelected,$results_obj)
 {
 
@@ -136,9 +137,11 @@ function Escanyos($provinciaSelected,$results_obj)
         $escanyos[] = 0;
     }
 
+    //Se repetira el bucle por los escaños que puede tener cada provincia(para repartir los escaños sin pasarse)
     for ($k = 0; $k < $delegados; $k++) {
         $mayor = 0;
         for ($i = 0; $i < count($resultadosFiltrados); $i++) {
+
             if ($resultadosFiltrados[$i]->getVotos() > $votosMinimos && $resultVotos[$i] > $mayor) {
 
                 $mayor = $resultVotos[$i];
@@ -147,10 +150,13 @@ function Escanyos($provinciaSelected,$results_obj)
             }
 
         }
+        //Suma escaño dependiendo de la posicion, (si psoe esta el primero y es el que mas votos tienes mas un escaño)
         $escanyos[$posicion] += 1;
+
         $resultVotos[$posicion] = $resultadosFiltrados[$posicion]->getVotos() / ($escanyos[$posicion] + 1);
 
     }
+
     $posicion = 0;
 
     for ($i = 0; $i < count($results_obj); $i++) {
@@ -167,6 +173,7 @@ function Escanyos($provinciaSelected,$results_obj)
 
 }
 
+//Calcular escaños y votos de todo el pais por partidos
 function Generales($results_obj, $partidos_obj)
 {
 
@@ -174,14 +181,15 @@ function Generales($results_obj, $partidos_obj)
     $resultsEscanyos = [];
 
     for ($i = 0; $i < count($results_obj); $i++) {
+        //llamo la funcion Escanyos, por que si no los escanyos no tendrian valor
         Escanyos($results_obj[$i]->getDistrito(),$results_obj);
         for ($k = 0; $k < count($partidos_obj); $k++) {
 
             if ($results_obj[$i]->getPartidos() == $partidos_obj[$k]->getName()) {
-
+//sumo los escanyos y votos, y los voy guardando en su respectivo array
                 $resultsEscanyos[$k] += $results_obj[$i]->getEscanyos();
                 $resultsVotos[$k] += $results_obj[$i]->getVotos();
-
+//meto en el objeto los valores calculados anteriormente
                 $partidos_obj[$k]->setVotos($resultsVotos[$k]);
                 $partidos_obj[$k]->setEscanyos($resultsEscanyos[$k]);
 
@@ -190,6 +198,7 @@ function Generales($results_obj, $partidos_obj)
     }
 
 }
+
 
 function EscanyosPartido($results_obj){
 
@@ -247,7 +256,7 @@ if (isset($_GET["sortingCriteria"]) || isset($_GET["provincia"]) || isset($_GET[
         echo '<form method="get" action="main.php">';
         echo '<select name="provincia">';
 
-        //Automatizar las selecciones con unos bucles.
+        //Automatizar las selecciones.
         foreach ($provincias_obj as $provincia => $valores) {
             echo "<option selected value='" . $valores->getName() . "'>" . $valores->getName() . "</option> ";
         }

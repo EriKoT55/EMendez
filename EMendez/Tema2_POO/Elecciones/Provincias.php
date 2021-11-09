@@ -10,7 +10,6 @@ class Provincias{
         $this->delegates = $delegates;
     }
 
-
     public function getId(){
         return $this->id;
     }
