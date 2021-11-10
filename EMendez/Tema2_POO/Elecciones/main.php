@@ -13,7 +13,7 @@ $resultados = json_decode(file_get_contents($api_url . "results"), true);
 
 /*echo "<br>";
 echo "<pre>";
-var_dump($provincias);
+var_dump($resultados);
 echo "</pre>";*/
 
 //con foreach le digo que el array es como el valor que le doy y me guarda en este ultimo los valores del array.
@@ -23,7 +23,6 @@ $results_obj = [];
 foreach ($resultados as $resultado) {
     $results_obj[] = new Resultados($resultado["district"], $resultado["party"], $resultado["votes"],0);
 }
-
 
 //Creo array para introducir los valores al objeto(casting)
 // Partidos
