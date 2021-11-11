@@ -23,35 +23,39 @@ if($conn->connect_error){
 /* Insertar datos de los arrays de objetos a la base de datos automatizar */
 //Creacion de una base de datos
 /*$sql ="CREATE DATABASE Elecciones";*/
-
 $sql="";
 for ($i=0;$i<count($partidos);$i++){
-     $sql .= "INSERT INTO Partidos (name,acronym,logo,colour)VALUES (";
-        $sql .= $partidos[$i]["name"] . "," . $partidos[$i]["acronym"] . "," . $partidos[$i]["logo"]."," . $partidos[$i]["colour"];
-        /* Coger los valores del array e ir introduciendolos en la tabla*/
+    $name[]=$partidos[$i]["name"];
+    $name[$i]=$conn->real_escape_string($name[$i]);
+
+    $sql .= "INSERT INTO Partidos (name,acronym,logo,colour)VALUES (";
+    $sql .= "'".$name[$i]."'" . "," . "'".$partidos[$i]["acronym"]."'" . "," . "'".$partidos[$i]["logo"]."'". "," . "'".$partidos[$i]["colour"]."'";
+    // Coger los valores del array e ir introduciendolos en la tabla
     $sql.=");";
 }
-
-$sql="";
+/*
+$sql.="";
 for ($i=0;$i<count($provincias);$i++){
     $sql .= "INSERT INTO  Provincias (name,delegates)VALUES (";
-    $sql .= $provincias[$i]["name"] . "," . $provincias[$i]["delegates"];
-    /* Coger los valores del array e ir introduciendolos en la tabla*/
+    $sql .= "'".$provincias[$i]["name"]."'" . "," . $provincias[$i]["delegates"];
+    //Coger los valores del array e ir introduciendolos en la tabla
     $sql.=");";
 }
-
-$sql="";
+*/
+/*$sql.="";
 for ($i=0;$i<count($resultados);$i++){
     $sql .= "INSERT INTO  Resultados (district,party,votes)VALUES (";
-    $sql .= "'".$resultados[$i]["district"]."'".",".$resultados[$i]["party"] .",". $resultados[$i]["votes"];
-    /* Coger los valores del array e ir introduciendolos en la tabla*/
+    $sql .= "'".$resultados[$i]["district"]."'".","."'".$resultados[$i]["party"]."'" .",".$resultados[$i]["votes"];
+     //Coger los valores del array e ir introduciendolos en la tabla
     $sql.=");";
-}
+}*/
 
+
+// Si los hacia todos juntos solo me metia el ultimo así constantemente con multi_query( no he utilizado )
 if($conn->multi_query($sql)=== TRUE){
     echo"Valores introducidos satisfactoriamente";
 }else{
-    echo "Error al crear la base de datos: ". $conn->error;
+    echo "Error al introducir los datos en la tabla: ". $conn->error;
 }
 
 $conn->close();
