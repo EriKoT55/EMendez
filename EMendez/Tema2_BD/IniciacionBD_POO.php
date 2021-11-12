@@ -26,7 +26,7 @@ $result = $conn->query($query);
 
 //Array asociativo
 
-$all = $result->fetch_all(MYSQLI_ASSOC);
+$partidos = $result->fetch_all(MYSQLI_ASSOC);
 
 
 echo "<br>";
