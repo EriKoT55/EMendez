@@ -6,7 +6,6 @@ $partidos = json_decode(file_get_contents($api_url . "parties"), true);
 $provincias = json_decode(file_get_contents($api_url . "districts"), true);
 $resultados = json_decode(file_get_contents($api_url . "results"), true);
 
-
 $servername="localhost";
 $username="root";
 $password="Ageofempires2*";
@@ -20,10 +19,26 @@ $conn = new mysqli($servername,$username,$password,$dbname);
 if($conn->connect_error){
     die("Conexion fallida: ". $conn->connect_error);
 }
+
+$query = "SELECT * FROM Partidos";
+
+$result = $conn->query($query);
+
+//Array asociativo
+
+$all = $result->fetch_all(MYSQLI_ASSOC);
+
+
+echo "<br>";
+echo"<pre>";
+var_dump($all);
+echo "</pre>";
+
+
 /* Insertar datos de los arrays de objetos a la base de datos automatizar */
 //Creacion de una base de datos
 /*$sql ="CREATE DATABASE Elecciones";*/
-$sql="";
+/*$sql="";
 for ($i=0;$i<count($partidos);$i++){
     $name[]=$partidos[$i]["name"];
     $name[$i]=$conn->real_escape_string($name[$i]);
@@ -32,7 +47,7 @@ for ($i=0;$i<count($partidos);$i++){
     $sql .= "'".$name[$i]."'" . "," . "'".$partidos[$i]["acronym"]."'" . "," . "'".$partidos[$i]["logo"]."'". "," . "'".$partidos[$i]["colour"]."'";
     // Coger los valores del array e ir introduciendolos en la tabla
     $sql.=");";
-}
+}*/
 /*
 $sql.="";
 for ($i=0;$i<count($provincias);$i++){
@@ -42,21 +57,29 @@ for ($i=0;$i<count($provincias);$i++){
     $sql.=");";
 }
 */
-/*$sql.="";
+/*$sql="";
 for ($i=0;$i<count($resultados);$i++){
+    $party[]=$resultados[$i]["party"];
+    $party[$i]=$conn->real_escape_string($party[$i]);
     $sql .= "INSERT INTO  Resultados (district,party,votes)VALUES (";
-    $sql .= "'".$resultados[$i]["district"]."'".","."'".$resultados[$i]["party"]."'" .",".$resultados[$i]["votes"];
+    $sql .= "'".$resultados[$i]["district"]."'".","."'".$party[$i]."'" .",".$resultados[$i]["votes"];
      //Coger los valores del array e ir introduciendolos en la tabla
     $sql.=");";
 }*/
 
+/*$sql= "CREATE TABLE Resultados (
+   id INT(20) AUTO_INCREMENT PRIMARY KEY ,
+    district VARCHAR(30) NOT NULL,
+    party VARCHAR(100),
+    votes INT(50)
+)";*/
 
 // Si los hacia todos juntos solo me metia el ultimo así constantemente con multi_query( no he utilizado )
-if($conn->multi_query($sql)=== TRUE){
+/*if($conn->multi_query($sql)=== TRUE){
     echo"Valores introducidos satisfactoriamente";
 }else{
     echo "Error al introducir los datos en la tabla: ". $conn->error;
 }
-
+*/
 $conn->close();
 ?>

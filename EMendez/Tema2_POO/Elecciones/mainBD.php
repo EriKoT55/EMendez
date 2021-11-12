@@ -1,9 +1,23 @@
 <?php
 error_reporting(0);
+$servername="localhost";
+$username="root";
+$password="Ageofempires2*";
+$dbname="Elecciones";
+
+//Creo la conexion
+$conn = new mysqli($servername,$username,$password,$dbname);
+
+// Me aseguro de si va bien la conexion
+
+if($conn->connect_error){
+    die("Conexion fallida: ". $conn->connect_error);
+}
 
 require("Partidos.php");
 require("Provincias.php");
 require("Resultados.php");
+
 
 $api_url = "https://dawsonferrer.com/allabres/apis_solutions/elections/api.php?data=";
 
