@@ -31,7 +31,7 @@ if($conn->connect_error){
     
 )";*/
 
-    //Introduccion de FK a episodes
+    //Introduccion de FK a episodes y despues hice de location
 $sql = "ALTER TABLE Characters ADD FOREIGN KEY(location) REFERENCES Locations(id)";
 
 /*$sql = "CREATE TABLE Episodes(
