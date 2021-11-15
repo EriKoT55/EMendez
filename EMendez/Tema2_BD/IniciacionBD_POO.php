@@ -7,12 +7,12 @@ $provincias = json_decode(file_get_contents($api_url . "districts"), true);
 $resultados = json_decode(file_get_contents($api_url . "results"), true);
 
 $servername="localhost";
-$username="root";
+$username="erikPhp"; //Cambiar en casa por erikPhp, // Poner en clase root
 $password="Ageofempires2*";
-$dbname="Elecciones";
+/*$dbname="Elecciones";*/
 
 //Creo la conexion
-$conn = new mysqli($servername,$username,$password,$dbname);
+$conn = new mysqli($servername,$username,$password);
 
 // Me aseguro de si va bien la conexion
 

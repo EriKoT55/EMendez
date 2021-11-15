@@ -1,8 +1,8 @@
 <?php
 
-include("Character.php");
-include("Episode.php");
-include("Location.php");
+require("Character.php");
+require("Episode.php");
+require("Location.php");
 
 $seed = 3702; //TODO: LAST 4 NUMBERS OF YOUR DNI.
 $api_url = "https://dawsonferrer.com/allabres/apis_solutions/rickandmorty/api.php?seed=" . $seed . "&data=";
@@ -10,6 +10,13 @@ $api_url = "https://dawsonferrer.com/allabres/apis_solutions/rickandmorty/api.ph
 $characters = json_decode(file_get_contents($api_url . "characters"), true);
 $episodes = json_decode(file_get_contents($api_url . "episodes"), true);
 $locations = json_decode(file_get_contents($api_url . "locations"), true);
+
+/*
+    echo "<br>";
+    echo "<pre>";
+    var_dump($locations);
+    echo "</pre>";
+*/
 
 function getSortedCharactersById($characters)
 {
