@@ -27,8 +27,8 @@ $resultProvincias = $conn->query($queryProvincias);
 //Array asociativo
 $provinciasBD = $resultProvincias->fetch_all(MYSQLI_ASSOC);
 
-//Provincias
-$queryResultados = "SELECT * FROM Provincias";
+//Resultados
+$queryResultados = "SELECT * FROM Resultados";
 $resultResultados = $conn->query($queryResultados);
 //Array asociativo
 $resultadosBD = $resultResultados->fetch_all(MYSQLI_ASSOC);
@@ -42,10 +42,12 @@ $partidos = $partidosBD;
 $provincias = $provinciasBD;
 $resultados = $resultadosBD;
 
-/*echo "<br>";
+/*
+echo "<br>";
 echo "<pre>";
 var_dump($resultados);
-echo "</pre>";*/
+echo "</pre>";
+*/
 
 //con foreach le digo que el array es como el valor que le doy y me guarda en este ultimo los valores del array.
 //Resultados
