@@ -1,19 +1,50 @@
 <?php
 error_reporting(0);
 
+//***********************************************
+
+$servername="localhost";
+$username="erikPhp"; //casa erikPhp // clase root
+$password="Ageofempires2*";
+$dbname="Elecciones";
+
+//Creo la conexion
+$conn = new mysqli($servername,$username,$password,$dbname);
+
+// Me aseguro de si va bien la conexion
+if($conn->connect_error){
+    die("Conexion fallida: ". $conn->connect_error);
+}
+
+//Partidos
+$queryPartidos = "SELECT * FROM Partidos";
+$resultPartidos = $conn->query($queryPartidos);
+//Array asociativo
+$partidosBD = $resultPartidos->fetch_all(MYSQLI_ASSOC);
+
+//Provincias
+$queryProvincias = "SELECT * FROM Provincias";
+$resultProvincias = $conn->query($queryProvincias);
+//Array asociativo
+$provinciasBD = $resultProvincias->fetch_all(MYSQLI_ASSOC);
+
+//Resultados
+$queryResultados = "SELECT * FROM Resultados";
+$resultResultados = $conn->query($queryResultados);
+//Array asociativo
+$resultadosBD = $resultResultados->fetch_all(MYSQLI_ASSOC);
+
+//************************************************
+
+
 require("Partidos.php");
 require("Provincias.php");
 require("Resultados.php");
 
-$api_url = "https://dawsonferrer.com/allabres/apis_solutions/elections/api.php?data=";
-//***********************************************
 
-
-
-//************************************************
-$partidos = json_decode(file_get_contents($api_url . "parties"), true);
-$provincias = json_decode(file_get_contents($api_url . "districts"), true);
-$resultados = json_decode(file_get_contents($api_url . "results"), true);
+$partidos = $partidosBD;
+$provincias = $provinciasBD;
+$resultados = $resultadosBD;
 
 
 /*echo "<br>";
@@ -233,7 +264,7 @@ function EscanyosPartido($results_obj){
     </style>
 </head>
 <body>
-<form method="get" action="main.php">
+<form method="get" action="mainBD2_Casa.php">
     <select name="sortingCriteria">
         <option selected value="unsorted">Selecciona filtrado</option>
         <option selected value="Resultados_generales">Resultados generales</option>

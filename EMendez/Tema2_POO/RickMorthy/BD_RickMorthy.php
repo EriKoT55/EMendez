@@ -10,14 +10,14 @@ $locations = json_decode(file_get_contents($api_url . "locations"), true);
 /*
 echo "<br>";
 echo"<pre>";
-var_dump($locations);
+var_dump($characters);
 echo "</pre>";
 */
 
 //Crear base de datos rick and morthy, añadir tablas e introducir datos en ellas.
 
 $servername= "localhost";
-$username="root"; //casa erikPhp //clase root
+$username="erikPhp"; //casa erikPhp //clase root
 $password="Ageofempires2*";
 $database="RickMorthy";
 
@@ -47,8 +47,7 @@ if($conn->connect_error){
     
 )";*/
 
-    //Introduccion de FK a episodes y despues hice de location
-
+//Esto lo pense yo, no funciona    //Introduccion de FK a episodes y despues hice de location
 //$sql="ALTER TABLE Characters ADD FOREIGN KEY(episodes) REFERENCES Episodes(id)";
 //$sql = "ALTER TABLE Characters ADD FOREIGN KEY(location) REFERENCES Locations(id)";
 
@@ -88,35 +87,30 @@ if($conn->connect_error){
     FOREIGN KEY(idChars) references Characters(id)
 )";*/
 
-/*$sql="";
+$sql="";
 
 for($i=0;$i<count($characters);$i++){
 
-    $name=[];
+    $name[]=$characters[$i]["name"];
     $name[$i]=$conn->real_escape_string($name[$i]);
 
-    $created=[];
+    $created[]=$characters[$i]["created"];
     $created[$i]=$conn->real_escape_string($created[$i]);
 
     $sql.="INSERT INTO Characters(id,name,status,species,type,gender,origin,location,image,created) VALUES(";
     $sql.="'".$characters[$i]["id"]."'".","."'".$name[$i]."'".","."'".$characters[$i]["status"]."'".","."'".$characters[$i]["species"]."'".","."'".$characters[$i]["type"]."'".","."'".$characters[$i]["gender"]."'".",".$characters[$i]["origin"].",".$characters[$i]["location"].","."'".$characters[$i]["image"]."'".","."'".$created[$i]."'";
     $sql.=");";
 
-    if($conn->query($sql) === TRUE){
-        echo "bn";
-    }else{
-        echo "Error: "."$sql".$conn->error;
-    }
 
-}*/
+}
 
-/*$sql="DELETE FROM Characters ";
+/*$sql="DELETE FROM Characters ";*/
 
 if($conn->multi_query($sql) === TRUE){
-    echo "bn";
+    echo "Se realizo correctamente";
 }else{
     echo "Error: ".$conn->error;
-}*/
+}
 
 $conn->close();
 ?>
