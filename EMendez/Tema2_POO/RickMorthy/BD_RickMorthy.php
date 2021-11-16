@@ -88,17 +88,14 @@ if($conn->connect_error){
 )";*/
 
 $sql="";
-
 for($i=0;$i<count($characters);$i++){
 
     $name[]=$characters[$i]["name"];
     $name[$i]=$conn->real_escape_string($name[$i]);
 
-    $created[]=$characters[$i]["created"];
-    $created[$i]=$conn->real_escape_string($created[$i]);
 
     $sql.="INSERT INTO Characters(id,name,status,species,type,gender,origin,location,image,created) VALUES(";
-    $sql.="'".$characters[$i]["id"]."'".","."'".$name[$i]."'".","."'".$characters[$i]["status"]."'".","."'".$characters[$i]["species"]."'".","."'".$characters[$i]["type"]."'".","."'".$characters[$i]["gender"]."'".",".$characters[$i]["origin"].",".$characters[$i]["location"].","."'".$characters[$i]["image"]."'".","."'".$created[$i]."'";
+    $sql.="'".$characters[$i]["id"]."'".","."'".$name[$i]."'".","."'".$characters[$i]["status"]."'".","."'".$characters[$i]["species"]."'".","."'".$characters[$i]["type"]."'".","."'".$characters[$i]["gender"]."'".",".$characters[$i]["origin"].",".$characters[$i]["location"].","."'".$characters[$i]["image"]."'".","."'".$characters[$i]["created"]."'";
     $sql.=");";
 
 
