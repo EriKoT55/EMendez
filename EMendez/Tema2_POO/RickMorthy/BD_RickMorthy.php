@@ -16,15 +16,15 @@ echo "</pre>";
 
 //Crear base de datos rick and morthy, añadir tablas e introducir datos en ellas.
 
-$servername= "localhost";
-$username="erikPhp"; //casa erikPhp //clase root
-$password="Ageofempires2*";
-$database="RickMorthy";
+$servername = "localhost";
+$username = "erikPhp"; //casa erikPhp //clase root
+$password = "Ageofempires2*";
+$database = "RickMorthy";
 
-$conn = new mysqli($servername,$username,$password,$database);
+$conn = new mysqli($servername, $username, $password, $database);
 
-if($conn->connect_error){
-    die("Conexion fallida: ". $conn->connect_error);
+if ($conn->connect_error) {
+    die("Conexion fallida: " . $conn->connect_error);
 }
 
 /*$sql= "CREATE DATABASE RickMorthy";*/
@@ -87,27 +87,30 @@ if($conn->connect_error){
     FOREIGN KEY(idChars) references Characters(id)
 )";*/
 
-$sql="";
-for($i=0;$i<count($characters);$i++){
 
-    $name[]=$characters[$i]["name"];
-    $name[$i]=$conn->real_escape_string($name[$i]);
+for ($i = 0; $i < count($characters); $i++) {
 
+    $name = $characters[$i]["name"];
+    $name = $conn->real_escape_string($name);
 
-    $sql.="INSERT INTO Characters(id,name,status,species,type,gender,origin,location,image,created) VALUES(";
-    $sql.="'".$characters[$i]["id"]."'".","."'".$name[$i]."'".","."'".$characters[$i]["status"]."'".","."'".$characters[$i]["species"]."'".","."'".$characters[$i]["type"]."'".","."'".$characters[$i]["gender"]."'".",".$characters[$i]["origin"].",".$characters[$i]["location"].","."'".$characters[$i]["image"]."'".","."'".$characters[$i]["created"]."'";
-    $sql.=");";
+    $sql = "INSERT INTO Characters(id,name,status,species,type,gender,origin,location,image,created)
+       values('" . $characters[$i]["id"] . "','" . $name . "','" . $characters[$i]["status"] . "','" . $characters[$i]["species"] . "','" . $characters[$i]["type"] . "','" . $characters[$i]["gender"] . "','" . $characters[$i]["origin"] . "','" . $characters[$i]["location"] . "','" . $characters[$i]["image"] . "','" . $characters[$i]["created"] . "')  ";
 
+    if ($conn->multi_query($sql) === TRUE) {
+        echo "Se realizo correctamente";
+    } else {
+        echo "Error: " . $conn->error;
+    }
 
 }
 
-/*$sql="DELETE FROM Characters ";*/
+//$sql="DELETE FROM Characters ";
 
-if($conn->multi_query($sql) === TRUE){
+/*if ($conn->multi_query($sql) === TRUE) {
     echo "Se realizo correctamente";
-}else{
-    echo "Error: ".$conn->error;
-}
+} else {
+    echo "Error: " . $conn->error;
+}*/
 
 $conn->close();
 ?>
