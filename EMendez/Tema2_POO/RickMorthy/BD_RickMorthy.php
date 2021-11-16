@@ -2,7 +2,7 @@
 //Crear base de datos rick and morthy, añadir tablas e introducir datos en ellas.
 
 $servername= "localhost";
-$username="root";
+$username="erikPhp"; //casa erikPhp //clase root
 $password="Ageofempires2*";
 $database="RickMorthy";
 
@@ -11,6 +11,8 @@ $conn = new mysqli($servername,$username,$password,$database);
 if($conn->connect_error){
     die("Conexion fallida: ". $conn->connect_error);
 }
+
+/*$sql= "CREATE DATABASE RickMorthy";*/
 
 //Fallo al referenciar la tabla, ya que no existe, pero debo crear una antes
 //para que funcione debere crear una tabla sin FK y despues con un alter table
@@ -32,7 +34,10 @@ if($conn->connect_error){
 )";*/
 
     //Introduccion de FK a episodes y despues hice de location
+
+//$sql="ALTER TABLE Characters ADD FOREIGN KEY(episodes) REFERENCES Episodes(id)";
 $sql = "ALTER TABLE Characters ADD FOREIGN KEY(location) REFERENCES Locations(id)";
+
 
 /*$sql = "CREATE TABLE Episodes(
         id INT(5) NOT NULL PRIMARY KEY,

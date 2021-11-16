@@ -9,17 +9,18 @@ $resultados = json_decode(file_get_contents($api_url . "results"), true);
 $servername="localhost";
 $username="erikPhp"; //Cambiar en casa por erikPhp, // Poner en clase root
 $password="Ageofempires2*";
-/*$dbname="Elecciones";*/
+$dbname="Elecciones";
 
 //Creo la conexion
-$conn = new mysqli($servername,$username,$password);
+$conn = new mysqli($servername,$username,$password,$dbname);
 
 // Me aseguro de si va bien la conexion
 
 if($conn->connect_error){
     die("Conexion fallida: ". $conn->connect_error);
 }
-
+//++++++++++++++++++++++++++
+//Utilizar la BD en vez de json
 $query = "SELECT * FROM Partidos";
 
 $result = $conn->query($query);
@@ -27,12 +28,12 @@ $result = $conn->query($query);
 //Array asociativo
 
 $partidos = $result->fetch_all(MYSQLI_ASSOC);
+//+++++++++++++++++++++
 
-
-echo "<br>";
+/*echo "<br>";
 echo"<pre>";
 var_dump($all);
-echo "</pre>";
+echo "</pre>";*/
 
 
 /* Insertar datos de los arrays de objetos a la base de datos automatizar */
@@ -48,8 +49,9 @@ for ($i=0;$i<count($partidos);$i++){
     // Coger los valores del array e ir introduciendolos en la tabla
     $sql.=");";
 }*/
+
 /*
-$sql.="";
+$sql="";
 for ($i=0;$i<count($provincias);$i++){
     $sql .= "INSERT INTO  Provincias (name,delegates)VALUES (";
     $sql .= "'".$provincias[$i]["name"]."'" . "," . $provincias[$i]["delegates"];
@@ -57,6 +59,7 @@ for ($i=0;$i<count($provincias);$i++){
     $sql.=");";
 }
 */
+
 /*$sql="";
 for ($i=0;$i<count($resultados);$i++){
     $party[]=$resultados[$i]["party"];
@@ -74,12 +77,28 @@ for ($i=0;$i<count($resultados);$i++){
     votes INT(50)
 )";*/
 
+/*$sql= "CREATE TABLE Partidos(
+    
+    id INT(10) AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    acronym VARCHAR(10) NOT NULL,
+    logo VARCHAR(100) ,
+    colour VARCHAR(10)
+    
+)";*/
+
+/*$sql= "CREATE TABLE Provincias(
+    id INT(10) AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(20),
+    delegates INT(5)
+)";*/
+
 // Si los hacia todos juntos solo me metia el ultimo así constantemente con multi_query( no he utilizado )
-/*if($conn->multi_query($sql)=== TRUE){
+if($conn->multi_query($sql)=== TRUE){
     echo"Valores introducidos satisfactoriamente";
 }else{
     echo "Error al introducir los datos en la tabla: ". $conn->error;
 }
-*/
+
 $conn->close();
 ?>

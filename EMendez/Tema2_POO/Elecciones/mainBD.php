@@ -3,7 +3,7 @@ error_reporting(0);
 
 //************************************************************************
 $servername="localhost";
-$username="root";
+$username="erikPhp"; //casa erikPhp // clase root
 $password="Ageofempires2*";
 $dbname="Elecciones";
 
