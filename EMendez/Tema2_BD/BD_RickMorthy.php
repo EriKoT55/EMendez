@@ -8,16 +8,18 @@ $episodes = json_decode(file_get_contents($api_url . "episodes"), true);
 $locations = json_decode(file_get_contents($api_url . "locations"), true);
 
 
-/*echo "<br>";
+/*
+echo "<br>";
 echo"<pre>";
-var_dump($episodes);
-echo "</pre>";*/
+var_dump($locations);
+echo "</pre>";
+*/
 
 
 //Crear base de datos rick and morthy, añadir tablas e introducir datos en ellas.
 
 $servername = "localhost";
-$username = "erikPhp"; //casa erikPhp //clase root
+$username = "root"; //casa erikPhp //clase root
 $password = "Ageofempires2*";
 $database = "RickMorthy";
 
@@ -61,22 +63,20 @@ if ($conn->connect_error) {
 
     )";*/
 
-
 /*$sql= "CREATE TABLE EpsChars(
+        id INT(5) PRIMARY KEY,
+        idChars  INT(10),
         idEps INT(10),
-        idChars INT(10),
-        PRIMARY KEY(idChars,idEps),
-        FOREIGN KEY(idEps) references Episodes(id),
-        FOREIGN KEY(idChars) references Characters(id)
+        FOREIGN KEY(idChars) references Characters(id),
+        FOREIGN KEY(idEps) references Episodes(id)
 )";*/
 
 /*$sql="CREATE TABLE Locations(
     id INT(5) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    type VARCHAR(20),
+    type VARCHAR(50),
     dimension VARCHAR(50),
-    created VARCHAR(50),
-    residents int(5)
+    created VARCHAR(50)
                      )";*/
 
 /*$sql="CREATE TABLE LocsChars(
@@ -113,7 +113,7 @@ if ($conn->connect_error) {
     $sql="INSERT INTO Episodes(id,name,air_date,episode,created)
             VALUES ('".$episodes[$i]["id"]."','".$name."','".$episodes[$i]["air_date"]."','".$episodes[$i]["episode"]."','".$episodes[$i]["created"]."')";
 
-    if ($conn->multi_query($sql) === TRUE) {
+    if ($conn->query($sql) === TRUE) {
         echo "Se realizo correctamente";
     } else {
         echo "Error: " . $conn->error;
@@ -121,13 +121,48 @@ if ($conn->connect_error) {
 
 }*/
 
-//$sql="DELETE FROM Characters ";
+//Insertar datos en EpsChars
+/*$contador=0;
+for($i=0;$i<count($characters);$i++){
 
+    for($j=0;$j<count($characters[$i]["episodes"]);$j++){
+        $contador++;
+        $sql="INSERT INTO EpsChars(id,idChars,idEps)
+            VALUES('".($contador+1)."','".$characters[$i]["id"]."','".$characters[$i]["episodes"][$j]."')";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "Se realizo correctamente";
+        } else {
+            echo "Error: " . $conn->error;
+        }
+    }
+}*/
+
+//Insertar datos en Locations
+
+/*for($i=0;$i<count($locations);$i++){
+
+    $name=$locations[$i]["name"];
+    $name=$conn->real_escape_string($name);
+
+    $sql="INSERT INTO Locations(id,name,type,dimension,created)
+          VALUES('".$locations[$i]["id"]."','".$name."','".$locations[$i]["type"]."','".$locations[$i]["dimension"]."','".$locations[$i]["created"]."')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Se realizo correctamente";
+    } else {
+        echo "Error: " . $conn->error;
+    }
+
+}*/
+
+
+/*$sql="DELETE FROM EpsChars";
 if ($conn->multi_query($sql) === TRUE) {
     echo "Se realizo correctamente";
 } else {
     echo "Error: " . $conn->error;
-}
+}*/
 
 $conn->close();
 ?>
