@@ -18,12 +18,12 @@ echo "</pre>";
 
 //Crear base de datos rick and morthy, añadir tablas e introducir datos en ellas.
 
-$servername = "localhost";
-$username = "root"; //casa erikPhp //clase root
-$password = "Ageofempires2*";
-$database = "RickMorthy";
+$servername="sql480.main-hosting.eu";
+$username="u850300514_emendez";
+$password="x43233702G";
+/*$database="u850300514_emendez";*/
 
-$conn = new mysqli($servername, $username, $password, $database);
+$conn = new mysqli($servername, $username, $password);
 
 if ($conn->connect_error) {
     die("Conexion fallida: " . $conn->connect_error);

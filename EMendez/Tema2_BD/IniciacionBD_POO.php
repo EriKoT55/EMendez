@@ -6,20 +6,20 @@ $partidos = json_decode(file_get_contents($api_url . "parties"), true);
 $provincias = json_decode(file_get_contents($api_url . "districts"), true);
 $resultados = json_decode(file_get_contents($api_url . "results"), true);
 
-$servername="localhost";
-$username="erikPhp"; //Cambiar en casa por erikPhp, // Poner en clase root
-$password="Ageofempires2*";
-$dbname="Elecciones";
+$servername="sql480.main-hosting.eu";
+$username="u850300514_emendez"; //casa erikPhp // clase root
+$password="x43233702G";
+//$database="Elecciones_u850300514_emendez";
 
 //Creo la conexion
-$conn = new mysqli($servername,$username,$password,$dbname);
+$conn = new mysqli($servername,$username,$password);
 
 // Me aseguro de si va bien la conexion
 
 if($conn->connect_error){
     die("Conexion fallida: ". $conn->connect_error);
 }
-//++++++++++++++++++++++++++
+/*//++++++++++++++++++++++++++
 //Utilizar la BD en vez de json
 $query = "SELECT * FROM Partidos";
 
@@ -28,7 +28,7 @@ $result = $conn->query($query);
 //Array asociativo
 
 $partidos = $result->fetch_all(MYSQLI_ASSOC);
-//+++++++++++++++++++++
+//+++++++++++++++++++++*/
 
 /*echo "<br>";
 echo"<pre>";
@@ -38,7 +38,7 @@ echo "</pre>";*/
 
 /* Insertar datos de los arrays de objetos a la base de datos automatizar */
 //Creacion de una base de datos
-/*$sql ="CREATE DATABASE Elecciones";*/
+$sql ="CREATE DATABASE Elecciones_u850300514_emendez";
 /*$sql="";
 for ($i=0;$i<count($partidos);$i++){
     $name[]=$partidos[$i]["name"];
@@ -94,7 +94,7 @@ for ($i=0;$i<count($resultados);$i++){
 )";*/
 
 // Si los hacia todos juntos solo me metia el ultimo así constantemente con multi_query( no he utilizado )
-if($conn->multi_query($sql)=== TRUE){
+if($conn->query($sql)=== TRUE){
     echo"Valores introducidos satisfactoriamente";
 }else{
     echo "Error al introducir los datos en la tabla: ". $conn->error;
