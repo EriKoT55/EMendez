@@ -7,12 +7,12 @@ $characters = json_decode(file_get_contents($api_url . "characters"), true);
 $episodes = json_decode(file_get_contents($api_url . "episodes"), true);
 $locations = json_decode(file_get_contents($api_url . "locations"), true);
 
-/*
-echo "<br>";
+
+/*echo "<br>";
 echo"<pre>";
-var_dump($characters);
-echo "</pre>";
-*/
+var_dump($episodes);
+echo "</pre>";*/
+
 
 //Crear base de datos rick and morthy, añadir tablas e introducir datos en ellas.
 
@@ -55,10 +55,10 @@ if ($conn->connect_error) {
 /*$sql = "CREATE TABLE Episodes(
         id INT(5) NOT NULL PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
+        air_date VARCHAR(25),
         episode VARCHAR(15) NOT NULL,
-        created VARCHAR(50) NOT NULL,
-        characters INT(5)
-        //FOREIGN KEY(characters) references Characters(id)
+        created VARCHAR(50) NOT NULL
+
     )";*/
 
 
@@ -87,8 +87,8 @@ if ($conn->connect_error) {
     FOREIGN KEY(idChars) references Characters(id)
 )";*/
 
-
-for ($i = 0; $i < count($characters); $i++) {
+//Insertar datos en Characters
+/*for ($i = 0; $i < count($characters); $i++) {
 
     $name = $characters[$i]["name"];
     $name = $conn->real_escape_string($name);
@@ -102,15 +102,32 @@ for ($i = 0; $i < count($characters); $i++) {
         echo "Error: " . $conn->error;
     }
 
-}
+}*/
+
+//Insertar datos en episode
+/*for($i=0;$i<count($episodes);$i++){
+
+    $name= $episodes[$i]["name"];
+    $name= $conn->real_escape_string($name);
+
+    $sql="INSERT INTO Episodes(id,name,air_date,episode,created)
+            VALUES ('".$episodes[$i]["id"]."','".$name."','".$episodes[$i]["air_date"]."','".$episodes[$i]["episode"]."','".$episodes[$i]["created"]."')";
+
+    if ($conn->multi_query($sql) === TRUE) {
+        echo "Se realizo correctamente";
+    } else {
+        echo "Error: " . $conn->error;
+    }
+
+}*/
 
 //$sql="DELETE FROM Characters ";
 
-/*if ($conn->multi_query($sql) === TRUE) {
+if ($conn->multi_query($sql) === TRUE) {
     echo "Se realizo correctamente";
 } else {
     echo "Error: " . $conn->error;
-}*/
+}
 
 $conn->close();
 ?>
