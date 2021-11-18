@@ -18,12 +18,12 @@ echo "</pre>";
 
 //Crear base de datos rick and morthy, añadir tablas e introducir datos en ellas.
 
-$servername="sql480.main-hosting.eu";
-$username="u850300514_emendez";
-$password="x43233702G";
-/*$database="u850300514_emendez";*/
+$servername="localhost";
+$username="erikPhp";
+$password="Ageofempires2*";
+$database="RickMorthy";
 
-$conn = new mysqli($servername, $username, $password);
+$conn = new mysqli($servername, $username, $password,$database);
 
 if ($conn->connect_error) {
     die("Conexion fallida: " . $conn->connect_error);
@@ -157,8 +157,8 @@ for($i=0;$i<count($characters);$i++){
 }*/
 
 
-/*$sql="DELETE FROM EpsChars";
-if ($conn->multi_query($sql) === TRUE) {
+//$sql="DELETE FROM EpsChars";
+/*if ($conn->query($sql) === TRUE) {
     echo "Se realizo correctamente";
 } else {
     echo "Error: " . $conn->error;

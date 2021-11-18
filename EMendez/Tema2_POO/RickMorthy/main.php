@@ -3,6 +3,7 @@
 require("Character.php");
 require("Episode.php");
 require("Location.php");
+require("BD.php");
 
 $seed = 3702; //TODO: LAST 4 NUMBERS OF YOUR DNI.
 $api_url = "https://dawsonferrer.com/allabres/apis_solutions/rickandmorty/api.php?seed=" . $seed . "&data=";

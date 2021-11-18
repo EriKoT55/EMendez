@@ -6,10 +6,10 @@ $partidos = json_decode(file_get_contents($api_url . "parties"), true);
 $provincias = json_decode(file_get_contents($api_url . "districts"), true);
 $resultados = json_decode(file_get_contents($api_url . "results"), true);
 
-$servername="sql480.main-hosting.eu";
-$username="u850300514_emendez"; //casa erikPhp // clase root
-$password="x43233702G";
-//$database="Elecciones_u850300514_emendez";
+$servername="localhost";
+$username="erikPhp"; //casa erikPhp // clase root
+$password="Ageofempires2*";
+$database="Elecciones";
 
 //Creo la conexion
 $conn = new mysqli($servername,$username,$password);
@@ -38,7 +38,7 @@ echo "</pre>";*/
 
 /* Insertar datos de los arrays de objetos a la base de datos automatizar */
 //Creacion de una base de datos
-$sql ="CREATE DATABASE Elecciones_u850300514_emendez";
+//$sql ="CREATE DATABASE Elecciones_u850300514_emendez";
 /*$sql="";
 for ($i=0;$i<count($partidos);$i++){
     $name[]=$partidos[$i]["name"];
@@ -94,6 +94,7 @@ for ($i=0;$i<count($resultados);$i++){
 )";*/
 
 // Si los hacia todos juntos solo me metia el ultimo así constantemente con multi_query( no he utilizado )
+
 if($conn->query($sql)=== TRUE){
     echo"Valores introducidos satisfactoriamente";
 }else{
