@@ -24,10 +24,39 @@ function Characters(){
 
     $charactersBD= $resultCharacter->fetch_all(MYSQLI_ASSOC);
 
-    /*Me falta meter el idEps de la tabla EpsChars en el array CharactersBD */
+    /*Meter los eps en la tabla, con fetch_assoc*/
+    /*https://www.php.net/manual/es/mysqli-result.fetch-assoc.php*/
 
     return $charactersBD;
 }
 
+function Episodes(){
+
+    global $conn;
+
+    $query="SELECT * FROM Episodes";
+
+    $resultEpisodes= $conn->query($query);
+
+    $episodesBD= $resultEpisodes->fetch_all(MYSQLI_ASSOC);
+
+
+    return $episodesBD;
+}
+
+function Locations(){
+
+    global $conn;
+
+    $query="SELECT * FROM Locations";
+
+    $resultLocations= $conn->query($query);
+
+    $locationsBD= $resultLocations->fetch_all(MYSQLI_ASSOC);
+
+
+    return $locationsBD;
+
+}
 
 ?>
