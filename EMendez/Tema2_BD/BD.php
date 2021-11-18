@@ -1,5 +1,5 @@
 <?php
-
+/*PREGUTNAR AL PROFE*/
 class BD{
 
     private $Partidos, $Provincias, $Resultados;

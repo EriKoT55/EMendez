@@ -6,13 +6,13 @@ $partidos = json_decode(file_get_contents($api_url . "parties"), true);
 $provincias = json_decode(file_get_contents($api_url . "districts"), true);
 $resultados = json_decode(file_get_contents($api_url . "results"), true);
 
-$servername="localhost";
-$username="erikPhp"; //casa erikPhp // clase root
-$password="Ageofempires2*";
-$database="Elecciones";
+$servername="sql480.main-hosting.eu";//sql480.main-hosting.eu
+$username="u850300514_emendez"; //u850300514_emendez //casa erikPhp // clase root
+$password="x43233702G";//x43233702G
+$database="u850300514_emendez";//u850300514_emendez
 
 //Creo la conexion
-$conn = new mysqli($servername,$username,$password);
+$conn = new mysqli($servername,$username,$password,$database);
 
 // Me aseguro de si va bien la conexion
 
@@ -39,35 +39,50 @@ echo "</pre>";*/
 /* Insertar datos de los arrays de objetos a la base de datos automatizar */
 //Creacion de una base de datos
 //$sql ="CREATE DATABASE Elecciones_u850300514_emendez";
-/*$sql="";
-for ($i=0;$i<count($partidos);$i++){
+
+/*for ($i=0;$i<count($partidos);$i++){
+
     $name[]=$partidos[$i]["name"];
     $name[$i]=$conn->real_escape_string($name[$i]);
 
-    $sql .= "INSERT INTO Partidos (name,acronym,logo,colour)VALUES (";
-    $sql .= "'".$name[$i]."'" . "," . "'".$partidos[$i]["acronym"]."'" . "," . "'".$partidos[$i]["logo"]."'". "," . "'".$partidos[$i]["colour"]."'";
-    // Coger los valores del array e ir introduciendolos en la tabla
-    $sql.=");";
+    $sql = "INSERT INTO Partidos (name,acronym,logo,colour)
+        VALUES ('".$name[$i]."','".$partidos[$i]["acronym"]."','".$partidos[$i]["logo"]."','".$partidos[$i]["colour"]."')";
+
+    if($conn->query($sql)=== TRUE){
+        echo"Valores introducidos satisfactoriamente";
+    }else{
+        echo "Error al introducir los datos en la tabla: ". $conn->error;
+    }
 }*/
 
-/*
-$sql="";
-for ($i=0;$i<count($provincias);$i++){
-    $sql .= "INSERT INTO  Provincias (name,delegates)VALUES (";
-    $sql .= "'".$provincias[$i]["name"]."'" . "," . $provincias[$i]["delegates"];
-    //Coger los valores del array e ir introduciendolos en la tabla
-    $sql.=");";
-}
-*/
 
-/*$sql="";
-for ($i=0;$i<count($resultados);$i++){
+
+/*for ($i=0;$i<count($provincias);$i++){
+    $sql = "INSERT INTO  Provincias (name,delegates)
+    VALUES ('".$provincias[$i]["name"]."','".$provincias[$i]["delegates"]."')";
+    //Coger los valores del array e ir introduciendolos en la tabla
+    if($conn->query($sql)=== TRUE){
+        echo"Valores introducidos satisfactoriamente";
+    }else{
+        echo "Error al introducir los datos en la tabla: ". $conn->error;
+    }
+}*/
+
+
+
+/*for ($i=0;$i<count($resultados);$i++){
     $party[]=$resultados[$i]["party"];
-    $party[$i]=$conn->real_escape_string($party[$i]);
-    $sql .= "INSERT INTO  Resultados (district,party,votes)VALUES (";
-    $sql .= "'".$resultados[$i]["district"]."'".","."'".$party[$i]."'" .",".$resultados[$i]["votes"];
+    $party[]=$conn->real_escape_string($party[$i]);
+
+    $sql = "INSERT INTO  Resultados (district,party,votes)
+    VALUES ('".$resultados[$i]["district"]."','".$party[$i]."','".$resultados[$i]["votes"]."')";
      //Coger los valores del array e ir introduciendolos en la tabla
-    $sql.=");";
+
+    if($conn->query($sql)=== TRUE){
+        echo"Valores introducidos satisfactoriamente";
+    }else{
+        echo "Error al introducir los datos en la tabla: ". $conn->error;
+    }
 }*/
 
 /*$sql= "CREATE TABLE Resultados (
@@ -95,11 +110,11 @@ for ($i=0;$i<count($resultados);$i++){
 
 // Si los hacia todos juntos solo me metia el ultimo así constantemente con multi_query( no he utilizado )
 
-if($conn->query($sql)=== TRUE){
+/*if($conn->multy_query($sql)=== TRUE){
     echo"Valores introducidos satisfactoriamente";
 }else{
     echo "Error al introducir los datos en la tabla: ". $conn->error;
-}
+}*/
 
 $conn->close();
 ?>

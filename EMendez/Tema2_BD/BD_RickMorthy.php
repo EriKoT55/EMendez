@@ -18,10 +18,10 @@ echo "</pre>";
 
 //Crear base de datos rick and morthy, añadir tablas e introducir datos en ellas.
 
-$servername="localhost";
-$username="erikPhp";
-$password="Ageofempires2*";
-$database="RickMorthy";
+$servername="sql480.main-hosting.eu";//sql480.main-hosting.eu
+$username="u850300514_emendez"; //u850300514_emendez //casa erikPhp // clase root
+$password="x43233702G";//x43233702G
+$database="u850300514_emendez";//u850300514_emendez
 
 $conn = new mysqli($servername, $username, $password,$database);
 
@@ -77,8 +77,8 @@ if ($conn->connect_error) {
     type VARCHAR(50),
     dimension VARCHAR(50),
     created VARCHAR(50)
-                     )";*/
-
+                     )";
+*/
 /*$sql="CREATE TABLE LocsChars(
     idLocs INT(10),
     idChars INT(10),

@@ -1,9 +1,9 @@
 <?php
 /*Crear una nueva conexion en MYSQL, CASA*/
-$servername="localhost";//sql480.main-hosting.eu
-$username="erikPhp"; //u850300514_emendez //casa erikPhp // clase root
-$password="Ageofempires2*";//x43233702G
-$database="RickMorthy";//RickMorthy_u850300514_emendez
+$servername="sql480.main-hosting.eu";//sql480.main-hosting.eu
+$username="u850300514_emendez"; //u850300514_emendez //casa erikPhp // clase root
+$password="x43233702G";//x43233702G
+$database="u850300514_emendez";//RickMorthy_u850300514_emendez
 
 //Creo la conexion
 $conn = new mysqli($servername,$username,$password,$database);
@@ -22,13 +22,18 @@ function Characters(){
 
     $resultCharacter= $conn->query($query);
 
-    $charactersBD= $resultCharacter->fetch_all(MYSQLI_ASSOC);
+    for($i=0;$fila=$resultCharacter->fetch_assoc();$i++){
+        //Crear arrays vacios en los cuales meter las filas.
+    }
 
     /*Meter los eps en la tabla, con fetch_assoc*/
+    //Con dos bucles y un filtro
     /*https://www.php.net/manual/es/mysqli-result.fetch-assoc.php*/
 
-    return $charactersBD;
+    //return $charactersBD;
 }
+
+
 
 function Episodes(){
 
