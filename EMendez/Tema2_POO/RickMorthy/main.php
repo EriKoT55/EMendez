@@ -36,7 +36,7 @@ function getSortedCharactersById($characters)
 
         }
     }
-    return $character;
+    return $characters;
 }
 
 function getSortedCharactersByOrigin($characters)
