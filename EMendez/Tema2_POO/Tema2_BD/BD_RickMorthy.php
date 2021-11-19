@@ -158,11 +158,11 @@ for($i=0;$i<count($characters);$i++){
 
 
 //$sql="DELETE FROM EpsChars";
-/*if ($conn->query($sql) === TRUE) {
+if ($conn->query($sql) === TRUE) {
     echo "Se realizo correctamente";
 } else {
     echo "Error: " . $conn->error;
-}*/
+}
 
 $conn->close();
 ?>

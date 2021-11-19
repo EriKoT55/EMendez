@@ -65,9 +65,7 @@ function Locations(){
 
     $locationsBD= $resultLocations->fetch_all(MYSQLI_ASSOC);
 
-
     return $locationsBD;
-
 }
 
 ?>
