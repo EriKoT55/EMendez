@@ -240,7 +240,7 @@ $mappedCharacters = mapCharacters($characters);
                 <?php
                 //TODO: Your code here.
                 for($i=0;$i<count($characters);$i++) {
-                    echo "<div class='col-md-4 col-sm-12 col-xs-12'>";
+                    /*echo "<div class='col-md-4 col-sm-12 col-xs-12'>";
                         echo "<div class='card mb-4 box-shadow bg-light'>";
                             echo "<img class='card-img-top' src='".$characters[$i]["image"]."'>";
                                 echo "<div class='card-body'>";
@@ -262,6 +262,35 @@ $mappedCharacters = mapCharacters($characters);
                                             echo "<div class='mb-3'>";
                                             echo "</div>";
                                         echo "<form>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "</div>";*/
+                    echo "<div class='col-md-4 col-sm-12 col-xs-12'>";
+                    echo "<div class='card mb-4 box-shadow bg-light'>";
+                    echo "<img class='card-img-top' src=" . $characters[$i]['image'] . "></img>";
+                    echo "<div class='card-body'>";
+                    echo "<h5 class='card-title'>" . $characters[$i]['name'] . "</h5>";
+                    echo "<div class='alert alert-success' style='padding:0;' role='alert'>" . $characters[$i]['status'] . " - " . $characters[$i]['species'] . "</div>";
+                    echo "<form>";
+                    echo "<div class='mb-3' style='margin-bottom:0!important;'>";
+                    echo "<label class='form-label' for='exampleInputEmail1' style='margin-bottom: 0;'>";
+                    echo "<strong>Origin</strong>";
+                    echo "</label>";
+                    echo "<div id='emailHelp' class='form-text' style='margin-top:0;'>";
+                    //if ($lista[$i]['origin']!="0"){
+                    echo $characters[$i]['origin'];
+                    /*}else{
+                        echo "Unknown";
+                    }*/
+                    echo "</div>";
+                    echo "</div>";
+                    echo "<label class='form-label' for='exampleInputEmail1' style='margin-bottom: 0;'>";
+                    echo "<strong>Last Known Location</strong>";
+                    echo "</label>";
+                    echo "<div id='emailHelp' class='form-text' style='margin-top:0;'>";
+                    echo $characters[$i]['location'];
+                    echo "</div>";
+                    echo "</form>";
                     echo "</div>";
                     echo "</div>";
                     echo "</div>";

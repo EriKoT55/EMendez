@@ -22,18 +22,25 @@ function Characters(){
 
     $resultCharacter= $conn->query($query);
 
-    for($i=0;$fila=$resultCharacter->fetch_assoc();$i++){
-        //Crear arrays vacios en los cuales meter las filas.
-    }
+    $characterBD= $resultCharacter->fetch_all(MYSQLI_ASSOC);
 
     /*Meter los eps en la tabla, con fetch_assoc*/
     //Con dos bucles y un filtro
     /*https://www.php.net/manual/es/mysqli-result.fetch-assoc.php*/
+    $query="SELECT * FROM EpsChars";
 
-    //return $charactersBD;
+    $resultEpsChars= $conn->query($query);
+
+    for($i=0;$fila=$resultEpsChars->fetch_assoc();$i++){
+        for($j=0;$j<count($characterBD);$j++){
+            if($fila["idChars"]==$characterBD[$j]["id"]){
+                $characterBD[$j]["episodes"][]=$fila["idEps"];
+            }
+        }
+    }
+
+    return $characterBD;
 }
-
-
 
 function Episodes(){
 
@@ -44,7 +51,6 @@ function Episodes(){
     $resultEpisodes= $conn->query($query);
 
     $episodesBD= $resultEpisodes->fetch_all(MYSQLI_ASSOC);
-
 
     return $episodesBD;
 }
