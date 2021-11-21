@@ -14,7 +14,7 @@ $locations = json_decode(file_get_contents($api_url . "locations"), true);
 /*
 echo "<br>";
 echo "<pre>";
-echo  var_dump($locations);
+echo  var_dump($characters);
 echo "<br>";
 */
 //*********************************************
@@ -66,6 +66,27 @@ function ordenarPorID(){
 
 }
 
+function ordenarPorOrigin(){
+    global $characters_obj;
+
+    for($i=0;$i<count($characters_obj);$i++){
+        for($j=$i;$j<count($characters_obj);$j++){
+            if($characters_obj[$i]->getOrigin()>$characters_obj[$j]->getOrigin()){
+
+                $aux=$characters_obj[$i];
+                $characters_obj[$i]=$characters_obj[$j];
+                $characters_obj[$j]=$aux;
+
+            }
+        }
+    }
+
+    echo "<br>";
+    echo "<pre>";
+    echo  var_dump($characters_obj);
+    echo "<br>";
+
+}
 
 
 $sortingCriteria = "";
@@ -104,7 +125,7 @@ $sortingCriteria = $_GET["sortingCriteria"];
 
 <?php
 
-ordenarPorID();
+ordenarPorOrigin();
 
 ?>
 </body>
