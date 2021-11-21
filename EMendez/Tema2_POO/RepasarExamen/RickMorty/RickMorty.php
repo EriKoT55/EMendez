@@ -2,6 +2,10 @@
 $seed = 3702; //TODO: LAST 4 NUMBERS OF YOUR DNI.
 $api_url = "https://dawsonferrer.com/allabres/apis_solutions/rickandmorty/api.php?seed=" . $seed . "&data=";
 
+require("Character.php");
+require("Episode.php");
+require("Location.php");
+
 //NOTE: Arrays unsorted
 $characters = json_decode(file_get_contents($api_url . "characters"), true);
 $episodes = json_decode(file_get_contents($api_url . "episodes"), true);
@@ -19,18 +23,50 @@ echo "<br>";
 $characters_obj=[];
 foreach ($characters as $character){
 
-
+$characters_obj[]=new Character($character["id"],$character["name"],$character["status"],
+    $character["species"],$character["type"],$character["gender"],$character["origin"],
+    $character["location"],$character["image"],$character["created"],$character["episodes"]);
 
 }
 
+$episodes_obj=[];
+foreach ($episodes as $episode){
+
+$episodes_obj[]= new Episode($episode["id"],$episode["name"],$episode["air_date"],
+    $episode["episode"],$episode["created"],$episode["characters"]);
+
+}
+
+$locations_obj=[];
+foreach($locations as $location){
+
+$locations_obj[]=new Location($location["id"],$location["name"],$location["type"],
+    $location["dimension"],$location["created"],$location["residents"]);
+
+}
 
 //*********************************************
+
 function ordenarPorID(){
-    global $characters;
+    global $characters_obj;
 
+    for($i=0;$i<count($characters_obj);$i++){
+        for($j=$i;$j<count($characters_obj);$j++){
+            if($characters_obj[$i]>$characters_obj[$j]){
 
+                $aux=$characters_obj[$i];
+                $characters_obj[$i]=$characters_obj[$j];
+                $characters_obj[$j]=$aux;
+
+            }
+        }
+    }
+
+    return $characters_obj;
 
 }
+
+
 
 $sortingCriteria = "";
 if (isset($_GET["sortingCriteria"])) {
@@ -68,7 +104,7 @@ $sortingCriteria = $_GET["sortingCriteria"];
 
 <?php
 
-
+ordenarPorID();
 
 ?>
 </body>
