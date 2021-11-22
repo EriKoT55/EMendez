@@ -81,6 +81,67 @@ function ordenarPorOrigin(){
         }
     }
 
+   return $characters_obj ;
+
+}
+
+function ordenarPorStatus(){
+
+    global $characters_obj;
+
+    for($i=0;$i<count($characters_obj);$i++){
+        for($j=$i;$j<count($characters_obj);$j++){
+            if($characters_obj[$i]->getStatus("Alive")>$characters_obj[$j]->getStatus("Alive")){
+                $aux=$characters_obj[$i];
+                $characters_obj[$i]=$characters_obj[$j];
+                $characters_obj[$j]=$aux;
+            }
+        }
+    }
+    /*Perfeccionar el ordenar, porque debe ser ordenado por alive dead y unknown*/
+
+    return $characters_obj;
+
+}
+
+function mappingCharacters(){
+    global $characters_obj;
+    global $locations_obj;
+    global $episodes_obj;
+
+    for($i=0;$i<count($characters_obj);$i++){
+        for($j=0;$j<count($locations_obj);$j++){
+            if($characters_obj[$i]->getOrigin()==$locations_obj[$j]->getId()){
+
+                $characters_obj[$i]->setOrigin($locations_obj[$j]->getName());
+
+            }
+        }
+    }
+
+    for($i=0;$i<count($characters_obj);$i++){
+        for($j=0;$j<count($locations_obj);$j++){
+            if($characters_obj[$i]->getLocation()==$locations_obj[$j]->getId()){
+
+                $characters_obj[$i]->setLocation($locations_obj[$j]->getName());
+
+            }
+        }
+    }
+/*ver porque no funciona, si hago dos bucles de character_obj para obtener los eps no me da problema
+*/
+    for($i=0;$i<count($characters_obj);$i++){
+        for($k=0;$k<count($characters_obj[$i]->getEpisodes());$k++){
+   for($j=0;$j<count($episodes_obj);$j++){
+
+               if ($characters_obj[$i]->getEpisodes()[$k] == $episodes_obj[$j]->getId()) {
+                   $characters_obj[$i]->setEpisodes($episodes_obj[$j]->getName());
+               }
+
+          }
+       }
+    }
+
     echo "<br>";
     echo "<pre>";
     echo  var_dump($characters_obj);
@@ -88,16 +149,20 @@ function ordenarPorOrigin(){
 
 }
 
-
 $sortingCriteria = "";
 if (isset($_GET["sortingCriteria"])) {
 $sortingCriteria = $_GET["sortingCriteria"];
     switch($sortingCriteria){
 
         case "id":
-            //$characters=/*Poner aqui funcion que ordena por id*/;
+            $characters=ordenarPorID();
             break;
-        //case...
+        case "origin":
+            $characters=ordenarPorOrigin();
+            break;
+        case "status":
+            $characters=ordenarPorStatus();
+            break;
 
     }
 }
@@ -125,7 +190,7 @@ $sortingCriteria = $_GET["sortingCriteria"];
 
 <?php
 
-ordenarPorOrigin();
+mappingCharacters();
 
 ?>
 </body>
