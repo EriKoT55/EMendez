@@ -19,13 +19,32 @@ function Characters(){
 
     $sql="SELECT * FROM Characters";
 
+    $result=$conn->query($sql);
 
+    $characterBD=$result->fetch_all(MYSQLI_ASSOC);
 
+    $sql="SELECT * FROM EpsChars";
+    $result=$conn->query($sql);
 
-    return $characterBD;
+    for($j=0;$fila=$result->fetch_assoc();$j++){
+        for($i=0;$i<count($characterBD);$i++){
+            if($characterBD[$i]["id"]==$fila["idChars"]){
+                $characterBD[$i]["episodes"][]=$fila["idEps"];
+            }
+        }
+    }
+
+   return $characterBD;
 }
 
 function Episodes(){
+    global $conn;
+
+    $sql="SELECT * FROM Episodes";
+
+    $result=$conn->query($sql);
+
+    $episodesBD=$result->fetch_all(MYSQLI_ASSOC);
 
 
 
@@ -33,7 +52,13 @@ function Episodes(){
 }
 
 function Locations(){
+    global $conn;
 
+    $sql="SELECT * FROM Locations";
+
+    $result=$conn->query($sql);
+
+    $locationsBD=$result->fetch_all(MYSQLI_ASSOC);
 
     return $locationsBD;
 }

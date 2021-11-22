@@ -3,7 +3,7 @@
 class Location
 {
 
-    private $id,$name,$type,$dimension,$created,$residents;
+    private $id,$name,$type,$dimension,$created;
 
     /**
      * @param $id
@@ -13,14 +13,14 @@ class Location
      * @param $created
      * @param $residents
      */
-    public function __construct($id, $name, $type, $dimension, $created,array $residents)
+    public function __construct($id, $name, $type, $dimension, $created)
     {
         $this->id = $id;
         $this->name = $name;
         $this->type = $type;
         $this->dimension = $dimension;
         $this->created = $created;
-        $this->residents = $residents;
+
     }
 
     /**
@@ -106,18 +106,6 @@ class Location
     /**
      * @return array
      */
-    public function getResidents()
-    {
-        return $this->residents;
-    }
-
-    /**
-     * @param array $residents
-     */
-    public function setResidents($residents)
-    {
-        $this->residents = $residents;
-    }
 
 
 

@@ -3,7 +3,7 @@
 class Episode
 {
 
-    private $id,$name,$air_date,$episode,$created, $characters;
+    private $id,$name,$air_date,$episode,$created;
 
     /**
      * @param $id
@@ -13,14 +13,14 @@ class Episode
      * @param $created
      * @param $characters
      */
-    public function __construct($id, $name, $air_date, $episode, $created,array $characters)
+    public function __construct($id, $name, $air_date, $episode, $created)
     {
         $this->id = $id;
         $this->name = $name;
         $this->air_date = $air_date;
         $this->episode = $episode;
         $this->created = $created;
-        $this->characters = $characters;
+
     }
 
     /**

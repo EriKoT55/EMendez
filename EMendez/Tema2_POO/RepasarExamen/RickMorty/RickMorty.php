@@ -33,7 +33,7 @@ $episodes_obj=[];
 foreach ($episodes as $episode){
 
 $episodes_obj[]= new Episode($episode["id"],$episode["name"],$episode["air_date"],
-    $episode["episode"],$episode["created"],$episode["characters"]);
+    $episode["episode"],$episode["created"]);
 
 }
 
@@ -41,7 +41,7 @@ $locations_obj=[];
 foreach($locations as $location){
 
 $locations_obj[]=new Location($location["id"],$location["name"],$location["type"],
-    $location["dimension"],$location["created"],$location["residents"]);
+    $location["dimension"],$location["created"]);
 
 }
 
