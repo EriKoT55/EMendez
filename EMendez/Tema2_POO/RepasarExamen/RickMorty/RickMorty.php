@@ -1,15 +1,15 @@
 <?php
-$seed = 3702; //TODO: LAST 4 NUMBERS OF YOUR DNI.
+/*$seed = 3702; //TODO: LAST 4 NUMBERS OF YOUR DNI.
 $api_url = "https://dawsonferrer.com/allabres/apis_solutions/rickandmorty/api.php?seed=" . $seed . "&data=";
-
+*/
 require("Character.php");
 require("Episode.php");
 require("Location.php");
-
+require("BD.php");
 //NOTE: Arrays unsorted
-$characters = json_decode(file_get_contents($api_url . "characters"), true);
-$episodes = json_decode(file_get_contents($api_url . "episodes"), true);
-$locations = json_decode(file_get_contents($api_url . "locations"), true);
+$characters = Characters();
+$episodes = Episodes();
+$locations = Locations();
 
 /*
 echo "<br>";
@@ -111,10 +111,12 @@ function mappingCharacters(){
 
     for($i=0;$i<count($characters_obj);$i++){
         for($j=0;$j<count($locations_obj);$j++){
-            if($characters_obj[$i]->getOrigin()==$locations_obj[$j]->getId()){
+            if($characters_obj[$i]->getOrigin()==$locations_obj[$j]->getId() && $characters_obj[$i]->getOrigin()!="0"){
 
                 $characters_obj[$i]->setOrigin($locations_obj[$j]->getName());
 
+            }else if($characters_obj[$i]->getOrigin()=="0"){
+                $characters_obj[$i]->setOrigin("Unknown");
             }
         }
     }
@@ -125,28 +127,30 @@ function mappingCharacters(){
 
                 $characters_obj[$i]->setLocation($locations_obj[$j]->getName());
 
+            }else if($characters_obj[$i]->getLocation()=="0"){
+                $characters_obj[$i]->setLocation("Unknown");
             }
         }
     }
 /*ver porque no funciona, si hago dos bucles de character_obj para obtener los eps no me da problema
 */
+    $episodios=[];
     for($i=0;$i<count($characters_obj);$i++){
+      for ($j = 0; $j < count($episodes_obj); $j++) {
         for($k=0;$k<count($characters_obj[$i]->getEpisodes());$k++){
-   for($j=0;$j<count($episodes_obj);$j++){
+            if ($characters_obj[$i]->getEpisodes()[$k] == intval($episodes_obj[$j]->getId()) && $characters_obj[$i]->getEpisodes()[$k]!=0) {
+                $episodios[$k]=$episodes_obj[$j]->getName();
+            }else if($characters_obj[$i]->getEpisodes()==0){
+                $episodios[$k]="Unknown";
+            }
 
-               if ($characters_obj[$i]->getEpisodes()[$k] == $episodes_obj[$j]->getId()) {
-                   $characters_obj[$i]->setEpisodes($episodes_obj[$j]->getName());
-               }
-
-          }
        }
+     }
+      $characters_obj[$i]->setEpisodes($episodios);
     }
 
-    echo "<br>";
-    echo "<pre>";
-    echo  var_dump($characters_obj);
-    echo "<br>";
 
+   return $characters_obj;
 }
 
 $sortingCriteria = "";
@@ -190,7 +194,12 @@ $sortingCriteria = $_GET["sortingCriteria"];
 
 <?php
 
-mappingCharacters();
+
+echo "<br>";
+echo "<pre>";
+echo  var_dump($characters_obj);
+echo "<br>";
+
 
 ?>
 </body>
