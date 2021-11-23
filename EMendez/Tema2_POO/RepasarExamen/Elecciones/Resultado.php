@@ -8,13 +8,15 @@ class Resultado
      * @param $district
      * @param $party
      * @param $votes
+     * @param $escanyos
      */
-    public function __construct($district, $party, $votes)
+    public function __construct($district, $party, $votes,$escanyos)
     {
         $this->district = $district;
         $this->party = $party;
         $this->votes = $votes;
-        $this->escanyo=$escanyo;
+        $this->escanyos = $escanyos;
+
     }
 
     /**
@@ -64,17 +66,14 @@ class Resultado
     {
         $this->votes = $votes;
     }
-    public function getEscanyo()
-    {
-        return $this->$escanyo;
-    }
 
-    /**
-     * @param mixed $escanyo
-     */
-    public function setEscanyo($escanyo)
+    public function getEscanyos()
     {
-        $this->escanyo = $escanyo;
+        return $this->escanyos;
+    }
+    public function setEscanyos($escanyos)
+    {
+        $this->escanyos = $escanyos;
     }
 
 }

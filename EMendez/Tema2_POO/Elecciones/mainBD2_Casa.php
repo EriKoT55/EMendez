@@ -3,13 +3,12 @@ error_reporting(0);
 
 //***********************************************
 
-$servername="localhost";
-$username="erikPhp"; //casa erikPhp // clase root
-$password="Ageofempires2*";
-$dbname="Elecciones";
+$servername="sql480.main-hosting.eu";
+$username="u850300514_emendez";
+$password="x43233702G";
+$bdname="u850300514_emendez";
 
-//Creo la conexion
-$conn = new mysqli($servername,$username,$password,$dbname);
+$conn= new mysqli($servername,$username,$password,$bdname);
 
 // Me aseguro de si va bien la conexion
 if($conn->connect_error){

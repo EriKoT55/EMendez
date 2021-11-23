@@ -1,50 +1,38 @@
 <?php
+
 error_reporting(0);
 
-require("Partidos.php");
-require("Provincias.php");
-require("Resultados.php");
+require("Partido.php");
+require("Provincia.php");
+require("Resultado.php");
+require("BD.php");
 
+$partidos = Partidos();
+$provincias = Provincias();
+$resultados = Resultados();
 
-$api_url = "https://dawsonferrer.com/allabres/apis_solutions/elections/api.php?data=";
-
-$partidos = json_decode(file_get_contents($api_url . "parties"), true);
-$provincias = json_decode(file_get_contents($api_url . "districts"), true);
-$resultados = json_decode(file_get_contents($api_url . "results"), true);
-
-/*echo "<br>";
-echo "<pre>";
-var_dump($resultados);
-echo "</pre>";*/
-
-//con foreach le digo que el array es como el valor que le doy y me guarda en este ultimo los valores del array.
-//Resultados
-//  Creo array para introducir los valores al objeto(casting)
-$results_obj = [];
-foreach ($resultados as $resultado) {
-    $results_obj[] = new Resultados($resultado["district"], $resultado["party"], intval($resultado["votes"]),0);
-}
-
-//Creo array para introducir los valores al objeto(casting)
-// Partidos
-$partidos_obj = [];
-foreach ($partidos as $partido) {
-    $partidos_obj[] = new Partidos(intval($partido["id"]), $partido["name"], $partido["acronym"], $partido["logo"], $partido["colour"]);
-}
-
-//Creo array para introducir los valores al objeto(casting)
-// Provincias
-$provincias_obj = [];
-foreach ($provincias as $provincia => $valor) {
-    $provincias_obj[] = new Provincias(intval($valor["id"]), $valor["name"], intval($valor["delegates"]));
-}
 /*
 echo "<br>";
 echo "<pre>";
-echo  var_dump($partidos_obj);
-echo "<br>";*/
+echo  var_dump($partidos);
+echo "<br>";
+*/
 
-//Duplicar objeto results, para trabajar en el duplicado e ir dividiendo los votos para sacar los escaños despues pasar los escaños al original
+$partidos_obj=[];
+foreach ($partidos as $partido){
+    $partidos_obj[]= new Partido(intval($partido["id"]),$partido["name"],$partido["acronym"],$partido["logo"],$partido["colour"]);
+}
+
+$provincias_obj=[];
+foreach ($provincias as $provincia => $valor){
+    $provincias_obj[]=new Provincia(intval($valor["id"]),$valor["name"],intval($valor["delegates"]));
+}
+
+$results_obj=[];
+foreach($resultados as $resultado){
+    $results_obj[]= new Resultado($resultado["district"],$resultado["party"],intval($resultado["votes"]),0);
+}
+
 $resultsDuplicate_obj = $results_obj;
 
 //Tabla para mostrar resultados
@@ -215,37 +203,37 @@ function EscanyosPartido($results_obj){
 }
 
 ?>
-<html lang="es">
-<head>
-    <title>Elecciones</title>
-    <style>
-        th{
-            background-color: black;
-            color:white;
-            border:1px solid white;
-            border-collapse: collapse;
-            padding: 10px;
-        }
-        table,tr,td{
-            border: 1px solid black;
-            border-collapse: collapse;
-            padding: 10px;
-        }
-    </style>
-</head>
-<body>
-<form method="get" action="main.php">
-    <select name="sortingCriteria">
-        <option selected value="unsorted">Selecciona filtrado</option>
-        <option selected value="Resultados_generales">Resultados generales</option>
-        <option selected value="Filtrar_por_provincia">Filtrar por provincia</option>
-        <option selected value="Filtrar_por_partido">Filtrar por partido</option>
-    </select>
-    <button type="submit">Sort</button>
-</form>
+    <html lang="es">
+    <head>
+        <title>Elecciones</title>
+        <style>
+            th{
+                background-color: black;
+                color:white;
+                border:1px solid white;
+                border-collapse: collapse;
+                padding: 10px;
+            }
+            table,tr,td{
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+    <form method="get" action="mainE.php">
+        <select name="sortingCriteria">
+            <option selected value="unsorted">Selecciona filtrado</option>
+            <option selected value="Resultados_generales">Resultados generales</option>
+            <option selected value="Filtrar_por_provincia">Filtrar por provincia</option>
+            <option selected value="Filtrar_por_partido">Filtrar por partido</option>
+        </select>
+        <button type="submit">Sort</button>
+    </form>
 
-</body>
-</html>
+    </body>
+    </html>
 <?php
 
 if (isset($_GET["sortingCriteria"]) || isset($_GET["provincia"]) || isset($_GET["partido"])) {
