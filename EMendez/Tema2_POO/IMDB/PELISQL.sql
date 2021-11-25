@@ -9,3 +9,9 @@ Bond rastrea a Madeleine hasta la casa de su infancia en Noruega. Allí se enter
 Q, Bond y Nomi localizan a Safin en una base de la Segunda Guerra Mundial en una isla entre Japón y Rusia. Se infiltran en la sede de Safin y se enteran de que Safin ha convertido la base en una fábrica de nanobots, donde hace que Obruchev cree millones de nanobots para que pueda liberarlos a nivel mundial para matar a millones de personas y establecer un nuevo orden mundial para él. Bond mata a muchos de los hombres de Safin, mientras que Nomi mata a Obruchev empujándolo a una tina de nanobots. Después de rescatar a Madeleine y Mathilde, Bond hace que escapen con Nomi de la isla mientras él se queda atrás para abrir las puertas del silo de la isla, lo que permitiría un ataque con misiles del HMS Dragon para destruir a los nanobots.
 Bond mata a los hombres restantes de Safin antes de enfrentarse al mismo Safin; luchan y Safin dispara a Bond antes de infectarlo con nanobots programados para matar a Madeleine y Mathilde. A pesar de sus heridas, Bond mata a Safin y abre los silos. Hablando por radio con Madeleine, Bond le dice que la ama y la anima a seguir adelante sin él, y ella confirma que Mathilde es su hija cuando Bond se despide. Bond acepta su destino cuando los misiles golpean la isla y destruyen la fábrica de nanobots.
 En el MI6, M, Moneypenny, Q, Tanner y Nomi beben en honor a Bond. La película termina con Madeleine llevando a Mathilde a Matera cuando comienza a contarle sobre Bond.");
+
+INSERT INTO Persona(ID,Nombre,Apellidos,Fecha_Nacimiento,Descripcion)
+values(1,"Daniel"," Craig","1968-03-02","One of the British theatre's most famous faces, Daniel Craig, who waited tables as a struggling teenage actor with the National Youth Theatre, has gone on to star as James Bond in Casino Royale (2006), Quantum of Solace (2008), Skyfall (2012), Spectre (2015), and Sin tiempo para morir (2021).");
+
+INSERT INTO PersPeli (ID,DNI,IDPeli)
+values();
