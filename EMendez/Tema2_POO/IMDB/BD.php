@@ -14,16 +14,22 @@ if($conn->connect_error){
     die("Conexion fallida: ". $conn->connect_error);
 }
 
-function Persona(){
+for($i=0;$i<count();$i++){
+
+}
+
+/*function Persona(){
 global $conn;
 
-    $sql="SELECT * FROM Personas";
+    $sql="SELECT *
+    FROM Personas p
+    JOIN ";
 
     $result=$conn->query($sql);
 
     $personaBD=$result->fetch_all(MYSQLI_ASSOC);
 
     return $personaBD;
-}
+}*/
 
 ?>
