@@ -14,16 +14,16 @@ if($conn->connect_error){
     die("Conexion fallida: ". $conn->connect_error);
 }
 
-$sql="INSERT INTO Persona(ID,Nombre,Apellidos,Fecha_Nacimiento,Descripcion)
-values(1,'Daniel','Craig','1968-03-02','One of the British theatres most famous faces, Daniel Craig, who waited tables as a struggling teenage actor with the National Youth Theatre, has gone on to star as James Bond in Casino Royale (2006), Quantum of Solace (2008), Skyfall (2012), Spectre (2015), and Sin tiempo para morir (2021).')";
+function Persona(){
+global $conn;
 
+    $sql="SELECT * FROM Personas";
 
+    $result=$conn->query($sql);
 
-    if ($conn->multi_query($sql) === TRUE) {
-        echo "Se realizo correctamente";
-    } else {
-        echo "Error: " . $conn->error;
-    }
+    $personaBD=$result->fetch_all(MYSQLI_ASSOC);
 
+    return $personaBD;
+}
 
 ?>
