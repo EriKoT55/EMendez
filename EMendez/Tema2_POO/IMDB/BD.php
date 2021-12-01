@@ -14,15 +14,13 @@ if($conn->connect_error){
     die("Conexion fallida: ". $conn->connect_error);
 }
 
-for($i=0;$i<count();$i++){
 
-}
 
-/*function Persona(){
+function Persona(){
 global $conn;
-
+//Sacar esto con Join, voy a necesitar unos cuantos hasta llegar al nombre de persona
     $sql="SELECT *
-    FROM Personas p
+    FROM 
     JOIN ";
 
     $result=$conn->query($sql);
@@ -30,6 +28,6 @@ global $conn;
     $personaBD=$result->fetch_all(MYSQLI_ASSOC);
 
     return $personaBD;
-}*/
+}
 
 ?>

@@ -2,7 +2,7 @@
 
 class Persona
 {
-    private $ID,$Nombre,$Apellidos,$Fecha_Nacimiento,$Descripcion;
+    private $ID,$Nombre,$Apellidos,$Fecha_Nacimiento,$Descripcion,$IMG;
 
     /**
      * @param $ID
@@ -11,15 +11,15 @@ class Persona
      * @param $Fecha_Nacimiento
      * @param $Descripcion
      */
-    public function __construct($ID, $Nombre, $Apellidos, $Fecha_Nacimiento, $Descripcion)
+    public function __construct($ID, $Nombre, $Apellidos, $Fecha_Nacimiento, $Descripcion, $IMG)
     {
         $this->ID = $ID;
         $this->Nombre = $Nombre;
         $this->Apellidos = $Apellidos;
         $this->Fecha_Nacimiento = $Fecha_Nacimiento;
         $this->Descripcion = $Descripcion;
+        $this->IMG=$IMG;;
     }
-
     /**
      * @return mixed
      */
@@ -107,6 +107,24 @@ class Persona
     public function setDescripcion($Descripcion)
     {
         $this->Descripcion = $Descripcion;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIMG()
+    {
+        return $this->IMG;
+    }
+
+    /**
+     * @param mixed $IMG
+     * @return Persona
+     */
+    public function setIMG($IMG)
+    {
+        $this->IMG = $IMG;
         return $this;
     }
 
