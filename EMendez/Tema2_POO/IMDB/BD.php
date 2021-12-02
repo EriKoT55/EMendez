@@ -20,10 +20,11 @@ function Persona(){
 global $conn;
 //Sacar esto con Join, voy a necesitar unos cuantos hasta llegar al nombre de persona
 
-    $sql="SELECT p.ID,p.Nombre,p.Apellidos,t.Nombre as Trabajo,p.Fecha_Nacimiento,p.Descripcion,p.IMG 
+    $sql="SELECT p.ID,p.Nombre,p.Apellidos,t.Nombre as Trabajo,p.Fecha_Nacimiento,p.Descripcion,p.IMG,
     FROM PersTrabj pt
     JOIN Trabajo t on t.ID=pt.TrabajoID 
     JOIN Persona p on p.ID=pt.PersonaID
+    JOIN TrabjPeli tp on tp.
     ORDER BY p.ID";
 
    $result=$conn->query($sql);
@@ -51,8 +52,6 @@ function Pelicula(){
 
     $peliculaBD=$result->fetch_all(MYSQLI_ASSOC);
 
-
-
     $sql="SELECT g.Nombre,gp.PeliculaID 
     FROM GenPeli gp
     JOIN Genero g on g.GeneroID=gp.GeneroID";
@@ -68,12 +67,35 @@ function Pelicula(){
             }
         }
     }
+
+    /*$sql="SELECT pl.ID,,t.Nombre as Trabajo,p.Nombre as Trabajador
+   FROM Peliculas pl
+   JOIN TrabjPeli tp on tp.PeliculaID=pl.ID
+   JOIN Trabajo t on t.ID=tp.TrabajoID
+   JOIN PersTrabj pt on pt.TrabajoID=t.ID
+   JOIN Persona p on p.ID=pt.PersonaID
+   ORDER BY pl.ID";*/
+
     //Utilizo la funcion anterior ya que dentro tengo ya introducido quien es actor
     //y quien director
-    Persona();
+    //$personaBD=Persona();
     //Me falta meter en Peliculas un array de actores y otro de directores
+    // if personaBD[$i]["Trabajo"]== "Actor" lo meto en un array actores
+    //else if personaBD[$i]["Trabajo"]== "Director" lo meto en un array directores
 
-//var_dump($peliculaBD);
+
+var_dump($peliculaBD);
 }
-//Pelicula();
+Pelicula();
+/*
+ Fumada de join me da trillones de resultados
+ * $sql="SELECT pl.ID,pl.Nombre,pl.Duracion,pl.Calificacion,pl.IMG,pl.Trailer,pl.Fecha_Salida,pl.Sinopsis,g.Nombre as Genero,t.Nombre as Trabajo,p.Nombre as Trabajador
+   FROM Peliculas pl
+   JOIN GenPeli gp on gp.PeliculaID=pl.ID
+   JOIN Genero g on g.GeneroID=gp.GeneroID
+   JOIN TrabjPeli tp on tp.PeliculaID=pl.ID
+   JOIN Trabajo t on t.ID=tp.TrabajoID
+   JOIN PersTrabj pt on pt.TrabajoID=t.ID
+   JOIN Persona p on p.ID=pt.PersonaID
+   ORDER BY pl.ID";*/
 ?>
