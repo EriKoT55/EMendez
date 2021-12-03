@@ -18,7 +18,7 @@ class Persona
         $this->Apellidos = $Apellidos;
         $this->Fecha_Nacimiento = $Fecha_Nacimiento;
         $this->Descripcion = $Descripcion;
-        $this->IMG=$IMG;;
+        $this->IMG=$IMG;
     }
     /**
      * @return mixed
