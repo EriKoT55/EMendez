@@ -1,6 +1,22 @@
 body{
     background: #130601;
 }
-icon{
-    color: #ffffff;
+.icon{
+    color: #a6a6a6;
+}
+.contenedor{
+    overflow: hidden;
+}
+.contenedorPelis{
+    width: 150px;
+    height: 250px;
+    border:1px solid black;
+    padding: 5px;
+    text-align: center;
+    margin:10px;
+    float:left;
+}
+img{
+    width: 100px;
+    height: 140px;
 }
