@@ -86,16 +86,4 @@ function Pelicula(){
 var_dump($peliculaBD);
 }
 Pelicula();
-/*
- Fumada de join me da trillones de resultados
- * $sql="SELECT pl.ID,pl.Nombre,pl.Duracion,pl.Calificacion,pl.IMG,pl.Trailer,pl.Fecha_Salida,pl.Sinopsis,g.Nombre as Genero,t.Nombre as Trabajo,p.Nombre as Trabajador
-   FROM Peliculas pl
-   JOIN GenPeli gp on gp.PeliculaID=pl.ID
-   JOIN Genero g on g.GeneroID=gp.GeneroID
-   JOIN TrabjPeli tp on tp.PeliculaID=pl.ID
-   JOIN Trabajo t on t.ID=tp.TrabajoID
-   JOIN PersTrabj pt on pt.TrabajoID=t.ID
-   JOIN Persona p on p.ID=pt.PersonaID
-   ORDER BY pl.ID";
-*/
 ?>
