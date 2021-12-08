@@ -27,15 +27,35 @@ class BD
 
     public function Persona(){
         global $conn;
-
+/*Quiero que las peliculas sean un array que tenga las peliculas en las que ha salido cada persona*/
         $sql="SELECT PersonaID,concat(Nombre,' ',Apellidos) as Nombre,Trabajo,Fecha_Nacimiento,Descripcion,IMG 
-            FROM Persona ";
+            FROM Persona WHERE PersonaID=".$PersonaID;
 
         $result=$conn->query($sql);
 
         $personaBD=$result->fetch_all(MYSQLI_ASSOC);
 
         return $personaBD;
+    }
+
+    public function Pelicula(){
+
+        global $conn;
+
+        $sql="SELECT pl.PeliculaID,pl.Nombre,pl.Duracion,pl.Calificacion,pl.IMG,pl.Trailer,pl.Fecha_Salida,g.Nombre as Genero,pl.Sinopsis
+        FROM  Pelicula pl 
+        JOIN GenPeli gp on gp.PeliculaID=pl.PeliculaID
+        JOIN Genero g on g.GeneroID=gp.GeneroID";
+
+        $result=$conn->query($sql);
+
+        $peliculaBD=$result->fetch_all(MYSQLI_ASSOC);
+
+        echo "<br>";
+        echo "<pre>";
+        var_dump($peliculaBD);
+        echo "<br>";
+
     }
 
 }

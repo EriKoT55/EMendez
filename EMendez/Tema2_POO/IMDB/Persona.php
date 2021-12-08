@@ -2,7 +2,7 @@
 
 class Persona
 {
-    private $ID,$Nombre,$Apellidos,$Fecha_Nacimiento,$Descripcion,$IMG;
+    private $PersonaID,$Nombre,$Apellidos,$Fecha_Nacimiento,$Descripcion,$IMG;
 
     /**
      * @param $ID
@@ -11,9 +11,9 @@ class Persona
      * @param $Fecha_Nacimiento
      * @param $Descripcion
      */
-    public function __construct($ID, $Nombre, $Apellidos, $Fecha_Nacimiento, $Descripcion, $IMG)
+    public function __construct($PersonaID, $Nombre, $Apellidos, $Fecha_Nacimiento, $Descripcion, $IMG)
     {
-        $this->ID = $ID;
+        $this->$PersonaID = $PersonaID;
         $this->Nombre = $Nombre;
         $this->Apellidos = $Apellidos;
         $this->Fecha_Nacimiento = $Fecha_Nacimiento;
@@ -23,18 +23,18 @@ class Persona
     /**
      * @return mixed
      */
-    public function getID()
+    public function getPersonaID()
     {
-        return $this->ID;
+        return $this->PersonaID;
     }
 
     /**
-     * @param mixed $ID
+     * @param mixed $PersonaID
      * @return Persona
      */
-    public function setID($ID)
+    public function setPersonaID($PersonaID)
     {
-        $this->ID = $ID;
+        $this->PersonaID = $PersonaID;
         return $this;
     }
 
