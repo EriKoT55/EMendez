@@ -60,7 +60,7 @@ if (isset($_GET["sortingCriteria"])) {
         <input type="search" id="buscar" placeholder="Search..." />
     </div>
       <!--Poner nombre a las clases-->
-    <div class="">
+    <div class="contenedorForm">
         <form class="" action="PagMain.php">
             <select class="" aria-label="Sorting criteria" name="sortingCriteria">
                 <option <?php echo($sortingCriteria == "" ? "selected" : "") ?> value="unsorted">Sorting criteria
@@ -76,7 +76,7 @@ if (isset($_GET["sortingCriteria"])) {
 <?php for($i=0;$i<count($objPelicula);$i++){?>
   <div class="contenedor">
       <div class="contenedorPelis">
-         <a href="PagPeli.php" > <img src="<?php echo $objPelicula[$i]->getIMG() ?>">
+         <a href="PagPeli.php"> <img src="<?php echo $objPelicula[$i]->getIMG() ?>">
           <p class="nomPeli"><?php echo $objPelicula[$i]->getNombre() ?></p>
           <p><?php echo $objPelicula[$i]->getCalificacion() ?></p>
          </a>
