@@ -21,6 +21,8 @@ if($conn->connect_error){
     die("Conexion fallida: ". $conn->connect_error);
 }
 
+
+
 function Persona(){
 global $conn;
 

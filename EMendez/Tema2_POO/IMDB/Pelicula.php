@@ -2,7 +2,7 @@
 
 class Pelicula
 {
-    private $ID,$Nombre,$IMG,$Trailer,$Duracion,$Fecha_Salida,$Calificacion,$Sinopsis,$Generos,$Actores,$Directores ;
+    private $ID,$Nombre,$IMG,$Trailer,$Duracion,$Fecha_Salida,$Calificacion,$Sinopsis;
 
     /**
      * @param $ID
@@ -14,7 +14,7 @@ class Pelicula
      * @param $Calificacion
      * @param $Sinopsis
      */
-    public function __construct($ID, $Nombre, $IMG, $Trailer, $Duracion, $Fecha_Salida, $Calificacion, $Sinopsis,array $Generos,array $Actores,array $Directores)
+    public function __construct($ID, $Nombre, $IMG, $Trailer, $Duracion, $Fecha_Salida, $Calificacion, $Sinopsis)
     {
         $this->ID = $ID;
         $this->Nombre = $Nombre;
@@ -24,9 +24,9 @@ class Pelicula
         $this->Fecha_Salida = $Fecha_Salida;
         $this->Calificacion = $Calificacion;
         $this->Sinopsis = $Sinopsis;
-        $this->Generos=$Generos;
-        $this->Actores=$Actores;
-        $this->Directores=$Directores;
+        $this->Generos=[];
+        $this->Actores=[];
+        $this->Directores=[];
     }
 
     /**

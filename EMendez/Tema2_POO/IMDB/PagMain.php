@@ -58,7 +58,7 @@ if (isset($_GET["sortingCriteria"])) {
     </div>
       <!--Poner nombre a las clases-->
     <div class="">
-        <form class="" action="main.php">
+        <form class="" action="PagMain.php">
             <select class="" aria-label="Sorting criteria" name="sortingCriteria">
                 <option <?php echo($sortingCriteria == "" ? "selected" : "") ?> value="unsorted">Sorting criteria
                 </option>

@@ -2,7 +2,7 @@
 
 class Persona
 {
-    private $PersonaID,$Nombre,$Apellidos,$Fecha_Nacimiento,$Descripcion,$IMG;
+    private $PersonaID,$NombreCompleto,$Trabajo,$Fecha_Nacimiento,$Descripcion,$IMG;
 
     /**
      * @param $ID
@@ -11,14 +11,15 @@ class Persona
      * @param $Fecha_Nacimiento
      * @param $Descripcion
      */
-    public function __construct($PersonaID, $Nombre, $Apellidos, $Fecha_Nacimiento, $Descripcion, $IMG)
+    public function __construct($PersonaID, $NombreCompleto,$Trabajo, $Fecha_Nacimiento, $Descripcion, $IMG)
     {
-        $this->$PersonaID = $PersonaID;
-        $this->Nombre = $Nombre;
-        $this->Apellidos = $Apellidos;
+        $this->PersonaID = $PersonaID;
+        $this->NombreCompleto = $NombreCompleto;
+        $this->Trabajo = $Trabajo;
         $this->Fecha_Nacimiento = $Fecha_Nacimiento;
         $this->Descripcion = $Descripcion;
         $this->IMG=$IMG;
+        $this->Peliculas=[];
     }
     /**
      * @return mixed
@@ -41,38 +42,37 @@ class Persona
     /**
      * @return mixed
      */
-    public function getNombre()
+    public function getNombreCompleto()
     {
         return $this->Nombre;
     }
 
     /**
-     * @param mixed $Nombre
+     * @param mixed $NombreCompleto
      * @return Persona
      */
-    public function setNombre($Nombre)
+    public function setNombreCompleto($NombreCompleto)
     {
-        $this->Nombre = $Nombre;
+        $this->NombreCompleto = $NombreCompleto;
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getApellidos()
+    public function getTrabajo()
     {
-        return $this->Apellidos;
+        return $this->Trabajo;
     }
 
     /**
-     * @param mixed $Apellidos
-     * @return Persona
+     * @param mixed $Trabajo
      */
-    public function setApellidos($Apellidos)
+    public function setTrabajo($Trabajo)
     {
-        $this->Apellidos = $Apellidos;
-        return $this;
+        $this->Trabajo = $Trabajo;
     }
+
 
     /**
      * @return mixed
@@ -126,6 +126,22 @@ class Persona
     {
         $this->IMG = $IMG;
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPeliculas()
+    {
+        return $this->Peliculas;
+    }
+
+    /**
+     * @param array $Peliculas
+     */
+    public function setPeliculas($Peliculas)
+    {
+        $this->Peliculas = $Peliculas;
     }
 
 }
