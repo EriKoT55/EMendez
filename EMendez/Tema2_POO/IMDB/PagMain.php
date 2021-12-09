@@ -5,7 +5,10 @@ include_once("Genero.php");
 include_once("BD.php");
 /*https://www.imdb.com/title/tt2382320/?pf_rd_m=A2FGELUUNOQJNL&pf_rd_p=ea4e08e1-c8a3-47b5-ac3a-75026647c16e&pf_rd_r=1VHKKEY8F9SF79HJTAB3&pf_rd_s=center-1&pf_rd_t=15506&pf_rd_i=moviemeter&ref_=chtmvm_tt_6*/
 
-//Coger las bases de datos para poder trabajar en ellas como Obj
+//Coger los datos para poder trabajar el Obj
+ $objPelicula=ObjPelicula();
+global $objPelicula;
+
 
 //Ordenacion de las peliculas
 function Ranking(){
@@ -70,15 +73,15 @@ if (isset($_GET["sortingCriteria"])) {
         </form>
     </div>
   </nav>
-<?php //for($i=0;$i<count();$i++){?>
+<?php for($i=0;$i<count($objPelicula);$i++){?>
   <div class="contenedor">
       <div class="contenedorPelis">
-         <a href="PagPeli.php" > <img src="imgs/imgsPelis/1no_time_to_die.jpg">
-          <p class="nomPeli">Nombre de la pelicula</p>
-          <p>Calificacion</p>
+         <a href="PagPeli.php" > <img src="<?php echo $objPelicula[$i]->getIMG() ?>">
+          <p class="nomPeli"><?php echo $objPelicula[$i]->getNombre() ?></p>
+          <p><?php echo $objPelicula[$i]->getCalificacion() ?></p>
          </a>
       </div>
   </div>
-      <?php //}?>
+      <?php }?>
 </body>
 </html>

@@ -24,7 +24,8 @@ if($conn->connect_error){
 }
 /*Funciones para utilizar con Persona*/
 /*Cuanto vaya introduciendo los datos en el bucle hare un setPeliculas y dentro de este metere la funcion*/
-    function Nombre_peliXactor($PersonaID){
+
+function Nombre_peliXactor($PersonaID){
         global $conn;
 
         $sql="SELECT pl.Nombre as Pelicula FROM Peliculas pl
@@ -34,7 +35,7 @@ if($conn->connect_error){
 
         $result=$conn->query($sql);
 
-        $nombre_peli_actor=$result->fetch_all(MYSQLI_ASSOC);
+        $nombre_peliXactor=$result->fetch_all(MYSQLI_ASSOC);
 
         return $nombre_peliXactor;
 
@@ -59,8 +60,9 @@ if($conn->connect_error){
         return $objsPersona;
     }
 
-/*Funciones para utilizar con Pelicula*/
+/*              Funciones para utilizar con Pelicula              */
 
+//Funcion la cual muestra los nombres de los generos por pelicula
     function GenerosXpelicula($PeliculaID){
         global $conn;
 
@@ -76,8 +78,24 @@ if($conn->connect_error){
         return $generosXpelicula;
 
     }
+//  /Funcion la cual me muestra los nombres de las personas por pelicula y trabajo/   -El nombre del trabajo debe ser Actor o Director-
+    function TrabajoXpelicula($PeliculaID,$NomTrabj){
+        global $conn;
 
-    function Datos_pelicula(){
+        $sql="SELECT concat(prs.Nombre,' ',prs.Apellidos) as NombreCompleto FROM Persona prs
+              JOIN PersPeli pp on pp.PersonaID=prs.PersonaID
+              JOIN Peliculas pl on pl.PeliculaID=pp.PeliculaID
+              WHERE pl.PeliculaID=".$PeliculaID." AND prs.Trabajo='".$NomTrabj."';";
+        $result=$conn->query($sql);
+
+        $trabajoXpelicula=$result->fetch_all(MYSQLI_ASSOC);
+
+     return $trabajoXpelicula;
+
+    }
+
+    // Datos generales de la pelicula
+    function ObjPelicula(){
         global $conn;
 
         $sql="SELECT * FROM Peliculas";
@@ -90,7 +108,7 @@ if($conn->connect_error){
 
         foreach ($peliculaBD as $peli){
 
-            $objPelicula= new Pelicula($peli["ID"],$peli["Nombre"],$peli["IMG"],$peli["Trailer"],$peli["Duracion"],$peli["Fecha_Salida"],$peli["Calificacion"],$peli["$Sinopsis"]);
+            $objPelicula[]= new Pelicula($peli["PeliculaID"],$peli["Nombre"],$peli["IMG"],$peli["Trailer"],$peli["Duracion"],$peli["Fecha_Salida"],$peli["Calificacion"],$peli["Sinopsis"]);
 
         }
 
@@ -98,16 +116,12 @@ if($conn->connect_error){
 
     }
 
-
-
-
-
-
+/*    Funciones desechadas, dejadas por si en algun caso sean necesarias o sirvan de guia para algun trabajo futuro
 
     function Persona($PersonaID){
         global $conn;
-/*Quiero que las peliculas sean un array que tenga las peliculas en las que ha salido cada persona*/
-        $sql="SELECT PersonaID,concat(Nombre,' ',Apellidos) as Nombre,Trabajo,Fecha_Nacimiento,Descripcion,IMG 
+Quiero que las peliculas sean un array que tenga las peliculas en las que ha salido cada persona
+        $sql="SELECT PersonaID,concat(Nombre,' ',Apellidos) as Nombre,Trabajo,Fecha_Nacimiento,Descripcion,IMG
             FROM Persona WHERE PersonaID=".$PersonaID.";";
 
         $result=$conn->query($sql);
@@ -122,7 +136,7 @@ if($conn->connect_error){
         global $conn;
 
         $sql="SELECT pl.PeliculaID,pl.Nombre,pl.Duracion,pl.Calificacion,pl.IMG,pl.Trailer,pl.Fecha_Salida,g.Nombre as Genero,pl.Sinopsis
-        FROM  Pelicula pl 
+        FROM  Pelicula pl
         JOIN GenPeli gp on gp.PeliculaID=pl.PeliculaID
         JOIN Genero g on g.GeneroID=gp.GeneroID";
 
@@ -136,5 +150,5 @@ if($conn->connect_error){
         echo "<br>";
 
     }
-
+*/
 
