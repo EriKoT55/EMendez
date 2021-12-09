@@ -25,7 +25,7 @@ if($conn->connect_error){
 /*Funciones para utilizar con Persona*/
 /*Cuanto vaya introduciendo los datos en el bucle hare un setPeliculas y dentro de este metere la funcion*/
 
-function Nombre_peliXactor($PersonaID){
+    function Nombre_peliXactor($PersonaID){
         global $conn;
 
         $sql="SELECT pl.Nombre as Pelicula FROM Peliculas pl
@@ -34,30 +34,32 @@ function Nombre_peliXactor($PersonaID){
               WHERE prs.PersonaID=".$PersonaID.";";
 
         $result=$conn->query($sql);
-
         $nombre_peliXactor=$result->fetch_all(MYSQLI_ASSOC);
 
-        return $nombre_peliXactor;
+        $nomPelis=[];
+        for($i=0;$i<count($nombre_peliXactor);$i++){
+            $nomPelis[]=$nombre_peliXactor[$i]["Pelicula"];
+        }
 
+        return $nomPelis;
+//No probado por prisas
     }
     function ObjPersona(){
 
         global $conn;
 
         $sql="SELECT PersonaID,concat(Nombre,' ',Apellidos) as NombreCompleto,Trabajo,Fecha_Nacimiento,Descripcion,IMG 
-            FROM Persona";
+            FROM Persona;";
 
         $result=$conn->query($sql);
-
         $personaBD=$result->fetch_all(MYSQLI_ASSOC);
 
-        $objsPersona=[];
-
+        $objPersona=[];
         foreach ($personaBD as $pers){
-            $objsPersona[]= new Persona($pers["PersonaID"],$pers["NombreCompleto"],$pers["Trabajo"],$pers["Fecha_Nacimiento"],$pers["Descripcion"],$pers["IMG"]);
+            $objPersona[]= new Persona($pers["PersonaID"],$pers["NombreCompleto"],$pers["Trabajo"],$pers["Fecha_Nacimiento"],$pers["Descripcion"],$pers["IMG"]);
         }
 
-        return $objsPersona;
+        return $objPersona;
     }
 
 /*              Funciones para utilizar con Pelicula              */
@@ -67,17 +69,21 @@ function Nombre_peliXactor($PersonaID){
         global $conn;
 
         $sql="SELECT g.Nombre as Genero FROM Genero g
-              JOIN GenPeli gp on gp.GeneroID=g.GeneroID
-              JOIN Peliculas p on p.PeliculaID=gp.PeliculaID
-              WHERE p.PeliculaID=".$PeliculaID.";";
+              JOIN GenPeli gp on g.GeneroID=gp.GeneroID
+              WHERE gp.PeliculaID=".$PeliculaID.";";
 
         $result=$conn->query($sql);
-
         $generosXpelicula=$result->fetch_all(MYSQLI_ASSOC);
 
-        return $generosXpelicula;
+        $generos=[];
+            for($i=0;$i<count($generosXpelicula);$i++){
+                $generos[]=$generosXpelicula[$i]["Genero"];
+            }
 
+        return $generos;
     }
+//GenerosXpelicula(1);
+
 //  /Funcion la cual me muestra los nombres de las personas por pelicula y trabajo/   -El nombre del trabajo debe ser Actor o Director-
     function TrabajoXpelicula($PeliculaID,$NomTrabj){
         global $conn;
@@ -86,14 +92,19 @@ function Nombre_peliXactor($PersonaID){
               JOIN PersPeli pp on pp.PersonaID=prs.PersonaID
               JOIN Peliculas pl on pl.PeliculaID=pp.PeliculaID
               WHERE pl.PeliculaID=".$PeliculaID." AND prs.Trabajo='".$NomTrabj."';";
-        $result=$conn->query($sql);
 
+        $result=$conn->query($sql);
         $trabajoXpelicula=$result->fetch_all(MYSQLI_ASSOC);
 
-     return $trabajoXpelicula;
+        $trabajos=[];
+        for($i=0;$i<count($trabajoXpelicula);$i++){
+            $trabajos[]=$trabajoXpelicula[$i]["NombreCompleto"];
+        }
+
+        return $trabajos;
 
     }
-
+//TrabajoXpelicula(1,"Actor");
     // Datos generales de la pelicula
     function ObjPelicula(){
         global $conn;
@@ -107,14 +118,29 @@ function Nombre_peliXactor($PersonaID){
         $objPelicula=[];
 
         foreach ($peliculaBD as $peli){
-
             $objPelicula[]= new Pelicula($peli["PeliculaID"],$peli["Nombre"],$peli["IMG"],$peli["Trailer"],$peli["Duracion"],$peli["Fecha_Salida"],$peli["Calificacion"],$peli["Sinopsis"]);
-
         }
 
-        return $objPelicula;
+        //return $objPelicula->setNombre();
+       return $objPelicula;
 
     }
+
+    //Insercion de datos "externos" al arrayObj Pelicula
+    function insertar(Pelicula $Pelicula){
+        $Pelicula->setGeneros(GenerosXpelicula($Pelicula->getPeliculaID()));
+        $Pelicula->setActores(TrabajoXpelicula($Pelicula->getPeliculaID(),"Actor"));
+        $Pelicula->setDirectores(TrabajoXpelicula($Pelicula->getPeliculaID(),"Director"));
+    }
+
+$ObjPelicula=ObjPelicula();
+
+    for ($i = 0; $i < count($ObjPelicula); $i++) {
+        insertar($ObjPelicula[$i]);
+        insertar($ObjPelicula[$i]);
+        insertar($ObjPelicula[$i]);
+    }
+
 
 /*    Funciones desechadas, dejadas por si en algun caso sean necesarias o sirvan de guia para algun trabajo futuro
 

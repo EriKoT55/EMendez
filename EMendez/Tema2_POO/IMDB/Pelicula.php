@@ -2,7 +2,7 @@
 
 class Pelicula
 {
-    private $ID,$Nombre,$IMG,$Trailer,$Duracion,$Fecha_Salida,$Calificacion,$Sinopsis;
+    private $PeliculaID,$Nombre,$IMG,$Trailer,$Duracion,$Fecha_Salida,$Calificacion,$Sinopsis;
 
     /**
      * @param $ID
@@ -14,9 +14,9 @@ class Pelicula
      * @param $Calificacion
      * @param $Sinopsis
      */
-    public function __construct($ID, $Nombre, $IMG, $Trailer, $Duracion, $Fecha_Salida, $Calificacion, $Sinopsis)
+    public function __construct($PeliculaID, $Nombre, $IMG, $Trailer, $Duracion, $Fecha_Salida, $Calificacion, $Sinopsis)
     {
-        $this->ID = $ID;
+        $this->PeliculaID = $PeliculaID;
         $this->Nombre = $Nombre;
         $this->IMG = $IMG;
         $this->Trailer = $Trailer;
@@ -32,18 +32,18 @@ class Pelicula
     /**
      * @return mixed
      */
-    public function getID()
+    public function getPeliculaID()
     {
-        return $this->ID;
+        return $this->PeliculaID;
     }
 
     /**
-     * @param mixed $ID
+     * @param mixed $PeliculaID
      * @return Pelicula
      */
-    public function setID($ID)
+    public function setID($PeliculaID)
     {
-        $this->ID = $ID;
+        $this->PeliculaID = $PeliculaID;
         return $this;
     }
 
