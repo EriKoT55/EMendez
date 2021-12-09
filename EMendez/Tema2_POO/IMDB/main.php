@@ -41,13 +41,18 @@ if (isset($_GET["sortingCriteria"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IMDBE</title>
-    <link type="text/css" rel="stylesheet" href="estilosMain.css">
+    <link type="text/css" rel="stylesheet" href="Estilos/estilosMain.css">
     <!-- Este link es para poder utilizar la libreria de iconos de Font Awesome-->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
-  <nav>
-    <div class="contenedor">
+<header>
+
+</header>
+  <nav class="contenedorNav">
+    <div >
+        <!--Para hacer una barra de busqueda decente-->
+       <!--https://webdesign.tutsplus.com/es/tutorials/css-experiments-with-a-search-form-input-and-button--cms-22069-->
         <span class="icon"><i class="fa fa-search"></i></span>
         <input type="search" id="buscar" placeholder="Search..." />
     </div>
@@ -68,8 +73,8 @@ if (isset($_GET["sortingCriteria"])) {
 <?php //for($i=0;$i<count();$i++){?>
   <div class="contenedor">
       <div class="contenedorPelis">
-         <a href="PagPeli.php" > <img src="https://pics.filmaffinity.com/no_time_to_die-525355918-large.jpg">
-          <p>Nombre de la pelicula</p>
+         <a href="PagPeli.php" > <img src="imgs/imgsPelis/1no_time_to_die.jpg">
+          <p class="nomPeli">Nombre de la pelicula</p>
           <p>Calificacion</p>
          </a>
       </div>
