@@ -42,7 +42,7 @@ if($conn->connect_error){
         }
 
         return $nomPelis;
-//No probado por prisas
+
     }
     function ObjPersona(){
 
@@ -124,17 +124,30 @@ if($conn->connect_error){
         return $objPelicula;
 
     }
+
+    //Pelicula
 $ObjPelicula=ObjPelicula();
     //Insercion de datos "externos" al arrayObj Pelicula
-    function insertar(Pelicula $Pelicula){
+    function insertarApelicula(Pelicula $Pelicula){
         $Pelicula->setGeneros(GenerosXpelicula($Pelicula->getPeliculaID()));
         $Pelicula->setActores(TrabajoXpelicula($Pelicula->getPeliculaID(),"Actor"));
         $Pelicula->setDirectores(TrabajoXpelicula($Pelicula->getPeliculaID(),"Director"));
     }
 
     for ($i = 0; $i < count($ObjPelicula); $i++) {
-        insertar($ObjPelicula[$i]);
+        insertarApelicula($ObjPelicula[$i]);
     }
+
+    //Persona
+$ObjPersona=ObjPersona();
+//Insercion de datos "externos" al arrayObj Persona
+    function insertarApersona(Persona $Persona){
+        $Persona->setPeliculas(Nombre_peliXactor($Persona->getPersonaID()));
+    }
+    foreach($ObjPersona as $pers){
+        insertarApersona($pers);
+    }
+
 /*    Funciones desechadas, dejadas por si en algun caso sean necesarias o sirvan de guia para algun trabajo futuro
 
     function Persona($PersonaID){
