@@ -7,17 +7,11 @@ include_once("BD.php");
 //Coger los datos para poder trabajar el Obj
 global $ObjPelicula;
 
-$pelicula=0;
-$PeliculaID=0;
-
 if (isset($_GET["PeliculaID"])){
     $PeliculaID=$_GET["PeliculaID"];
 }
 $pelicula=$ObjPelicula[$PeliculaID];
-/*echo "<br>";
-echo "<pre>";
-var_dump($pelicula);
-echo"<br>";*/
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -38,22 +32,37 @@ echo"<br>";*/
 
     <div class="contenedorPl">
         <h4><?php echo $pelicula->getNombre();?></h4>
-        <p>Fecha de salida(españa):<?php echo $pelicula->getFechaSalida();?></p>
+        <p>Fecha de salida(españa): <?php echo $pelicula->getFechaSalida();?></p>
         <p><?php echo $pelicula->getDuracion();?> min</p>
         <img src="<?php echo $pelicula->getIMG();?>">
-        <p><?php for($i=0;$i<count($pelicula->getGeneros());$i++){
-            echo $pelicula->getGeneros()[$i]." | "; //Mirar como puedo quitar el ultimo
+        <div class="trailer">
+            <iframe width="560" height="315" src="<?php echo $pelicula->getTrailer(); ?>?autoplay=1&mute=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <p>| <?php for($i=0;$i<count($pelicula->getGeneros());$i++){
+            echo $pelicula->getGeneros()[$i]." | ";
             }?></p>
+        <a href="PagPers.php"><p>Director: <?php $textD=""; foreach ($pelicula->getDirectores() as $director){
+                    $textD.=$director.", ";
+                }
+                //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues
+                $directores= substr($textD,0, -2);
+                echo $directores;
+                ?>
+            </p>
+            <p>Actores: <?php $textA=""; foreach ($pelicula->getActores() as $actor){
+                    $textA.=$actor.", ";
+                }
+                //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues
+                $actores= substr($textA,0, -2);
+                echo $actores;
+                ?>
+            </p>
+        </a>
         <p>
             <?php echo $pelicula->getSinopsis() ;?>
         </p>
-        <p>Director: <?php /*foreach ($pelicula->getDirectores() as $directores){
-                echo $directores;
-            }*/?> </p>
-        <p>Actores: </p>
-        <div class="trailer">
-            <iframe src="<?php echo $pelicula->getTrailer(); ?>?autoplay=1&mute=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
+
+
     </div>
 
 </body>

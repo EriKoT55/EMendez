@@ -100,10 +100,9 @@ if($conn->connect_error){
         for($i=0;$i<count($trabajoXpelicula);$i++){
             $trabajos[]=$trabajoXpelicula[$i]["NombreCompleto"];
         }
-
         return $trabajos;
-
     }
+//TrabajoXpelicula(1,"Actor");
 //TrabajoXpelicula(1,"Actor");
     // Datos generales de la pelicula
     function ObjPelicula(){
@@ -122,10 +121,10 @@ if($conn->connect_error){
         }
 
         //return $objPelicula->setNombre();
-       return $objPelicula;
+        return $objPelicula;
 
     }
-
+$ObjPelicula=ObjPelicula();
     //Insercion de datos "externos" al arrayObj Pelicula
     function insertar(Pelicula $Pelicula){
         $Pelicula->setGeneros(GenerosXpelicula($Pelicula->getPeliculaID()));
@@ -133,15 +132,9 @@ if($conn->connect_error){
         $Pelicula->setDirectores(TrabajoXpelicula($Pelicula->getPeliculaID(),"Director"));
     }
 
-$ObjPelicula=ObjPelicula();
-
     for ($i = 0; $i < count($ObjPelicula); $i++) {
         insertar($ObjPelicula[$i]);
-        insertar($ObjPelicula[$i]);
-        insertar($ObjPelicula[$i]);
     }
-
-
 /*    Funciones desechadas, dejadas por si en algun caso sean necesarias o sirvan de guia para algun trabajo futuro
 
     function Persona($PersonaID){
