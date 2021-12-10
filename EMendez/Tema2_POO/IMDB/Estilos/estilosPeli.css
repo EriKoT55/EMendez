@@ -9,3 +9,7 @@ body{
     /*text-align: ;*/
     margin:30px;
 }
+a{
+    text-decoration: none;
+    color:gray;
+}

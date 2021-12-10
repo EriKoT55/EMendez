@@ -44,7 +44,7 @@ class Persona
      */
     public function getNombreCompleto()
     {
-        return $this->Nombre;
+        return $this->NombreCompleto;
     }
 
     /**

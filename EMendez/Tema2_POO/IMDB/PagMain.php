@@ -28,7 +28,10 @@ if($conn->connect_error){
 function Ranking(){
 global $conn;
 
-$sql="";
+    $sql="SELECT pl.PeliculaID FROM Peliculas pl
+            JOIN GenPeli gp on gp.PersonaID=pl.PersonaID
+            JOIN Genero g on g.GeneroID=gp.GeneroID
+            ORDER BY g.Nombre ASC";
 
 }
 function Nuevo(){
@@ -94,12 +97,12 @@ if (isset($_GET["sortingCriteria"])) {
         </form>
     </div>
   </nav>
-<?php for($i=0;$i<count($objPelicula);$i++){
+<?php for($i=0;$i<count($objPelicula);$i++){//Aqui funciona pero es una chapuza
     $peli=$objPelicula[$i]?>
   <div class="contenedor">
       <div class="contenedorPelis">
           <!--No funciona el get, no acabo de comprender su funcionamiento-->
-         <a href="PagPeli.php?PeliculaID='<?php $peli->getPeliculaID();?>'"> <img src="<?php echo $peli->getIMG(); ?>">
+         <a href="PagPeli.php?PeliculaID=<?php echo $peli->getPeliculaID(); ?>"> <img src="<?php echo $peli->getIMG(); ?>">
           <p class="nomPeli"><?php echo $peli->getNombre(); ?></p>
           <p><?php echo $peli->getCalificacion(); ?></p>
          </a>
