@@ -5,13 +5,13 @@ include_once("Genero.php");
 include_once("BD.php");
 
 //Coger los datos para poder trabajar el Obj
-global $ObjPelicula;
-global $ObjPersona;
+global $ArrObjPeli;
+global $ArrObjPers;
 
 if (isset($_GET["PeliculaID"])) {
     $PeliculaID = $_GET["PeliculaID"] - 1;
 }
-$pelicula = $ObjPelicula[$PeliculaID];
+$pelicula = $ArrObjPeli[$PeliculaID];
 
 ?>
 <!DOCTYPE html>
@@ -44,33 +44,41 @@ $pelicula = $ObjPelicula[$PeliculaID];
     <p>| <?php for ($i = 0; $i < count($pelicula->getGeneros()); $i++) {
             echo $pelicula->getGeneros()[$i] . " | ";
         } ?></p>
-    <a href="PagPers.php?PersonaID=<?php
+
+    <p>Director:
+        <?php
+        $textD = "";
+        foreach ($pelicula->getDirectores() as $director) {
+            $textD .= $director . ", ";
+        }
+        //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues
+        $directores = substr($textD, 0, -2); ?>
+        <a href="PagPers.php?PersonaID=<?php
         /*for($i=0;$i<count($ObjPersona);$i++){
-            $persona[]=$ObjPersona[$i];
+            if($ObjPersona[$i]["Trabajo"]=="Director"){
+                $persona[]=$ObjPersona[$i];
+            }
         } Debo mejorar el rendimiento de la aplicacion y reestructurar BD.php para una buena escalabilidad
         echo $persona->getPersonaID();*/
-    ?>">
-        <p>Director:
-            <?php
-            $textD = "";
-            foreach ($pelicula->getDirectores() as $director) {
-                $textD .= $director . ", ";
+        ?>"><?php echo $directores; ?></a>
+
+    </p>
+    <p>Actores: <?php $textA = "";
+        foreach ($pelicula->getActores() as $actor) {
+            $textA .= $actor . ", ";
+        }
+        //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues
+        $actores = substr($textA, 0, -2);?>
+        <a href="PagPers.php?PersonaID=<?php
+        /*for($i=0;$i<count($ObjPersona);$i++){
+            if($ObjPersona[$i]["Trabajo"]=="Actor"){
+                $persona[]=$ObjPersona[$i];
             }
-            //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues
-            $directores = substr($textD, 0, -2);
-            echo $directores;
-            ?>
-        </p>
-        <p>Actores: <?php $textA = "";
-            foreach ($pelicula->getActores() as $actor) {
-                $textA .= $actor . ", ";
-            }
-            //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues
-            $actores = substr($textA, 0, -2);
-            echo $actores;
-            ?>
-        </p>
-    </a>
+        } Debo mejorar el rendimiento de la aplicacion y reestructurar BD.php para una buena escalabilidad
+        echo $persona->getPersonaID();*/
+        ?>"><?php echo $actores; ?></a>
+    </p>
+
     <p>
         <?php echo $pelicula->getSinopsis(); ?>
     </p>

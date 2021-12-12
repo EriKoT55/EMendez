@@ -176,7 +176,7 @@ class Pelicula
     /**
      * @return array
      */
-    public function getGeneros()
+    public function getGeneros(): array
     {
         return $this->Generos;
     }
@@ -185,16 +185,16 @@ class Pelicula
      * @param array $Generos
      * @return Pelicula
      */
-    public function setGeneros($Generos)
+    public function setGeneros(array $Generos): void
     {
         $this->Generos = $Generos;
-        return $this;
+
     }
 
     /**
      * @return array
      */
-    public function getActores()
+    public function getActores(): array
     {
         return $this->Actores;
     }
@@ -202,15 +202,15 @@ class Pelicula
      * @param array $Actores
      * @return Pelicula
      */
-    public function setActores($Actores)
+    public function setActores(array $Actores): void
     {
         $this->Actores = $Actores;
-        return $this;
+
     }
     /**
      * @return array
      */
-    public function getDirectores()
+    public function getDirectores(): array
     {
         return $this->Directores;
     }
@@ -218,10 +218,10 @@ class Pelicula
      * @param array $Directores
      * @return Pelicula
      */
-    public function setDirectores($Directores)
+    public function setDirectores(array $Directores): void
     {
         $this->Directores = $Directores;
-        return $this;
+
     }
 
 

@@ -131,7 +131,7 @@ class Persona
     /**
      * @return array
      */
-    public function getPeliculas()
+    public function getPeliculas(): array
     {
         return $this->Peliculas;
     }
@@ -139,7 +139,7 @@ class Persona
     /**
      * @param array $Peliculas
      */
-    public function setPeliculas($Peliculas)
+    public function setPeliculas(array $Peliculas): void
     {
         $this->Peliculas = $Peliculas;
     }

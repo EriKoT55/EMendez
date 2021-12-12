@@ -3,10 +3,13 @@ body{
 }
 nav{
     background-color:#343434;
-
+    //overflow: hidden;
 }
-.contenedorForm{
-
+.contenedorSelector{
+    //float:left;
+}
+.contenedorSelector2{
+    //float:left;
 }
 .icon{
     color: #a6a6a6;
@@ -14,6 +17,7 @@ nav{
 .contenedor{
     overflow: hidden;
     margin-top:20px;
+
 }
 .contenedorPelis{
     width: 210px;

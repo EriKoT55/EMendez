@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 include_once("Persona.php");
 include_once("Pelicula.php");
 include_once("Genero.php");
@@ -6,60 +7,110 @@ include_once("BD.php");
 /*https://www.imdb.com/title/tt2382320/?pf_rd_m=A2FGELUUNOQJNL&pf_rd_p=ea4e08e1-c8a3-47b5-ac3a-75026647c16e&pf_rd_r=1VHKKEY8F9SF79HJTAB3&pf_rd_s=center-1&pf_rd_t=15506&pf_rd_i=moviemeter&ref_=chtmvm_tt_6*/
 
 /*Crear una nueva conexion en MYSQL*/
-$servername="sql480.main-hosting.eu";//sql480.main-hosting.eu
-$username="u850300514_emendez"; //u850300514_emendez //casa erikPhp // clase root
-$password="x43233702G";//x43233702G
-$database="u850300514_emendez";//RickMorthy_u850300514_emendez
+$servername = "sql480.main-hosting.eu";//sql480.main-hosting.eu
+$username = "u850300514_emendez"; //u850300514_emendez //casa erikPhp // clase root
+$password = "x43233702G";//x43233702G
+$database = "u850300514_emendez";//RickMorthy_u850300514_emendez
 
 //Creo la conexion
-$conn = new mysqli($servername,$username,$password,$database);
+$conn = new mysqli($servername, $username, $password, $database);
 
 // Me aseguro de si va bien la conexion
-if($conn->connect_error){
-    die("Conexion fallida: ". $conn->connect_error);
+if ($conn->connect_error) {
+    die("Conexion fallida: " . $conn->connect_error);
 }
 
 //Coger los datos para poder trabajar el Obj
- $objPelicula=ObjPelicula();
-
+global $ArrObjPeli;
+global $ArrObjGen;
 
 //Ordenacion de las peliculas, tengo pensado hacerlo con sql para que sea mas optimo
 //Opciones: ranking, fecha de salida, director y genero.
-function Ranking(){
+//De menor a mayor
+function RankingASC()
+{
 global $conn;
 
-    $sql="SELECT pl.PeliculaID FROM Peliculas pl
-            JOIN GenPeli gp on gp.PersonaID=pl.PersonaID
+$sql="SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
+            ORDER BY pl.Calificacion ASC;";
+
+    $result = $conn->query($sql);
+    $Arr_rankAsc = $result->fetch_all(MYSQLI_ASSOC);
+
+    $array_obj_peli = ObjPelicula($Arr_rankAsc);
+    $ArrFiltradoPeli = BucleXAinsercionPelicla($array_obj_peli);
+
+    return $ArrFiltradoPeli;
+}
+//De mayor a menor
+function RankingDESC(){
+    global $conn;
+
+    $sql="SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
+            ORDER BY pl.Calificacion DESC;";
+
+    $result = $conn->query($sql);
+    $Arr_rankDesc = $result->fetch_all(MYSQLI_ASSOC);
+
+    $array_obj_peli = ObjPelicula($Arr_rankDesc);
+    $ArrFiltradoPeli = BucleXAinsercionPelicla($array_obj_peli);
+
+    return $ArrFiltradoPeli;
+}
+
+function mostrarPelisGenero($NomGen)
+{
+
+    global $conn;
+
+    $sql = "SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
+            JOIN GenPeli gp on gp.PeliculaID=pl.PeliculaID
             JOIN Genero g on g.GeneroID=gp.GeneroID
-            ORDER BY g.Nombre ASC";
+            WHERE g.Nombre='" . $NomGen . "'
+            ORDER BY pl.PeliculaID;";
 
+    $result = $conn->query($sql);
+    $Arr_pelisXgen = $result->fetch_all(MYSQLI_ASSOC);
+
+    $array_obj_peli = ObjPelicula($Arr_pelisXgen);
+    $ArrFiltradoPeli = BucleXAinsercionPelicla($array_obj_peli);
+
+    return $ArrFiltradoPeli;
 }
-function Nuevo(){
+
+function Fecha_SalidaASC()
+{
     global $conn;
 
-    $sql="";
+    $sql="SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
+            ORDER BY pl.Fecha_Salida ASC;";
+
+    $result = $conn->query($sql);
+    $Arr_fechAsc = $result->fetch_all(MYSQLI_ASSOC);
+
+    $array_obj_peli = ObjPelicula($Arr_fechAsc);
+    $ArrFiltradoPeli = BucleXAinsercionPelicla($array_obj_peli);
+
+    return $ArrFiltradoPeli;
 }
-function Antiguo(){
+
+function Fecha_SalidaDESC()
+{
     global $conn;
 
-    $sql="";
+    $sql="SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
+            ORDER BY pl.Fecha_Salida DESC;";
+
+    $result = $conn->query($sql);
+    $Arr_fechDesc = $result->fetch_all(MYSQLI_ASSOC);
+
+    $array_obj_peli = ObjPelicula($Arr_fechDesc);
+    $ArrFiltradoPeli = BucleXAinsercionPelicla($array_obj_peli);
+
+    return $ArrFiltradoPeli;
 }
 
-$sortingCriteria = "";
-if (isset($_GET["sortingCriteria"])) {
-    $sortingCriteria = $_GET["sortingCriteria"];
-    switch ($sortingCriteria) {
-        case "mejoresCalificadas":
-            //$characters = getSortedCharactersById($characters);
-            break;
-        case "Antiguas":
-           // $characters = getSortedCharactersByOrigin($characters);
-            break;
-        case "Nuevas":
-            //$characters = getSortedCharactersByStatus($characters);
-            break;
-    }
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -76,38 +127,127 @@ if (isset($_GET["sortingCriteria"])) {
 <header>
 
 </header>
-  <nav class="contenedorNav">
-    <div >
+<nav class="contenedorNav">
+    <div>
         <!--Para hacer una barra de busqueda decente-->
-       <!--https://webdesign.tutsplus.com/es/tutorials/css-experiments-with-a-search-form-input-and-button--cms-22069-->
+        <!--https://webdesign.tutsplus.com/es/tutorials/css-experiments-with-a-search-form-input-and-button--cms-22069-->
         <span class="icon"><i class="fa fa-search"></i></span>
-        <input type="search" id="buscar" placeholder="Search..." />
+        <input type="search" id="buscar" placeholder="Search..."/>
     </div>
-      <!--Poner nombre a las clases-->
-    <div class="contenedorForm">
-        <form class="" action="PagMain.php">
-            <select class="" aria-label="Sorting criteria" name="sortingCriteria">
-                <option <?php echo($sortingCriteria == "" ? "selected" : "") ?> value="unsorted">Sorting criteria
-                </option>
-                <option <?php echo($sortingCriteria == "mejoresCalificadas" ? "selected" : "") ?> value="mejoresCalificadas">Mejores Calificaciones</option>
-                <option <?php echo($sortingCriteria == "Antiguas" ? "selected" : "") ?> value="Antiguas">Mas Antiguas</option>
-                <option <?php echo($sortingCriteria == "Nuevas" ? "selected" : "") ?> value="Nuevas">Mas Nuevas</option>
+    <!--Poner nombre a las clases-->
+        <form action="PagMain.php" method="get">
+            <div class="contenedorSelector">
+            <?php $criterioFiltracion = $_GET["criterioFiltracion"] ?>
+            <select name="criterioFiltracion">
+                <option <?php echo($criterioFiltracion == "" ? "selected" : "") ?> value="unsorted">Normal</option>
+                <option <?php echo($criterioFiltracion == "calificacion" ? "selected" : "") ?> value="calificacion">Calificacion</option>
+                <option <?php echo($criterioFiltracion == "fecha_salida" ? "selected" : "") ?> value="fecha_salida">Fecha de salida</option>
+                <option <?php echo($criterioFiltracion == "genero" ? "selected" : "") ?> value="genero">Generos</option>
             </select>
-            <button class="" type="submit">Sort</button>
+            <div>
+            <?php
+
+
+            if (isset($_GET["criterioFiltracion"])) {
+                switch ($criterioFiltracion) {
+                    case "calificacion":
+                        $calificacion=$_GET["calificacion"];
+                        echo '<div class="contenedorSelector2">';
+                        echo '<select name="calificacion">';
+                            if($calificacion=="mejor"){
+                                echo '<option value="mejor"selected>Mejor calificadas</option>';
+                            }else {
+                                echo '<option value="mejor">Mejor calificadas</option>';
+                            }
+                            if($calificacion=="peor"){
+                                echo '<option value="peor"selected>Peor calificadas</option>';
+                            }else{
+                                echo '<option value="peor">Peor calificadas</option>';
+                            }
+                        echo '</select>';
+                        echo '</div>';
+                        break;
+                    case "fecha_salida":
+                        $fecha_salida=$_GET["fecha_salida"];
+                        echo '<div class="contenedorSelector2" >';
+                        echo '<select name="fecha_salida">';
+                        if($fecha_salida=="nuevas"){
+                            echo '<option value="nuevas"selected>Nuevas</option>';
+                        }else{
+                            //No acabo de entender del todo porque debo poner en uno selected y en otro no para que me muestre algun valor
+                            echo '<option value="nuevas">Nuevas</option>';
+                        }
+                        if($fecha_salida=="antiguas"){
+                            echo '<option value="antiguas"selected>Antiguas</option>';
+                        }else{
+                            echo '<option value="antiguas">Antiguas</option>';
+                        }
+                        echo '</select>';
+                        echo '</div>';
+                        break;
+                    case "genero";
+                        $genero = $_GET["genero"];
+                        echo '<div class="contenedorSelector2" >';
+                        echo '<select name="genero">';
+                        foreach ($ArrObjGen as $gen => $valores) {
+                            if ($genero == $valores->getNombre()) {
+                                echo '<option value="' . $valores->getNombre() . '"selected>' . $valores->getNombre() . '</option>';
+                            } else {
+                                echo '<option value="' . $valores->getNombre() . '">' . $valores->getNombre() . '</option>';
+                            }
+                        }
+                        echo '</select>';
+                        echo '</div>';
+                        break;
+                }
+            }
+            $ArrFiltradoPeli = $ArrObjPeli;
+
+            if($criterioFiltracion=="calificacion"){
+                $calificacion=$_GET["calificacion"];
+                    if($calificacion=="mejor"){
+                        $ArrFiltradoPeli=RankingDESC();
+                    }
+                    if($calificacion=="peor"){
+                        $ArrFiltradoPeli=RankingASC();
+                    }
+            }
+            if($criterioFiltracion=="fecha_salida"){
+                $fecha_salida=$_GET["fecha_salida"];
+                if($fecha_salida=="nuevas"){
+                    $ArrFiltradoPeli=Fecha_SalidaDESC();
+                }
+                if($fecha_salida=="antiguas"){
+                    $ArrFiltradoPeli=Fecha_SalidaASC();
+                }
+            }
+            if ($criterioFiltracion == "genero") {
+                $genero = $_GET["genero"];
+                if ($genero != "") {
+                    $ArrFiltradoPeli = mostrarPelisGenero($genero);
+                }
+            }
+            ?>
+            <button id="submit" type="submit">Filtrar</button>
         </form>
-    </div>
-  </nav>
-<?php for($i=0;$i<count($objPelicula);$i++){//Aqui funciona pero es una chapuza
-    $peli=$objPelicula[$i]?>
-  <div class="contenedor">
-      <div class="contenedorPelis">
-          <!--No funciona el get, no acabo de comprender su funcionamiento-->
-         <a href="PagPeli.php?PeliculaID=<?php echo $peli->getPeliculaID(); ?>"> <img src="<?php echo $peli->getIMG(); ?>">
-          <p class="nomPeli"><?php echo $peli->getNombre(); ?></p>
-          <p><?php echo $peli->getCalificacion(); ?></p>
-         </a>
-      </div>
-  </div>
-      <?php }?>
+</nav>
+<div class="contenedor">
+<?php for ($i = 0; $i < count($ArrFiltradoPeli); $i++) {//Aqui funciona pero es una chapuza
+    $peli = $ArrFiltradoPeli[$i] ?>
+        <div class="contenedorPelis">
+            <a href="PagPeli.php?PeliculaID=<?php echo $peli->getPeliculaID(); ?>"> <img
+                        src="<?php echo $peli->getIMG(); ?>">
+                <p class="nomPeli"><?php echo $peli->getNombre(); ?>
+                    (<?php
+                    //Con esta funcion hago que me muestra lo de despues o antes del caracter que le pongo
+                    //dependiendo si en el ultimo parametro pongo true(antes) o nada(despues)
+                    $anyo = strstr($peli->getFechaSalida(), '-', true);
+                    echo $anyo; ?>)</p>
+                <p><?php echo $peli->getCalificacion(); ?></p>
+            </a>
+        </div>
+
+<?php } ?>
+</div>
 </body>
 </html>
