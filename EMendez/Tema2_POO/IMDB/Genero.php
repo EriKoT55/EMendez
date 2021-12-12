@@ -2,33 +2,33 @@
 
 class Genero
 {
-    private $ID,$Nombre;
+    private $GeneroID,$Nombre;
 
     /**
-     * @param $ID
+     * @param $GeneroID
      * @param $Nombre
      */
-    public function __construct($ID, $Nombre)
+    public function __construct($GeneroID, $Nombre)
     {
-        $this->ID = $ID;
+        $this->GeneroID = $GeneroID;
         $this->Nombre = $Nombre;
     }
 
     /**
      * @return mixed
      */
-    public function getID()
+    public function getGeneroID()
     {
-        return $this->ID;
+        return $this->GeneroID;
     }
 
     /**
-     * @param mixed $ID
+     * @param mixed $GeneroID
      * @return Genero
      */
-    public function setID($ID)
+    public function setGeneroID($GeneroID)
     {
-        $this->ID = $ID;
+        $this->GeneroID = $GeneroID;
         return $this;
     }
 

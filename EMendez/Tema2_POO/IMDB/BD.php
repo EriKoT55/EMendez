@@ -46,7 +46,7 @@ function ObjGenero($generoArray)
 
     $objGenero = [];
     foreach ($generoArray as $gen) {
-        $objGenero[] = new Genero($gen["ID"], $gen["Nombre"]);
+        $objGenero[] = new Genero($gen["GeneroID"], $gen["Nombre"]);
     }
 
     return $objGenero;

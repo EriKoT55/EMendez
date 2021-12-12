@@ -26,11 +26,12 @@ $pelicula = $ArrObjPeli[$PeliculaID];
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
-<div>
-    <span class="icon"><i class="fa fa-search"></i></span>
-    <input type="search" id="buscar" placeholder="Search..."/>
-</div>
-
+<nav>
+    <div>
+        <span class="icon"><i class="fa fa-search"></i></span>
+        <input type="search" id="buscar" placeholder="Search..."/>
+    </div>
+</nav>
 <div class="contenedorPl">
     <h4><?php echo $pelicula->getNombre(); ?></h4>
     <p>Fecha de salida(españa): <?php echo $pelicula->getFechaSalida(); ?></p>
@@ -53,7 +54,7 @@ $pelicula = $ArrObjPeli[$PeliculaID];
         }
         //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues
         $directores = substr($textD, 0, -2); ?>
-        <a href="PagPers.php?PersonaID=<?php
+        <a href="PagPers.php<?php
         /*for($i=0;$i<count($ObjPersona);$i++){
             if($ObjPersona[$i]["Trabajo"]=="Director"){
                 $persona[]=$ObjPersona[$i];
@@ -68,8 +69,8 @@ $pelicula = $ArrObjPeli[$PeliculaID];
             $textA .= $actor . ", ";
         }
         //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues
-        $actores = substr($textA, 0, -2);?>
-        <a href="PagPers.php?PersonaID=<?php
+        $actores = substr($textA, 0, -2); ?>
+        <a href="PagPers.php<?php
         /*for($i=0;$i<count($ObjPersona);$i++){
             if($ObjPersona[$i]["Trabajo"]=="Actor"){
                 $persona[]=$ObjPersona[$i];

@@ -5,7 +5,7 @@ class Persona
     private $PersonaID,$NombreCompleto,$Trabajo,$Fecha_Nacimiento,$Descripcion,$IMG;
 
     /**
-     * @param $ID
+     * @param $PersonaID
      * @param $Nombre
      * @param $Apellidos
      * @param $Fecha_Nacimiento
