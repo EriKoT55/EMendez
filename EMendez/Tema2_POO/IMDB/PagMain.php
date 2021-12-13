@@ -120,7 +120,7 @@ function Fecha_SalidaDESC()
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IMDBE</title>
+    <title>EMDB</title>
     <link type="text/css" rel="stylesheet" href="Estilos/estilosMain.css">
     <!-- Este link es para poder utilizar la libreria de iconos de Font Awesome-->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -130,107 +130,126 @@ function Fecha_SalidaDESC()
     <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-<nav>
-        <div class="contenedorSearch">
-            <!--Para hacer una barra de busqueda decente-->
-            <!--https://webdesign.tutsplus.com/es/tutorials/css-experiments-with-a-search-form-input-and-button--cms-22069-->
-            <span class="icon"><i class="fa fa-search"></i></span>
-            <input type="search" id="buscar" placeholder="Search..."/>
-        </div>
+<nav class="contenedorMenu">
+    <!--Funcion del buscador, mostrara la pelicula o persona buscada-->
+    <form class="contenedorSearch" action="PagMain.php" method="get">
+        <input id="buscar" type="search" name="buscar" placeholder="Buscar..."/>
+        <button class="icon" type="submit" name="enviar"><i class="fa fa-search"></i></button>
+    </form>
+
+    <?php
+    //Buscador
+
+    if (isset($_GET["enviar"])) {
+        $buscar=$_GET["buscar"];
+
+        $sql="";
+
+    }
+
+    ?>
     <form action="PagMain.php" method="get">
         <div class="contenedorSelector">
             <?php $criterioFiltracion = $_GET["criterioFiltracion"] ?>
             <select class="Selector" name="criterioFiltracion">
                 <option <?php echo($criterioFiltracion == "" ? "selected" : "") ?> value="unsorted">Normal</option>
-                <option <?php echo($criterioFiltracion == "calificacion" ? "selected" : "") ?> value="calificacion">Calificacion</option>
-                <option <?php echo($criterioFiltracion == "fecha_salida" ? "selected" : "") ?> value="fecha_salida">Fecha de salida</option>
+                <option <?php echo($criterioFiltracion == "calificacion" ? "selected" : "") ?> value="calificacion">
+                    Calificacion
+                </option>
+                <option <?php echo($criterioFiltracion == "fecha_salida" ? "selected" : "") ?> value="fecha_salida">
+                    Fecha de salida
+                </option>
                 <option <?php echo($criterioFiltracion == "genero" ? "selected" : "") ?> value="genero">Generos</option>
             </select>
         </div>
-                <?php
+        <?php
 
-                if (isset($_GET["criterioFiltracion"])) {
-                    switch ($criterioFiltracion) {
-                        case "calificacion":
-                            $calificacion = $_GET["calificacion"];
-                            echo '<div  class="contenedorSelector2">';
-                            echo '<select class="Selector" name="calificacion">';
-                            if ($calificacion == "mejor") {
-                                echo '<option value="mejor"selected>Mejor calificadas</option>';
-                            } else {
-                                echo '<option value="mejor">Mejor calificadas</option>';
-                            }
-                            if ($calificacion == "peor") {
-                                echo '<option value="peor" selected>Peor calificadas</option>';
-                            } else {
-                                echo '<option value="peor">Peor calificadas</option>';
-                            }
-                            echo '</select>';
-                            echo '</div>';
-                            break;
-                        case "fecha_salida":
-                            $fecha_salida = $_GET["fecha_salida"];
-                            echo '<div class="contenedorSelector2" >';
-                            echo '<select class="Selector" name="fecha_salida">';
-                            if ($fecha_salida == "nuevas") {
-                                echo '<option value="nuevas"selected>Nuevas</option>';
-                            } else {
-                                //No acabo de entender del todo porque debo poner en uno selected y en otro no para que me muestre algun valor
-                                echo '<option value="nuevas">Nuevas</option>';
-                            }
-                            if ($fecha_salida == "antiguas") {
-                                echo '<option value="antiguas"selected>Antiguas</option>';
-                            } else {
-                                echo '<option value="antiguas">Antiguas</option>';
-                            }
-                            echo '</select>';
-                            echo '</div>';
-                            break;
-                        case "genero";
-                            $genero = $_GET["genero"];
-                            echo '<div class="contenedorSelector2" >';
-                            echo '<select class="Selector" name="genero">';
-                            foreach ($ArrObjGen as $gen => $valores) {
-                                if ($genero == $valores->getNombre()) {
-                                    echo '<option value="' . $valores->getNombre() . '"selected>' . $valores->getNombre() . '</option>';
-                                } else {
-                                    echo '<option value="' . $valores->getNombre() . '">' . $valores->getNombre() . '</option>';
-                                }
-                            }
-                            echo '</select>';
-                            echo '</div>';
-                            break;
-                    }
-                }
-                $ArrFiltradoPeli = $ArrObjPeli;
-
-                if ($criterioFiltracion == "calificacion") {
+        if (isset($_GET["criterioFiltracion"])) {
+            switch ($criterioFiltracion) {
+                case "calificacion":
                     $calificacion = $_GET["calificacion"];
+                    echo '<div  class="contenedorSelector2">';
+                    echo '<select class="Selector" name="calificacion">';
                     if ($calificacion == "mejor") {
-                        $ArrFiltradoPeli = RankingDESC();
+                        echo '<option value="mejor"selected>Mejor calificadas</option>';
+                    } else {
+                        echo '<option value="mejor">Mejor calificadas</option>';
                     }
                     if ($calificacion == "peor") {
-                        $ArrFiltradoPeli = RankingASC();
+                        echo '<option value="peor" selected>Peor calificadas</option>';
+                    } else {
+                        echo '<option value="peor">Peor calificadas</option>';
                     }
-                }
-                if ($criterioFiltracion == "fecha_salida") {
+                    echo '</select>';
+                    echo '</div>';
+                    break;
+                case "fecha_salida":
                     $fecha_salida = $_GET["fecha_salida"];
+                    echo '<div class="contenedorSelector2" >';
+                    echo '<select class="Selector" name="fecha_salida">';
                     if ($fecha_salida == "nuevas") {
-                        $ArrFiltradoPeli = Fecha_SalidaDESC();
+                        echo '<option value="nuevas"selected>Nuevas</option>';
+                    } else {
+                        //No acabo de entender del todo porque debo poner en uno selected y en otro no para que me muestre algun valor
+                        echo '<option value="nuevas">Nuevas</option>';
                     }
                     if ($fecha_salida == "antiguas") {
-                        $ArrFiltradoPeli = Fecha_SalidaASC();
+                        echo '<option value="antiguas"selected>Antiguas</option>';
+                    } else {
+                        echo '<option value="antiguas">Antiguas</option>';
                     }
-                }
-                if ($criterioFiltracion == "genero") {
+                    echo '</select>';
+                    echo '</div>';
+                    break;
+                case "genero";
                     $genero = $_GET["genero"];
-                    if ($genero != "") {
-                        $ArrFiltradoPeli = mostrarPelisGenero($genero);
+                    echo '<div class="contenedorSelector2" >';
+                    echo '<select class="Selector" name="genero">';
+                    foreach ($ArrObjGen as $gen => $valores) {
+                        if ($genero == $valores->getNombre()) {
+                            echo '<option value="' . $valores->getNombre() . '"selected>' . $valores->getNombre() . '</option>';
+                        } else {
+                            echo '<option value="' . $valores->getNombre() . '">' . $valores->getNombre() . '</option>';
+                        }
                     }
-                }
-                ?>
-                <button id="submit" type="submit">Filtrar</button>
+                    echo '</select>';
+                    echo '</div>';
+                    break;
+            }
+        }
+        $ArrFiltradoPeli = $ArrObjPeli;
+
+        if ($criterioFiltracion == "calificacion") {
+            $calificacion = $_GET["calificacion"];
+            if ($calificacion == "mejor") {
+                $ArrFiltradoPeli = RankingDESC();
+            }
+            if ($calificacion == "peor") {
+                $ArrFiltradoPeli = RankingASC();
+            }
+        }
+        if ($criterioFiltracion == "fecha_salida") {
+            $fecha_salida = $_GET["fecha_salida"];
+            if ($fecha_salida == "nuevas") {
+                $ArrFiltradoPeli = Fecha_SalidaDESC();
+            }
+            if ($fecha_salida == "antiguas") {
+                $ArrFiltradoPeli = Fecha_SalidaASC();
+            }
+        }
+        if ($criterioFiltracion == "genero") {
+            $genero = $_GET["genero"];
+            if ($genero != "") {
+                $ArrFiltradoPeli = mostrarPelisGenero($genero);
+            }
+        }
+        ?>
+        <button id="submit" type="submit">Filtrar</button>
     </form>
+        <ul>
+            <li><a href="PagMain.php">Pagina Principal</a></li>
+            <li><a href="PagInicioSession.php">Iniciar Session</a></li>
+        </ul>
 </nav>
 <div class="contenedor">
     <?php for ($i = 0; $i < count($ArrFiltradoPeli); $i++) {//Aqui funciona pero es una chapuza

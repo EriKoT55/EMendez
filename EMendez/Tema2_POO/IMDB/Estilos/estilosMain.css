@@ -3,14 +3,12 @@ body{
     margin:0;
     padding: 0;
 }
-nav{
-    /*vovler a poner el nav en la pagpMain*/
-    background-color: #1f1f1f;
+.contenedorMenu{
+    background-color: #804400;
     width: 100%;
     overflow: hidden;
     padding:15px;
 }
-
 .contenedorSearch{
     /* Al parecer no hacer nada si no pones un height, si lo pones se descueadra todo*/
     width: 500px;
@@ -23,10 +21,16 @@ nav{
 .contenedorSearch .icon{
     position:absolute;
     top:65%;
+    left:49%;
     margin-left: 10px;
-    margin-top:5px;
+    margin-top: 1px;
     /*z-index:1;*/
     color:gray;
+    background-color:#424250 ;
+    border: none;
+    width: 44px;
+    height: 27px;
+    border-radius: 5px;
 }
 .contenedorSearch input#buscar{
     width: 300px;
@@ -35,13 +39,12 @@ nav{
     border:1px solid white;
     font-size: 10pt;
     float:left;
-    color: #8d8d66;
+    color: white;
     padding-left: 45px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-
-    /*CAMBIAR EL COLOR DEL TEXTO Y FUENTE*/
+    font-weight: bold;
 
     /*Transicion soportada para todos los navegadores*/
     -webkit-transition: background .55s ease;
@@ -53,22 +56,21 @@ nav{
 /*Pongo la input#buscar despues del hover para que se aplique en el las propiedades dadas*/
 .contenedorSearch input#buscar:hover ,.contenedorSearch input#buscar:active  ,.contenedorSearch input#buscar:focus {
     background-color: darkorange;
+    color:black;
 }
 /*Pongo la .icon despues del hover para que se aplique en el las propiedades dadas*/
 .contenedorSearch:hover .icon,.contenedorSearch:active .icon,.contenedorSearch:focus .icon{
-   color:black;
+    color:black;
+    background-color: #ffc080;
 }
-/*form{
-
-}*/
 
 /*Si le pongo ancho y largo a los contenedores se descuadra el nav y se pone debajo del search los select*/
 
-/*Hacer los respectivos HOVERS y al sumbit (boton) hacerle HOVER/ACTIVE/*/
+/*   Hacer los respectivos HOVERS y al sumbit (boton) hacerle HOVER/ACTIVE
 .contenedorSelector{
-   /* width: 150px;
-    height: 30px;*/
-}
+    width: 150px;
+    height: 30px;
+}*/
 .Selector{
     font-family: 'Readex Pro', sans-serif;
     width: 150px;
@@ -96,7 +98,25 @@ nav{
     font-weight: bold;
 }
 
-/*Maqutacion de las cartas de la pelis*/
+/*           Menu              */
+
+.contenedorMenu ul li{
+    display: inline-block;
+}
+
+.contenedorMenu ul li a{
+    color: black;
+    list-style-type: none;
+    display: block;
+    padding:10px;
+}
+.contenedorMenu ul li a:hover{
+    color: black;
+    background-color: #ffca88;
+}
+
+
+/*          Maqutacion de las cartas de la pelis                */
 .contenedor{
     overflow: hidden;
     margin-top:20px;

@@ -31,10 +31,20 @@ $pelicula = $ArrObjPeli[$PeliculaID];
 </head>
 <body>
 <nav>
-    <div class="contenedorSearch">
-        <span class="icon"><i class="fa fa-search"></i></span>
-        <input type="search" id="buscar" placeholder="Search..."/>
-    </div>
+    <form class="contenedorSearch" action="PagMain.php" method="get">
+        <button type="submit" class="icon"><i class="fa fa-search"></i></button>
+        <input type="search" id="buscar" placeholder="Buscar..."/>
+    </form>
+
+    <?php
+    //Buscador
+
+        if(isset($_GET)){
+
+        }
+
+    ?>
+
 </nav>
 <div class="contenedorPl">
     <h4><?php echo $pelicula->getNombre(); ?></h4>
