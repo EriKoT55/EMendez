@@ -2,37 +2,71 @@ body{
     background: #130601;
 }
 nav{
+    /*vovler a poner el nav en la pagpMain*/
     background-color:#343434;
-    margin:0 auto;
+    width: 100%;
 }
-.conetendorSearch{
+.caja{
+    float:left;
+}
+.contenedorSearch{
     width: 300px;
-    vertical-align: middle;
+    /*vertical-align: middle;*/
     white-space: nowrap;
     position: relative;
 }
-.conetendorSearch input#buscar{
+.contenedorSearch .icon{
+    position:absolute;
+    top:65%;
+    margin-left: 10px;
+    margin-top:5px;
+    /*z-index:1;*/
+    color:gray;
+}
+.contenedorSearch input#buscar{
     width: 300px;
-    height: 50px;
-    background: #2b303b;
-    border: none;
+    height: 30px;
+    background: #65656c;
+    border:1px solid white;
     font-size: 10pt;
-    float: left;
-    color: #63717f;
+    float:left;
+    color: #8d8d66;
     padding-left: 45px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+
+    /*CAMBIAR EL COLOR DEL TEXTO Y FUENTE*/
+
+    /*Transicion soportada para todos los navegadores*/
+    -webkit-transition: background .55s ease;
+    -moz-transition: background .55s ease;
+    -ms-transition: background .55s ease;
+    -o-transition: background .55s ease;
+    transition: background .55s ease;
 }
+/*Pongo la input#buscar despues del hover para que se aplique en el las propiedades dadas*/
+.contenedorSearch input#buscar:hover ,.contenedorSearch input#buscar:active  ,.contenedorSearch input#buscar:focus {
+    background-color: darkorange;
+
+}
+/*Pongo la .icon despues del hover para que se aplique en el las propiedades dadas*/
+.contenedorSearch:hover .icon,.contenedorSearch:active .icon,.contenedorSearch:focus .icon{
+   color:black;
+}
+
 .contenedorSelector{
-    //float:left;
+
 }
 .contenedorSelector2{
-    //float:left;
+
 }
-.icon{
-    color: #a6a6a6;
+.button{
+
 }
+
+
+/*Maqutacion de las cartas de la pelis*/
 .contenedor{
     overflow: hidden;
     margin-top:20px;
@@ -49,6 +83,11 @@ nav{
     background-color: #343434;
 
 }
+.contenedorPelis:hover{
+    width: 213px;
+    height: 350px;
+    box-shadow: 0px -5px 5px gray, 0px 5px 5px gray;
+}
 img{
     border:2px solid black;
     width: 216px;
@@ -56,6 +95,11 @@ img{
     margin-top: -5px;
     margin-left: -5px;
 
+}
+/*Pongo la img despues del hover para que se aplique en ella las propiedades dadas*/
+.contenedorPelis:hover img{
+    width: 219px;
+    height: 251px;
 }
 a{
     text-decoration: none;

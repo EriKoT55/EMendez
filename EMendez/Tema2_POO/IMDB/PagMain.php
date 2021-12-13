@@ -126,10 +126,7 @@ function Fecha_SalidaDESC()
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
-<header>
-
-</header>
-<nav class="contenedorNav">
+<nav>
     <div class="caja">
         <div class="contenedorSearch">
             <!--Para hacer una barra de busqueda decente-->
