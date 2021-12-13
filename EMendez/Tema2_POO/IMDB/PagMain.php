@@ -124,43 +124,44 @@ function Fecha_SalidaDESC()
     <link type="text/css" rel="stylesheet" href="Estilos/estilosMain.css">
     <!-- Este link es para poder utilizar la libreria de iconos de Font Awesome-->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <!--Link fuente texto-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
 <nav>
-    <div class="caja">
         <div class="contenedorSearch">
             <!--Para hacer una barra de busqueda decente-->
             <!--https://webdesign.tutsplus.com/es/tutorials/css-experiments-with-a-search-form-input-and-button--cms-22069-->
             <span class="icon"><i class="fa fa-search"></i></span>
             <input type="search" id="buscar" placeholder="Search..."/>
         </div>
-    </div>
-    <!--Poner nombre a las clases-->
     <form action="PagMain.php" method="get">
         <div class="contenedorSelector">
             <?php $criterioFiltracion = $_GET["criterioFiltracion"] ?>
-            <select name="criterioFiltracion">
+            <select class="Selector" name="criterioFiltracion">
                 <option <?php echo($criterioFiltracion == "" ? "selected" : "") ?> value="unsorted">Normal</option>
                 <option <?php echo($criterioFiltracion == "calificacion" ? "selected" : "") ?> value="calificacion">Calificacion</option>
                 <option <?php echo($criterioFiltracion == "fecha_salida" ? "selected" : "") ?> value="fecha_salida">Fecha de salida</option>
                 <option <?php echo($criterioFiltracion == "genero" ? "selected" : "") ?> value="genero">Generos</option>
             </select>
-            <div>
+        </div>
                 <?php
 
                 if (isset($_GET["criterioFiltracion"])) {
                     switch ($criterioFiltracion) {
                         case "calificacion":
                             $calificacion = $_GET["calificacion"];
-                            echo '<div class="contenedorSelector2">';
-                            echo '<select name="calificacion">';
+                            echo '<div  class="contenedorSelector2">';
+                            echo '<select class="Selector" name="calificacion">';
                             if ($calificacion == "mejor") {
                                 echo '<option value="mejor"selected>Mejor calificadas</option>';
                             } else {
                                 echo '<option value="mejor">Mejor calificadas</option>';
                             }
                             if ($calificacion == "peor") {
-                                echo '<option value="peor"selected>Peor calificadas</option>';
+                                echo '<option value="peor" selected>Peor calificadas</option>';
                             } else {
                                 echo '<option value="peor">Peor calificadas</option>';
                             }
@@ -170,7 +171,7 @@ function Fecha_SalidaDESC()
                         case "fecha_salida":
                             $fecha_salida = $_GET["fecha_salida"];
                             echo '<div class="contenedorSelector2" >';
-                            echo '<select name="fecha_salida">';
+                            echo '<select class="Selector" name="fecha_salida">';
                             if ($fecha_salida == "nuevas") {
                                 echo '<option value="nuevas"selected>Nuevas</option>';
                             } else {
@@ -188,7 +189,7 @@ function Fecha_SalidaDESC()
                         case "genero";
                             $genero = $_GET["genero"];
                             echo '<div class="contenedorSelector2" >';
-                            echo '<select name="genero">';
+                            echo '<select class="Selector" name="genero">';
                             foreach ($ArrObjGen as $gen => $valores) {
                                 if ($genero == $valores->getNombre()) {
                                     echo '<option value="' . $valores->getNombre() . '"selected>' . $valores->getNombre() . '</option>';
@@ -246,7 +247,6 @@ function Fecha_SalidaDESC()
                 <p><?php echo $peli->getCalificacion(); ?></p>
             </a>
         </div>
-
     <?php } ?>
 </div>
 </body>

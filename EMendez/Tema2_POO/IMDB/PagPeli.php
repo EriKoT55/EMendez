@@ -24,14 +24,16 @@ $pelicula = $ArrObjPeli[$PeliculaID];
     <link type="text/css" rel="stylesheet" href="Estilos/estilosPeli.css">
     <!-- Este link es para poder utilizar la libreria de iconos de Font Awesome-->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <!--Link fuente texto-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
 <nav>
-    <div class="caja">
-        <div class="contenedorSearch">
-            <span class="icon"><i class="fa fa-search"></i></span>
-            <input type="search" id="buscar" placeholder="Search..."/>
-        </div>
+    <div class="contenedorSearch">
+        <span class="icon"><i class="fa fa-search"></i></span>
+        <input type="search" id="buscar" placeholder="Search..."/>
     </div>
 </nav>
 <div class="contenedorPl">

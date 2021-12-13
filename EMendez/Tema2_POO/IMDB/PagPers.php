@@ -22,6 +22,10 @@ $persona=$ObjPersona[$PersonaID];
     <link type="text/css" rel="stylesheet" href="estilosPers.css">
     <!-- Este link es para poder utilizar la libreria de iconos de Font Awesome-->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <!--Link fuente texto-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
 <div >
