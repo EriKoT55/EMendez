@@ -27,9 +27,11 @@ $pelicula = $ArrObjPeli[$PeliculaID];
 </head>
 <body>
 <nav>
-    <div>
-        <span class="icon"><i class="fa fa-search"></i></span>
-        <input type="search" id="buscar" placeholder="Search..."/>
+    <div class="caja">
+        <div class="contenedorSearch">
+            <span class="icon"><i class="fa fa-search"></i></span>
+            <input type="search" id="buscar" placeholder="Search..."/>
+        </div>
     </div>
 </nav>
 <div class="contenedorPl">

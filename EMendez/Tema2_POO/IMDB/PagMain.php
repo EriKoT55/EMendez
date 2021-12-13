@@ -29,9 +29,9 @@ global $ArrObjGen;
 //De menor a mayor
 function RankingASC()
 {
-global $conn;
+    global $conn;
 
-$sql="SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
+    $sql = "SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
             ORDER BY pl.Calificacion ASC;";
 
     $result = $conn->query($sql);
@@ -42,11 +42,13 @@ $sql="SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Sali
 
     return $ArrFiltradoPeli;
 }
+
 //De mayor a menor
-function RankingDESC(){
+function RankingDESC()
+{
     global $conn;
 
-    $sql="SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
+    $sql = "SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
             ORDER BY pl.Calificacion DESC;";
 
     $result = $conn->query($sql);
@@ -82,7 +84,7 @@ function Fecha_SalidaASC()
 {
     global $conn;
 
-    $sql="SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
+    $sql = "SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
             ORDER BY pl.Fecha_Salida ASC;";
 
     $result = $conn->query($sql);
@@ -98,7 +100,7 @@ function Fecha_SalidaDESC()
 {
     global $conn;
 
-    $sql="SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
+    $sql = "SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
             ORDER BY pl.Fecha_Salida DESC;";
 
     $result = $conn->query($sql);
@@ -128,15 +130,17 @@ function Fecha_SalidaDESC()
 
 </header>
 <nav class="contenedorNav">
-    <div>
-        <!--Para hacer una barra de busqueda decente-->
-        <!--https://webdesign.tutsplus.com/es/tutorials/css-experiments-with-a-search-form-input-and-button--cms-22069-->
-        <span class="icon"><i class="fa fa-search"></i></span>
-        <input type="search" id="buscar" placeholder="Search..."/>
+    <div class="caja">
+        <div class="contenedorSearch">
+            <!--Para hacer una barra de busqueda decente-->
+            <!--https://webdesign.tutsplus.com/es/tutorials/css-experiments-with-a-search-form-input-and-button--cms-22069-->
+            <span class="icon"><i class="fa fa-search"></i></span>
+            <input type="search" id="buscar" placeholder="Search..."/>
+        </div>
     </div>
     <!--Poner nombre a las clases-->
-        <form action="PagMain.php" method="get">
-            <div class="contenedorSelector">
+    <form action="PagMain.php" method="get">
+        <div class="contenedorSelector">
             <?php $criterioFiltracion = $_GET["criterioFiltracion"] ?>
             <select name="criterioFiltracion">
                 <option <?php echo($criterioFiltracion == "" ? "selected" : "") ?> value="unsorted">Normal</option>
@@ -145,95 +149,94 @@ function Fecha_SalidaDESC()
                 <option <?php echo($criterioFiltracion == "genero" ? "selected" : "") ?> value="genero">Generos</option>
             </select>
             <div>
-            <?php
+                <?php
 
-
-            if (isset($_GET["criterioFiltracion"])) {
-                switch ($criterioFiltracion) {
-                    case "calificacion":
-                        $calificacion=$_GET["calificacion"];
-                        echo '<div class="contenedorSelector2">';
-                        echo '<select name="calificacion">';
-                            if($calificacion=="mejor"){
+                if (isset($_GET["criterioFiltracion"])) {
+                    switch ($criterioFiltracion) {
+                        case "calificacion":
+                            $calificacion = $_GET["calificacion"];
+                            echo '<div class="contenedorSelector2">';
+                            echo '<select name="calificacion">';
+                            if ($calificacion == "mejor") {
                                 echo '<option value="mejor"selected>Mejor calificadas</option>';
-                            }else {
+                            } else {
                                 echo '<option value="mejor">Mejor calificadas</option>';
                             }
-                            if($calificacion=="peor"){
+                            if ($calificacion == "peor") {
                                 echo '<option value="peor"selected>Peor calificadas</option>';
-                            }else{
+                            } else {
                                 echo '<option value="peor">Peor calificadas</option>';
                             }
-                        echo '</select>';
-                        echo '</div>';
-                        break;
-                    case "fecha_salida":
-                        $fecha_salida=$_GET["fecha_salida"];
-                        echo '<div class="contenedorSelector2" >';
-                        echo '<select name="fecha_salida">';
-                        if($fecha_salida=="nuevas"){
-                            echo '<option value="nuevas"selected>Nuevas</option>';
-                        }else{
-                            //No acabo de entender del todo porque debo poner en uno selected y en otro no para que me muestre algun valor
-                            echo '<option value="nuevas">Nuevas</option>';
-                        }
-                        if($fecha_salida=="antiguas"){
-                            echo '<option value="antiguas"selected>Antiguas</option>';
-                        }else{
-                            echo '<option value="antiguas">Antiguas</option>';
-                        }
-                        echo '</select>';
-                        echo '</div>';
-                        break;
-                    case "genero";
-                        $genero = $_GET["genero"];
-                        echo '<div class="contenedorSelector2" >';
-                        echo '<select name="genero">';
-                        foreach ($ArrObjGen as $gen => $valores) {
-                            if ($genero == $valores->getNombre()) {
-                                echo '<option value="' . $valores->getNombre() . '"selected>' . $valores->getNombre() . '</option>';
+                            echo '</select>';
+                            echo '</div>';
+                            break;
+                        case "fecha_salida":
+                            $fecha_salida = $_GET["fecha_salida"];
+                            echo '<div class="contenedorSelector2" >';
+                            echo '<select name="fecha_salida">';
+                            if ($fecha_salida == "nuevas") {
+                                echo '<option value="nuevas"selected>Nuevas</option>';
                             } else {
-                                echo '<option value="' . $valores->getNombre() . '">' . $valores->getNombre() . '</option>';
+                                //No acabo de entender del todo porque debo poner en uno selected y en otro no para que me muestre algun valor
+                                echo '<option value="nuevas">Nuevas</option>';
                             }
-                        }
-                        echo '</select>';
-                        echo '</div>';
-                        break;
+                            if ($fecha_salida == "antiguas") {
+                                echo '<option value="antiguas"selected>Antiguas</option>';
+                            } else {
+                                echo '<option value="antiguas">Antiguas</option>';
+                            }
+                            echo '</select>';
+                            echo '</div>';
+                            break;
+                        case "genero";
+                            $genero = $_GET["genero"];
+                            echo '<div class="contenedorSelector2" >';
+                            echo '<select name="genero">';
+                            foreach ($ArrObjGen as $gen => $valores) {
+                                if ($genero == $valores->getNombre()) {
+                                    echo '<option value="' . $valores->getNombre() . '"selected>' . $valores->getNombre() . '</option>';
+                                } else {
+                                    echo '<option value="' . $valores->getNombre() . '">' . $valores->getNombre() . '</option>';
+                                }
+                            }
+                            echo '</select>';
+                            echo '</div>';
+                            break;
+                    }
                 }
-            }
-            $ArrFiltradoPeli = $ArrObjPeli;
+                $ArrFiltradoPeli = $ArrObjPeli;
 
-            if($criterioFiltracion=="calificacion"){
-                $calificacion=$_GET["calificacion"];
-                    if($calificacion=="mejor"){
-                        $ArrFiltradoPeli=RankingDESC();
+                if ($criterioFiltracion == "calificacion") {
+                    $calificacion = $_GET["calificacion"];
+                    if ($calificacion == "mejor") {
+                        $ArrFiltradoPeli = RankingDESC();
                     }
-                    if($calificacion=="peor"){
-                        $ArrFiltradoPeli=RankingASC();
+                    if ($calificacion == "peor") {
+                        $ArrFiltradoPeli = RankingASC();
                     }
-            }
-            if($criterioFiltracion=="fecha_salida"){
-                $fecha_salida=$_GET["fecha_salida"];
-                if($fecha_salida=="nuevas"){
-                    $ArrFiltradoPeli=Fecha_SalidaDESC();
                 }
-                if($fecha_salida=="antiguas"){
-                    $ArrFiltradoPeli=Fecha_SalidaASC();
+                if ($criterioFiltracion == "fecha_salida") {
+                    $fecha_salida = $_GET["fecha_salida"];
+                    if ($fecha_salida == "nuevas") {
+                        $ArrFiltradoPeli = Fecha_SalidaDESC();
+                    }
+                    if ($fecha_salida == "antiguas") {
+                        $ArrFiltradoPeli = Fecha_SalidaASC();
+                    }
                 }
-            }
-            if ($criterioFiltracion == "genero") {
-                $genero = $_GET["genero"];
-                if ($genero != "") {
-                    $ArrFiltradoPeli = mostrarPelisGenero($genero);
+                if ($criterioFiltracion == "genero") {
+                    $genero = $_GET["genero"];
+                    if ($genero != "") {
+                        $ArrFiltradoPeli = mostrarPelisGenero($genero);
+                    }
                 }
-            }
-            ?>
-            <button id="submit" type="submit">Filtrar</button>
-        </form>
+                ?>
+                <button id="submit" type="submit">Filtrar</button>
+    </form>
 </nav>
 <div class="contenedor">
-<?php for ($i = 0; $i < count($ArrFiltradoPeli); $i++) {//Aqui funciona pero es una chapuza
-    $peli = $ArrFiltradoPeli[$i] ?>
+    <?php for ($i = 0; $i < count($ArrFiltradoPeli); $i++) {//Aqui funciona pero es una chapuza
+        $peli = $ArrFiltradoPeli[$i] ?>
         <div class="contenedorPelis">
             <a href="PagPeli.php?PeliculaID=<?php echo $peli->getPeliculaID(); ?>"> <img
                         src="<?php echo $peli->getIMG(); ?>">
@@ -247,7 +250,7 @@ function Fecha_SalidaDESC()
             </a>
         </div>
 
-<?php } ?>
+    <?php } ?>
 </div>
 </body>
 </html>
