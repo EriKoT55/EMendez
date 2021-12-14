@@ -21,12 +21,96 @@ if ($conn->connect_error) {
 }
 
 //Coger los datos para poder trabajar el Obj
-
+global $ArrObjPeli;
+global $ArrObjGen;
 
 //Ordenacion de las peliculas, tengo pensado hacerlo con sql para que sea mas optimo
 //Opciones: ranking, fecha de salida, director y genero.
 //De menor a mayor
+function RankingASC()
+{
+    global $conn;
 
+    $sql = "SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
+            ORDER BY pl.Calificacion ASC;";
+
+    $result = $conn->query($sql);
+    $Arr_rankAsc = $result->fetch_all(MYSQLI_ASSOC);
+
+    $array_obj_peli = ObjPelicula($Arr_rankAsc);
+    $ArrFiltradoPeli = BucleXAinsercionPelicla($array_obj_peli);
+
+    return $ArrFiltradoPeli;
+}
+
+//De mayor a menor
+function RankingDESC()
+{
+    global $conn;
+
+    $sql = "SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
+            ORDER BY pl.Calificacion DESC;";
+
+    $result = $conn->query($sql);
+    $Arr_rankDesc = $result->fetch_all(MYSQLI_ASSOC);
+
+    $array_obj_peli = ObjPelicula($Arr_rankDesc);
+    $ArrFiltradoPeli = BucleXAinsercionPelicla($array_obj_peli);
+
+    return $ArrFiltradoPeli;
+}
+
+function mostrarPelisGenero($NomGen)
+{
+
+    global $conn;
+
+    $sql = "SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
+            JOIN GenPeli gp on gp.PeliculaID=pl.PeliculaID
+            JOIN Genero g on g.GeneroID=gp.GeneroID
+            WHERE g.Nombre='" . $NomGen . "'
+            ORDER BY pl.PeliculaID;";
+
+    $result = $conn->query($sql);
+    $Arr_pelisXgen = $result->fetch_all(MYSQLI_ASSOC);
+
+    $array_obj_peli = ObjPelicula($Arr_pelisXgen);
+    $ArrFiltradoPeli = BucleXAinsercionPelicla($array_obj_peli);
+
+    return $ArrFiltradoPeli;
+}
+
+function Fecha_SalidaASC()
+{
+    global $conn;
+
+    $sql = "SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
+            ORDER BY pl.Fecha_Salida ASC;";
+
+    $result = $conn->query($sql);
+    $Arr_fechAsc = $result->fetch_all(MYSQLI_ASSOC);
+
+    $array_obj_peli = ObjPelicula($Arr_fechAsc);
+    $ArrFiltradoPeli = BucleXAinsercionPelicla($array_obj_peli);
+
+    return $ArrFiltradoPeli;
+}
+
+function Fecha_SalidaDESC()
+{
+    global $conn;
+
+    $sql = "SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
+            ORDER BY pl.Fecha_Salida DESC;";
+
+    $result = $conn->query($sql);
+    $Arr_fechDesc = $result->fetch_all(MYSQLI_ASSOC);
+
+    $array_obj_peli = ObjPelicula($Arr_fechDesc);
+    $ArrFiltradoPeli = BucleXAinsercionPelicla($array_obj_peli);
+
+    return $ArrFiltradoPeli;
+}
 
 
 ?>
@@ -175,7 +259,7 @@ if ($conn->connect_error) {
         $peli = $ArrFiltradoPeli[$i] ?>
         <div class="contenedorPelis">
             <a href="PagPeli.php?PeliculaID=<?php echo $peli->getPeliculaID(); ?>"> <img
-                        src="<?php echo $peli->getIMG(); ?>">
+                    src="<?php echo $peli->getIMG(); ?>">
                 <p class="nomPeli"><?php echo $peli->getNombre(); ?>
                     (<?php
                     //Con esta funcion hago que me muestra lo de despues o antes del caracter que le pongo
