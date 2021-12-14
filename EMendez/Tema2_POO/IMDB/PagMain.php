@@ -139,6 +139,7 @@ function Fecha_SalidaDESC()
 
     <?php
     //Buscador
+    $ArrFiltradoPeli = $ArrObjPeli;
 
     if (isset($_GET["enviar"])) {
         $buscar=$_GET["buscar"];
@@ -148,7 +149,7 @@ function Fecha_SalidaDESC()
     }
 
     ?>
-    <form action="PagMain.php" method="get">
+    <form class="formFiltr" action="PagMain.php" method="get">
         <div class="contenedorSelector">
             <?php $criterioFiltracion = $_GET["criterioFiltracion"] ?>
             <select class="Selector" name="criterioFiltracion">
@@ -171,7 +172,7 @@ function Fecha_SalidaDESC()
                     echo '<div  class="contenedorSelector2">';
                     echo '<select class="Selector" name="calificacion">';
                     if ($calificacion == "mejor") {
-                        echo '<option value="mejor"selected>Mejor calificadas</option>';
+                        echo '<option value="mejor" selected>Mejor calificadas</option>';
                     } else {
                         echo '<option value="mejor">Mejor calificadas</option>';
                     }
@@ -188,13 +189,13 @@ function Fecha_SalidaDESC()
                     echo '<div class="contenedorSelector2" >';
                     echo '<select class="Selector" name="fecha_salida">';
                     if ($fecha_salida == "nuevas") {
-                        echo '<option value="nuevas"selected>Nuevas</option>';
+                        echo '<option value="nuevas" selected>Nuevas</option>';
                     } else {
                         //No acabo de entender del todo porque debo poner en uno selected y en otro no para que me muestre algun valor
                         echo '<option value="nuevas">Nuevas</option>';
                     }
                     if ($fecha_salida == "antiguas") {
-                        echo '<option value="antiguas"selected>Antiguas</option>';
+                        echo '<option value="antiguas" selected>Antiguas</option>';
                     } else {
                         echo '<option value="antiguas">Antiguas</option>';
                     }
@@ -217,7 +218,7 @@ function Fecha_SalidaDESC()
                     break;
             }
         }
-        $ArrFiltradoPeli = $ArrObjPeli;
+
 
         if ($criterioFiltracion == "calificacion") {
             $calificacion = $_GET["calificacion"];
@@ -246,10 +247,12 @@ function Fecha_SalidaDESC()
         ?>
         <button id="submit" type="submit">Filtrar</button>
     </form>
+    <div class="contenedorUL">
         <ul>
             <li><a href="PagMain.php">Pagina Principal</a></li>
             <li><a href="PagInicioSession.php">Iniciar Session</a></li>
         </ul>
+    </div>
 </nav>
 <div class="contenedor">
     <?php for ($i = 0; $i < count($ArrFiltradoPeli); $i++) {//Aqui funciona pero es una chapuza
