@@ -1,11 +1,8 @@
 <?php
-include_once("Clases/Persona.php");
-include_once("Clases/Pelicula.php");
-include_once("Clases/Genero.php");
-include_once ("Clases/Multimedia.php");
-include_once ("Clases/Usuario.php");
-include_once ("Clases/Trabajo.php");
-include_once("Clases/BD.php");
+include_once("Persona.php");
+include_once("Pelicula.php");
+include_once("Genero.php");
+include_once("BD.php");
 
 global $ObjPersona;
 

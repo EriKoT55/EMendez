@@ -1,20 +1,28 @@
 <?php
 error_reporting(0);
-include_once("Clases/Persona.php");
-include_once("Clases/Pelicula.php");
-include_once("Clases/Genero.php");
-include_once ("Clases/Multimedia.php");
-include_once ("Clases/Usuario.php");
-include_once ("Clases/Trabajo.php");
-include_once("Clases/BD.php");
+include_once("Persona.php");
+include_once("Pelicula.php");
+include_once("Genero.php");
+include_once("BD.php");
 /*https://www.imdb.com/title/tt2382320/?pf_rd_m=A2FGELUUNOQJNL&pf_rd_p=ea4e08e1-c8a3-47b5-ac3a-75026647c16e&pf_rd_r=1VHKKEY8F9SF79HJTAB3&pf_rd_s=center-1&pf_rd_t=15506&pf_rd_i=moviemeter&ref_=chtmvm_tt_6*/
 
-$conn= new BD();
-$conn->server();
+/*Crear una nueva conexion en MYSQL*/
+$servername = "sql480.main-hosting.eu";//sql480.main-hosting.eu
+$username = "u850300514_emendez"; //u850300514_emendez //casa erikPhp // clase root
+$password = "x43233702G";//x43233702G
+$database = "u850300514_emendez";//RickMorthy_u850300514_emendez
+
+//Creo la conexion
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Me aseguro de si va bien la conexion
+if ($conn->connect_error) {
+    die("Conexion fallida: " . $conn->connect_error);
+}
 
 //Coger los datos para poder trabajar el Obj
-//global $ArrObjPeli;
-//global $ArrObjGen;
+global $ArrObjPeli;
+global $ArrObjGen;
 
 //Ordenacion de las peliculas, tengo pensado hacerlo con sql para que sea mas optimo
 //Opciones: ranking, fecha de salida, director y genero.
@@ -131,7 +139,7 @@ function Fecha_SalidaDESC()
 
     <?php
     //Buscador
-    //$ArrFiltradoPeli =$conn->;
+    $ArrFiltradoPeli = $ArrObjPeli;
 
     if (isset($_GET["enviar"])) {
         $buscar=$_GET["buscar"];
@@ -247,9 +255,7 @@ function Fecha_SalidaDESC()
     </div>
 </nav>
 <div class="contenedor">
-    <?php
-
-    for ($i = 0; $i < count($ArrFiltradoPeli); $i++) {//Aqui funciona pero es una chapuza
+    <?php for ($i = 0; $i < count($ArrFiltradoPeli); $i++) {//Aqui funciona pero es una chapuza
         $peli = $ArrFiltradoPeli[$i] ?>
         <div class="contenedorPelis">
             <a href="PagPeli.php?PeliculaID=<?php echo $peli->getPeliculaID(); ?>"> <img

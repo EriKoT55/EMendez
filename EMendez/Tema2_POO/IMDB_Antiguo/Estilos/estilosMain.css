@@ -1,0 +1,191 @@
+body{
+    background: #130601;
+    margin: 0 ;
+}
+nav.contenedorMenu{
+    background-color: #804400;
+    width: 100%;
+    padding-top:15px;
+
+    overflow: hidden;
+    display:inline-block;
+}
+
+/*               BUSCADOR                */
+.contenedorSearch{
+    /* Al parecer no hace nada si no pones un height, si lo pones se descueadra todo*/
+    width: 300px;
+    height: 30px;
+    margin-left:15px;
+    white-space: nowrap;
+    position: relative;
+}
+.contenedorSearch .icon{
+    position:absolute;
+    left:85%;
+    margin-top: 1px;
+    /*z-index:1;*/
+    color:gray;
+    background-color:#424250 ;
+    border: none;
+    width: 44px;
+    height: 28px;
+    border-radius: 5px;
+
+    /*Transicion soportada para todos los navegadores*/
+    -webkit-transition: background .55s ease;
+    -moz-transition: background .55s ease;
+    -ms-transition: background .55s ease;
+    -o-transition: background .55s ease;
+    transition: background .55s ease;
+
+}
+.contenedorSearch input#buscar{
+    width: 300px;
+    height: 30px;
+    background: #424250;
+    border:1px solid white;
+    font-size: 10pt;
+    float:left;
+    padding-left: 45px;
+    font-weight: bold;
+    border-radius: 5px;
+    color:white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+
+    /*Transicion soportada para todos los navegadores*/
+    -webkit-transition: background .55s ease;
+    -moz-transition: background .55s ease;
+    -ms-transition: background .55s ease;
+    -o-transition: background .55s ease;
+    transition: background .55s ease;
+}
+
+.contenedorSearch input#buscar:hover ,.contenedorSearch input#buscar:active  ,.contenedorSearch input#buscar:focus {
+    background-color: darkorange;
+    color:black;
+}
+/*Pongo la .icon despues del hover para que se aplique en el las propiedades dadas
+para que se aplique debe ponerse un contenedor que englobe a lo que quieres aplicar las propiedades
+*/
+.contenedorSearch:hover button.icon{
+    color:black;
+    background-color: #ffc080;
+}
+
+
+/*              FORM FILTRADO               */
+/*Contiene lo de abajo hasta MENU*/
+.formFiltr{
+    width: 435px;
+    height: 30px;
+}
+
+/*Si le pongo ancho y largo a los contenedores se descuadra el nav y se pone debajo del search los select*/
+
+/* Hacer los respectivos HOVERS y al sumbit (boton) hacerle HOVER/ACTIVE*/
+.contenedorSelector{
+    width: 150px;
+    height: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
+    /*FUTURO QUITAR*/
+    float:left;
+}
+.Selector{
+    font-family: 'Readex Pro', sans-serif;
+    width: 150px;
+    height: 30px;
+    background-color: #fcefe5;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    /*margin-left: 5px;*/
+    /*Alinea los selectors*/
+    /*float:left;*/
+}
+.contenedorSelector2{
+    margin-right: 5px;
+    width: 150px;
+    height: 30px;
+    /*FUTURO QUITAR*/
+    float:left;
+}
+button#submit{
+    font-family: 'Readex Pro', sans-serif;
+    margin-left: 5px;
+    margin-top:5px;
+    height: 20px;
+    width: 100px;
+    font-weight: bold;
+}
+
+/*           Menu  UL            */
+/*Probar para poder aplicar el display inline-block correctamente
+deberia poner a todas los divs una clase igual y aplicar el display, PROBAR*/
+.contenedorUL{
+    /*FUTURO QUITAR*/
+    float:right;
+/*Si lo de abajo se descoloca*/
+    /*width: 250px;
+    height: 48px;*/
+}
+.contenedorUL ul li{
+    list-style-type: none;
+    /*FUTURO QUITAR*/
+    float:left;
+
+}
+.contenedorUL ul li a{
+    color: black;
+    list-style-type: none;
+    display: block;
+    padding:10px;
+
+}
+.contenedorUL ul li a:hover{
+    font-weight: bold;
+    background-color: #ffca88;
+}
+
+
+/*          Maqutacion de las cartas de la pelis                */
+.contenedor{
+    overflow: hidden;
+    margin-top:20px;
+}
+.contenedorPelis{
+    width: 210px;
+    height: 350px;
+    border:3px solid darkorange;
+    padding: 5px;
+    text-align: center;
+    margin:10px;
+    float:left;
+    background-color: #343434;
+    text-shadow: 0px 4px 3px black,0px -4px 3px black;
+    font-family: 'Readex Pro', sans-serif;
+}
+.contenedorPelis:hover{
+    width: 213px;
+    height: 350px;
+    box-shadow: 0px -5px 5px gray, 0px 5px 5px gray;
+}
+img{
+    border:2px solid black;
+    width: 216px;
+    height: 250px;
+    margin-top: -5px;
+    margin-left: -5px;
+
+}
+/*Pongo la img despues del hover para que se aplique en ella las propiedades dadas*/
+.contenedorPelis:hover img{
+    width: 219px;
+    height: 251px;
+}
+a{
+    text-decoration: none;
+    color:white;
+}

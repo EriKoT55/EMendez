@@ -1,0 +1,64 @@
+body{
+    background: #130601;
+    margin:0;
+    padding: 0;
+}
+nav{
+    /*vovler a poner el nav en la pagpMain*/
+    background-color: #1f1f1f;
+    width: 100%;
+    overflow: hidden;
+    padding:15px;
+}
+
+.contenedorSearch{
+    /* Al parecer no hacer nada si no pones un height, si lo pones se descueadra todo*/
+    width: 500px;
+
+    /*vertical-align: middle;*/
+    white-space: nowrap;
+    position: relative;
+
+}
+.contenedorSearch .icon{
+    position:absolute;
+    top:65%;
+    margin-left: 10px;
+    margin-top:5px;
+    /*z-index:1;*/
+    color:gray;
+}
+.contenedorSearch input#buscar{
+    width: 300px;
+    height: 30px;
+    background: #424250;
+    border:1px solid white;
+    font-size: 10pt;
+    float:left;
+    color: #8d8d66;
+    padding-left: 45px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    /*CAMBIAR EL COLOR DEL TEXTO Y FUENTE*/
+
+    /*Transicion soportada para todos los navegadores*/
+    -webkit-transition: background .55s ease;
+    -moz-transition: background .55s ease;
+    -ms-transition: background .55s ease;
+    -o-transition: background .55s ease;
+    transition: background .55s ease;
+}
+/*Pongo la input#buscar despues del hover para que se aplique en el las propiedades dadas*/
+.contenedorSearch input#buscar:hover ,.contenedorSearch input#buscar:active  ,.contenedorSearch input#buscar:focus {
+    background-color: darkorange;
+}
+/*Pongo la .icon despues del hover para que se aplique en el las propiedades dadas*/
+.contenedorSearch:hover .icon,.contenedorSearch:active .icon,.contenedorSearch:focus .icon{
+    color:black;
+}
+
+.contenedorInicioSession{
+
+}
