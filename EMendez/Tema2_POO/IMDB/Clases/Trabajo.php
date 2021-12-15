@@ -6,7 +6,7 @@ class Trabajo
 
     /**
      * @param $TrabajoID
-     * @param $Nombre
+     * @param $Nom_trabajo
      */
     public function __construct($TrabajoID, $Nom_trabajo)
     {
@@ -23,8 +23,8 @@ class Trabajo
     }
 
     /**
-     * @param mixed $TrabajoID
-     * @return Trabajo
+     * @param $TrabajoID
+     * @return $this
      */
     public function setTrabajoID($TrabajoID)
     {
@@ -41,8 +41,8 @@ class Trabajo
     }
 
     /**
-     * @param mixed $Nom_trabajo
-     * @return Trabajo
+     * @param $Nom_trabajo
+     * @return $this
      */
     public function setNomtrabajo($Nom_trabajo)
     {

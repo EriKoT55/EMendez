@@ -1,14 +1,14 @@
 <?php
-include_once "Clases/BD.php";
+include_once "Clases/bd.php";
 
-$conn= new BD();
+$conn= new bd();
 $conn->server();
 
-$genArray=$conn->Generos();
+
 
 echo "<br>";
 echo "<pre>";
-var_dump($conn->Nombre_peliXactor(2));
+var_dump($conn->cogerTrabajo(1));
 echo "<br>";
 
 ?>
