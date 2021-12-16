@@ -8,7 +8,7 @@ $conn->server();
 
 echo "<br>";
 echo "<pre>";
-var_dump($conn->cogerTrabajo(1));
+var_dump($conn->cogerPersona(1));
 echo "<br>";
 
 ?>

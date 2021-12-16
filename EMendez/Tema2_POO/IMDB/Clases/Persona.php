@@ -2,24 +2,21 @@
 
 class Persona
 {
-    private $PersonaID,$NombreCompleto,$Trabajo,$Fecha_Nacimiento,$Descripcion,$IMG;
+    private $PersonaID,$NombreCompleto,$Fecha_Nacimiento,$Descripcion,$IMG;
 
     /**
      * @param $PersonaID
-     * @param $Nombre
-     * @param $Apellidos
+     * @param $NombreCompleto
      * @param $Fecha_Nacimiento
      * @param $Descripcion
      */
-    public function __construct($PersonaID, $NombreCompleto,$Trabajo, $Fecha_Nacimiento, $Descripcion, $IMG)
+    public function __construct($PersonaID, $NombreCompleto, $Fecha_Nacimiento, $Descripcion, $IMG)
     {
         $this->PersonaID = $PersonaID;
         $this->NombreCompleto = $NombreCompleto;
-        $this->Trabajo = $Trabajo;
         $this->Fecha_Nacimiento = $Fecha_Nacimiento;
         $this->Descripcion = $Descripcion;
         $this->IMG=$IMG;
-        $this->Peliculas=[];
     }
     /**
      * @return mixed
@@ -56,23 +53,6 @@ class Persona
         $this->NombreCompleto = $NombreCompleto;
         return $this;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getTrabajo()
-    {
-        return $this->Trabajo;
-    }
-
-    /**
-     * @param mixed $Trabajo
-     */
-    public function setTrabajo($Trabajo)
-    {
-        $this->Trabajo = $Trabajo;
-    }
-
 
     /**
      * @return mixed
@@ -131,6 +111,24 @@ class Persona
     /**
      * @return array
      */
+    public function getTrabajo(): array
+    {
+        return $this->Trabajo;
+    }
+
+    /**
+     * @param array $Trabajo
+     * @return Persona
+     */
+    public function setTrabajo(array $Trabajo): Persona
+    {
+        $this->Trabajo = $Trabajo;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
     public function getPeliculas(): array
     {
         return $this->Peliculas;
@@ -138,10 +136,14 @@ class Persona
 
     /**
      * @param array $Peliculas
+     * @return Persona
      */
-    public function setPeliculas(array $Peliculas): void
+    public function setPeliculas(array $Peliculas)
     {
         $this->Peliculas = $Peliculas;
+        return $this;
     }
+
+
 
 }

@@ -94,7 +94,9 @@ class bd extends mysqli
      */
     public function cogerTrabajo($PersonaID){
 
-        $sql="SELECT t.* FROM Persona p JOIN TrabjPers tp on tp.PersonaID=p.PersonaID JOIN Trabajo t on t.TrabajoID=tp.TrabajoID WHERE p.PersonaID=".$PersonaID.";";
+        $sql="SELECT t.* FROM Persona p 
+            JOIN TrabjPers tp on tp.PersonaID=p.PersonaID 
+            JOIN Trabajo t on t.TrabajoID=tp.TrabajoID WHERE p.PersonaID=".$PersonaID.";";
 
         $result=$this->query($sql);
 
@@ -110,9 +112,42 @@ class bd extends mysqli
 
     }
 
+    public function cogerPeliXpers($PersonaID){
+
+        $sql="SELECT pl.Nombre as Pelicula FROM Peliculas pl
+              JOIN PersPeli pp on pp.PeliculaID=pl.PeliculaID
+              JOIN Persona prs on prs.PersonaID=pp.PersonaID
+              WHERE prs.PersonaID=".$PersonaID.";";
+
+        $result=$this->query($sql);
+
+        $peliXpersArray=$result->fetch_all(MYSQLI_ASSOC);
+
+        //No puedo devolver un array de obj ya que el nombre por si solo no es nada
+
+        return $peliXpersArray;
+
+    }
     /**
     */
-    public function cogerPersona(){
+    public function cogerPersona($PersonaID){
+
+        $sql="SELECT * FROM Persona p WHERE PersonaID=".$PersonaID.";";
+        $this->default();
+        $result=$this->query($sql);
+        $this->close();
+        $persArray=$result->fetch_all(MYSQLI_ASSOC);
+
+        $objArrayPers=[];
+
+        foreach ($persArray as $pers){
+//Mirar
+            $newPers=new Persona($pers["PersonaID"],$pers["NombreCompleto"],$pers["Fecha_Nacimiento"],$pers["Descripcion"],$pers["IMG"]);
+            $newPers->setPeliculas(cogerPeliXpers($pers["PersonaID"]));
+            $newPers->setTrabajo(cogerTrabajo($pers["PersonaID"]));
+            $objArrayPers[]=$newPers;
+        }
+        return $objArrayPers;
 
     }
 
