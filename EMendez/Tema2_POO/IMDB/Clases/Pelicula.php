@@ -2,7 +2,7 @@
 
 class Pelicula
 {
-    private $PeliculaID,$Nombre,$Duracion,$Fecha_Salida,$Calificacion,$Sinopsis;
+    private $PeliculaID,$Nombre,$Duracion,$Fecha_Salida,$Calificacion,$Sinopsis,$Generos,$Actores,$Directores;
 
     /**
      * @param $ID
@@ -12,17 +12,15 @@ class Pelicula
      * @param $Calificacion
      * @param $Sinopsis
      */
-    public function __construct($PeliculaID, $Nombre, $IMG, $Trailer, $Duracion, $Fecha_Salida, $Calificacion, $Sinopsis)
+    public function __construct($PeliculaID, $Nombre, $Duracion, $Fecha_Salida, $Calificacion, $Sinopsis)
     {
+
         $this->PeliculaID = $PeliculaID;
         $this->Nombre = $Nombre;
         $this->Duracion = $Duracion;
         $this->Fecha_Salida = $Fecha_Salida;
         $this->Calificacion = $Calificacion;
         $this->Sinopsis = $Sinopsis;
-        $this->Generos=[];
-        $this->Actores=[];
-        $this->Directores=[];
     }
 
     /**
@@ -34,13 +32,13 @@ class Pelicula
     }
 
     /**
-     * @param mixed $PeliculaID
-     * @return Pelicula
+     * @param $PeliculaID
+     * @return void
      */
-    public function setID($PeliculaID)
+    public function setID($PeliculaID):void
     {
         $this->PeliculaID = $PeliculaID;
-        return $this;
+
     }
 
     /**
@@ -52,13 +50,13 @@ class Pelicula
     }
 
     /**
-     * @param mixed $Nombre
-     * @return Pelicula
+     * @param $Nombre
+     * @return void
      */
-    public function setNombre($Nombre)
+    public function setNombre($Nombre):void
     {
         $this->Nombre = $Nombre;
-        return $this;
+
     }
 
     /**
@@ -70,13 +68,12 @@ class Pelicula
     }
 
     /**
-     * @param mixed $Duracion
-     * @return Pelicula
+     * @param $Duracion
+     * @return void
      */
-    public function setDuracion($Duracion)
+    public function setDuracion($Duracion):void
     {
         $this->Duracion = $Duracion;
-        return $this;
     }
 
     /**
@@ -88,13 +85,12 @@ class Pelicula
     }
 
     /**
-     * @param mixed $Fecha_Salida
-     * @return Pelicula
+     * @param $Fecha_Salida
+     * @return void
      */
-    public function setFechaSalida($Fecha_Salida)
+    public function setFechaSalida($Fecha_Salida):void
     {
         $this->Fecha_Salida = $Fecha_Salida;
-        return $this;
     }
 
     /**
@@ -106,13 +102,12 @@ class Pelicula
     }
 
     /**
-     * @param mixed $Calificacion
-     * @return Pelicula
+     * @param $Calificacion
+     * @return void
      */
-    public function setCalificacion($Calificacion)
+    public function setCalificacion($Calificacion):void
     {
         $this->Calificacion = $Calificacion;
-        return $this;
     }
 
     /**
@@ -124,66 +119,61 @@ class Pelicula
     }
 
     /**
-     * @param mixed $Sinopsis
-     * @return Pelicula
+     * @param $Sinopsis
+     * @return void
      */
-    public function setSinopsis($Sinopsis)
+    public function setSinopsis($Sinopsis):void
     {
         $this->Sinopsis = $Sinopsis;
-        return $this;
     }
 
     /**
-     * @return array
+     * @return mixed
      */
-    public function getGeneros(): array
+    public function getGeneros()
     {
         return $this->Generos;
     }
 
     /**
-     * @param array $Generos
-     * @return Pelicula
+     * @param mixed $Generos
      */
-    public function setGeneros(array $Generos): void
+    public function setGeneros($Generos): void
     {
         $this->Generos = $Generos;
-
     }
 
     /**
-     * @return array
+     * @return mixed
      */
-    public function getActores(): array
+    public function getActores()
     {
         return $this->Actores;
     }
+
     /**
-     * @param array $Actores
-     * @return Pelicula
+     * @param mixed $Actores
      */
     public function setActores(array $Actores): void
     {
         $this->Actores = $Actores;
-
     }
+
     /**
-     * @return array
+     * @return mixed
      */
-    public function getDirectores(): array
+    public function getDirectores()
     {
         return $this->Directores;
     }
+
     /**
-     * @param array $Directores
-     * @return Pelicula
+     * @param mixed $Directores
      */
     public function setDirectores(array $Directores): void
     {
         $this->Directores = $Directores;
-
     }
-
 
 
 

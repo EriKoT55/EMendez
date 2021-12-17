@@ -26,10 +26,9 @@ class Trabajo
      * @param $TrabajoID
      * @return $this
      */
-    public function setTrabajoID($TrabajoID)
+    public function setTrabajoID($TrabajoID):void
     {
         $this->TrabajoID = $TrabajoID;
-        return $this;
     }
 
     /**
@@ -44,10 +43,9 @@ class Trabajo
      * @param $Nom_trabajo
      * @return $this
      */
-    public function setNomtrabajo($Nom_trabajo)
+    public function setNomtrabajo($Nom_trabajo):void
     {
         $this->Nom_trabajo = $Nom_trabajo;
-        return $this;
     }
 
 

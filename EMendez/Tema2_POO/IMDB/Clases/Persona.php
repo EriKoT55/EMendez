@@ -2,13 +2,14 @@
 
 class Persona
 {
-    private $PersonaID,$NombreCompleto,$Fecha_Nacimiento,$Descripcion,$IMG;
+    public $PersonaID,$NombreCompleto,$Fecha_Nacimiento,$Descripcion,$IMG,$Peliculas,$Trabajo;
 
     /**
      * @param $PersonaID
      * @param $NombreCompleto
      * @param $Fecha_Nacimiento
      * @param $Descripcion
+     * @param $IMG
      */
     public function __construct($PersonaID, $NombreCompleto, $Fecha_Nacimiento, $Descripcion, $IMG)
     {
@@ -27,13 +28,12 @@ class Persona
     }
 
     /**
-     * @param mixed $PersonaID
-     * @return Persona
+     * @param $PersonaID
+     * @return void
      */
-    public function setPersonaID($PersonaID)
+    public function setPersonaID($PersonaID): void
     {
         $this->PersonaID = $PersonaID;
-        return $this;
     }
 
     /**
@@ -45,13 +45,12 @@ class Persona
     }
 
     /**
-     * @param mixed $NombreCompleto
-     * @return Persona
+     * @param $NombreCompleto
+     * @return void
      */
-    public function setNombreCompleto($NombreCompleto)
+    public function setNombreCompleto($NombreCompleto):void
     {
         $this->NombreCompleto = $NombreCompleto;
-        return $this;
     }
 
     /**
@@ -63,13 +62,13 @@ class Persona
     }
 
     /**
-     * @param mixed $Fecha_Nacimiento
-     * @return Persona
+     * @param $Fecha_Nacimiento
+     * @return void
      */
-    public function setFechaNacimiento($Fecha_Nacimiento)
+    public function setFechaNacimiento($Fecha_Nacimiento):void
     {
         $this->Fecha_Nacimiento = $Fecha_Nacimiento;
-        return $this;
+
     }
 
     /**
@@ -81,13 +80,12 @@ class Persona
     }
 
     /**
-     * @param mixed $Descripcion
-     * @return Persona
+     * @param $Descripcion
+     * @return void
      */
-    public function setDescripcion($Descripcion)
+    public function setDescripcion($Descripcion):void
     {
         $this->Descripcion = $Descripcion;
-        return $this;
     }
 
     /**
@@ -99,13 +97,12 @@ class Persona
     }
 
     /**
-     * @param mixed $IMG
-     * @return Persona
+     * @param $IMG
+     * @return void
      */
-    public function setIMG($IMG)
+    public function setIMG($IMG):void
     {
         $this->IMG = $IMG;
-        return $this;
     }
 
     /**
@@ -118,12 +115,11 @@ class Persona
 
     /**
      * @param array $Trabajo
-     * @return Persona
+     * @return void
      */
-    public function setTrabajo(array $Trabajo): Persona
+    public function setTrabajo(array $Trabajo): void
     {
         $this->Trabajo = $Trabajo;
-        return $this;
     }
 
     /**
@@ -136,12 +132,11 @@ class Persona
 
     /**
      * @param array $Peliculas
-     * @return Persona
+     * @return void
      */
-    public function setPeliculas(array $Peliculas)
+    public function setPeliculas(array $Peliculas):void
     {
         $this->Peliculas = $Peliculas;
-        return $this;
     }
 
 

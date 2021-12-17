@@ -49,7 +49,9 @@ class bd extends mysqli
         JOIN Peliculas p on p.PeliculaID=gp.PeliculaID
         WHERE p.PeliculaID=".$PeliculaID.";";
 
+        $this->default();
         $result=$this->query($sql);
+        $this->close();
 
         $genArray=$result->fetch_all(MYSQLI_ASSOC);
 
@@ -70,7 +72,9 @@ class bd extends mysqli
 
         $sql="SELECT * FROM Multimedia WHERE MultimediaID=".$PeliculaID.";";
 
+        $this->default();
         $result=$this->query($sql);
+        $this->close();
 
         $multiArray=$result->fetch_all(MYSQLI_ASSOC);
 
@@ -98,7 +102,9 @@ class bd extends mysqli
             JOIN TrabjPers tp on tp.PersonaID=p.PersonaID 
             JOIN Trabajo t on t.TrabajoID=tp.TrabajoID WHERE p.PersonaID=".$PersonaID.";";
 
+        $this->default();
         $result=$this->query($sql);
+        $this->close();
 
         $trabjArray=$result->fetch_all(MYSQLI_ASSOC);
 
@@ -112,24 +118,52 @@ class bd extends mysqli
 
     }
 
+    public function cogerNomPersXtrabj($PeliculaID,$NomTrabajo){
+
+        $sql="SELECT prs.NombreCompleto FROM Trabajo t
+                JOIN TrabjPers tp on tp.TrabajoID=t.TrabajoID
+                JOIN Persona prs on prs.PersonaID=tp.PersonaID
+                JOIN PersPeli pp on pp.PersonaID=prs.PersonaID
+                JOIN Peliculas pl on pl.PeliculaID=pp.PeliculaID
+                WHERE pl.PeliculaID=".$PeliculaID." AND t.Nom_trabajo='".$NomTrabajo."';";
+
+        $this->default();
+        $result=$this->query($sql);
+        $this->close();
+
+        //No puedo devolver un array de obj ya que el nombre de la persona por si solo no es obj
+        $nomTrabjArray=$result->fetch_all(MYSQLI_ASSOC);
+
+        return $nomTrabjArray;
+
+    }
+
+    /**
+     * @param $PersonaID
+     * @return array|mixed
+     */
     public function cogerPeliXpers($PersonaID){
 
         $sql="SELECT pl.Nombre as Pelicula FROM Peliculas pl
               JOIN PersPeli pp on pp.PeliculaID=pl.PeliculaID
-              JOIN Persona prs on prs.PersonaID=pp.PersonaID
-              WHERE prs.PersonaID=".$PersonaID.";";
+              WHERE pp.PersonaID=".$PersonaID.";";
 
+        $this->default();
         $result=$this->query($sql);
+        $this->close();
 
         $peliXpersArray=$result->fetch_all(MYSQLI_ASSOC);
 
-        //No puedo devolver un array de obj ya que el nombre por si solo no es nada
+        //No puedo devolver un array de obj ya que el nombre de la pelicula por si solo no es obj
 
         return $peliXpersArray;
 
     }
+
     /**
-    */
+     * @param $PersonaID
+     * @return array
+     */
     public function cogerPersona($PersonaID){
 
         $sql="SELECT * FROM Persona p WHERE PersonaID=".$PersonaID.";";
@@ -143,11 +177,62 @@ class bd extends mysqli
         foreach ($persArray as $pers){
 //Mirar
             $newPers=new Persona($pers["PersonaID"],$pers["NombreCompleto"],$pers["Fecha_Nacimiento"],$pers["Descripcion"],$pers["IMG"]);
-            $newPers->setPeliculas(cogerPeliXpers($pers["PersonaID"]));
-            $newPers->setTrabajo(cogerTrabajo($pers["PersonaID"]));
+            $newPers->setPeliculas($this->cogerPeliXpers($pers["PersonaID"]));
+            $newPers->setTrabajo($this->cogerTrabajo($pers["PersonaID"]));
             $objArrayPers[]=$newPers;
+        //Cuando hago un var_dump de esto no me muestra ni Peliculas ni Trabajos, pero estan.
         }
         return $objArrayPers;
+    }
+
+    /**
+     * @return array
+     */
+    public function cogerPersonas(){
+
+
+        $sql="SELECT * FROM Persona p;";
+
+        $this->default();
+        $result=$this->query($sql);
+        $this->close();
+
+        $perssArray=$result->fetch_all(MYSQLI_ASSOC);
+
+        $objArrayPerss=[];
+
+        foreach($perssArray as $perss){
+
+            $newPerss=new Persona($perss["PersonaID"],$perss["NombreCompleto"],$perss["Fecha_Nacimiento"],$perss["Descripcion"],$perss["IMG"]);
+            $newPerss->setPeliculas($this->cogerPeliXpers($perss["PersonaID"]));
+            $newPerss->setTrabajo($this->cogerTrabajo($perss["PersonaID"]));
+            $objArrayPerss[]=$newPerss;
+        }
+        return $objArrayPerss;
+    }
+
+    public function cogerPeliculas($PeliculaID){
+        $sql="SELECT * FROM Peliculas WHERE PeliculaID=".$PeliculaID.";";
+
+        $this->default();
+        $result=$this->query($sql);
+        $this->close();
+
+        $peliArray=$result->fetch_all(MYSQLI_ASSOC);
+
+        $objArrayPeli=[];
+
+        foreach ($peliArray as $peli){
+
+            $newPeli=new Pelicula($peli["PeliculaID"],$peli["Nombre"],$peli["Duracion"],$peli["Fecha_Salida"],$peli["Calificacion"],$peli["Sinopsis"]);
+            $newPeli->setGeneros($this->cogerGenero($peli["PeliculaID"]));
+            $newPeli->setActores($this->cogerNomPersXtrabj($peli["PeliculaID"],'Actor'));
+            $newPeli->setDirectores($this->cogerNomPersXtrabj($peli["PeliculaID"],'Director'));
+
+            $objArrayPeli[]=$newPeli;
+        }
+
+        return $objArrayPeli;
 
     }
 
