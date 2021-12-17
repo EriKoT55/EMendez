@@ -202,7 +202,8 @@ class bd extends mysqli
         $objArrayPerss=[];
 
         foreach($perssArray as $perss){
-
+        //Con el debugger me muestra todo correctamente asi que tira
+        // con json_encode me muestra todo menos el trabajo, pero esta
             $newPerss=new Persona($perss["PersonaID"],$perss["NombreCompleto"],$perss["Fecha_Nacimiento"],$perss["Descripcion"],$perss["IMG"]);
             $newPerss->setPeliculas($this->cogerPeliXpers($perss["PersonaID"]));
             $newPerss->setTrabajo($this->cogerTrabajo($perss["PersonaID"]));
@@ -211,7 +212,7 @@ class bd extends mysqli
         return $objArrayPerss;
     }
 
-    public function cogerPeliculas($PeliculaID){
+    public function cogerPelicula($PeliculaID){
         $sql="SELECT * FROM Peliculas WHERE PeliculaID=".$PeliculaID.";";
 
         $this->default();
@@ -223,7 +224,32 @@ class bd extends mysqli
         $objArrayPeli=[];
 
         foreach ($peliArray as $peli){
+        //el debugger me muestra todo, mientras que con el json_encode no me da nada
+            $newPeli=new Pelicula($peli["PeliculaID"],$peli["Nombre"],$peli["Duracion"],$peli["Fecha_Salida"],$peli["Calificacion"],$peli["Sinopsis"]);
+            $newPeli->setGeneros($this->cogerGenero($peli["PeliculaID"]));
+            $newPeli->setActores($this->cogerNomPersXtrabj($peli["PeliculaID"],'Actor'));
+            $newPeli->setDirectores($this->cogerNomPersXtrabj($peli["PeliculaID"],'Director'));
 
+            $objArrayPeli[]=$newPeli;
+        }
+
+        return $objArrayPeli;
+
+    }
+
+    public function cogerPeliculas(){
+        $sql="SELECT * FROM Peliculas;";
+
+        $this->default();
+        $result=$this->query($sql);
+        $this->close();
+
+        $peliArray=$result->fetch_all(MYSQLI_ASSOC);
+
+        $objArrayPeli=[];
+
+        foreach ($peliArray as $peli){
+            //el debugger me muestra todo, mientras que con el json_encode no me da nada
             $newPeli=new Pelicula($peli["PeliculaID"],$peli["Nombre"],$peli["Duracion"],$peli["Fecha_Salida"],$peli["Calificacion"],$peli["Sinopsis"]);
             $newPeli->setGeneros($this->cogerGenero($peli["PeliculaID"]));
             $newPeli->setActores($this->cogerNomPersXtrabj($peli["PeliculaID"],'Actor'));
