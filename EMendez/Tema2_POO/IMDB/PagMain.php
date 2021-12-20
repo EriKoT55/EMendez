@@ -6,7 +6,7 @@ include_once("Clases/bd.php");
 //Creo la conexion
 
 $conn= new bd();
-$conn->server();
+$conn->local();
 //Coger los datos para poder trabajar el Obj
 
 $ArrObjPeli = $conn->cogerPeliculas();
@@ -245,9 +245,8 @@ function Fecha_SalidaDESC()
 <div class="contenedor">
     <?php foreach ($ArrObjPeli as $pelis => $arrPeli){?>
         <div class="contenedorPelis">
-            <a href="PagPeli.php<?php // echo $values->getPeliculaID(); ?>"> <img
-                        src="<?php /*foreach ($arrPeli as $peli){
-                            echo $peli->getIMG();}*/ ?>">
+            <a href="PagPeli.php?PeliculaID=<?php echo $arrPeli->getPeliculaID(); ?>"> <img
+                        src="<?php echo $arrPeli->getIMG()[0]["img_url"] ?>">
                 <p class="nomPeli"><?php echo $arrPeli->getNombre(); ?>
                     (<?php
                     //Con esta funcion hago que me muestra lo de despues o antes del caracter que le pongo

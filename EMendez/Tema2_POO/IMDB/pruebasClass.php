@@ -2,30 +2,32 @@
 include_once "Clases/bd.php";
 
 $conn= new bd();
-$conn->server();
+$conn->local();
 
-$asdf=$conn->cogerPeliculas();
+$asdf=$conn->cogerPeliculas(1);
 //Problema debo coger valores de dimensiones muy interiores de un array
 foreach ($asdf as $as => $arr){
 
 
         echo "<br>";
         echo "<pre>";
-        echo $arr->getNombre();
+         var_dump($arr->getPeliculaID);
         echo "<br>";
 
-//foreach ($arr as $img =>$value) {
+//foreach ($arr->getIMG() as $img =>$value) {
+
         echo "<br>";
         echo "<pre>";
-        var_dump($value->getIMG());
+        echo $arr->getDirectores()[0]["Nombre"];
         echo "<br>";
+
 //}
     }
 
 
 echo "<br>";
 echo "<pre>";
-//var_dump($conn->cogerPeliculas());
+//var_dump($conn->cogerPeliXpers(1));
 //echo json_encode($conn->cogerPeliculas(1),JSON_PRETTY_PRINT);
 echo "<br>";
 

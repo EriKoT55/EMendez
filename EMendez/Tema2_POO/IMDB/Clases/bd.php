@@ -18,16 +18,16 @@ class bd extends mysqli
 {
     /*Crear una nueva conexion en MYSQL*/
     private $servername = "localhost";//sql480.main-hosting.eu //localhost
-    private $username = "erikPhp"; //u850300514_emendez //casa erikPhp // clase root
+    private $username = "root"; //u850300514_emendez //casa erikPhp // clase root
     private $password = "Ageofempires2*";//x43233702G //Ageofempires2*
     private $database = "imdb";//u850300514_emendez //imdb
 
     public function default()
     {
-        $this->server();
+        $this->local();
     }
 
-    public function server()
+    public function local()
     {
         //Creo la conexion
         parent::__construct($this->servername, $this->username, $this->password, $this->database);
@@ -141,6 +141,8 @@ class bd extends mysqli
         //No puedo devolver un array de obj ya que el nombre de la persona por si solo no es obj
         $nomTrabjArray=$result->fetch_all(MYSQLI_ASSOC);
 
+
+
         return $nomTrabjArray;
 
     }
@@ -158,7 +160,6 @@ class bd extends mysqli
         $this->default();
         $result=$this->query($sql);
         $this->close();
-
         $peliXpersArray=$result->fetch_all(MYSQLI_ASSOC);
 
         //No puedo devolver un array de obj ya que el nombre de la pelicula por si solo no es obj

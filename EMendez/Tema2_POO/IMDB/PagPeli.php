@@ -1,15 +1,14 @@
 <?php
-include_once("Clases/Persona.php");
-include_once("Clases/Pelicula.php");
-include_once("Clases/Genero.php");
-include_once ("Clases/Multimedia.php");
-include_once ("Clases/Usuario.php");
-include_once ("Clases/Trabajo.php");
+
 include_once("Clases/BD.php");
 
+$conn= new bd();
+$conn->local();
+
 //Coger los datos para poder trabajar el Obj
-global $ArrObjPeli;
-global $ArrObjPers;
+$ArrObjPeli = $conn->cogerPelicula();
+
+//$ArrObjPers;
 
 if (isset($_GET["PeliculaID"])) {
     $PeliculaID = $_GET["PeliculaID"] - 1;
@@ -59,8 +58,9 @@ $pelicula = $ArrObjPeli[$PeliculaID];
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
     </div>
-    <p>| <?php for ($i = 0; $i < count($pelicula->getGeneros()); $i++) {
-            echo $pelicula->getGeneros()[$i] . " | ";
+    <p>| <?php {
+           // echo $pelicula->getGeneros()[0][] . " | ";
+            //seguir probando en purebasClass las profundidades de los arrays
         } ?></p>
 
     <p>Director:
