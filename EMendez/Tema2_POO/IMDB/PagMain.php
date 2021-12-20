@@ -1,33 +1,21 @@
 <?php
-error_reporting(0);
-include_once("Persona.php");
-include_once("Pelicula.php");
-include_once("Genero.php");
-include_once("BD.php");
+//error_reporting(0);
+include_once("Clases/bd.php");
 /*https://www.imdb.com/title/tt2382320/?pf_rd_m=A2FGELUUNOQJNL&pf_rd_p=ea4e08e1-c8a3-47b5-ac3a-75026647c16e&pf_rd_r=1VHKKEY8F9SF79HJTAB3&pf_rd_s=center-1&pf_rd_t=15506&pf_rd_i=moviemeter&ref_=chtmvm_tt_6*/
 
-/*Crear una nueva conexion en MYSQL*/
-$servername = "sql480.main-hosting.eu";//sql480.main-hosting.eu
-$username = "u850300514_emendez"; //u850300514_emendez //casa erikPhp // clase root
-$password = "x43233702G";//x43233702G
-$database = "u850300514_emendez";//RickMorthy_u850300514_emendez
-
 //Creo la conexion
-$conn = new mysqli($servername, $username, $password, $database);
 
-// Me aseguro de si va bien la conexion
-if ($conn->connect_error) {
-    die("Conexion fallida: " . $conn->connect_error);
-}
-
+$conn= new bd();
+$conn->server();
 //Coger los datos para poder trabajar el Obj
-global $ArrObjPeli;
-global $ArrObjGen;
+
+$ArrObjPeli = $conn->cogerPeliculas();
+
 
 //Ordenacion de las peliculas, tengo pensado hacerlo con sql para que sea mas optimo
 //Opciones: ranking, fecha de salida, director y genero.
 //De menor a mayor
-function RankingASC()
+/*function RankingASC()
 {
     global $conn;
 
@@ -110,7 +98,7 @@ function Fecha_SalidaDESC()
     $ArrFiltradoPeli = BucleXAinsercionPelicla($array_obj_peli);
 
     return $ArrFiltradoPeli;
-}
+}*/
 
 
 ?>
@@ -165,7 +153,7 @@ function Fecha_SalidaDESC()
         </div>
         <?php
 
-        if (isset($_GET["criterioFiltracion"])) {
+        /*if (isset($_GET["criterioFiltracion"])) {
             switch ($criterioFiltracion) {
                 case "calificacion":
                     $calificacion = $_GET["calificacion"];
@@ -244,7 +232,7 @@ function Fecha_SalidaDESC()
                 $ArrFiltradoPeli = mostrarPelisGenero($genero);
             }
         }
-        ?>
+        */?>
         <button id="submit" type="submit">Filtrar</button>
     </form>
     <div class="contenedorUL">
@@ -255,18 +243,18 @@ function Fecha_SalidaDESC()
     </div>
 </nav>
 <div class="contenedor">
-    <?php for ($i = 0; $i < count($ArrFiltradoPeli); $i++) {//Aqui funciona pero es una chapuza
-        $peli = $ArrFiltradoPeli[$i] ?>
+    <?php foreach ($ArrObjPeli as $pelis => $arrPeli){?>
         <div class="contenedorPelis">
-            <a href="PagPeli.php?PeliculaID=<?php echo $peli->getPeliculaID(); ?>"> <img
-                        src="<?php echo $peli->getIMG(); ?>">
-                <p class="nomPeli"><?php echo $peli->getNombre(); ?>
+            <a href="PagPeli.php<?php // echo $values->getPeliculaID(); ?>"> <img
+                        src="<?php /*foreach ($arrPeli as $peli){
+                            echo $peli->getIMG();}*/ ?>">
+                <p class="nomPeli"><?php echo $arrPeli->getNombre(); ?>
                     (<?php
                     //Con esta funcion hago que me muestra lo de despues o antes del caracter que le pongo
                     //dependiendo si en el ultimo parametro pongo true(antes) o nada(despues)
-                    $anyo = strstr($peli->getFechaSalida(), '-', true);
+                    $anyo = strstr($arrPeli->getFechaSalida(), '-', true);
                     echo $anyo; ?>)</p>
-                <p><?php echo $peli->getCalificacion(); ?></p>
+                <p><?php  echo $arrPeli->getCalificacion(); ?></p>
             </a>
         </div>
     <?php } ?>

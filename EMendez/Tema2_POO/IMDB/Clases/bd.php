@@ -17,10 +17,10 @@ include_once "Trabajo.php";
 class bd extends mysqli
 {
     /*Crear una nueva conexion en MYSQL*/
-    private $servername = "sql480.main-hosting.eu";//sql480.main-hosting.eu
-    private $username = "u850300514_emendez"; //u850300514_emendez //casa erikPhp // clase root
-    private $password = "x43233702G";//x43233702G
-    private $database = "u850300514_emendez";//RickMorthy_u850300514_emendez
+    private $servername = "localhost";//sql480.main-hosting.eu //localhost
+    private $username = "erikPhp"; //u850300514_emendez //casa erikPhp // clase root
+    private $password = "Ageofempires2*";//x43233702G //Ageofempires2*
+    private $database = "imdb";//u850300514_emendez //imdb
 
     public function default()
     {
@@ -44,7 +44,7 @@ class bd extends mysqli
      */
     public function cogerGenero($PeliculaID){
 
-        $sql="SELECT g.* FROM Genero g
+        $sql="SELECT g.Nombre FROM Genero g
         JOIN GenPeli gp on gp.GeneroID=g.GeneroID
         JOIN Peliculas p on p.PeliculaID=gp.PeliculaID
         WHERE p.PeliculaID=".$PeliculaID.";";
@@ -55,35 +55,37 @@ class bd extends mysqli
 
         $genArray=$result->fetch_all(MYSQLI_ASSOC);
 
-        $objArrayGen=[];
-
-        foreach ($genArray as $gen) {
-            $objArrayGen[]= new Genero($gen["GeneroID"], $gen["Nombre"]);
-        }
-
-        return $objArrayGen;
+        return $genArray;
     }
 
     /**
      * @param $PeliculaID
-     * @return array
+     * @return mixed
      */
-    public function cogerMultimedia($PeliculaID){
+    public function cogerIMG($PeliculaID){
 
-        $sql="SELECT * FROM Multimedia WHERE MultimediaID=".$PeliculaID.";";
+        $sql="SELECT img_url FROM Multimedia WHERE PeliculaID=".$PeliculaID.";";
 
         $this->default();
         $result=$this->query($sql);
         $this->close();
 
-        $multiArray=$result->fetch_all(MYSQLI_ASSOC);
+        $imgArray=$result->fetch_all(MYSQLI_ASSOC);
 
-        $objArrayMulti=[];
+        return $imgArray;
+    }
 
-        foreach ($multiArray as $multi) {
-            $objArrayMulti[] = new Multimedia($multi["MultimediaID"], $multi["PeliculaID"], $multi["img_url"], $multi["trailer_url"]);
-        }
-        return $objArrayMulti;
+    public function cogerTrailer($PeliculaID){
+
+        $sql="SELECT trailer_url FROM Multimedia WHERE PeliculaID=".$PeliculaID.";";
+
+        $this->default();
+        $result=$this->query($sql);
+        $this->close();
+
+        $trailerArray=$result->fetch_all(MYSQLI_ASSOC);
+
+        return $trailerArray;
     }
 
     /**
@@ -94,7 +96,7 @@ class bd extends mysqli
     /**
      * @param $PersonaID
      * @return array
-     * mirar que devuelve null
+     *
      */
     public function cogerTrabajo($PersonaID){
 
@@ -118,6 +120,11 @@ class bd extends mysqli
 
     }
 
+    /**
+     * @param $PeliculaID
+     * @param $NomTrabajo
+     * @return mixed
+     */
     public function cogerNomPersXtrabj($PeliculaID,$NomTrabajo){
 
         $sql="SELECT prs.NombreCompleto FROM Trabajo t
@@ -251,6 +258,8 @@ class bd extends mysqli
         foreach ($peliArray as $peli){
             //el debugger me muestra todo, mientras que con el json_encode no me da nada
             $newPeli=new Pelicula($peli["PeliculaID"],$peli["Nombre"],$peli["Duracion"],$peli["Fecha_Salida"],$peli["Calificacion"],$peli["Sinopsis"]);
+            $newPeli->setIMG($this->cogerIMG($peli["PeliculaID"]));
+            $newPeli->setTrailer($this->cogerTrailer($peli["PeliculaID"]));
             $newPeli->setGeneros($this->cogerGenero($peli["PeliculaID"]));
             $newPeli->setActores($this->cogerNomPersXtrabj($peli["PeliculaID"],'Actor'));
             $newPeli->setDirectores($this->cogerNomPersXtrabj($peli["PeliculaID"],'Director'));

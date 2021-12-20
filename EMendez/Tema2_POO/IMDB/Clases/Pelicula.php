@@ -2,25 +2,24 @@
 
 class Pelicula
 {
-    private $PeliculaID,$Nombre,$Duracion,$Fecha_Salida,$Calificacion,$Sinopsis,$Generos,$Actores,$Directores;
+    private $peliculaID,$nombre,$duracion,$fechaSalida,$calificacion,$sinopsis,$img,$trailer,$generos,$actores,$directores,$comentarios;
 
     /**
-     * @param $ID
-     * @param $Nombre
-     * @param $Duracion
-     * @param $Fecha_Salida
-     * @param $Calificacion
-     * @param $Sinopsis
+     * @param $peliculaID
+     * @param $nombre
+     * @param $duracion
+     * @param $fechaSalida
+     * @param $calificacion
+     * @param $sinopsis
      */
-    public function __construct($PeliculaID, $Nombre, $Duracion, $Fecha_Salida, $Calificacion, $Sinopsis)
+    public function __construct($peliculaID, $nombre, $duracion, $fechaSalida, $calificacion, $sinopsis)
     {
-
-        $this->PeliculaID = $PeliculaID;
-        $this->Nombre = $Nombre;
-        $this->Duracion = $Duracion;
-        $this->Fecha_Salida = $Fecha_Salida;
-        $this->Calificacion = $Calificacion;
-        $this->Sinopsis = $Sinopsis;
+        $this->peliculaID = $peliculaID;
+        $this->nombre = $nombre;
+        $this->duracion = $duracion;
+        $this->fechaSalida = $fechaSalida;
+        $this->calificacion = $calificacion;
+        $this->sinopsis = $sinopsis;
     }
 
     /**
@@ -28,17 +27,15 @@ class Pelicula
      */
     public function getPeliculaID()
     {
-        return $this->PeliculaID;
+        return $this->peliculaID;
     }
 
     /**
-     * @param $PeliculaID
-     * @return void
+     * @param mixed $peliculaID
      */
-    public function setID($PeliculaID):void
+    public function setPeliculaID($peliculaID)
     {
-        $this->PeliculaID = $PeliculaID;
-
+        $this->peliculaID = $peliculaID;
     }
 
     /**
@@ -46,17 +43,15 @@ class Pelicula
      */
     public function getNombre()
     {
-        return $this->Nombre;
+        return $this->nombre;
     }
 
     /**
-     * @param $Nombre
-     * @return void
+     * @param mixed $nombre
      */
-    public function setNombre($Nombre):void
+    public function setNombre($nombre)
     {
-        $this->Nombre = $Nombre;
-
+        $this->nombre = $nombre;
     }
 
     /**
@@ -64,16 +59,15 @@ class Pelicula
      */
     public function getDuracion()
     {
-        return $this->Duracion;
+        return $this->duracion;
     }
 
     /**
-     * @param $Duracion
-     * @return void
+     * @param mixed $duracion
      */
-    public function setDuracion($Duracion):void
+    public function setDuracion($duracion)
     {
-        $this->Duracion = $Duracion;
+        $this->duracion = $duracion;
     }
 
     /**
@@ -81,16 +75,15 @@ class Pelicula
      */
     public function getFechaSalida()
     {
-        return $this->Fecha_Salida;
+        return $this->fechaSalida;
     }
 
     /**
-     * @param $Fecha_Salida
-     * @return void
+     * @param mixed $fechaSalida
      */
-    public function setFechaSalida($Fecha_Salida):void
+    public function setFechaSalida($fechaSalida)
     {
-        $this->Fecha_Salida = $Fecha_Salida;
+        $this->fechaSalida = $fechaSalida;
     }
 
     /**
@@ -98,16 +91,15 @@ class Pelicula
      */
     public function getCalificacion()
     {
-        return $this->Calificacion;
+        return $this->calificacion;
     }
 
     /**
-     * @param $Calificacion
-     * @return void
+     * @param mixed $calificacion
      */
-    public function setCalificacion($Calificacion):void
+    public function setCalificacion($calificacion)
     {
-        $this->Calificacion = $Calificacion;
+        $this->calificacion = $calificacion;
     }
 
     /**
@@ -115,16 +107,47 @@ class Pelicula
      */
     public function getSinopsis()
     {
-        return $this->Sinopsis;
+        return $this->sinopsis;
     }
 
     /**
-     * @param $Sinopsis
-     * @return void
+     * @param mixed $sinopsis
      */
-    public function setSinopsis($Sinopsis):void
+    public function setSinopsis($sinopsis)
     {
-        $this->Sinopsis = $Sinopsis;
+        $this->sinopsis = $sinopsis;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImg()
+    {
+        return $this->img;
+    }
+
+    /**
+     * @param mixed $img
+     */
+    public function setImg($img)
+    {
+        $this->img = $img;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTrailer()
+    {
+        return $this->trailer;
+    }
+
+    /**
+     * @param mixed $trailer
+     */
+    public function setTrailer($trailer)
+    {
+        $this->trailer = $trailer;
     }
 
     /**
@@ -132,15 +155,15 @@ class Pelicula
      */
     public function getGeneros()
     {
-        return $this->Generos;
+        return $this->generos;
     }
 
     /**
-     * @param mixed $Generos
+     * @param mixed $generos
      */
-    public function setGeneros($Generos): void
+    public function setGeneros($generos)
     {
-        $this->Generos = $Generos;
+        $this->generos = $generos;
     }
 
     /**
@@ -148,15 +171,15 @@ class Pelicula
      */
     public function getActores()
     {
-        return $this->Actores;
+        return $this->actores;
     }
 
     /**
-     * @param mixed $Actores
+     * @param mixed $actores
      */
-    public function setActores(array $Actores): void
+    public function setActores($actores)
     {
-        $this->Actores = $Actores;
+        $this->actores = $actores;
     }
 
     /**
@@ -164,17 +187,32 @@ class Pelicula
      */
     public function getDirectores()
     {
-        return $this->Directores;
+        return $this->directores;
     }
 
     /**
-     * @param mixed $Directores
+     * @param mixed $directores
      */
-    public function setDirectores(array $Directores): void
+    public function setDirectores($directores)
     {
-        $this->Directores = $Directores;
+        $this->directores = $directores;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getComentarios()
+    {
+        return $this->comentarios;
+    }
+
+    /**
+     * @param mixed $comentarios
+     */
+    public function setComentarios($comentarios)
+    {
+        $this->comentarios = $comentarios;
+    }
 
 
 }
