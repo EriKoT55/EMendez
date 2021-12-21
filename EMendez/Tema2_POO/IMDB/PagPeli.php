@@ -5,15 +5,12 @@ include_once("Clases/BD.php");
 $conn= new bd();
 $conn->local();
 
-//Coger los datos para poder trabajar el Obj
-$ArrObjPeli = $conn->cogerPelicula();
-
 //$ArrObjPers;
 
 if (isset($_GET["PeliculaID"])) {
     $PeliculaID = $_GET["PeliculaID"] - 1;
 }
-$pelicula = $ArrObjPeli[$PeliculaID];
+$pelicula = $conn->cogerPelicula($PeliculaID);
 
 ?>
 <!DOCTYPE html>
@@ -52,11 +49,15 @@ $pelicula = $ArrObjPeli[$PeliculaID];
     <h4><?php echo $pelicula->getNombre(); ?></h4>
     <p>Fecha de salida(españa): <?php echo $pelicula->getFechaSalida(); ?></p>
     <p><?php echo $pelicula->getDuracion(); ?> min</p>
-    <img src="<?php echo $pelicula->getIMG(); ?>">
+    <?php foreach ($pelicula->getIMG() as $img){?>
+    <img src="<?php echo $img["img_url"]?> ">
+    <?php } ?>
     <div class="trailer">
-        <iframe width="560" height="315" src="<?php echo $pelicula->getTrailer(); ?>?autoplay=1&mute=0" frameborder="0"
+        <?php foreach ($pelicula->getTrailer() as $trailer){?>
+        <iframe width="560" height="315" src="<?php echo $trailer; ?>?autoplay=1&mute=0" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
+        <?php }?>
     </div>
     <p>| <?php {
            // echo $pelicula->getGeneros()[0][] . " | ";
@@ -67,7 +68,7 @@ $pelicula = $ArrObjPeli[$PeliculaID];
         <?php
         $textD = "";
         foreach ($pelicula->getDirectores() as $director) {
-            $textD .= $director . ", ";
+            $textD .= $director["NombreCompleto"] . ", ";
         }
         //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues
         $directores = substr($textD, 0, -2); ?>
@@ -83,7 +84,7 @@ $pelicula = $ArrObjPeli[$PeliculaID];
     </p>
     <p>Actores: <?php $textA = "";
         foreach ($pelicula->getActores() as $actor) {
-            $textA .= $actor . ", ";
+            $textA .= $actor["NombreCompleto"] . ", ";
         }
         //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues
         $actores = substr($textA, 0, -2); ?>

@@ -18,7 +18,7 @@ class bd extends mysqli
 {
     /*Crear una nueva conexion en MYSQL*/
     private $servername = "localhost";//sql480.main-hosting.eu //localhost
-    private $username = "root"; //u850300514_emendez //casa erikPhp // clase root
+    private $username = "erikPhp"; //u850300514_emendez //casa erikPhp // clase root
     private $password = "Ageofempires2*";//x43233702G //Ageofempires2*
     private $database = "imdb";//u850300514_emendez //imdb
 
@@ -188,7 +188,7 @@ class bd extends mysqli
             $newPers->setPeliculas($this->cogerPeliXpers($pers["PersonaID"]));
             $newPers->setTrabajo($this->cogerTrabajo($pers["PersonaID"]));
             $objArrayPers[]=$newPers;
-        //Cuando hago un var_dump de esto no me muestra ni Peliculas ni Trabajos, pero estan.
+            //Cuando hago un var_dump de esto no me muestra ni Peliculas ni Trabajos, pero estan.
         }
         return $objArrayPers;
     }
@@ -210,8 +210,8 @@ class bd extends mysqli
         $objArrayPerss=[];
 
         foreach($perssArray as $perss){
-        //Con el debugger me muestra todo correctamente asi que tira
-        // con json_encode me muestra todo menos el trabajo, pero esta
+            //Con el debugger me muestra todo correctamente asi que tira
+            // con json_encode me muestra todo menos el trabajo, pero esta
             $newPerss=new Persona($perss["PersonaID"],$perss["NombreCompleto"],$perss["Fecha_Nacimiento"],$perss["Descripcion"],$perss["IMG"]);
             $newPerss->setPeliculas($this->cogerPeliXpers($perss["PersonaID"]));
             $newPerss->setTrabajo($this->cogerTrabajo($perss["PersonaID"]));
@@ -232,8 +232,10 @@ class bd extends mysqli
         $objArrayPeli=[];
 
         foreach ($peliArray as $peli){
-        //el debugger me muestra todo, mientras que con el json_encode no me da nada
+            //el debugger me muestra todo, mientras que con el json_encode no me da nada
             $newPeli=new Pelicula($peli["PeliculaID"],$peli["Nombre"],$peli["Duracion"],$peli["Fecha_Salida"],$peli["Calificacion"],$peli["Sinopsis"]);
+            $newPeli->setIMG($this->cogerIMG($peli["PeliculaID"]));
+            $newPeli->setTrailer($this->cogerTrailer($peli["PeliculaID"]));
             $newPeli->setGeneros($this->cogerGenero($peli["PeliculaID"]));
             $newPeli->setActores($this->cogerNomPersXtrabj($peli["PeliculaID"],'Actor'));
             $newPeli->setDirectores($this->cogerNomPersXtrabj($peli["PeliculaID"],'Director'));
