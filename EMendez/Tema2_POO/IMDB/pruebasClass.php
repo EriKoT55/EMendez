@@ -4,25 +4,24 @@ include_once "Clases/bd.php";
 $conn= new bd();
 $conn->local();
 
-$asdf=$conn->cogerPelicula(1);
+$asdf=$conn->getMovies();
 //Problema debo coger valores de dimensiones muy interiores de un array
-foreach ($asdf as $as => $arr){
+//foreach ($asdf as $as => $arr){
 
 
         echo "<br>";
         echo "<pre>";
-         var_dump($arr);
+         var_dump($asdf);
         echo "<br>";
-
-   /* foreach ($arr->getActores() as $actores) {
+        /*foreach ($asdf[0]->getActores() as $actores) {
 
         echo "<br>";
         echo "<pre>";
-        echo $actores["NombreCompleto"];
+        var_dump($actores["personName"]);
         echo "<br>";
 
-    }*/
-}
+     }*/
+//}
 
 
 echo "<br>";
