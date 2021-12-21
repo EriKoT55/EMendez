@@ -1,6 +1,6 @@
 <?php
 
-include_once("Clases/BD.php");
+include_once("Clases/bd.php");
 
 $conn= new bd();
 $conn->local();
@@ -8,9 +8,9 @@ $conn->local();
 //$ArrObjPers;
 
 if (isset($_GET["PeliculaID"])) {
-    $PeliculaID = $_GET["PeliculaID"] - 1;
+    $PeliculaID = $_GET["PeliculaID"];
 }
-$pelicula = $conn->cogerPelicula($PeliculaID);
+$pelicula = $conn->getMovie($PeliculaID);
 
 ?>
 <!DOCTYPE html>
@@ -46,10 +46,10 @@ $pelicula = $conn->cogerPelicula($PeliculaID);
 
 </nav>
 <div class="contenedorPl">
-    <h4><?php echo $pelicula->getNombre(); ?></h4>
-    <p>Fecha de salida(españa): <?php echo $pelicula->getFechaSalida(); ?></p>
-    <p><?php echo $pelicula->getDuracion(); ?> min</p>
-    <?php foreach ($pelicula->getIMG() as $img){?>
+    <h4><?php echo $pelicula[0]->getNombre(); ?></h4>
+    <p>Fecha de salida(españa): <?php echo $pelicula[0]->getFechaSalida(); ?></p>
+    <p><?php echo $pelicula[0]->getDuracion(); ?> min</p>
+    <?php foreach ($pelicula[0]->getIMG() as $img){?>
     <img src="<?php echo $img["img_url"]?> ">
     <?php } ?>
     <div class="trailer">
@@ -67,7 +67,7 @@ $pelicula = $conn->cogerPelicula($PeliculaID);
     <p>Director:
         <?php
         $textD = "";
-        foreach ($pelicula->getDirectores() as $director) {
+        foreach ($pelicula[0]->getDirectores() as $director) {
             $textD .= $director["NombreCompleto"] . ", ";
         }
         //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues

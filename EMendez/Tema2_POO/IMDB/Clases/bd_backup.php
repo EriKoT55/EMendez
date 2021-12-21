@@ -17,15 +17,10 @@ include_once "Trabajo.php";
 class bd extends mysqli
 {
     /*Crear una nueva conexion en MYSQL*/
-    //private $servername = "localhost";//sql480.main-hosting.eu //localhost
-    //private $username = "root"; //u850300514_emendez //casa erikPhp // clase root
-    //private $password = "Ageofempires2*";//x43233702G //Ageofempires2*
-    //private $database = "imdb";//u850300514_emendez //imdb
-
-    private $servername="sql480.main-hosting.eu";//sql480.main-hosting.eu
-    private $username="u850300514_emendez"; //u850300514_emendez //casa erikPhp // clase root
-    private $password="x43233702G";//x43233702G
-    private $database="u850300514_emendez";//RickMorthy_u850300514_emendez
+    private $servername = "localhost";//sql480.main-hosting.eu //localhost
+    private $username = "erikPhp"; //u850300514_emendez //casa erikPhp // clase root
+    private $password = "Ageofempires2*";//x43233702G //Ageofempires2*
+    private $database = "imdb";//u850300514_emendez //imdb
 
     public function default()
     {
@@ -193,7 +188,7 @@ class bd extends mysqli
             $newPers->setPeliculas($this->cogerPeliXpers($pers["PersonaID"]));
             $newPers->setTrabajo($this->cogerTrabajo($pers["PersonaID"]));
             $objArrayPers[]=$newPers;
-        //Cuando hago un var_dump de esto no me muestra ni Peliculas ni Trabajos, pero estan.
+            //Cuando hago un var_dump de esto no me muestra ni Peliculas ni Trabajos, pero estan.
         }
         return $objArrayPers;
     }
@@ -215,8 +210,8 @@ class bd extends mysqli
         $objArrayPerss=[];
 
         foreach($perssArray as $perss){
-        //Con el debugger me muestra todo correctamente asi que tira
-        // con json_encode me muestra todo menos el trabajo, pero esta
+            //Con el debugger me muestra todo correctamente asi que tira
+            // con json_encode me muestra todo menos el trabajo, pero esta
             $newPerss=new Persona($perss["PersonaID"],$perss["NombreCompleto"],$perss["Fecha_Nacimiento"],$perss["Descripcion"],$perss["IMG"]);
             $newPerss->setPeliculas($this->cogerPeliXpers($perss["PersonaID"]));
             $newPerss->setTrabajo($this->cogerTrabajo($perss["PersonaID"]));
@@ -237,8 +232,10 @@ class bd extends mysqli
         $objArrayPeli=[];
 
         foreach ($peliArray as $peli){
-        //el debugger me muestra todo, mientras que con el json_encode no me da nada
+            //el debugger me muestra todo, mientras que con el json_encode no me da nada
             $newPeli=new Pelicula($peli["PeliculaID"],$peli["Nombre"],$peli["Duracion"],$peli["Fecha_Salida"],$peli["Calificacion"],$peli["Sinopsis"]);
+            $newPeli->setIMG($this->cogerIMG($peli["PeliculaID"]));
+            $newPeli->setTrailer($this->cogerTrailer($peli["PeliculaID"]));
             $newPeli->setGeneros($this->cogerGenero($peli["PeliculaID"]));
             $newPeli->setActores($this->cogerNomPersXtrabj($peli["PeliculaID"],'Actor'));
             $newPeli->setDirectores($this->cogerNomPersXtrabj($peli["PeliculaID"],'Director'));
@@ -275,91 +272,6 @@ class bd extends mysqli
 
         return $objArrayPeli;
 
-    }
-
-    public function getMovies(){
-        $sql = "SELECT p.PeliculaID as movieId, p.Nombre as movieName, p.Duracion as movieDuration, p.Fecha_Salida as movieRelease, p.Calificacion as movieRank, p.Sinopsis as movieSynopsis, 
-                (SELECT JSON_ARRAYAGG(
-                	JSON_OBJECT(
-                		'personName', psn.NombreCompleto
-                	)
-                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 2) AS movieActors,
-                (SELECT JSON_ARRAYAGG(
-                	JSON_OBJECT(
-                		'personName', psn.NombreCompleto
-                	)
-                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 1) AS movieDirectors,
-                (SELECT JSON_ARRAYAGG(
-                	JSON_OBJECT(
-                		'genderName', g.Nombre
-                	)
-                ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID AND gp.PeliculaID = p.PeliculaID) AS movieGenders,
-                m.img_url as movieImage, m.trailer_url as movieTrailer
-                FROM Peliculas p
-                INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID";
-
-        $this->default();
-        $result=$this->query($sql);
-        $this->close();
-
-        $peliArray=$result->fetch_all(MYSQLI_ASSOC);
-
-        $objArrayPeli=[];
-        foreach ($peliArray as $peli){
-            //el debugger me muestra todo, mientras que con el json_encode no me da nada
-            $newPeli=new Pelicula($peli["movieId"],$peli["movieName"],$peli["movieDuration"],$peli["movieRelease"],$peli["movieRank"],$peli["movieSynopsis"]);
-            $newPeli->setIMG($peli["movieImage"]);
-            $newPeli->setTrailer($peli["movieTrailer"]);
-            $newPeli->setGeneros(json_decode($peli["movieGenders"],true));
-            $newPeli->setActores(json_decode($peli["movieActors"],true));
-            $newPeli->setDirectores(json_decode($peli["movieDirectors"],true));
-            $objArrayPeli[]=$newPeli;
-        }
-
-        return $objArrayPeli;
-    }
-
-    public function getMovie($movieId){
-        $sql = "SELECT p.PeliculaID as movieId, p.Nombre as movieName, p.Duracion as movieDuration, p.Fecha_Salida as movieRelease, p.Calificacion as movieRank, p.Sinopsis as movieSynopsis, 
-                (SELECT JSON_ARRAYAGG(
-                	JSON_OBJECT(
-                		'personName', psn.NombreCompleto
-                	)
-                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE pp.PeliculaID = ".$movieId." AND tp.TrabajoID = 2) AS movieActors,
-                (SELECT JSON_ARRAYAGG(
-                	JSON_OBJECT(
-                		'personName', psn.NombreCompleto
-                	)
-                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE pp.PeliculaID = ".$movieId." AND tp.TrabajoID = 1) AS movieDirectors,
-                (SELECT JSON_ARRAYAGG(
-                	JSON_OBJECT(
-                		'genderName', g.Nombre
-                	)
-                ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID WHERE gp.PeliculaID = ".$movieId.") AS movieGenders,
-                m.img_url as movieImage, m.trailer_url as movieTrailer
-                FROM Peliculas p
-                INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID
-                WHERE p.PeliculaID = ".$movieId;
-
-        $this->default();
-        $result=$this->query($sql);
-        $this->close();
-
-        $peliArray=$result->fetch_all(MYSQLI_ASSOC);
-
-        $objArrayPeli=[];
-        foreach ($peliArray as $peli){
-            //el debugger me muestra todo, mientras que con el json_encode no me da nada
-            $newPeli=new Pelicula($peli["movieId"],$peli["movieName"],$peli["movieDuration"],$peli["movieRelease"],$peli["movieRank"],$peli["movieSynopsis"]);
-            $newPeli->setIMG($peli["movieImage"]);
-            $newPeli->setTrailer($peli["movieTrailer"]);
-            $newPeli->setGeneros(json_decode($peli["movieGenders"],true));
-            $newPeli->setActores(json_decode($peli["movieActors"],true));
-            $newPeli->setDirectores(json_decode($peli["movieDirectors"],true));
-            $objArrayPeli[]=$newPeli;
-        }
-
-        return $objArrayPeli;
     }
 
 }
