@@ -315,10 +315,42 @@ class bd extends mysqli
         return $objArrayPeli;
     }
 
-    public function insertUsr(){
+    public function userExists($nomUsr,$correo,$contra){
 
+        session_start();
+        //Lo paso a md5 para poder comparar la contraseña con la informacion de la tabla
+        $md5contra=md5($contra);
 
+        $sql="SELECT Correo,Contrasenya FROM Usuario WHERE NomUsuario LIKE '".$nomUsr."' AND Correo LIKE '".$correo."'  AND Contrasenya LIKE '".$md5contra."';";
 
+        $this->default();
+        $result=$this->query($sql);
+        $this->close();
+
+        /*if($result->rowCount()){
+            return true;
+        }else{
+            return false;
+        }*/
+
+    }
+
+    public function insertUsr($nomUsr,$correo,$contra){
+
+        $sql="INSERT INTO Usuarios(NomUsuario,Correo,Contrasenya) VALUES('".$nomUsr."','".$correo."','".$contra."');";
+
+        $this->default();
+        if($this->query($sql)==true){
+            //Preguntar
+            return header("Location: PagMain.php");
+        }else{
+            echo "
+                 <script>
+                     window.alert('El usuario ya fue registrado');
+                 </script>
+                ";
+        }
+        $this->close();
     }
 
 }

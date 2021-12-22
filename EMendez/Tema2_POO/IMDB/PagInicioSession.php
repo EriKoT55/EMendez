@@ -1,5 +1,5 @@
 <?php
-
+include_once ("Clases/bd.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -23,10 +23,17 @@
 -->
 <nav>
     <!--Meter el link a la pag principal-->
+    <div class="contenedorUL">
+        <ul>
+            <li><a href="PagMain.php">Pagina Principal</a></li>
+
+        </ul>
+    </div>
 </nav>
 <div class="contenedorInicioSession">
 <h2>Iniciar Sesion</h2>
     <form action="PagInicioSession.php" method="post">
+        <input class="user" type="text" placeholder="Nombre Usuario" required>
         <input class="correo" type="email" placeholder="Correo" required>
         <input class="contra" type="password" placeholder="Contrasenya" required>
         <input  class="ini" type="submit" value="Iniciar Sesion">
@@ -35,5 +42,10 @@
         <a  href="PagRegistrar.php">Registrar aqui</a>
     </div>
 </div>
+<?php
+
+
+
+?>
 </body>
 </html>

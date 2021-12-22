@@ -3,36 +3,34 @@
 class Usuario
 {
 
-    private $UsuarioID,$Correo,$Contrasenya,$PersonaID;
+    private $PersonaID,$Correo,$Contrasenya;
 
     /**
-     * @param $UsuarioID
+     * @param $PersonaID
      * @param $Correo
      * @param $Contrasenya
-     * @param $PersonaID
      */
-    public function __construct($UsuarioID, $Correo, $Contrasenya, $PersonaID)
+    public function __construct($PersonaID, $Correo, $Contrasenya )
     {
-        $this->UsuarioID = $UsuarioID;
+        $this->PersonaID = $PersonaID;
         $this->Correo = $Correo;
         $this->Contrasenya = $Contrasenya;
-        $this->PersonaID = $PersonaID;
     }
 
     /**
      * @return mixed
      */
-    public function getUsuarioID()
+    public function getPersonaID()
     {
-        return $this->UsuarioID;
+        return $this->PersonaID;
     }
 
     /**
-     * @param mixed $UsuarioID
+     * @param mixed $PersonaID
      */
-    public function setUsuarioID($UsuarioID)
+    public function setPersonaID($PersonaID)
     {
-        $this->UsuarioID = $UsuarioID;
+        $this->PersonaID = $PersonaID;
     }
 
     /**
@@ -67,20 +65,5 @@ class Usuario
         $this->Contrasenya = $Contrasenya;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPersonaID()
-    {
-        return $this->PersonaID;
-    }
-
-    /**
-     * @param mixed $PersonaID
-     */
-    public function setPersonaID($PersonaID)
-    {
-        $this->PersonaID = $PersonaID;
-    }
 
 }

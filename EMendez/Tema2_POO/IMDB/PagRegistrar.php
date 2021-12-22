@@ -1,5 +1,5 @@
 <?php
-
+include_once ("Clases/bd.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -23,16 +23,23 @@
 -->
 <nav>
     <!--Meter el link a la pag principal-->
+    <div class="contenedorUL">
+        <ul>
+            <li><a href="PagMain.php">Pagina Principal</a></li>
+
+        </ul>
+    </div>
 </nav>
 <div class="contenedorRegistrar">
 <h2>Registro</h2>
     <form action="PagRegistrar.php" method="post">
         <input pattern="" class="nombre" type="text" placeholder="Nombre completo">
+        <input name="user" class="user" type="text" placeholder="Nombre Usuario" required>
         <input pattern="[0-9]{4}\-[0-9]{2}\-[0-9]{2}$" class="fecha" type="text" placeholder="anyo-mes-dia">
         <input class="descripcion" type="text" placeholder="descripcion">
-        <input pattern="[A-Za-z]+\@[a-z]\.[a-z]" class="correo" type="email" placeholder="Correo" required>
-        <input pattern="" class="contra" type="password" placeholder="Contrasenya" required>
-        <input class="contra" type="password" placeholder=" Repite Contrasenya" required>
+        <input name="correo" pattern="[A-Za-z]+\@[a-z]\.[a-z]" class="correo" placeholder="Correo" required> <!--type="email" -->
+        <input name="passwd" pattern="" class="contra" type="password" placeholder="Contrasenya" required>
+        <input name="confirm "class="contra" type="password" placeholder=" Repite Contrasenya" required>
         <input class="reg" type="submit" value="Registrarse">
     </form>
 </div>
