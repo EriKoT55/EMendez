@@ -1,0 +1,45 @@
+body{
+    background: #130601;
+    margin:0;
+    padding: 0;
+}
+nav{
+    /*vovler a poner el nav en la pagpMain*/
+    background-color: #1f1f1f;
+    width: 100%;
+    overflow: hidden;
+    padding:15px;
+}
+/*Meter el link a la pag principal*/
+
+.contenedorInicioSession{
+    text-align: center;
+    margin: 0 auto;
+    margin-top:50px;
+    padding-top: 5px;
+    background-color: #e77d00;
+    width: 200px;
+    height: 250px;
+    border-radius:5px ;
+}
+.contenedorInicioSession form .correo{
+    margin-top: 0px;
+}
+.contenedorInicioSession form input{
+    margin-top: 20px;
+}
+.contenedorInicioSession form .ini{
+    padding: 5px;
+    font-weight: bold;
+}
+.contenedorInicioSession .link a{
+
+    padding:2px;
+    text-decoration: none;
+    color:white;
+    background-color: black;
+
+}
+.link{
+    margin-top: 20px;
+}

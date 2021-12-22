@@ -243,17 +243,17 @@ function Fecha_SalidaDESC()
     </div>
 </nav>
 <div class="contenedor">
-    <?php foreach ($ArrObjPeli as $pelis => $arrPeli){?>
+    <?php foreach ($ArrObjPeli as $pelis){?>
         <div class="contenedorPelis">
-            <a href="PagPeli.php?PeliculaID=<?php echo $arrPeli->getPeliculaID(); ?>"> <img
-                        src="<?php echo $arrPeli->getIMG()[0]["img_url"] ?>">
-                <p class="nomPeli"><?php echo $arrPeli->getNombre(); ?>
+            <a href="PagPeli.php?PeliculaID=<?php echo $pelis->getPeliculaID(); ?>"> <img
+                        src="<?php echo $pelis->getIMG() ?>">
+                <p class="nomPeli"><?php echo $pelis->getNombre(); ?>
                     (<?php
                     //Con esta funcion hago que me muestra lo de despues o antes del caracter que le pongo
                     //dependiendo si en el ultimo parametro pongo true(antes) o nada(despues)
-                    $anyo = strstr($arrPeli->getFechaSalida(), '-', true);
+                    $anyo = strstr($pelis->getFechaSalida(), '-', true);
                     echo $anyo; ?>)</p>
-                <p><?php  echo $arrPeli->getCalificacion(); ?></p>
+                <p><?php  echo $pelis->getCalificacion(); ?></p>
             </a>
         </div>
     <?php } ?>

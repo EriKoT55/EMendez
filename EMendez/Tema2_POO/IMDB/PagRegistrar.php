@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IMDBE</title>
-    <link type="text/css" rel="stylesheet" href="Estilos/estilosIni.css">
+    <link type="text/css" rel="stylesheet" href="Estilos/estilosReg.css">
     <!-- Este link es para poder utilizar la libreria de iconos de Font Awesome-->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <!--Link fuente texto-->
@@ -24,16 +24,22 @@
 <nav>
     <!--Meter el link a la pag principal-->
 </nav>
-<div class="contenedorInicioSession">
-<h2>Iniciar Sesion</h2>
-    <form action="PagInicioSession.php" method="post">
-        <input class="correo" type="email" placeholder="Correo" required>
-        <input class="contra" type="password" placeholder="Contrasenya" required>
-        <input  class="ini" type="submit" value="Iniciar Sesion">
+<div class="contenedorRegistrar">
+<h2>Registro</h2>
+    <form action="PagRegistrar.php" method="post">
+        <input pattern="" class="nombre" type="text" placeholder="Nombre completo">
+        <input pattern="[0-9]{4}\-[0-9]{2}\-[0-9]{2}$" class="fecha" type="text" placeholder="anyo-mes-dia">
+        <input class="descripcion" type="text" placeholder="descripcion">
+        <input pattern="[A-Za-z]+\@[a-z]\.[a-z]" class="correo" type="email" placeholder="Correo" required>
+        <input pattern="" class="contra" type="password" placeholder="Contrasenya" required>
+        <input class="contra" type="password" placeholder=" Repite Contrasenya" required>
+        <input class="reg" type="submit" value="Registrarse">
     </form>
-    <div class="link">
-        <a  href="PagRegistrar.php">Registrar aqui</a>
-    </div>
 </div>
+<?php
+
+
+
+?>
 </body>
 </html>

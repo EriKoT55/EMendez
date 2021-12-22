@@ -10,7 +10,7 @@ $conn->local();
 if (isset($_GET["PeliculaID"])) {
     $PeliculaID = $_GET["PeliculaID"];
 }
-$pelicula = $conn->getMovie($PeliculaID);
+$pelicula = $conn->cogerPelicula($PeliculaID);
 
 ?>
 <!DOCTYPE html>
@@ -50,25 +50,23 @@ $pelicula = $conn->getMovie($PeliculaID);
     <p>Fecha de salida(españa): <?php echo $pelicula[0]->getFechaSalida(); ?></p>
     <p><?php echo $pelicula[0]->getDuracion(); ?> min</p>
     <?php foreach ($pelicula[0]->getIMG() as $img){?>
-    <img src="<?php echo $img["img_url"]?> ">
+    <img src="<?php echo $img["img"]; ?> ">
     <?php } ?>
     <div class="trailer">
-        <?php foreach ($pelicula->getTrailer() as $trailer){?>
-        <iframe width="560" height="315" src="<?php echo $trailer; ?>?autoplay=1&mute=0" frameborder="0"
+        <iframe width="560" height="315" src="<?php echo $pelicula[0]->getTrailer(); ?>?autoplay=1&mute=0" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
-        <?php }?>
     </div>
-    <p>| <?php {
-           // echo $pelicula->getGeneros()[0][] . " | ";
-            //seguir probando en purebasClass las profundidades de los arrays
+    <p>| <?php foreach ($pelicula[0]->getGeneros() as $generos){
+           echo $generos["genderName"] . " | ";
         } ?></p>
-
+<!--HAY DIRECTORES LOS CUALES ME DEVUELVE ESTE ERROR me dice que se le a pasado por el foreach un valor nulo
+    y estan esos directores en la BD-->
     <p>Director:
         <?php
         $textD = "";
         foreach ($pelicula[0]->getDirectores() as $director) {
-            $textD .= $director["NombreCompleto"] . ", ";
+            $textD .= $director["personName"] . ", ";
         }
         //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues
         $directores = substr($textD, 0, -2); ?>
@@ -83,8 +81,8 @@ $pelicula = $conn->getMovie($PeliculaID);
 
     </p>
     <p>Actores: <?php $textA = "";
-        foreach ($pelicula->getActores() as $actor) {
-            $textA .= $actor["NombreCompleto"] . ", ";
+        foreach ($pelicula[0]->getActores() as $actor) {
+            $textA .= $actor["personName"] . ", ";
         }
         //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues
         $actores = substr($textA, 0, -2); ?>
@@ -99,9 +97,13 @@ $pelicula = $conn->getMovie($PeliculaID);
     </p>
 
     <p>
-        <?php echo $pelicula->getSinopsis(); ?>
+        <?php echo $pelicula[0]->getSinopsis(); ?>
     </p>
 
+
+</div>
+
+<div class="contenedorComent">
 
 </div>
 
