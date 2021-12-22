@@ -105,5 +105,10 @@ $pelicula = $conn->cogerPelicula($PeliculaID);
 
 </div>
 
+<div class="contenedorComent">
+
+
+</div>
+
 </body>
 </html>

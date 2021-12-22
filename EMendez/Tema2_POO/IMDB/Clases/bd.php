@@ -17,10 +17,15 @@ include_once "Trabajo.php";
 class bd extends mysqli
 {
     /*Crear una nueva conexion en MYSQL*/
-    private $servername = "localhost";//sql480.main-hosting.eu //localhost
-    private $username = "erikPhp"; //u850300514_emendez //casa erikPhp // clase root
-    private $password = "Ageofempires2*";//x43233702G //Ageofempires2*
-    private $database = "imdb";//u850300514_emendez //imdb
+    //private $servername = "localhost";//sql480.main-hosting.eu //localhost
+    //private $username = "root"; //u850300514_emendez //casa erikPhp // clase root
+    //private $password = "Ageofempires2*";//x43233702G //Ageofempires2*
+    //private $database = "imdb";//u850300514_emendez //imdb
+
+    private $servername="sql480.main-hosting.eu";//sql480.main-hosting.eu
+    private $username="u850300514_emendez"; //u850300514_emendez //casa erikPhp // clase root
+    private $password="x43233702G";//x43233702G
+    private $database="u850300514_emendez";//RickMorthy_u850300514_emendez
 
     public function default()
     {
@@ -38,55 +43,6 @@ class bd extends mysqli
         }
     }
 
-    /**
-     * @param $PeliculaID
-     * @return array
-     */
-    public function cogerGenero($PeliculaID){
-
-        $sql="SELECT g.Nombre FROM Genero g
-        JOIN GenPeli gp on gp.GeneroID=g.GeneroID
-        JOIN Peliculas p on p.PeliculaID=gp.PeliculaID
-        WHERE p.PeliculaID=".$PeliculaID.";";
-
-        $this->default();
-        $result=$this->query($sql);
-        $this->close();
-
-        $genArray=$result->fetch_all(MYSQLI_ASSOC);
-
-        return $genArray;
-    }
-
-    /**
-     * @param $PeliculaID
-     * @return mixed
-     */
-    public function cogerIMG($PeliculaID){
-
-        $sql="SELECT img_url FROM Multimedia WHERE PeliculaID=".$PeliculaID.";";
-
-        $this->default();
-        $result=$this->query($sql);
-        $this->close();
-
-        $imgArray=$result->fetch_all(MYSQLI_ASSOC);
-
-        return $imgArray;
-    }
-
-    public function cogerTrailer($PeliculaID){
-
-        $sql="SELECT trailer_url FROM Multimedia WHERE PeliculaID=".$PeliculaID.";";
-
-        $this->default();
-        $result=$this->query($sql);
-        $this->close();
-
-        $trailerArray=$result->fetch_all(MYSQLI_ASSOC);
-
-        return $trailerArray;
-    }
 
     /**
      * public function cogerUsuario(){
@@ -140,8 +96,6 @@ class bd extends mysqli
 
         //No puedo devolver un array de obj ya que el nombre de la persona por si solo no es obj
         $nomTrabjArray=$result->fetch_all(MYSQLI_ASSOC);
-
-
 
         return $nomTrabjArray;
 
@@ -220,35 +174,27 @@ class bd extends mysqli
         return $objArrayPerss;
     }
 
-    public function cogerPelicula($PeliculaID){
-        $sql="SELECT * FROM Peliculas WHERE PeliculaID=".$PeliculaID.";";
-
-        $this->default();
-        $result=$this->query($sql);
-        $this->close();
-
-        $peliArray=$result->fetch_all(MYSQLI_ASSOC);
-
-        $objArrayPeli=[];
-
-        foreach ($peliArray as $peli){
-            //el debugger me muestra todo, mientras que con el json_encode no me da nada
-            $newPeli=new Pelicula($peli["PeliculaID"],$peli["Nombre"],$peli["Duracion"],$peli["Fecha_Salida"],$peli["Calificacion"],$peli["Sinopsis"]);
-            $newPeli->setIMG($this->cogerIMG($peli["PeliculaID"]));
-            $newPeli->setTrailer($this->cogerTrailer($peli["PeliculaID"]));
-            $newPeli->setGeneros($this->cogerGenero($peli["PeliculaID"]));
-            $newPeli->setActores($this->cogerNomPersXtrabj($peli["PeliculaID"],'Actor'));
-            $newPeli->setDirectores($this->cogerNomPersXtrabj($peli["PeliculaID"],'Director'));
-
-            $objArrayPeli[]=$newPeli;
-        }
-
-        return $objArrayPeli;
-
-    }
 
     public function cogerPeliculas(){
-        $sql="SELECT * FROM Peliculas;";
+        $sql = "SELECT p.PeliculaID as movieId, p.Nombre as movieName, p.Duracion as movieDuration, p.Fecha_Salida as movieRelease, p.Calificacion as movieRank, p.Sinopsis as movieSynopsis,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'personName', psn.NombreCompleto
+                	)
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 2) AS movieActors,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'personName', psn.NombreCompleto
+                	)
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 1) AS movieDirectors,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'genderName', g.Nombre
+                	)
+                ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID AND gp.PeliculaID = p.PeliculaID) AS movieGenders,
+                m.img_url as movieImage, m.trailer_url as movieTrailer
+                FROM Peliculas p
+                INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID";
 
         $this->default();
         $result=$this->query($sql);
@@ -257,20 +203,176 @@ class bd extends mysqli
         $peliArray=$result->fetch_all(MYSQLI_ASSOC);
 
         $objArrayPeli=[];
-
         foreach ($peliArray as $peli){
             //el debugger me muestra todo, mientras que con el json_encode no me da nada
-            $newPeli=new Pelicula($peli["PeliculaID"],$peli["Nombre"],$peli["Duracion"],$peli["Fecha_Salida"],$peli["Calificacion"],$peli["Sinopsis"]);
-            $newPeli->setIMG($this->cogerIMG($peli["PeliculaID"]));
-            $newPeli->setTrailer($this->cogerTrailer($peli["PeliculaID"]));
-            $newPeli->setGeneros($this->cogerGenero($peli["PeliculaID"]));
-            $newPeli->setActores($this->cogerNomPersXtrabj($peli["PeliculaID"],'Actor'));
-            $newPeli->setDirectores($this->cogerNomPersXtrabj($peli["PeliculaID"],'Director'));
+            $newPeli=new Pelicula($peli["movieId"],$peli["movieName"],$peli["movieDuration"],$peli["movieRelease"],$peli["movieRank"],$peli["movieSynopsis"]);
+            $newPeli->setIMG($peli["movieImage"]);
+            $newPeli->setTrailer($peli["movieTrailer"]);
+            $newPeli->setGeneros(json_decode($peli["movieGenders"],true));
+            $newPeli->setActores(json_decode($peli["movieActors"],true));
+            $newPeli->setDirectores(json_decode($peli["movieDirectors"],true));
+            $objArrayPeli[]=$newPeli;
+        }
 
+
+
+        /*          $sql = "SELECT p.PeliculaID , p.Nombre , p.Duracion , p.Fecha_Salida , p.Calificacion , p.Sinopsis ,
+                               (SELECT JSON_ARRAYAGG(
+                                   JSON_OBJECT(
+                                       'nomPers', prs.NombreCompleto
+                                   )
+                               ) FROM Persona prs JOIN PersPeli pp on prs.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID JOIN TrabjPers tp on tp.PersonaID = prs.PersonaID WHERE tp.TrabajoID = 2) AS actores,
+                               (SELECT JSON_ARRAYAGG(
+                                   JSON_OBJECT(
+                                       'nomPers', prs.NombreCompleto
+                                   )
+                               ) FROM Persona prs JOIN PersPeli pp on prs.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = prs.PersonaID WHERE tp.TrabajoID = 1) AS directores,
+                               (SELECT JSON_ARRAYAGG(
+                                   JSON_OBJECT(
+                                       'generos', g.Nombre
+                                   )
+                               ) FROM Genero g JOIN GenPeli gp on gp.GeneroID = g.GeneroID AND gp.PeliculaID = p.PeliculaID) AS generos,
+                               (SELECT JSON_ARRAYAGG(
+                                   JSON_OBJECT(
+                                      'img', m.img_url
+                                   )
+                                  ME DEVUELVE UN ARRAY DE TODAS LAS IMAGENES EN CADA PELICULA
+                               )FROM Multimedia m JOIN Peliculas p on m.PeliculaID = p.PeliculaID WHERE m.) AS img,
+                               m.trailer_url as trailer
+                               FROM Peliculas p
+                               JOIN Multimedia m on p.PeliculaID = m.PeliculaID";
+
+                       $this->default();
+                       $result=$this->query($sql);
+                       $this->close();
+
+                       $peliArray=$result->fetch_all(MYSQLI_ASSOC);
+
+                       $objArrayPeli=[];
+                       foreach ($peliArray as $peli){
+                           //el debugger me muestra todo, mientras que con el json_encode no me da nada
+                           $newPeli=new Pelicula($peli["PeliculaID"],$peli["Nombre"],$peli["Duracion"],$peli["Fecha_Salida"],$peli["Calificacion"],$peli["Sinopsis"]);
+                           $newPeli->setIMG(json_decode($peli["img"],true));
+                           $newPeli->setTrailer($peli["trailer"]);
+                           $newPeli->setGeneros(json_decode($peli["generos"],true));
+                           $newPeli->setActores(json_decode($peli["actores"],true));
+                           $newPeli->setDirectores(json_decode($peli["directores"],true));
+                           $objArrayPeli[]=$newPeli;
+                       }
+       */
+
+
+        return $objArrayPeli;
+    }
+
+    public function cogerPelicula($movieId){
+        $sql = "SELECT p.PeliculaID as movieId, p.Nombre as movieName, p.Duracion as movieDuration, p.Fecha_Salida as movieRelease, p.Calificacion as movieRank, p.Sinopsis as movieSynopsis, 
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'personName', psn.NombreCompleto
+                	)
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE pp.PeliculaID = ".$movieId." AND tp.TrabajoID = 2) AS movieActors,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'personName', psn.NombreCompleto
+                	)
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE pp.PeliculaID = ".$movieId." AND tp.TrabajoID = 1) AS movieDirectors,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'genderName', g.Nombre
+                	)
+                ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID WHERE gp.PeliculaID = ".$movieId.") AS movieGenders,
+               (SELECT JSON_ARRAYAGG(
+                            JSON_OBJECT(
+                               'img', m.img_url
+                            )
+                        )FROM Multimedia m JOIN Peliculas p on m.PeliculaID = p.PeliculaID WHERE m.PeliculaID=".$movieId.") AS img,
+                m.trailer_url as movieTrailer
+                FROM Peliculas p
+                INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID
+                WHERE p.PeliculaID = ".$movieId;
+
+        $this->default();
+        $result=$this->query($sql);
+        $this->close();
+
+        $peliArray=$result->fetch_all(MYSQLI_ASSOC);
+
+        $objArrayPeli=[];
+        foreach ($peliArray as $peli){
+            //el debugger me muestra todo, mientras que con el json_encode no me da nada
+            $newPeli=new Pelicula($peli["movieId"],$peli["movieName"],$peli["movieDuration"],$peli["movieRelease"],$peli["movieRank"],$peli["movieSynopsis"]);
+            // SI HAY DOS IMG PARA UNA PELI EN EL VAR_DUMP EN pruebasClass me saca dos veces toda la informacion de la peli en vez de
+            // DARME UNA PELICULA CON UN ARRAY DE IMGS DE DOS imagenes
+            $newPeli->setIMG(json_decode($peli["img"],true));
+            $newPeli->setTrailer($peli["movieTrailer"]);
+            $newPeli->setGeneros(json_decode($peli["movieGenders"],true));
+            $newPeli->setActores(json_decode($peli["movieActors"],true));
+            $newPeli->setDirectores(json_decode($peli["movieDirectors"],true));
             $objArrayPeli[]=$newPeli;
         }
 
         return $objArrayPeli;
+    }
+//ponerlo como : bool y devolver true en el header y en el false
+//No funciona
+    public function userExists($nomUsr,$correo,$contra){
+
+        session_start();
+
+        $sql="SELECT UsuarioID,Nom_Usuario,Correo,Contrasenya FROM Usuario WHERE NomUsuario LIKE '".$nomUsr."';";
+
+        $this->default();
+        $result=$this->query($sql);
+        $this->close();
+
+        //COGER PASS BD
+        $passwVeried=password_verify($contra,$result[0]["Contrasenya"]);
+
+        if($nomUsr==$result[0]["Nom_Usuario"] && $correo == $result[0]["Correo"]){
+            if($passwVeried==true){
+                $_SESSION["Ini"]=true;
+                $_SESSION["user"]=$nomUsr;
+                $_SESSION["usrID"]=$result[0]["UsuarioID"];
+                return header("Location: PagMain.php");
+            }else{
+                echo "
+                 <script>
+                     window.alert('La contraseña introducida no es correcta');
+                 </script>
+                ";
+            }
+        }else{
+            echo "
+                 <script>
+                     window.alert('EL usuario introducido no es correcto');
+                 </script>
+                ";
+        }
+    }
+
+    public function insertUsr($nomUsr,$correo,$contra){
+        //Con real_escape_string nos permite utilizar caracteres especiales para consultas sql
+        $nomUsr=$this->real_escape_string($nomUsr);
+        $correo=$this->real_escape_string($correo);
+
+        $sql="INSERT INTO Usuarios(NomUsuario,Correo,Contrasenya) VALUES('".$nomUsr."','".$correo."','".$contra."');";
+
+        $this->default();
+        if($this->query($sql)==true){
+            //Me redirige a la pagina de las peliculas, donde debere comprobar si esta logeado, si es así
+            return header("Location: PagMain.php");
+        }else{
+            echo "
+                 <script>
+                     window.alert('El usuario ya fue registrado');
+                 </script>
+                ";
+        }
+        $this->close();
+    }
+
+    public function coment(){
 
     }
 

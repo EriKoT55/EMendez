@@ -1,5 +1,8 @@
 <?php
 include_once ("Clases/bd.php");
+
+$conn= new bd();
+$conn->local();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -26,16 +29,15 @@ include_once ("Clases/bd.php");
     <div class="contenedorUL">
         <ul>
             <li><a href="PagMain.php">Pagina Principal</a></li>
-
         </ul>
     </div>
 </nav>
 <div class="contenedorInicioSession">
 <h2>Iniciar Sesion</h2>
     <form action="PagInicioSession.php" method="post">
-        <input class="user" type="text" placeholder="Nombre Usuario" required>
-        <input class="correo" type="email" placeholder="Correo" required>
-        <input class="contra" type="password" placeholder="Contrasenya" required>
+        <input name="user" class="user" type="text" placeholder="Nombre Usuario" required>
+        <input name="correo" class="correo" type="email" placeholder="Correo" required>
+        <input name="passwd" class="passwd" type="password" placeholder="Contrasenya" required>
         <input  class="ini" type="submit" value="Iniciar Sesion">
     </form>
     <div class="link">
@@ -44,6 +46,62 @@ include_once ("Clases/bd.php");
 </div>
 <?php
 
+$usrValido="";
+$correoValido="";
+$contraValida="";
+
+if(isset($_POST["user"])){
+    if(isset($_POST["user"])){
+        //Me devuelve la longitud del string dado strlen
+        if(strlen($_POST["user"])<45){
+            $usrValido=$_POST["user"];
+        }else{
+            echo "
+                 <script>
+                     window.alert('El nombre de usuario no debe pasar de 45 caracteres');
+                 </script>
+                ";
+        }
+    }
+}
+
+if(isset($_POST["correo"])){
+
+    if(isset($_POST["correo"])){
+        //Me devuelve la longitud del string dado strlen
+        if(strlen($_POST["correo"])<150){
+            $correoValido=$_POST["correo"];
+        }else{
+            echo "
+                 <script>
+                     window.alert('El correo no puede pasar de 150 caracteres');
+                 </script>
+                ";
+        }
+    }
+}
+
+if(isset($_POST["passwd"])){
+
+    if(isset($_POST["passwd"]) && isset($_POST["confirm"])){
+        if( strlen($_POST["passwd"])<100 ){
+            //Encripto la contraseña con password_hash, recomendada su utilizacion (PHP Manual)
+            $contraValida=$_POST["passwd"];
+        }else{
+            echo "
+               <script>
+                     window.alert('La contraseña no coincide y/o no puede pasar de 100 caracteres');
+                </script>
+                ";
+        }
+    }
+}
+
+if(isset($_POST["user"]) && isset($_POST["correo"]) && isset($_POST["passwd"])){
+    if($usrValido!="" && $correoValido!="" &&$contraValida!=""){
+        $conn->userExists($usrValido,$correoValido,$contraValida);
+    }
+}
 
 
 ?>

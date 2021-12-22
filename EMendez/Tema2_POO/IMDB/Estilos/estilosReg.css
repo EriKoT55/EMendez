@@ -11,6 +11,32 @@ nav{
     padding:15px;
 }
 /*Meter el link a la pag principal*/
+.contenedorUL{
+    /*FUTURO QUITAR*/
+    float:left;
+    /*Si lo de abajo se descoloca*/
+    /*width: 250px;
+    height: 48px;*/
+
+}
+.contenedorUL ul li{
+
+    /*FUTURO QUITAR*/
+    /*float:right;*/
+    list-style-type: none;
+}
+li a{
+
+    color: black;
+    display: block;
+    padding:5px ;
+    text-decoration: none;
+}
+.contenedorUL ul li a:hover{
+    font-weight: bold;
+    background-color: #ffca88;
+}
+
 
 .contenedorRegistrar{
     text-align: center;
@@ -18,8 +44,8 @@ nav{
     margin-top:50px;
     padding-top: 5px;
     background-color: #e77d00;
-    width: 350px;
-    height: 400px;
+    width: 360px;
+    height: 350px;
     border-radius:5px ;
 }
 .contenedorRegistrar form .nombre{
@@ -33,6 +59,7 @@ nav{
 }
 
 .contenedorRegistrar form .reg{
-    margin-top: 20px;
+    margin-top: 25px;
     font-weight: bold;
+    width: 150px;
 }

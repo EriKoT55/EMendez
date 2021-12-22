@@ -12,21 +12,45 @@ nav{
 }
 /*Meter el link a la pag principal*/
 
+.contenedorUL{
+    /*FUTURO QUITAR*/
+    float:left;
+    /*Si lo de abajo se descoloca*/
+    /*width: 250px;
+    height: 48px;*/
+
+}
+.contenedorUL ul li{
+    list-style-type: none;
+    /*FUTURO QUITAR*/
+    /*float:right;*/
+
+}
+ li a{
+    color: black;
+
+    display: block;
+    padding:5px ;
+    text-decoration: none;
+}
+.contenedorUL ul li a:hover{
+    font-weight: bold;
+    background-color: #ffca88;
+}
+
 .contenedorInicioSession{
     text-align: center;
     margin: 0 auto;
     margin-top:50px;
     padding-top: 5px;
     background-color: #e77d00;
-    width: 200px;
-    height: 250px;
+    width: 240px;
+    height: 280px;
     border-radius:5px ;
 }
-.contenedorInicioSession form .correo{
-    margin-top: 0px;
-}
+
 .contenedorInicioSession form input{
-    margin-top: 20px;
+    margin-top: 15px;
 }
 .contenedorInicioSession form .ini{
     padding: 5px;
