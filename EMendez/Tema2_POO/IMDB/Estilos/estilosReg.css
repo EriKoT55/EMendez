@@ -1,0 +1,38 @@
+body{
+    background: #130601;
+    margin:0;
+    padding: 0;
+}
+nav{
+    /*vovler a poner el nav en la pagpMain*/
+    background-color: #1f1f1f;
+    width: 100%;
+    overflow: hidden;
+    padding:15px;
+}
+/*Meter el link a la pag principal*/
+
+.contenedorRegistrar{
+    text-align: center;
+    margin: 0 auto;
+    margin-top:50px;
+    padding-top: 5px;
+    background-color: #e77d00;
+    width: 350px;
+    height: 400px;
+    border-radius:5px ;
+}
+.contenedorRegistrar form .nombre{
+    margin-top: 0px;
+}
+.contenedorRegistrar form input{
+    margin-top: 15px;
+    width: 200px;
+    height: 25px;
+    border-radius: 5px;
+}
+
+.contenedorRegistrar form .reg{
+    margin-top: 20px;
+    font-weight: bold;
+}

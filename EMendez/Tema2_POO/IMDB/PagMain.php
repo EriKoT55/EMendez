@@ -9,7 +9,7 @@ $conn= new bd();
 $conn->local();
 //Coger los datos para poder trabajar el Obj
 
-$ArrObjPeli = $conn->getMovies();
+$ArrObjPeli = $conn->cogerPeliculas();
 
 
 //Ordenacion de las peliculas, tengo pensado hacerlo con sql para que sea mas optimo
@@ -243,17 +243,17 @@ function Fecha_SalidaDESC()
     </div>
 </nav>
 <div class="contenedor">
-    <?php foreach ($ArrObjPeli as $Arrpeli => $peli){?>
+    <?php foreach ($ArrObjPeli as $pelis => $arrPeli){?>
         <div class="contenedorPelis">
-            <a href="PagPeli.php?PeliculaID=<?php echo $peli->getPeliculaID(); ?>"> <img
-                        src="<?php echo $peli->getIMG() ?>">
-                <p class="nomPeli"><?php echo $peli->getNombre(); ?>
+            <a href="PagPeli.php?PeliculaID=<?php echo $arrPeli->getPeliculaID(); ?>"> <img
+                        src="<?php echo $arrPeli->getIMG()[0]["img_url"] ?>">
+                <p class="nomPeli"><?php echo $arrPeli->getNombre(); ?>
                     (<?php
                     //Con esta funcion hago que me muestra lo de despues o antes del caracter que le pongo
                     //dependiendo si en el ultimo parametro pongo true(antes) o nada(despues)
-                    $anyo = strstr($peli->getFechaSalida(), '-', true);
+                    $anyo = strstr($arrPeli->getFechaSalida(), '-', true);
                     echo $anyo; ?>)</p>
-                <p><?php  echo $peli->getCalificacion(); ?></p>
+                <p><?php  echo $arrPeli->getCalificacion(); ?></p>
             </a>
         </div>
     <?php } ?>
