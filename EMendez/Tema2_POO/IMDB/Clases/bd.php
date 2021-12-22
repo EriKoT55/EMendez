@@ -137,7 +137,7 @@ class bd extends mysqli
         $objArrayPers=[];
 
         foreach ($persArray as $pers){
-//Mirar
+
             $newPers=new Persona($pers["PersonaID"],$pers["NombreCompleto"],$pers["Fecha_Nacimiento"],$pers["Descripcion"],$pers["IMG"]);
             $newPers->setPeliculas($this->cogerPeliXpers($pers["PersonaID"]));
             $newPers->setTrabajo($this->cogerTrabajo($pers["PersonaID"]));
@@ -174,8 +174,10 @@ class bd extends mysqli
         return $objArrayPerss;
     }
 
+    //HACER UN cogerPersonas y cogerPersona con estas consultas para poder hacer una pagina Personas
 
     public function cogerPeliculas(){
+
         $sql = "SELECT p.PeliculaID as movieId, p.Nombre as movieName, p.Duracion as movieDuration, p.Fecha_Salida as movieRelease, p.Calificacion as movieRank, p.Sinopsis as movieSynopsis,
                 (SELECT JSON_ARRAYAGG(
                 	JSON_OBJECT(
@@ -314,40 +316,35 @@ class bd extends mysqli
 
         return $objArrayPeli;
     }
-//ponerlo como : bool y devolver true en el header y en el false
-//No funciona
-    public function userExists($nomUsr,$correo,$contra){
 
-        session_start();
 
-        $sql="SELECT UsuarioID,Nom_Usuario,Correo,Contrasenya FROM Usuario WHERE NomUsuario LIKE '".$nomUsr."';";
+    public function userExists($nomUsr,$correo,$contra): bool
+    {
+    //si peta es porque no encuentra el usr o el correo en la Tabla Usuarios
+        //session_start();
+
+        $sql="SELECT UsuarioID,NomUsuario,Correo,Contrasenya FROM Usuarios WHERE NomUsuario LIKE '".$nomUsr."' AND Correo= '".$correo."' ;";
 
         $this->default();
         $result=$this->query($sql);
         $this->close();
 
-        //COGER PASS BD
-        $passwVeried=password_verify($contra,$result[0]["Contrasenya"]);
+        $arrUsr=$result->fetch_all(MYSQLI_ASSOC);
 
-        if($nomUsr==$result[0]["Nom_Usuario"] && $correo == $result[0]["Correo"]){
-            if($passwVeried==true){
+        //COGER PASS BD
+        $passVerify=password_verify($contra,$arrUsr[0]["Contrasenya"]);
+//Esta cogido con pinzas js aqui pero no es el problema
+        if($nomUsr==$arrUsr[0]["NomUsuario"] && $correo == $arrUsr[0]["Correo"]){
+            if($passVerify==true){
                 $_SESSION["Ini"]=true;
                 $_SESSION["user"]=$nomUsr;
-                $_SESSION["usrID"]=$result[0]["UsuarioID"];
-                return header("Location: PagMain.php");
+                $_SESSION["usrID"]=$arrUsr[0]["UsuarioID"];
+                return true;
             }else{
-                echo "
-                 <script>
-                     window.alert('La contraseña introducida no es correcta');
-                 </script>
-                ";
+                return false;
             }
         }else{
-            echo "
-                 <script>
-                     window.alert('EL usuario introducido no es correcto');
-                 </script>
-                ";
+            return false;
         }
     }
 
@@ -360,19 +357,14 @@ class bd extends mysqli
 
         $this->default();
         if($this->query($sql)==true){
-            //Me redirige a la pagina de las peliculas, donde debere comprobar si esta logeado, si es así
-            return header("Location: PagMain.php");
+            return true;
         }else{
-            echo "
-                 <script>
-                     window.alert('El usuario ya fue registrado');
-                 </script>
-                ";
+            return false;
         }
         $this->close();
     }
 
-    public function coment(){
+    public function insertComent(){
 
     }
 

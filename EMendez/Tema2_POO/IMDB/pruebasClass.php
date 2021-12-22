@@ -4,9 +4,9 @@ include_once "Clases/bd.php";
 $conn= new bd();
 $conn->local();
 
-$conn->insertUsr('user','user1@gmail.com','12345');
+$asdf=$conn->cogerPelicula(2);
 //Problema debo coger valores de dimensiones muy interiores de un array
-/*foreach ($asdf as $as => $arr){
+foreach ($asdf as $as => $arr){
 
 
         echo "<br>";
@@ -22,7 +22,7 @@ $conn->insertUsr('user','user1@gmail.com','12345');
         echo "<br>";
 
     }*/
-//}
+}
 
 
 echo "<br>";

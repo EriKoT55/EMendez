@@ -59,6 +59,31 @@ nav{
     color:black;
 }
 
+.contenedorUL{
+    /*FUTURO QUITAR*/
+    float:right;
+    /*Si lo de abajo se descoloca*/
+    /*width: 250px;
+    height: 48px;*/
+}
+.contenedorUL ul li{
+    list-style-type: none;
+    /*FUTURO QUITAR*/
+    float:left;
+
+}
+.contenedorUL ul li a{
+    color: black;
+    list-style-type: none;
+    display: block;
+    padding:10px;
+
+}
+.contenedorUL ul li a:hover{
+    font-weight: bold;
+    background-color: #ffca88;
+}
+
 /*Maquetacion de la informacion de la pelicula*/
 .contenedorPl{
     color:gray;
@@ -69,3 +94,4 @@ a{
     text-decoration: none;
     color:gray;
 }
+

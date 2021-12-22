@@ -1,12 +1,21 @@
 <?php
 //error_reporting(0);
 include_once("Clases/bd.php");
+$conn= new bd();
+$conn->local();
+
+//session_start();
+
+/*if(isset($_GET["cerrarSession"])){
+    session_unset();
+    session_destroy();
+}*/
+
 /*https://www.imdb.com/title/tt2382320/?pf_rd_m=A2FGELUUNOQJNL&pf_rd_p=ea4e08e1-c8a3-47b5-ac3a-75026647c16e&pf_rd_r=1VHKKEY8F9SF79HJTAB3&pf_rd_s=center-1&pf_rd_t=15506&pf_rd_i=moviemeter&ref_=chtmvm_tt_6*/
 
 //Creo la conexion
 
-$conn= new bd();
-$conn->local();
+
 //Coger los datos para poder trabajar el Obj
 
 $ArrObjPeli = $conn->cogerPeliculas();
@@ -14,6 +23,9 @@ $ArrObjPeli = $conn->cogerPeliculas();
 
 //Ordenacion de las peliculas, tengo pensado hacerlo con sql para que sea mas optimo
 //Opciones: ranking, fecha de salida, director y genero.
+
+//Pasar a bd
+
 //De menor a mayor
 /*function RankingASC()
 {
@@ -132,7 +144,8 @@ function Fecha_SalidaDESC()
     if (isset($_GET["enviar"])) {
         $buscar=$_GET["buscar"];
 
-        $sql="";
+        //Hacer en bd y despues llamar a la funcion aqui
+        //$sql="";
 
     }
 
@@ -246,7 +259,7 @@ function Fecha_SalidaDESC()
     <?php foreach ($ArrObjPeli as $pelis => $arrPeli){?>
         <div class="contenedorPelis">
             <a href="PagPeli.php?PeliculaID=<?php echo $arrPeli->getPeliculaID(); ?>"> <img
-                        src="<?php echo $arrPeli->getIMG()[0]["img_url"] ?>">
+                        src="<?php echo $arrPeli->getIMG() ?>">
                 <p class="nomPeli"><?php echo $arrPeli->getNombre(); ?>
                     (<?php
                     //Con esta funcion hago que me muestra lo de despues o antes del caracter que le pongo

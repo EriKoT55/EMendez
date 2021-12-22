@@ -29,7 +29,6 @@ $conn->local();
     <div class="contenedorUL">
         <ul>
             <li><a href="PagMain.php">Pagina Principal</a></li>
-
         </ul>
     </div>
 </nav>
@@ -100,8 +99,17 @@ if(isset($_POST["passwd"])){
 }
 
 if(isset($_POST["user"]) && isset($_POST["correo"]) && isset($_POST["passwd"])){
-    if($usrValido!="" && $correoValido!="" &&$contraValida!=""){
-        $conn->insertUsr($usrValido,$correoValido,$contraValida);
+    if(isset($usrValido) && isset($correoValido) && isset($contraValida)){
+        if($conn->insertUsr($usrValido,$correoValido,$contraValida)){
+            //Me dice que ya ha sido cambiado
+            //header("Location: PagMain.php");
+        }else{
+            echo "
+                 <script>
+                     window.alert('El usuario ya fue registrado');
+                 </script>
+                ";
+        }
     }
 }
 

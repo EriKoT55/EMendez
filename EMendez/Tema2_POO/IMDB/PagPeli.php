@@ -8,7 +8,7 @@ $conn->local();
 //$ArrObjPers;
 
 if (isset($_GET["PeliculaID"])) {
-    $PeliculaID = $_GET["PeliculaID"] - 1;
+    $PeliculaID = $_GET["PeliculaID"];
 }
 $pelicula = $conn->cogerPelicula($PeliculaID);
 
@@ -43,32 +43,34 @@ $pelicula = $conn->cogerPelicula($PeliculaID);
         }
 
     ?>
-
+    <div class="contenedorUL">
+        <ul>
+            <li><a href="PagMain.php">Pagina Principal</a></li>
+        </ul>
+    </div>
 </nav>
 <div class="contenedorPl">
-    <h4><?php echo $pelicula->getNombre(); ?></h4>
-    <p>Fecha de salida(españa): <?php echo $pelicula->getFechaSalida(); ?></p>
-    <p><?php echo $pelicula->getDuracion(); ?> min</p>
-    <?php foreach ($pelicula->getIMG() as $img){?>
-    <img src="<?php echo $img["img_url"]?> ">
+    <h4><?php echo $pelicula[0]->getNombre(); ?></h4>
+    <p>Fecha de salida(españa): <?php echo $pelicula[0]->getFechaSalida(); ?></p>
+    <p><?php echo $pelicula[0]->getDuracion(); ?> min</p>
+    <?php foreach ($pelicula[0]->getIMG() as $img){?>
+    <img src="<?php echo $img["img"]?> ">
     <?php } ?>
     <div class="trailer">
-        <?php foreach ($pelicula->getTrailer() as $trailer){?>
-        <iframe width="560" height="315" src="<?php echo $trailer; ?>?autoplay=1&mute=0" frameborder="0"
+        <iframe width="560" height="315" src="<?php echo $pelicula[0]->getTrailer(); ?>?autoplay=1&mute=0" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
-        <?php }?>
     </div>
-    <p>| <?php {
-           // echo $pelicula->getGeneros()[0][] . " | ";
+    <p>| <?php foreach ($pelicula[0]->getGeneros() as $genero){
+            echo $genero["genderName"] . " | ";
             //seguir probando en purebasClass las profundidades de los arrays
         } ?></p>
 
     <p>Director:
         <?php
         $textD = "";
-        foreach ($pelicula->getDirectores() as $director) {
-            $textD .= $director["NombreCompleto"] . ", ";
+        foreach ($pelicula[0]->getDirectores() as $director) {
+            $textD .= $director["personName"] . ", ";
         }
         //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues
         $directores = substr($textD, 0, -2); ?>
@@ -83,8 +85,8 @@ $pelicula = $conn->cogerPelicula($PeliculaID);
 
     </p>
     <p>Actores: <?php $textA = "";
-        foreach ($pelicula->getActores() as $actor) {
-            $textA .= $actor["NombreCompleto"] . ", ";
+        foreach ($pelicula[0]->getActores() as $actor) {
+            $textA .= $actor["personName"] . ", ";
         }
         //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues
         $actores = substr($textA, 0, -2); ?>
@@ -99,13 +101,18 @@ $pelicula = $conn->cogerPelicula($PeliculaID);
     </p>
 
     <p>
-        <?php echo $pelicula->getSinopsis(); ?>
+        <?php echo $pelicula[0]->getSinopsis(); ?>
     </p>
 
 
 </div>
 
 <div class="contenedorComent">
+
+    <form action="PagPeli.php" id="comment" method="post">
+        <textarea name="textarea" rows="10" cols="150" maxlength="555" placeholder="Comente lo que piense de la pelicula" ></textarea>
+        <input type="submit" name="boton" value="Comentar" >
+    </form>
 
 
 </div>

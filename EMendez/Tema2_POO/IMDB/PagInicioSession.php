@@ -51,6 +51,7 @@ $correoValido="";
 $contraValida="";
 
 if(isset($_POST["user"])){
+
     if(isset($_POST["user"])){
         //Me devuelve la longitud del string dado strlen
         if(strlen($_POST["user"])<45){
@@ -83,9 +84,8 @@ if(isset($_POST["correo"])){
 
 if(isset($_POST["passwd"])){
 
-    if(isset($_POST["passwd"]) && isset($_POST["confirm"])){
-        if( strlen($_POST["passwd"])<100 ){
-            //Encripto la contraseña con password_hash, recomendada su utilizacion (PHP Manual)
+    if(isset($_POST["passwd"])){
+        if( strlen($_POST["passwd"]) < 100 ){
             $contraValida=$_POST["passwd"];
         }else{
             echo "
@@ -98,8 +98,18 @@ if(isset($_POST["passwd"])){
 }
 
 if(isset($_POST["user"]) && isset($_POST["correo"]) && isset($_POST["passwd"])){
-    if($usrValido!="" && $correoValido!="" &&$contraValida!=""){
-        $conn->userExists($usrValido,$correoValido,$contraValida);
+    if(isset($usrValido) && isset($correoValido) && isset($contraValida)){
+        if($conn->userExists($usrValido,$correoValido,$contraValida)){
+            //Me redirige a la pagina de las peliculas, donde debere comprobar si esta logeado, si es así
+            //En clase funciono y ahora peta
+            //header("Location: PagMain.php");
+        }else{
+            echo "
+                 <script>
+                     window.alert('Alguno de los datos introducidos no es correcto');
+                 </script>
+                ";
+        }
     }
 }
 
