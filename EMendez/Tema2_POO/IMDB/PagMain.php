@@ -4,7 +4,7 @@ include_once("Clases/bd.php");
 $conn= new bd();
 $conn->local();
 
-//session_start();
+session_start();
 
 /*if(isset($_GET["cerrarSession"])){
     session_unset();

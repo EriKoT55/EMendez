@@ -21,7 +21,7 @@ $conn->local();
 </head>
 <body>
 <!--Al terminar de iniciar session / registrarse lo mande a la pagina de inicio-->
-<!--Si es demasiado ambicioso eso podria mostrar un mensaje de registro/inicio session satisfactorio
+<!--Si es demasiado ambicioso, eso podria mostrar un mensaje de registro/inicio session satisfactorio
     y que el clicara en el nav para irse al inicio.
 -->
 <nav>
@@ -39,7 +39,7 @@ $conn->local();
         <input name="user" class="user" type="text" placeholder="Nombre Usuario" required>
        <!-- <input name="nacimiento" pattern="[0-9]{4}\-[0-9]{2}\-[0-9]{2}$" class="fecha" type="text" placeholder="anyo-mes-dia">
         <input name="descripcion" class="descripcion" type="text" placeholder="descripcion">
-        TAMBIEN QUE PUEDA METER UNA IMG-->
+        TAMBIEN QUE PUEDA METER UNA IMG -->
         <input name="correo" pattern="[A-Za-z]+\@[a-z]\.[a-z]" class="correo" placeholder="Correo" required> <!--type="email" -->
         <input name="passwd" class="contra" type="password" placeholder="Contrasenya" required>
         <input name="confirm"class="contra" type="password" placeholder="Repite Contrasenya" required>
@@ -61,6 +61,11 @@ if(isset($_POST["user"])){
                  <script>
                      window.alert('El nombre de usuario no debe pasar de 45 caracteres');
                  </script>
+                 
+                 <!-- #IDEA
+                    SE PODRIA PONER EL FONDO DIFUMINADO EN VEZ DE NEGRO AL SALIR EL ALERT, QUE SALIERA LA PAGINA
+                    COMO SI ESTUVIERA DEBAJO DEL ALERT
+                 -->
                 ";
         }
     }
@@ -77,7 +82,13 @@ if(isset($_POST["correo"])){
                  <script>
                      window.alert('El correo no puede pasar de 150 caracteres');
                  </script>
+                 
+                 <!-- #IDEA
+                    SE PODRIA PONER EL FONDO DIFUMINADO EN VEZ DE NEGRO AL SALIR EL ALERT, QUE SALIERA LA PAGINA
+                    COMO SI ESTUVIERA DEBAJO DEL ALERT
+                  --> 
                 ";
+
         }
     }
 }
@@ -87,12 +98,17 @@ if(isset($_POST["passwd"])){
     if(isset($_POST["passwd"]) && isset($_POST["confirm"])){
         if( $_POST["passwd"]==$_POST["confirm"] && strlen($_POST["passwd"])<100 && strlen($_POST["confirm"])<100){
             //Encripto la contraseña con password_hash, recomendada su utilizacion (PHP Manual)
+            //HASEO LAS DOS CONTRASEÑAS PARA QUE ESTE PROTEGIDA
             $contraValida=password_hash($_POST["passwd"],PASSWORD_DEFAULT);
         }else{
             echo "
                <script>
                      window.alert('La contraseña no coincide y/o no puede pasar de 100 caracteres');
                 </script>
+                <!-- #IDEA
+                    SE PODRIA PONER EL FONDO DIFUMINADO EN VEZ DE NEGRO AL SALIR EL ALERT, QUE SALIERA LA PAGINA 
+                    COMO SI ESTUVIERA DEBAJO DEL ALERT
+                -->
                 ";
         }
     }
@@ -101,13 +117,20 @@ if(isset($_POST["passwd"])){
 if(isset($_POST["user"]) && isset($_POST["correo"]) && isset($_POST["passwd"])){
     if(isset($usrValido) && isset($correoValido) && isset($contraValida)){
         if($conn->insertUsr($usrValido,$correoValido,$contraValida)){
-            //Me dice que ya ha sido cambiado
-            //header("Location: PagMain.php");
+            /*ERROR*/
+            //No se puede modificar la información del encabezado: los encabezados ya
+            //han sido enviados por (salida se inicio en C:\xampp\htdocs\EMendez\EMendez\Tema2_POO\IMDB\PagRegistrar.php:7
+            //  in C:\xampp\htdocs\EMendez\EMendez\Tema2_POO\IMDB\PagRegistrar.php on line 108
+            //header("Location: PagInicioSession.php");
         }else{
             echo "
                  <script>
                      window.alert('El usuario ya fue registrado');
                  </script>
+                 <!-- #IDEA
+                    SE PODRIA PONER EL FONDO DIFUMINADO EN VEZ DE NEGRO AL SALIR EL ALERT, QUE SALIERA LA PAGINA 
+                    COMO SI ESTUVIERA DEBAJO DEL ALERT
+                -->
                 ";
         }
     }

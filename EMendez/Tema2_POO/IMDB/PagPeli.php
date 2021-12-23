@@ -57,7 +57,7 @@ $pelicula = $conn->cogerPelicula($PeliculaID);
     <img src="<?php echo $img["img"]?> ">
     <?php } ?>
     <div class="trailer">
-        <iframe width="560" height="315" src="<?php echo $pelicula[0]->getTrailer(); ?>?autoplay=1&mute=0" frameborder="0"
+        <iframe width="560" height="315" src="<?php echo $pelicula[0]->getTrailer(); ?>" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
     </div>

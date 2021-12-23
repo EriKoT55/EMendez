@@ -4,7 +4,7 @@ class Persona
 {
     public $PersonaID,$NombreCompleto,$Fecha_Nacimiento,$Descripcion,$IMG,$Peliculas,$Trabajo;
 
-    /**
+    /** BORRAR CODIGO NO UTILIZADO O QUE NO VAYAS A UTILIZAR
      * @param $PersonaID
      * @param $NombreCompleto
      * @param $Fecha_Nacimiento

@@ -4,7 +4,7 @@ class Pelicula
 {
     private $PeliculaID,$Nombre,$Duracion,$FechaSalida,$Calificacion,$Sinopsis,$IMG,$Trailer,$Generos,$Actores,$Directores,$Comentarios;
 
-    /**
+    /** BORRAR CODIGO NO UTILIZADO O QUE NO VAYAS A UTILIZAR
      * @param $PeliculaID
      * @param $Nombre
      * @param $Duracion
