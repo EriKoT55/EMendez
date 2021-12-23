@@ -342,7 +342,7 @@ class bd extends mysqli
     Devuelve TRUE si es correcta la información combrobada (### variables de session),
     FALSE si da error en alguna de las comprobaciones NOM_USUARIO,CORREO,CONTRASENYA
      */
-    public function existUsr( $nomUsr, $correo, $contraCrypt ): bool
+    public function existUsr( $nomUsr, $correo, $contra ): bool
     {
         //No funciona
         /*
@@ -362,11 +362,13 @@ class bd extends mysqli
 
         // VERIFICA SI LA CONTRASEÑA DE LA INTRODUCIDA ESTA EN LA BD
         // DEVUELVE UN BOOLEANO
-        $passVerify = password_verify( $contraCrypt,$arrUsr[0]["Contrasenya"] );
+        $passVerify = password_verify( $contra,$arrUsr[0]["Contrasenya"] );
 
         if( $nomUsr==$arrUsr[0]["NomUsuario"] && $correo==$arrUsr[0]["Correo"] ) {
             if( $passVerify==true ) {
                 //VARIABLES DE SESSION
+                // hacer en inicio unos if isset con los $_POST del nombre usuario, correo, contra
+                // para poder devolver en estas variables en el posterior if else
                 $_SESSION["Ini"] = true;
                 $_SESSION["user"] = $nomUsr;
                 $_SESSION["usrID"] = $arrUsr[0]["UsuarioID"];
@@ -388,7 +390,7 @@ class bd extends mysqli
     Si se inserto TRUE si no FALSE.
      # #### APUNTE :
      # Se cambiara por mas datos,
-     # al unir Usuario con Persona, entrara nombre, fechaNacimiento, descripcion, IMG.
+     # al unir Usuario con Persona, entrara: nombre, fechaNacimiento, descripcion, IMG.
      */
     public function insertUsr( $nomUsr, $correo, $contra ): bool
     {

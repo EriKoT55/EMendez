@@ -3,10 +3,17 @@ include_once "Clases/bd.php";
 
 $conn= new bd();
 $conn->local();
+$conn->existUsr("erik12","erik12@manolo.com","12345");
+session_start();
 
-$asdf=$conn->cogerPelicula(2);
+$bool=$_SESSION["Ini"];
+
+echo "<br>";
+echo "<pre>";
+var_dump($bool);
+echo "<br>";
 //Problema debo coger valores de dimensiones muy interiores de un array
-foreach ($asdf as $as => $arr){
+/*foreach ($asdf as $as => $arr){
 
 
         echo "<br>";
@@ -21,8 +28,8 @@ foreach ($asdf as $as => $arr){
         echo $actores["NombreCompleto"];
         echo "<br>";
 
-    }*/
-}
+    }
+}*/
 
 
 echo "<br>";

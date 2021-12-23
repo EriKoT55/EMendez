@@ -118,7 +118,7 @@ if( isset( $_POST["passwd"] ) ) {
 
 if( isset( $_POST["user"] ) && isset( $_POST["correo"] ) && isset( $_POST["passwd"] ) ) {
     if( isset( $usrValido ) && isset( $correoValido ) && isset( $contraValida ) ) {
-        if( $conn->userExists( $usrValido, $correoValido, $contraValida ) ) {
+        if( $conn->existUsr( $usrValido, $correoValido, $contraValida ) ) {
             /* #### ERROR #### */
             //No se puede modificar la información del encabezado: los encabezados ya
             //han sido enviados por (salida se inicio en C:\xampp\htdocs\EMendez\EMendez\Tema2_POO\IMDB\PagInicioSession.php:7

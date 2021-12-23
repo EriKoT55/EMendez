@@ -1,15 +1,17 @@
 <?php
 //error_reporting(0);
+
 include_once("Clases/bd.php");
 $conn= new bd();
 $conn->local();
 
 session_start();
 
-/*if(isset($_GET["cerrarSession"])){
+
+if(isset($_GET["cerrarSesion"])){
     session_unset();
     session_destroy();
-}*/
+}
 
 /*https://www.imdb.com/title/tt2382320/?pf_rd_m=A2FGELUUNOQJNL&pf_rd_p=ea4e08e1-c8a3-47b5-ac3a-75026647c16e&pf_rd_r=1VHKKEY8F9SF79HJTAB3&pf_rd_s=center-1&pf_rd_t=15506&pf_rd_i=moviemeter&ref_=chtmvm_tt_6*/
 
@@ -21,10 +23,12 @@ session_start();
 $ArrObjPeli = $conn->cogerPeliculas();
 
 
+
+
+// ########################  Pasar a bd  #################################
+
 //Ordenacion de las peliculas, tengo pensado hacerlo con sql para que sea mas optimo
 //Opciones: ranking, fecha de salida, director y genero.
-
-//Pasar a bd
 
 //De menor a mayor
 /*function RankingASC()
@@ -250,8 +254,16 @@ function Fecha_SalidaDESC()
     </form>
     <div class="contenedorUL">
         <ul>
-            <li><a href="PagMain.php">Pagina Principal</a></li>
+            <?php if($_SESSION["Ini"]==true) { //Peta y supuestamente las variables de session pueden utilizarse en
+                // cualquier archivo dentro del servidor, pero me dice que no esta inicializada
+                ?>
+                <a href="?cerrarSesion=true"><li id="cerrarSesion">Iniciar Session</li></a>
+                <!--SI NO MUESTRA NADA QUITAR EL echo-->
+                <p id="nomUsr"><?php echo $_SESSION["user"] ?></p>
+
+            <?php }else{ ?>
             <li><a href="PagInicioSession.php">Iniciar Session</a></li>
+            <?php } ?>
         </ul>
     </div>
 </nav>
