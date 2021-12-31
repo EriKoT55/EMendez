@@ -137,6 +137,7 @@ if( isset( $_POST["user"] ) && isset( $_POST["correo"] ) && isset( $_POST["passw
 //VARIABLES DE SESSION
             $_SESSION["Ini"] = true;
             $_SESSION["user"] = $usrValido;
+            //Si no esta iniciada claramente no habra ID de usuario
             $_SESSION["usrID"] = $arrUsr[0]["UsuarioID"];
             ?>
             <script>

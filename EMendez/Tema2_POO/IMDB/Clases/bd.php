@@ -330,7 +330,7 @@ class bd extends mysqli
 
         $objArrayPeli = [];
         foreach( $peliArray as $peli ) {
-            //el debugger me muestra todo, mientras que con el json_encode no me da nada
+
             $newPeli = new Pelicula( $peli["movieId"], $peli["movieName"], $peli["movieDuration"], $peli["movieRelease"], $peli["movieRank"], $peli["movieSynopsis"] );
             // SI HAY DOS IMG PARA UNA PELI EN EL VAR_DUMP EN pruebasClass me saca dos veces toda la informacion de la peli en vez de
             // DARME UNA PELICULA CON UN ARRAY DE IMGS DE DOS imagenes
@@ -339,6 +339,7 @@ class bd extends mysqli
             $newPeli->setGeneros( json_decode( $peli["movieGenders"], true ) );
             $newPeli->setActores( json_decode( $peli["movieActors"], true ) );
             $newPeli->setDirectores( json_decode( $peli["movieDirectors"], true ) );
+            // No se si estos dos son necesarios
             $newPeli->setComentarios( json_decode($peli["comentario"],true));
             $newPeli->setFechaComent(json_decode($peli["fecha"],true));
             $objArrayPeli[] = $newPeli;
@@ -439,9 +440,8 @@ class bd extends mysqli
         }
         $this->close();
 
-
-
     }
+//NO SE SI NECESITARE HACERLO DE ESTA MANERA, sera mas limpio hacer la select en una funcion y poder reutilizarla por cualquier caso
 
     public function cogerComent(){
 
@@ -449,6 +449,7 @@ class bd extends mysqli
         $this->default();
         $this->query( $sql );
         $this->close();
+        
     }
 
 }
