@@ -1,6 +1,6 @@
 <?php
 include_once( "Clases/bd.php" );
-
+session_start();
 $conn = new bd();
 $conn->local();
 ?>
@@ -125,6 +125,19 @@ if( isset( $_POST["user"] ) && isset( $_POST["correo"] ) && isset( $_POST["passw
             //  in C:\xampp\htdocs\EMendez\EMendez\Tema2_POO\IMDB\PagInicioSession.php on line 108
             //En clase funciono y ahora peta
             // header("Location: PagMain.php");
+
+            $sql = "SELECT UsuarioID FROM Usuarios";
+
+            $conn->default();
+            $result = $conn->query( $sql );
+            $conn->close();
+
+            $arrUsr = $result->fetch_all( MYSQLI_ASSOC );
+
+//VARIABLES DE SESSION
+            $_SESSION["Ini"] = true;
+            $_SESSION["user"] = $usrValido;
+            $_SESSION["usrID"] = $arrUsr[0]["UsuarioID"];
             ?>
             <script>
                 window.alert('SESION INICIADA')

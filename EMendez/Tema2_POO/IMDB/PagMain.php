@@ -1,12 +1,11 @@
 <?php
-//error_reporting(0);
+error_reporting(0);
 
 include_once("Clases/bd.php");
 $conn= new bd();
 $conn->local();
 
 session_start();
-
 
 if(isset($_GET["cerrarSesion"])){
     session_unset();
@@ -257,12 +256,12 @@ function Fecha_SalidaDESC()
             <?php if($_SESSION["Ini"]==true) { //Peta y supuestamente las variables de session pueden utilizarse en
                 // cualquier archivo dentro del servidor, pero me dice que no esta inicializada
                 ?>
-                <a href="?cerrarSesion=true"><li id="cerrarSesion">Iniciar Session</li></a>
-                <!--SI NO MUESTRA NADA QUITAR EL echo-->
-                <p id="nomUsr"><?php echo $_SESSION["user"] ?></p>
+                <li id="nomUsr"><a><?php echo $_SESSION["user"] ?></a></li>
+
+                <a href="?cerrarSesion=true"><li id="cerrarSesion">Cerrar Session</li></a>
 
             <?php }else{ ?>
-            <li><a href="PagInicioSession.php">Iniciar Session</a></li>
+            <li><a class="menu" href="PagInicioSession.php">Iniciar Session</a></li>
             <?php } ?>
         </ul>
     </div>
@@ -270,8 +269,8 @@ function Fecha_SalidaDESC()
 <div class="contenedor">
     <?php foreach ($ArrObjPeli as $pelis => $arrPeli){?>
         <div class="contenedorPelis">
-            <a href="PagPeli.php?PeliculaID=<?php echo $arrPeli->getPeliculaID(); ?>"> <img
-                        src="<?php echo $arrPeli->getIMG() ?>">
+            <a href="PagPeli.php?PeliculaID=<?php echo $arrPeli->getPeliculaID(); ?>">
+                <img src="<?php echo $arrPeli->getIMG() ?>">
                 <p class="nomPeli"><?php echo $arrPeli->getNombre(); ?>
                     (<?php
                     //Con esta funcion hago que me muestra lo de despues o antes del caracter que le pongo

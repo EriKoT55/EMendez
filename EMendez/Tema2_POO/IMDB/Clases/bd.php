@@ -229,7 +229,9 @@ class bd extends mysqli
         }
 
 
-        /*          $sql = "SELECT p.PeliculaID , p.Nombre , p.Duracion , p.Fecha_Salida , p.Calificacion , p.Sinopsis ,
+        /* CUANDO RECOJO LAS URL's DE LAS IMG DE DEVUELVE CADA PELICULA CON TODAS LAS URL's DE CADA PELICULA, y solo quiero
+            la img de la pelicula correspondiente
+               $sql = "SELECT p.PeliculaID , p.Nombre , p.Duracion , p.Fecha_Salida , p.Calificacion , p.Sinopsis ,
                                (SELECT JSON_ARRAYAGG(
                                    JSON_OBJECT(
                                        'nomPers', prs.NombreCompleto
@@ -300,6 +302,16 @@ class bd extends mysqli
                 		'genderName', g.Nombre
                 	)
                 ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID WHERE gp.PeliculaID = " . $movieId . ") AS movieGenders,
+                (SELECT JSON_ARRAYAGG(
+                        JSON_OBJECT(
+                        'coment',c.Comentario
+                        )
+                )FROM Comentarios c  JOIN Usuarios u on u.UsuarioID=c.UsuarioID JOIN Peliculas p on p.PeliculaID=".$movieId.") AS comentario,
+               (SELECT JSON_ARRAYAGG(
+                        JSON_OBJECT(
+                        'fecha',c.Fecha
+                        )
+                )FROM Comentarios c  JOIN Usuarios u on u.UsuarioID=c.UsuarioID JOIN Peliculas p on p.PeliculaID=".$movieId.") AS fecha,
                (SELECT JSON_ARRAYAGG(
                             JSON_OBJECT(
                                'img', m.img_url
@@ -327,9 +339,11 @@ class bd extends mysqli
             $newPeli->setGeneros( json_decode( $peli["movieGenders"], true ) );
             $newPeli->setActores( json_decode( $peli["movieActors"], true ) );
             $newPeli->setDirectores( json_decode( $peli["movieDirectors"], true ) );
+            $newPeli->setComentarios( json_decode($peli["comentario"],true));
+            $newPeli->setFechaComent(json_decode($peli["fecha"],true));
             $objArrayPeli[] = $newPeli;
         }
-
+// Deberia
         return $objArrayPeli;
     }
 
@@ -344,13 +358,6 @@ class bd extends mysqli
      */
     public function existUsr( $nomUsr, $correo, $contra ): bool
     {
-        //No funciona
-        /*
-         * Warning: session_start(): Session cannot be started after headers
-         * have already been sent in C:\xampp\htdocs\EMendez\EMendez\Tema2_POO\IMDB\Clases\bd.php on line 339
-         *
-          */
-        //session_start();
 
         $sql = "SELECT UsuarioID,NomUsuario,Correo,Contrasenya FROM Usuarios WHERE NomUsuario LIKE '" . $nomUsr . "' AND Correo= '" . $correo . "' ";
 
@@ -369,10 +376,14 @@ class bd extends mysqli
                 //VARIABLES DE SESSION
                 // hacer en inicio unos if isset con los $_POST del nombre usuario, correo, contra
                 // para poder devolver en estas variables en el posterior if else
-                $_SESSION["Ini"] = true;
+                /*Lo pase al PagInicioSession funciona, aunque debo evitar hacer consultas fuera de este archivo,
+                 * era necesario.
+                 * $_SESSION["Ini"] = true;
                 $_SESSION["user"] = $nomUsr;
-                $_SESSION["usrID"] = $arrUsr[0]["UsuarioID"];
+                $_SESSION["usrID"] = $arrUsr[0]["UsuarioID"];*/
                 return true;
+                // Manera de devolver mas de un valor mirar como coger cada valor como convenga, si se puede
+                //[true,$_SESSION["Ini"], $_SESSION["user"],$_SESSION["usrID"]];
             } else {
                 return false;
             }
@@ -404,15 +415,40 @@ class bd extends mysqli
 
         if( $this->query( $sql )==true ) {
             return true;
-        } else {
+        }else {
             return false;
         }
         $this->close();
     }
 
-    public function insertComent()
+    /** INSERTA COMENTARIO A LA BD
+     * CON LOS VALORES INTRODUCIDOS:
+     * @param $Comentario * TEXTO
+     * @param $PeliculaID * SABER A QUE PELI SE LE HACE EL COMENTARIO
+     * @param $UsuarioID * SABER QUE USUARIO REALIZO EL COMENTARIO
+     */
+    public function insertComent($Comentario,$PeliculaID,$UsuarioID): bool
     {
 
+        $sql="INSERT INTO Comentarios(Comentario,PeliculaID,UsuarioID) VALUES ('".$Comentario."',".$PeliculaID.",".$UsuarioID.")";
+        $this->default();
+        if($this->query( $sql )==true){
+            return true;
+        }else{
+            return false;
+        }
+        $this->close();
+
+
+
+    }
+
+    public function cogerComent(){
+
+        $sql="SELECT ";
+        $this->default();
+        $this->query( $sql );
+        $this->close();
     }
 
 }

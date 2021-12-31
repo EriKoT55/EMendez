@@ -3,30 +3,42 @@ body{
     margin:0;
     padding: 0;
 }
-nav{
-    /*vovler a poner el nav en la pagpMain*/
-    background-color: #1f1f1f;
+nav.contenedorMenu{
+    background-color: #804400;
     width: 100%;
+    padding-top:15px;
     overflow: hidden;
-    padding:15px;
+    display:inline-block;
 }
 
+/*               BUSCADOR                */
 .contenedorSearch{
-    /* Al parecer no hacer nada si no pones un height, si lo pones se descueadra todo*/
-    width: 500px;
-
-    /*vertical-align: middle;*/
+    /* Al parecer no hace nada si no pones un height, si lo pones se descueadra todo*/
+    width: 300px;
+    height: 30px;
+    margin-left:15px;
     white-space: nowrap;
     position: relative;
-
 }
 .contenedorSearch .icon{
     position:absolute;
-    top:65%;
-    margin-left: 10px;
-    margin-top:5px;
+    left:85%;
+    margin-top: 1px;
     /*z-index:1;*/
     color:gray;
+    background-color:#424250 ;
+    border: none;
+    width: 44px;
+    height: 28px;
+    border-radius: 5px;
+
+    /*Transicion soportada para todos los navegadores*/
+    -webkit-transition: background .55s ease;
+    -moz-transition: background .55s ease;
+    -ms-transition: background .55s ease;
+    -o-transition: background .55s ease;
+    transition: background .55s ease;
+
 }
 .contenedorSearch input#buscar{
     width: 300px;
@@ -35,13 +47,12 @@ nav{
     border:1px solid white;
     font-size: 10pt;
     float:left;
-    color: #8d8d66;
     padding-left: 45px;
+    font-weight: bold;
+    border-radius: 5px;
+    color:white;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    border-radius: 5px;
-
-    /*CAMBIAR EL COLOR DEL TEXTO Y FUENTE*/
 
     /*Transicion soportada para todos los navegadores*/
     -webkit-transition: background .55s ease;
@@ -50,15 +61,20 @@ nav{
     -o-transition: background .55s ease;
     transition: background .55s ease;
 }
-/*Pongo la input#buscar despues del hover para que se aplique en el las propiedades dadas*/
+
 .contenedorSearch input#buscar:hover ,.contenedorSearch input#buscar:active  ,.contenedorSearch input#buscar:focus {
     background-color: darkorange;
-}
-/*Pongo la .icon despues del hover para que se aplique en el las propiedades dadas*/
-.contenedorSearch:hover .icon,.contenedorSearch:active .icon,.contenedorSearch:focus .icon{
     color:black;
 }
+/*Pongo la .icon despues del hover para que se aplique en el las propiedades dadas
+para que se aplique debe ponerse un contenedor que englobe a lo que quieres aplicar las propiedades
+*/
+.contenedorSearch:hover button.icon{
+    color:black;
+    background-color: #ffc080;
+}
 
+/******************MENU*************************/
 .contenedorUL{
     /*FUTURO QUITAR*/
     float:right;
@@ -66,32 +82,50 @@ nav{
     /*width: 250px;
     height: 48px;*/
 }
-.contenedorUL ul li{
+.contenedorUL ul p, li{
     list-style-type: none;
     /*FUTURO QUITAR*/
     float:left;
 
 }
 .contenedorUL ul li a{
-    color: black;
+    color:black;
     list-style-type: none;
     display: block;
     padding:10px;
-
+    text-decoration: none;
 }
-.contenedorUL ul li a:hover{
+.contenedorUL ul li a.menu:hover{
     font-weight: bold;
     background-color: #ffca88;
 }
-
-/*Maquetacion de la informacion de la pelicula*/
+/*CERRAR SESION*/
+a li#cerrarSesion{
+    text-decoration: none;
+    color:black;
+    display: block;
+    padding:10px;
+}
+a li#cerrarSesion:hover{
+    font-weight: bold;
+    background-color: #ffca88;
+}
+/*NOMBRE USUARIO*/
+#nomUsr{
+color:grey;
+}
+/*********************  Maquetacion de la informacion de la pelicula  ******************/
 .contenedorPl{
     color:gray;
     /*text-align: ;*/
     margin:30px;
+
 }
+/*QUITAR ESTILOS A LOS LINKS DE LOS ACOTRES Y DIRECTORES*/
 a{
     text-decoration: none;
     color:gray;
 }
-
+p, h3,h5{
+    color:grey;
+}

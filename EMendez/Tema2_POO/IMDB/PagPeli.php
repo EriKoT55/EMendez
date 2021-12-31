@@ -1,16 +1,23 @@
 <?php
 
-include_once("Clases/BD.php");
+include_once("Clases/bd.php");
 
 $conn= new bd();
 $conn->local();
+session_start();
 
-//$ArrObjPers;
+if(isset($_GET["cerrarSesion"])){
+    session_unset();
+    session_destroy();
+}
+
 
 if (isset($_GET["PeliculaID"])) {
     $PeliculaID = $_GET["PeliculaID"];
 }
 $pelicula = $conn->cogerPelicula($PeliculaID);
+
+$_SESSION["peliID"]=$PeliculaID;
 
 ?>
 <!DOCTYPE html>
@@ -29,7 +36,7 @@ $pelicula = $conn->cogerPelicula($PeliculaID);
     <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-<nav>
+<nav class="contenedorMenu">
     <form class="contenedorSearch" action="PagMain.php" method="get">
         <button type="submit" class="icon"><i class="fa fa-search"></i></button>
         <input type="search" id="buscar" placeholder="Buscar..."/>
@@ -45,7 +52,27 @@ $pelicula = $conn->cogerPelicula($PeliculaID);
     ?>
     <div class="contenedorUL">
         <ul>
-            <li><a href="PagMain.php">Pagina Principal</a></li>
+            <li><a class="menu" href="PagMain.php">Pagina Principal</a></li>
+            <?php
+
+                if($_SESSION["Ini"]==true) { //Peta y supuestamente las variables de session pueden utilizarse en
+                // cualquier archivo dentro del servidor, pero me dice que no esta inicializada
+                ?>
+
+                <li id="nomUsr">
+                    <a>
+                        <?php
+                            $NomUsuario=$_SESSION["user"];
+                            echo $NomUsuario
+                        ?>
+                    </a>
+                </li>
+
+                <a href="?cerrarSesion=true"><li id="cerrarSesion">Cerrar Session</li></a>
+
+            <?php }else{ ?>
+                <li><a class="menu" href="PagInicioSession.php">Iniciar Session</a></li>
+            <?php } ?>
         </ul>
     </div>
 </nav>
@@ -109,11 +136,34 @@ $pelicula = $conn->cogerPelicula($PeliculaID);
 
 <div class="contenedorComent">
 
-    <form action="PagPeli.php" id="comment" method="post">
-        <textarea name="textarea" rows="10" cols="150" maxlength="555" placeholder="Comente lo que piense de la pelicula" ></textarea>
+    <form action="PagComent.php" id="comment" method="post">
+        <textarea name="comment" rows="10" cols="150" maxlength="555" placeholder="Comente lo que piense de la pelicula" ></textarea>
         <input type="submit" name="boton" value="Comentar" >
     </form>
 
+    <h2>Comentarios</h2>
+
+    <div class="contenedorComentarios"><?php
+
+            $UsuarioID=$_SESSION["usrID"];
+
+            $sql="SELECT c.Comentario,c.Fecha,u.NomUsuario FROM Comentarios c 
+                JOIN Usuarios u on u.UsuarioID=".$UsuarioID."
+                JOIN Peliculas p on p.PeliculaID=".$PeliculaID.";";
+
+            $conn->default();
+            $result= $conn->query($sql);
+            $conn->close();
+
+            //Muestro los comentarios:
+            // quien lo escribio, la fecha y el comentario
+            while($coment=$result->fetch_object()){?>
+                <h3><?php echo $coment->NomUsuario ?></h3>
+                <h5><?php echo $coment->Fecha ?></h5>
+                <p><?php echo $coment->Comentario ?></p><?php
+            }
+                ?>
+    </div>
 
 </div>
 

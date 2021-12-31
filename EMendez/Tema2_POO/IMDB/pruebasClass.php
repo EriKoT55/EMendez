@@ -1,35 +1,39 @@
 <?php
 include_once "Clases/bd.php";
-
+//session_start();
 $conn= new bd();
 $conn->local();
-$conn->existUsr("erik12","erik12@manolo.com","12345");
-session_start();
+$asdf=$conn->cogerPelicula(1);
 
-$bool=$_SESSION["Ini"];
 
-echo "<br>";
-echo "<pre>";
-var_dump($bool);
-echo "<br>";
+//$bool=$_SESSION["Ini"];
+
+
 //Problema debo coger valores de dimensiones muy interiores de un array
-/*foreach ($asdf as $as => $arr){
+//foreach ($asdf as $as => $arr){
 
 
-        echo "<br>";
+        /*echo "<br>";
         echo "<pre>";
          var_dump($arr);
-        echo "<br>";
+        echo "<br>";*/
 
-   /* foreach ($arr->getActores() as $actores) {
+    foreach ($asdf as $arr) {
 
-        echo "<br>";
-        echo "<pre>";
-        echo $actores["NombreCompleto"];
-        echo "<br>";
-
+        foreach($arr->getComentarios() as $coment) {
+            echo "<br>";
+            echo "<pre>";
+            var_dump( $coment);
+            echo "<br>";
+        }
+        foreach($arr->getFechaComent() as $fecha) {
+            echo "<br>";
+            echo "<pre>";
+            var_dump( $fecha );
+            echo "<br>";
+        }
     }
-}*/
+//}
 
 
 echo "<br>";

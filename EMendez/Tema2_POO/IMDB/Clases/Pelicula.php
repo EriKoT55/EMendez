@@ -2,7 +2,7 @@
 
 class Pelicula
 {
-    private $PeliculaID,$Nombre,$Duracion,$FechaSalida,$Calificacion,$Sinopsis,$IMG,$Trailer,$Generos,$Actores,$Directores,$Comentarios;
+    private $PeliculaID,$Nombre,$Duracion,$FechaSalida,$Calificacion,$Sinopsis,$IMG,$Trailer,$Generos,$Actores,$Directores,$Comentarios,$FechaComent;
 
     /** BORRAR CODIGO NO UTILIZADO O QUE NO VAYAS A UTILIZAR
      * @param $PeliculaID
@@ -213,5 +213,22 @@ class Pelicula
     {
         $this->Comentarios = $Comentarios;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFechaComent()
+    {
+        return $this->FechaComent;
+    }
+
+    /**
+     * @param mixed $FechaComent
+     */
+    public function setFechaComent( $FechaComent ): void
+    {
+        $this->FechaComent = $FechaComent;
+    }
+
 
 }

@@ -143,13 +143,27 @@ deberia poner a todas los divs una clase igual y aplicar el display, PROBAR*/
     padding:10px;
 
 }
-.contenedorUL ul li a:hover{
+.contenedorUL ul li a.menu:hover{
     font-weight: bold;
     background-color: #ffca88;
 }
+/*CERRAR SESION*/
+a li#cerrarSesion{
+    text-decoration: none;
+    color:black;
+    display: block;
+    padding:10px;
+}
+a li#cerrarSesion:hover{
+    font-weight: bold;
+    background-color: #ffca88;
+}
+/*NOMBRE USUARIO*/
+#nomUsr{
+    color:grey;
+}
 
-
-/*          Maqutacion de las cartas de la pelis                */
+/*          Maquetacion de las cartas de la pelis                */
 .contenedor{
     overflow: hidden;
     margin-top:20px;
