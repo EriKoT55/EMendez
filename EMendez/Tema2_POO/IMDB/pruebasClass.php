@@ -3,7 +3,7 @@ include_once "Clases/bd.php";
 //session_start();
 $conn= new bd();
 $conn->local();
-$asdf=$conn->cogerPelicula(1);
+$asdf=$conn->Generos();
 
 
 //$bool=$_SESSION["Ini"];
@@ -18,20 +18,13 @@ $asdf=$conn->cogerPelicula(1);
          var_dump($arr);
         echo "<br>";*/
 
-    foreach ($asdf as $arr) {
+    foreach ($asdf as $gen) {
 
-        foreach($arr->getComentarios() as $coment) {
-            echo "<br>";
-            echo "<pre>";
-            var_dump( $coment);
-            echo "<br>";
-        }
-        foreach($arr->getFechaComent() as $fecha) {
-            echo "<br>";
-            echo "<pre>";
-            var_dump( $fecha );
-            echo "<br>";
-        }
+        echo "<br>";
+        echo "<pre>";
+        var_dump($gen["Nombre"]);
+        echo "<br>";
+
     }
 //}
 

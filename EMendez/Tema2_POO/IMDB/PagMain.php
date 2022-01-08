@@ -14,107 +14,10 @@ if(isset($_GET["cerrarSesion"])){
 
 /*https://www.imdb.com/title/tt2382320/?pf_rd_m=A2FGELUUNOQJNL&pf_rd_p=ea4e08e1-c8a3-47b5-ac3a-75026647c16e&pf_rd_r=1VHKKEY8F9SF79HJTAB3&pf_rd_s=center-1&pf_rd_t=15506&pf_rd_i=moviemeter&ref_=chtmvm_tt_6*/
 
-//Creo la conexion
-
 
 //Coger los datos para poder trabajar el Obj
-
 $ArrObjPeli = $conn->cogerPeliculas();
-
-
-
-
-// ########################  Pasar a bd  #################################
-
-//Ordenacion de las peliculas, tengo pensado hacerlo con sql para que sea mas optimo
-//Opciones: ranking, fecha de salida, director y genero.
-
-//De menor a mayor
-/*function RankingASC()
-{
-    global $conn;
-
-    $sql = "SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
-            ORDER BY pl.Calificacion ASC;";
-
-    $result = $conn->query($sql);
-    $Arr_rankAsc = $result->fetch_all(MYSQLI_ASSOC);
-
-    $array_obj_peli = ObjPelicula($Arr_rankAsc);
-    $ArrFiltradoPeli = BucleXAinsercionPelicla($array_obj_peli);
-
-    return $ArrFiltradoPeli;
-}
-
-//De mayor a menor
-function RankingDESC()
-{
-    global $conn;
-
-    $sql = "SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
-            ORDER BY pl.Calificacion DESC;";
-
-    $result = $conn->query($sql);
-    $Arr_rankDesc = $result->fetch_all(MYSQLI_ASSOC);
-
-    $array_obj_peli = ObjPelicula($Arr_rankDesc);
-    $ArrFiltradoPeli = BucleXAinsercionPelicla($array_obj_peli);
-
-    return $ArrFiltradoPeli;
-}
-
-function mostrarPelisGenero($NomGen)
-{
-
-    global $conn;
-
-    $sql = "SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
-            JOIN GenPeli gp on gp.PeliculaID=pl.PeliculaID
-            JOIN Genero g on g.GeneroID=gp.GeneroID
-            WHERE g.Nombre='" . $NomGen . "'
-            ORDER BY pl.PeliculaID;";
-
-    $result = $conn->query($sql);
-    $Arr_pelisXgen = $result->fetch_all(MYSQLI_ASSOC);
-
-    $array_obj_peli = ObjPelicula($Arr_pelisXgen);
-    $ArrFiltradoPeli = BucleXAinsercionPelicla($array_obj_peli);
-
-    return $ArrFiltradoPeli;
-}
-
-function Fecha_SalidaASC()
-{
-    global $conn;
-
-    $sql = "SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
-            ORDER BY pl.Fecha_Salida ASC;";
-
-    $result = $conn->query($sql);
-    $Arr_fechAsc = $result->fetch_all(MYSQLI_ASSOC);
-
-    $array_obj_peli = ObjPelicula($Arr_fechAsc);
-    $ArrFiltradoPeli = BucleXAinsercionPelicla($array_obj_peli);
-
-    return $ArrFiltradoPeli;
-}
-
-function Fecha_SalidaDESC()
-{
-    global $conn;
-
-    $sql = "SELECT pl.PeliculaID,pl.Nombre,pl.IMG,pl.Trailer,pl.Duracion,pl.Fecha_Salida,pl.Calificacion,pl.Sinopsis FROM Peliculas pl
-            ORDER BY pl.Fecha_Salida DESC;";
-
-    $result = $conn->query($sql);
-    $Arr_fechDesc = $result->fetch_all(MYSQLI_ASSOC);
-
-    $array_obj_peli = ObjPelicula($Arr_fechDesc);
-    $ArrFiltradoPeli = BucleXAinsercionPelicla($array_obj_peli);
-
-    return $ArrFiltradoPeli;
-}*/
-
+$Generos=$conn->Generos();
 
 ?>
 <!DOCTYPE html>
@@ -169,7 +72,7 @@ function Fecha_SalidaDESC()
         </div>
         <?php
 
-        /*if (isset($_GET["criterioFiltracion"])) {
+        if (isset($_GET["criterioFiltracion"])) {
             switch ($criterioFiltracion) {
                 case "calificacion":
                     $calificacion = $_GET["calificacion"];
@@ -210,13 +113,17 @@ function Fecha_SalidaDESC()
                     $genero = $_GET["genero"];
                     echo '<div class="contenedorSelector2" >';
                     echo '<select class="Selector" name="genero">';
-                    foreach ($ArrObjGen as $gen => $valores) {
-                        if ($genero == $valores->getNombre()) {
-                            echo '<option value="' . $valores->getNombre() . '"selected>' . $valores->getNombre() . '</option>';
-                        } else {
-                            echo '<option value="' . $valores->getNombre() . '">' . $valores->getNombre() . '</option>';
-                        }
-                    }
+
+
+
+                      foreach ($Generos as $gen ) {
+                          if( $genero==$gen->getNombre() ) {
+                              echo '<option value="' . $gen->getNombre() . '"selected>' . $gen->getNombre() . '</option>';
+                          } else {
+                              echo '<option value="' . $gen->getNombre() . '">' . $gen->getNombre() . '</option>';
+                          }
+                      }
+
                     echo '</select>';
                     echo '</div>';
                     break;
@@ -227,35 +134,34 @@ function Fecha_SalidaDESC()
         if ($criterioFiltracion == "calificacion") {
             $calificacion = $_GET["calificacion"];
             if ($calificacion == "mejor") {
-                $ArrFiltradoPeli = RankingDESC();
+                $ArrFiltradoPeli = $conn->RankingDESC();
             }
             if ($calificacion == "peor") {
-                $ArrFiltradoPeli = RankingASC();
+                $ArrFiltradoPeli = $conn->RankingASC();
             }
         }
         if ($criterioFiltracion == "fecha_salida") {
             $fecha_salida = $_GET["fecha_salida"];
             if ($fecha_salida == "nuevas") {
-                $ArrFiltradoPeli = Fecha_SalidaDESC();
+                $ArrFiltradoPeli = $conn->Fecha_SalidaDESC();
             }
             if ($fecha_salida == "antiguas") {
-                $ArrFiltradoPeli = Fecha_SalidaASC();
+                $ArrFiltradoPeli = $conn->Fecha_SalidaASC();
             }
         }
         if ($criterioFiltracion == "genero") {
             $genero = $_GET["genero"];
             if ($genero != "") {
-                $ArrFiltradoPeli = mostrarPelisGenero($genero);
+                $ArrFiltradoPeli = $conn->mostrarPelisGenero($genero);
             }
         }
-        */?>
+        ?>
         <button id="submit" type="submit">Filtrar</button>
     </form>
     <div class="contenedorUL">
         <ul>
-            <?php if($_SESSION["Ini"]==true) { //Peta y supuestamente las variables de session pueden utilizarse en
-                // cualquier archivo dentro del servidor, pero me dice que no esta inicializada
-                ?>
+            <?php if($_SESSION["Ini"]==true) {?>
+
                 <li id="nomUsr"><a><?php echo $_SESSION["user"] ?></a></li>
 
                 <a href="?cerrarSesion=true"><li id="cerrarSesion">Cerrar Session</li></a>
@@ -267,7 +173,7 @@ function Fecha_SalidaDESC()
     </div>
 </nav>
 <div class="contenedor">
-    <?php foreach ($ArrObjPeli as $pelis => $arrPeli){?>
+    <?php foreach ($ArrFiltradoPeli as $pelis => $arrPeli){?>
         <div class="contenedorPelis">
             <a href="PagPeli.php?PeliculaID=<?php echo $arrPeli->getPeliculaID(); ?>">
                 <img src="<?php echo $arrPeli->getIMG() ?>">

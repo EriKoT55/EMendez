@@ -44,11 +44,27 @@ class bd extends mysqli
         }
     }
 
-
     /**
-     * public function cogerUsuario(){
-     *
-     * }*/
+     * @return array
+     */
+    public function Generos(){
+        $sql="SELECT * FROM Genero;";
+
+        $this->default();
+        $result=$this->query($sql);
+        $this->close();
+
+        $arrGeneros=$result->fetch_all(MYSQLI_ASSOC);
+
+        $objArrayGen=[];
+
+        foreach($arrGeneros as $gen){
+            $objArrayGen[]=new Genero($gen["GeneroID"],$gen["Nombre"]);
+        }
+
+        return $objArrayGen;
+
+    }
 
     /**
      * @param $PersonaID
@@ -75,32 +91,6 @@ class bd extends mysqli
         }
 
         return $objArrayTrabj;
-
-    }
-
-    /**
-     * @param $PeliculaID
-     * @param $NomTrabajo
-     * @return mixed
-     */
-    public function cogerNomPersXtrabj( $PeliculaID, $NomTrabajo )
-    {
-
-        $sql = "SELECT prs.NombreCompleto FROM Trabajo t
-                JOIN TrabjPers tp on tp.TrabajoID=t.TrabajoID
-                JOIN Persona prs on prs.PersonaID=tp.PersonaID
-                JOIN PersPeli pp on pp.PersonaID=prs.PersonaID
-                JOIN Peliculas pl on pl.PeliculaID=pp.PeliculaID
-                WHERE pl.PeliculaID=" . $PeliculaID . " AND t.Nom_trabajo='" . $NomTrabajo . "';";
-
-        $this->default();
-        $result = $this->query( $sql );
-        $this->close();
-
-        //No puedo devolver un array de obj ya que el nombre de la persona por si solo no es obj
-        $nomTrabjArray = $result->fetch_all( MYSQLI_ASSOC );
-
-        return $nomTrabjArray;
 
     }
 
@@ -184,31 +174,34 @@ class bd extends mysqli
      * con estas consultas de JSON_ARRAYAGG Y JSON_OBJECT para poder hacer una pagina Personas
      */
 
-    /**
+    /********************* DEVUELVE LA INFORMACION DE TODAS LAS PELICULAS
      * @return array
+     * Devuelve toda la informacion de las peliculas
+     * Se utiliza el JSON_ARRAYAGG Y JSON_OBJECT para poder relizar las consultas dentro de consultas y
+     * así reducir el tiempo de carga
      */
     public function cogerPeliculas()
     {
 
-        $sql = "SELECT p.PeliculaID as movieId, p.Nombre as movieName, p.Duracion as movieDuration, p.Fecha_Salida as movieRelease, p.Calificacion as movieRank, p.Sinopsis as movieSynopsis,
+        $sql = "SELECT p.PeliculaID , p.Nombre , p.Duracion , p.Fecha_Salida , p.Calificacion , p.Sinopsis,
                 (SELECT JSON_ARRAYAGG(
                 	JSON_OBJECT(
-                		'personName', psn.NombreCompleto
+                		'Actores', psn.NombreCompleto
                 	)
-                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 2) AS movieActors,
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 2) AS Actores,
                 (SELECT JSON_ARRAYAGG(
                 	JSON_OBJECT(
-                		'personName', psn.NombreCompleto
+                		'Directores', psn.NombreCompleto
                 	)
-                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 1) AS movieDirectors,
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 1) AS Directores,
                 (SELECT JSON_ARRAYAGG(
                 	JSON_OBJECT(
-                		'genderName', g.Nombre
+                		'Genero', g.Nombre
                 	)
-                ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID AND gp.PeliculaID = p.PeliculaID) AS movieGenders,
-                m.img_url as movieImage, m.trailer_url as movieTrailer
+                ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID AND gp.PeliculaID = p.PeliculaID) AS Genero,
+                m.img_url, m.trailer_url
                 FROM Peliculas p
-                INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID";
+                INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID ;";
 
         $this->default();
         $result = $this->query( $sql );
@@ -218,13 +211,12 @@ class bd extends mysqli
 
         $objArrayPeli = [];
         foreach( $peliArray as $peli ) {
-            //el debugger me muestra todo, mientras que con el json_encode no me da nada
-            $newPeli = new Pelicula( $peli["movieId"], $peli["movieName"], $peli["movieDuration"], $peli["movieRelease"], $peli["movieRank"], $peli["movieSynopsis"] );
-            $newPeli->setIMG( $peli["movieImage"] );
-            $newPeli->setTrailer( $peli["movieTrailer"] );
-            $newPeli->setGeneros( json_decode( $peli["movieGenders"], true ) );
-            $newPeli->setActores( json_decode( $peli["movieActors"], true ) );
-            $newPeli->setDirectores( json_decode( $peli["movieDirectors"], true ) );
+            $newPeli = new Pelicula( $peli["PeliculaID"], $peli["Nombre"], $peli["Duracion"], $peli["Fecha_Salida"], $peli["Calificacion"], $peli["Sinopsis"] );
+            $newPeli->setIMG( $peli["img_url"] );
+            $newPeli->setTrailer( $peli["trailer_url"] );
+            $newPeli->setGeneros( json_decode( $peli["Genero"], true ) );
+            $newPeli->setActores( json_decode( $peli["Actores"], true ) );
+            $newPeli->setDirectores( json_decode( $peli["Directores"], true ) );
             $objArrayPeli[] = $newPeli;
         }
 
@@ -280,47 +272,40 @@ class bd extends mysqli
         return $objArrayPeli;
     }
 
-    /**
-     * @param $movieId
+    /***************************** DEVUELVE TODA LA INFO DE LA PELICULA INTRODUCIDA POR PARAMETRO
+     * @param $PeliculaID
      * @return array
+     * Devuelve toda la informacion de la pelicula pasandole el PeliculaID
+     * Se utiliza el JSON_ARRAYAGG Y JSON_OBJECT para poder relizar las consultas dentro de consultas y
+     * así reducir el tiempo de carga
      */
-    public function cogerPelicula( $movieId )
+    public function cogerPelicula( $PeliculaID )
     {
-        $sql = "SELECT p.PeliculaID as movieId, p.Nombre as movieName, p.Duracion as movieDuration, p.Fecha_Salida as movieRelease, p.Calificacion as movieRank, p.Sinopsis as movieSynopsis, 
+        $sql = "SELECT p.PeliculaID,p.Nombre,p.Duracion,p.Fecha_Salida,p.Calificacion,p.Sinopsis, 
                 (SELECT JSON_ARRAYAGG(
                 	JSON_OBJECT(
-                		'personName', psn.NombreCompleto
+                		'Actores', psn.NombreCompleto
                 	)
-                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE pp.PeliculaID = " . $movieId . " AND tp.TrabajoID = 2) AS movieActors,
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE pp.PeliculaID = " . $PeliculaID . " AND tp.TrabajoID = 2) AS Actores,
                 (SELECT JSON_ARRAYAGG(
                 	JSON_OBJECT(
-                		'personName', psn.NombreCompleto
+                		'Directores', psn.NombreCompleto
                 	)
-                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE pp.PeliculaID = " . $movieId . " AND tp.TrabajoID = 1) AS movieDirectors,
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE pp.PeliculaID = " . $PeliculaID . " AND tp.TrabajoID = 1) AS Directores,
                 (SELECT JSON_ARRAYAGG(
                 	JSON_OBJECT(
-                		'genderName', g.Nombre
+                		'Generos', g.Nombre
                 	)
-                ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID WHERE gp.PeliculaID = " . $movieId . ") AS movieGenders,
-                (SELECT JSON_ARRAYAGG(
-                        JSON_OBJECT(
-                        'coment',c.Comentario
-                        )
-                )FROM Comentarios c  JOIN Usuarios u on u.UsuarioID=c.UsuarioID JOIN Peliculas p on p.PeliculaID=".$movieId.") AS comentario,
-               (SELECT JSON_ARRAYAGG(
-                        JSON_OBJECT(
-                        'fecha',c.Fecha
-                        )
-                )FROM Comentarios c  JOIN Usuarios u on u.UsuarioID=c.UsuarioID JOIN Peliculas p on p.PeliculaID=".$movieId.") AS fecha,
+                ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID WHERE gp.PeliculaID = " . $PeliculaID . ") AS Generos,
                (SELECT JSON_ARRAYAGG(
                             JSON_OBJECT(
-                               'img', m.img_url
+                               'IMG', m.img_url
                             )
-                        )FROM Multimedia m JOIN Peliculas p on m.PeliculaID = p.PeliculaID WHERE m.PeliculaID=" . $movieId . ") AS img,
-                m.trailer_url as movieTrailer
+                        )FROM Multimedia m JOIN Peliculas p on m.PeliculaID = p.PeliculaID WHERE m.PeliculaID=" . $PeliculaID . ") AS IMG,
+                m.trailer_url 
                 FROM Peliculas p
                 INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID
-                WHERE p.PeliculaID = " . $movieId;
+                WHERE p.PeliculaID = " . $PeliculaID.";";
 
         $this->default();
         $result = $this->query( $sql );
@@ -331,31 +316,266 @@ class bd extends mysqli
         $objArrayPeli = [];
         foreach( $peliArray as $peli ) {
 
-            $newPeli = new Pelicula( $peli["movieId"], $peli["movieName"], $peli["movieDuration"], $peli["movieRelease"], $peli["movieRank"], $peli["movieSynopsis"] );
+            $newPeli = new Pelicula( $peli["PeliculaID"], $peli["Nombre"], $peli["Duracion"], $peli["Fecha_Salida"], $peli["Calificacion"], $peli["Sinopsis"] );
             // SI HAY DOS IMG PARA UNA PELI EN EL VAR_DUMP EN pruebasClass me saca dos veces toda la informacion de la peli en vez de
             // DARME UNA PELICULA CON UN ARRAY DE IMGS DE DOS imagenes
-            $newPeli->setIMG( json_decode( $peli["img"], true ) );
-            $newPeli->setTrailer( $peli["movieTrailer"] );
-            $newPeli->setGeneros( json_decode( $peli["movieGenders"], true ) );
-            $newPeli->setActores( json_decode( $peli["movieActors"], true ) );
-            $newPeli->setDirectores( json_decode( $peli["movieDirectors"], true ) );
-            // No se si estos dos son necesarios
-            $newPeli->setComentarios( json_decode($peli["comentario"],true));
-            $newPeli->setFechaComent(json_decode($peli["fecha"],true));
+            $newPeli->setIMG( json_decode( $peli["IMG"], true ) );
+            $newPeli->setTrailer( $peli["trailer_url"] );
+            $newPeli->setGeneros( json_decode( $peli["Generos"], true ) );
+            $newPeli->setActores( json_decode( $peli["Actores"], true ) );
+            $newPeli->setDirectores( json_decode( $peli["Directores"], true ) );
             $objArrayPeli[] = $newPeli;
         }
-// Deberia
+
         return $objArrayPeli;
     }
 
-    /**********************
+ /******************************* FILTRADO DE PELICULAS *******************************/
+
+    /********** DE PEOR VALORADA A MEJOR
+     * @return array
+     */
+    function RankingASC()
+    {
+
+        $sql = "SELECT p.PeliculaID , p.Nombre , p.Duracion , p.Fecha_Salida , p.Calificacion , p.Sinopsis,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Actores', psn.NombreCompleto
+                	)
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 2) AS Actores,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Directores', psn.NombreCompleto
+                	)
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 1) AS Directores,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Genero', g.Nombre
+                	)
+                ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID AND gp.PeliculaID = p.PeliculaID) AS Genero,
+                m.img_url, m.trailer_url
+                FROM Peliculas p
+                INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID
+                ORDER BY p.Calificacion ASC ;";
+
+        $this->default();
+        $result = $this->query( $sql );
+        $this->close();
+
+        $peliArray = $result->fetch_all( MYSQLI_ASSOC );
+
+        $objArrayPeli = [];
+        foreach( $peliArray as $peli ) {
+            $newPeli = new Pelicula( $peli["PeliculaID"], $peli["Nombre"], $peli["Duracion"], $peli["Fecha_Salida"], $peli["Calificacion"], $peli["Sinopsis"] );
+            $newPeli->setIMG( $peli["img_url"] );
+            $newPeli->setTrailer( $peli["trailer_url"] );
+            $newPeli->setGeneros( json_decode( $peli["Genero"], true ) );
+            $newPeli->setActores( json_decode( $peli["Actores"], true ) );
+            $newPeli->setDirectores( json_decode( $peli["Directores"], true ) );
+            $objArrayPeli[] = $newPeli;
+        }
+
+        return $objArrayPeli;
+    }
+
+    /************ DE MEJOR VALORADA A PEOR
+     * @return array
+     */
+    function RankingDESC()
+    {
+        $sql = "SELECT p.PeliculaID , p.Nombre , p.Duracion , p.Fecha_Salida , p.Calificacion , p.Sinopsis,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Actores', psn.NombreCompleto
+                	)
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 2) AS Actores,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Directores', psn.NombreCompleto
+                	)
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 1) AS Directores,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Genero', g.Nombre
+                	)
+                ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID AND gp.PeliculaID = p.PeliculaID) AS Genero,
+                m.img_url, m.trailer_url
+                FROM Peliculas p
+                INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID
+                ORDER BY p.Calificacion DESC ;";
+
+        $this->default();
+        $result = $this->query( $sql );
+        $this->close();
+
+        $peliArray = $result->fetch_all( MYSQLI_ASSOC );
+
+        $objArrayPeli = [];
+        foreach( $peliArray as $peli ) {
+            $newPeli = new Pelicula( $peli["PeliculaID"], $peli["Nombre"], $peli["Duracion"], $peli["Fecha_Salida"], $peli["Calificacion"], $peli["Sinopsis"] );
+            $newPeli->setIMG( $peli["img_url"] );
+            $newPeli->setTrailer( $peli["trailer_url"] );
+            $newPeli->setGeneros( json_decode( $peli["Genero"], true ) );
+            $newPeli->setActores( json_decode( $peli["Actores"], true ) );
+            $newPeli->setDirectores( json_decode( $peli["Directores"], true ) );
+            $objArrayPeli[] = $newPeli;
+        }
+
+        return $objArrayPeli;
+    }
+
+    /******** MUESTRA LAS PELICULAS QUE TIENEN EL GENERO SELECCIONADO
+     * @param $NomGen
+     * @return mixed
+     * no se como hacer el WHERE para el genero que seleccione en la consulta general,
+     * PODRIA METERLO EN LA CONSULTA DEL GENERO PERO ME DEVUELVE TODAS LAS PELICULAS Y LAS QUE NO TIENEN EL GENERO
+     * DEVUELVE NULL, con esto podria hacer un if o algo
+     */
+    function mostrarPelisGenero($NomGen)
+    {
+
+        $sql = "SELECT p.PeliculaID , p.Nombre , p.Duracion , p.Fecha_Salida , p.Calificacion , p.Sinopsis,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Actores', psn.NombreCompleto
+                	)
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 2) AS Actores,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Directores', psn.NombreCompleto
+                	)
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 1) AS Directores,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Genero', g.Nombre
+                	)
+                ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID AND gp.PeliculaID = p.PeliculaID ) AS Genero,
+                m.img_url, m.trailer_url
+                FROM Peliculas p
+                INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID;";
+
+        $this->default();
+        $result = $this->query( $sql );
+        $this->close();
+
+        $peliArray = $result->fetch_all( MYSQLI_ASSOC );
+
+        $objArrayPeli = [];
+        foreach( $peliArray as $peli ) {
+            $newPeli = new Pelicula( $peli["PeliculaID"], $peli["Nombre"], $peli["Duracion"], $peli["Fecha_Salida"], $peli["Calificacion"], $peli["Sinopsis"] );
+            $newPeli->setIMG( $peli["img_url"] );
+            $newPeli->setTrailer( $peli["trailer_url"] );
+            $newPeli->setGeneros( json_decode( $peli["Genero"], true ) );
+            $newPeli->setActores( json_decode( $peli["Actores"], true ) );
+            $newPeli->setDirectores( json_decode( $peli["Directores"], true ) );
+            $objArrayPeli[] = $newPeli;
+        }
+
+        return $objArrayPeli;
+    }
+
+    /********* DE MAS ANTIGUAS A MAS NUEVAS
+     * @return array
+     */
+    function Fecha_SalidaASC()
+    {
+
+        $sql = "SELECT p.PeliculaID , p.Nombre , p.Duracion , p.Fecha_Salida , p.Calificacion , p.Sinopsis,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Actores', psn.NombreCompleto
+                	)
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 2) AS Actores,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Directores', psn.NombreCompleto
+                	)
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 1) AS Directores,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Genero', g.Nombre
+                	)
+                ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID AND gp.PeliculaID = p.PeliculaID ) AS Genero,
+                m.img_url, m.trailer_url
+                FROM Peliculas p
+                INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID
+                ORDER BY Fecha_Salida ASC;";
+
+        $this->default();
+        $result = $this->query( $sql );
+        $this->close();
+
+        $peliArray = $result->fetch_all( MYSQLI_ASSOC );
+
+        $objArrayPeli = [];
+        foreach( $peliArray as $peli ) {
+            $newPeli = new Pelicula( $peli["PeliculaID"], $peli["Nombre"], $peli["Duracion"], $peli["Fecha_Salida"], $peli["Calificacion"], $peli["Sinopsis"] );
+            $newPeli->setIMG( $peli["img_url"] );
+            $newPeli->setTrailer( $peli["trailer_url"] );
+            $newPeli->setGeneros( json_decode( $peli["Genero"], true ) );
+            $newPeli->setActores( json_decode( $peli["Actores"], true ) );
+            $newPeli->setDirectores( json_decode( $peli["Directores"], true ) );
+            $objArrayPeli[] = $newPeli;
+        }
+
+        return $objArrayPeli;
+    }
+
+    /************ DE MAS NUEVAS A MAS ANTIGUAS
+     * @return array
+     */
+    function Fecha_SalidaDESC()
+    {
+        $sql = "SELECT p.PeliculaID , p.Nombre , p.Duracion , p.Fecha_Salida , p.Calificacion , p.Sinopsis,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Actores', psn.NombreCompleto
+                	)
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 2) AS Actores,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Directores', psn.NombreCompleto
+                	)
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 1) AS Directores,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Genero', g.Nombre
+                	)
+                ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID AND gp.PeliculaID = p.PeliculaID ) AS Genero,
+                m.img_url, m.trailer_url
+                FROM Peliculas p
+                INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID
+                ORDER BY Fecha_Salida DESC;";
+
+        $this->default();
+        $result = $this->query( $sql );
+        $this->close();
+
+        $peliArray = $result->fetch_all( MYSQLI_ASSOC );
+
+        $objArrayPeli = [];
+        foreach( $peliArray as $peli ) {
+            $newPeli = new Pelicula( $peli["PeliculaID"], $peli["Nombre"], $peli["Duracion"], $peli["Fecha_Salida"], $peli["Calificacion"], $peli["Sinopsis"] );
+            $newPeli->setIMG( $peli["img_url"] );
+            $newPeli->setTrailer( $peli["trailer_url"] );
+            $newPeli->setGeneros( json_decode( $peli["Genero"], true ) );
+            $newPeli->setActores( json_decode( $peli["Actores"], true ) );
+            $newPeli->setDirectores( json_decode( $peli["Directores"], true ) );
+            $objArrayPeli[] = $newPeli;
+        }
+
+        return $objArrayPeli;
+    }
+
+    /*************************************** COMPRUEBA SI EXISTE EL USUARIO EN LA BD
      * @param $nomUsr
      * @param $correo
      * @param $contra
      * @return bool
     Funcion la cual comprueba en la base de datos si estan los datos con los que intentan iniciar sesion
-    Devuelve TRUE si es correcta la información combrobada (### variables de session),
-    FALSE si da error en alguna de las comprobaciones NOM_USUARIO,CORREO,CONTRASENYA
+    Devuelve TRUE si es correcta la información combrobada, FALSE si da error en alguna de las comprobaciones:
+     NOM_USUARIO, CORREO, CONTRASENYA
      */
     public function existUsr( $nomUsr, $correo, $contra ): bool
     {
@@ -368,23 +588,13 @@ class bd extends mysqli
 
         $arrUsr = $result->fetch_all( MYSQLI_ASSOC );
 
-        // VERIFICA SI LA CONTRASEÑA DE LA INTRODUCIDA ESTA EN LA BD
+        // VERIFICA SI LA CONTRASEÑA INTRODUCIDA ESTA EN LA BD
         // DEVUELVE UN BOOLEANO
         $passVerify = password_verify( $contra,$arrUsr[0]["Contrasenya"] );
 
         if( $nomUsr==$arrUsr[0]["NomUsuario"] && $correo==$arrUsr[0]["Correo"] ) {
             if( $passVerify==true ) {
-                //VARIABLES DE SESSION
-                // hacer en inicio unos if isset con los $_POST del nombre usuario, correo, contra
-                // para poder devolver en estas variables en el posterior if else
-                /*Lo pase al PagInicioSession funciona, aunque debo evitar hacer consultas fuera de este archivo,
-                 * era necesario.
-                 * $_SESSION["Ini"] = true;
-                $_SESSION["user"] = $nomUsr;
-                $_SESSION["usrID"] = $arrUsr[0]["UsuarioID"];*/
                 return true;
-                // Manera de devolver mas de un valor mirar como coger cada valor como convenga, si se puede
-                //[true,$_SESSION["Ini"], $_SESSION["user"],$_SESSION["usrID"]];
             } else {
                 return false;
             }
@@ -393,7 +603,7 @@ class bd extends mysqli
         }
     }
 
-    /************ HACER TODOS LOS COMENTARIOS ASÍ
+    /***************************** INSERTA USUARIO A LA BD
      * @param $nomUsr
      * @param $correo
      * @param $contra
@@ -422,7 +632,7 @@ class bd extends mysqli
         $this->close();
     }
 
-    /** INSERTA COMENTARIO A LA BD
+    /************************ INSERTA COMENTARIO A LA BD
      * CON LOS VALORES INTRODUCIDOS:
      * @param $Comentario * TEXTO
      * @param $PeliculaID * SABER A QUE PELI SE LE HACE EL COMENTARIO
@@ -440,16 +650,6 @@ class bd extends mysqli
         }
         $this->close();
 
-    }
-//NO SE SI NECESITARE HACERLO DE ESTA MANERA, sera mas limpio hacer la select en una funcion y poder reutilizarla por cualquier caso
-
-    public function cogerComent(){
-
-        $sql="SELECT ";
-        $this->default();
-        $this->query( $sql );
-        $this->close();
-        
     }
 
 }

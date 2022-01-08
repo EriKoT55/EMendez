@@ -126,7 +126,7 @@ if( isset( $_POST["user"] ) && isset( $_POST["correo"] ) && isset( $_POST["passw
             //En clase funciono y ahora peta
             // header("Location: PagMain.php");
 
-            $sql = "SELECT UsuarioID FROM Usuarios";
+            $sql = "SELECT UsuarioID FROM Usuarios WHERE NomUsuario='".$usrValido."';";
 
             $conn->default();
             $result = $conn->query( $sql );

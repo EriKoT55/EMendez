@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 include_once("Clases/bd.php");
 
 $conn= new bd();
@@ -11,13 +11,12 @@ if(isset($_GET["cerrarSesion"])){
     session_destroy();
 }
 
-
-if (isset($_GET["PeliculaID"])) {
-    $PeliculaID = $_GET["PeliculaID"];
+$PeliculaID = $_GET["PeliculaID"];
+if (isset($PeliculaID)) {
+    $pelicula = $conn->cogerPelicula($PeliculaID);
 }
-$pelicula = $conn->cogerPelicula($PeliculaID);
 
-$_SESSION["peliID"]=$PeliculaID;
+$_SESSION["peliID"]=$pelicula[0]->getPeliculaID();
 
 ?>
 <!DOCTYPE html>
@@ -59,14 +58,7 @@ $_SESSION["peliID"]=$PeliculaID;
                 // cualquier archivo dentro del servidor, pero me dice que no esta inicializada
                 ?>
 
-                <li id="nomUsr">
-                    <a>
-                        <?php
-                            $NomUsuario=$_SESSION["user"];
-                            echo $NomUsuario
-                        ?>
-                    </a>
-                </li>
+                <li id="nomUsr"><a> <?php echo  $_SESSION["user"];?> </a></li>
 
                 <a href="?cerrarSesion=true"><li id="cerrarSesion">Cerrar Session</li></a>
 
@@ -81,7 +73,7 @@ $_SESSION["peliID"]=$PeliculaID;
     <p>Fecha de salida(españa): <?php echo $pelicula[0]->getFechaSalida(); ?></p>
     <p><?php echo $pelicula[0]->getDuracion(); ?> min</p>
     <?php foreach ($pelicula[0]->getIMG() as $img){?>
-    <img src="<?php echo $img["img"]?> ">
+    <img src="<?php echo $img["IMG"]?> ">
     <?php } ?>
     <div class="trailer">
         <iframe width="560" height="315" src="<?php echo $pelicula[0]->getTrailer(); ?>" frameborder="0"
@@ -89,7 +81,7 @@ $_SESSION["peliID"]=$PeliculaID;
                 allowfullscreen></iframe>
     </div>
     <p>| <?php foreach ($pelicula[0]->getGeneros() as $genero){
-            echo $genero["genderName"] . " | ";
+            echo $genero["Generos"] . " | ";
             //seguir probando en purebasClass las profundidades de los arrays
         } ?></p>
 
@@ -97,7 +89,7 @@ $_SESSION["peliID"]=$PeliculaID;
         <?php
         $textD = "";
         foreach ($pelicula[0]->getDirectores() as $director) {
-            $textD .= $director["personName"] . ", ";
+            $textD .= $director["Directores"] . ", ";
         }
         //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues
         $directores = substr($textD, 0, -2); ?>
@@ -113,7 +105,7 @@ $_SESSION["peliID"]=$PeliculaID;
     </p>
     <p>Actores: <?php $textA = "";
         foreach ($pelicula[0]->getActores() as $actor) {
-            $textA .= $actor["personName"] . ", ";
+            $textA .= $actor["Actores"] . ", ";
         }
         //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues
         $actores = substr($textA, 0, -2); ?>
@@ -147,22 +139,24 @@ $_SESSION["peliID"]=$PeliculaID;
 
             $UsuarioID=$_SESSION["usrID"];
 
-            $sql="SELECT c.Comentario,c.Fecha,u.NomUsuario FROM Comentarios c 
-                JOIN Usuarios u on u.UsuarioID=".$UsuarioID."
-                JOIN Peliculas p on p.PeliculaID=".$PeliculaID.";";
+            $sql="SELECT c.Comentario,c.Fecha,u.NomUsuario FROM Comentarios c
+                JOIN Usuarios u on u.UsuarioID=c.UsuarioID
+                JOIN Peliculas p on p.PeliculaID=c.PeliculaID
+                WHERE c.PeliculaID=".$_SESSION["peliID"].";";
 
             $conn->default();
             $result= $conn->query($sql);
             $conn->close();
 
-            //Muestro los comentarios:
+            // Muestro los comentarios:
             // quien lo escribio, la fecha y el comentario
             while($coment=$result->fetch_object()){?>
                 <h3><?php echo $coment->NomUsuario ?></h3>
                 <h5><?php echo $coment->Fecha ?></h5>
                 <p><?php echo $coment->Comentario ?></p><?php
             }
-                ?>
+?>
+
     </div>
 
 </div>
