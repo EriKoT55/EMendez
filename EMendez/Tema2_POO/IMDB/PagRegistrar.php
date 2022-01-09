@@ -29,6 +29,7 @@ $conn->local();
     <div class="contenedorUL">
         <ul>
             <li><a href="PagMain.php">Pagina Principal</a></li>
+            <li><a href="PagInicioSession.php">Iniciar Sesion</a></li>
         </ul>
     </div>
 </nav>

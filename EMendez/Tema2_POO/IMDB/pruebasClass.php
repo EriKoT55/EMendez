@@ -3,7 +3,7 @@ include_once "Clases/bd.php";
 //session_start();
 $conn= new bd();
 $conn->local();
-$asdf=$conn->Generos();
+$asdf=$conn->cogerPersonas();
 
 
 //$bool=$_SESSION["Ini"];
@@ -18,11 +18,11 @@ $asdf=$conn->Generos();
          var_dump($arr);
         echo "<br>";*/
 
-    foreach ($asdf as $gen) {
+    foreach ($asdf as $pers) {
 
         echo "<br>";
         echo "<pre>";
-        var_dump($gen["Nombre"]);
+        var_dump($pers);
         echo "<br>";
 
     }

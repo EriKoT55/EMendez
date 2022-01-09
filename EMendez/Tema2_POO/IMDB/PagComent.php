@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 include_once("Clases/bd.php");
 
 $conn= new bd();
@@ -8,7 +9,7 @@ session_start();
 $comentario=$_POST["comment"];
 //$calificacion=$_POST["calificacion"];
 
-if(isset($_POST["comment"]) && $_POST["comment"]!=""){
+if(isset($_POST["comment"]) && $_POST["comment"]!="" && $_POST["comment"]!=null){
     $comentario=mysqli_real_escape_string($conn,$comentario);
     //$calificacion=mysqli_real_escape_string($conn,$calificacion);
 
@@ -20,10 +21,12 @@ if(isset($_POST["comment"]) && $_POST["comment"]!=""){
             window.alert("Hubo un error al introducir el comentario, pruebe de nuevo");
         </script>
         <?php
+
     }
 
 }else{
-    header("Location:PagMain.php");
+    //NUNCA ENTRA AQUI, DEBERIA
+    header("Location:PagPeli.php?PeliculaID=".$_SESSION["peliID"]);
     ?>
 
     <script>

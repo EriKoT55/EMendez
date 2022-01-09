@@ -134,14 +134,13 @@ deberia poner a todas los divs una clase igual y aplicar el display, PROBAR*/
 
 .contenedorUL li{
     list-style-type: none;
-    padding: 5px;
+    padding: 10px;
     color: black;
     display: block;
 }
 .contenedorUL li a{
     list-style-type: none;
     color: black;
-    display: block;
     padding: 5px;
 }
 .contenedorUL li a.menu:hover{

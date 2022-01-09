@@ -1,18 +1,17 @@
 <?php
-include_once("Clases/Persona.php");
-include_once("Clases/Pelicula.php");
-include_once("Clases/Genero.php");
-include_once ("Clases/Multimedia.php");
-include_once ("Clases/Usuario.php");
-include_once ("Clases/Trabajo.php");
-include_once("Clases/BD.php");
+include_once("Clases/bd.php");
 
-global $ObjPersona;
+$conn= new bd();
+$conn->local();
+session_start();
 
-if (isset($_GET["PersonaID"])){
-    $PersonaID=$_GET["PersonaID"];
+$PersonaID=$_GET["PersonaID"];
+
+if (isset($PersonaID)){
+    //FUNCION SIN CREAR
+    $persona=$conn->getPersona();
 }
-$persona=$ObjPersona[$PersonaID];
+
 
 ?>
 <!DOCTYPE html>

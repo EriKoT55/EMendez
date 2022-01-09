@@ -145,7 +145,7 @@ class bd extends mysqli
     /**
      * @return array
      */
-    public function cogerPersonas()
+    public function cogerPersonasasdf()
     {
 
 
@@ -173,6 +173,31 @@ class bd extends mysqli
     /** ##########  HACER UN cogerPersonas y cogerPersona  #############
      * con estas consultas de JSON_ARRAYAGG Y JSON_OBJECT para poder hacer una pagina Personas
      */
+    public function cogerPersonas(){
+        /*PREGUNTAR PROFESOR, CON EL JSON NO SE SACAR LOS NOMBRES DE PELICULAS*/
+        $sql="SELECT p.PersonaID,p.NombreCompleto,p.Fecha_Nacimiento,p.Descripcion,p.IMG,
+            (SELECT JSON_ARRAYAGG(
+                JSON_OBJECT(
+                    'nomPeli',pl.Nombre
+                )
+            )FROM Peliculas pl JOIN PersPeli pp on pp.PeliculaID=pl.PeliculaID AND pp.PersonaID=p.PersonID ) AS nomPeli
+            FROM Persona p;";
+
+        $this->default();
+        $result=$this->query($sql);
+        $this->close();
+
+        $persArray=$result->fetch_all(MYSQLI_ASSOC);
+
+        $objArrayPers = [];
+        foreach( $persArray as $pers ) {
+            $newPers = new Persona($pers["PersonaID"],$pers["NombreCompleto"],$pers["Fecha_Nacimiento"],$pers["Descripcion"],$pers["IMG"]);
+            $newPers->setPeliculas(json_decode($pers["nomPeli"],true));
+            $objArrayPers[] = $newPers;
+        }
+
+        return $objArrayPers;
+    }
 
     /********************* DEVUELVE LA INFORMACION DE TODAS LAS PELICULAS
      * @return array
@@ -428,9 +453,10 @@ class bd extends mysqli
     /******** MUESTRA LAS PELICULAS QUE TIENEN EL GENERO SELECCIONADO
      * @param $NomGen
      * @return mixed
-     * no se como hacer el WHERE para el genero que seleccione en la consulta general,
-     * PODRIA METERLO EN LA CONSULTA DEL GENERO PERO ME DEVUELVE TODAS LAS PELICULAS Y LAS QUE NO TIENEN EL GENERO
-     * DEVUELVE NULL, con esto podria hacer un if o algo
+     #### NO CONSIGO HACERLO #####
+     no se como hacer el WHERE para el genero que seleccione en la consulta general,
+     PODRIA METERLO EN LA CONSULTA DEL GENERO PERO ME DEVUELVE TODAS LAS PELICULAS Y LAS QUE NO TIENEN EL GENERO
+     DEVUELVE NULL, con esto podria hacer un if o algo
      */
     function mostrarPelisGenero($NomGen)
     {

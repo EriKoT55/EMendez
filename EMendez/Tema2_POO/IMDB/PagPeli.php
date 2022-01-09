@@ -6,15 +6,19 @@ $conn= new bd();
 $conn->local();
 session_start();
 
-if(isset($_GET["cerrarSesion"])){
-    session_unset();
-    session_destroy();
-}
-
 $PeliculaID = $_GET["PeliculaID"];
 if (isset($PeliculaID)) {
     $pelicula = $conn->cogerPelicula($PeliculaID);
 }
+
+if(isset($_GET["cerrarSesion"])){
+    session_unset();
+    session_destroy();
+    header("Location:PagMain.php");
+    //No funciona ni con $PeliculaID, PREGUNTAR
+    //header("Location:PagPeli.php?PeliculaID=".$pelicula[0]->getPeliculaID());
+}
+
 
 $_SESSION["peliID"]=$pelicula[0]->getPeliculaID();
 
@@ -79,18 +83,23 @@ $_SESSION["peliID"]=$pelicula[0]->getPeliculaID();
             <p><span><?php echo $pelicula[0]->getCalificacion(); ?></span>/10</p>
         </div>
     </div>
-    <?php foreach ($pelicula[0]->getIMG() as $img){?>
-    <img src="<?php echo $img["IMG"]?> ">
-    <?php } ?>
-    <div class="trailer">
-        <iframe width="560" height="315" src="<?php echo $pelicula[0]->getTrailer(); ?>" frameborder="0"
+    <div class="contenedorMultimedia">
+        <div class="contenedorIMGS"><?php
+            foreach ($pelicula[0]->getIMG() as $img){ ?>
+                <img src="<?php echo $img["IMG"]?> ">
+        </div><?php
+            } ?>
+        <div class="contenedorTrailer">
+            <iframe width="560" height="315" src="<?php echo $pelicula[0]->getTrailer(); ?>" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
+        </div>
     </div>
-    <p>| <?php foreach ($pelicula[0]->getGeneros() as $genero){
-            echo $genero["Generos"] . " | ";
-            //seguir probando en purebasClass las profundidades de los arrays
-        } ?></p>
+    <div class="contenedorGeneros"><?php
+        foreach ($pelicula[0]->getGeneros() as $genero){ ?>
+            <p><?php echo $genero["Generos"]; ?></p><?php
+        } ?>
+    </div>
 
     <p>Director:
         <?php
@@ -110,6 +119,7 @@ $_SESSION["peliID"]=$pelicula[0]->getPeliculaID();
         ?>"><?php echo $directores; ?></a>
 
     </p>
+    <hr size=1 >
     <p>Actores: <?php $textA = "";
         foreach ($pelicula[0]->getActores() as $actor) {
             $textA .= $actor["Actores"] . ", ";
@@ -125,24 +135,20 @@ $_SESSION["peliID"]=$pelicula[0]->getPeliculaID();
         echo $persona->getPersonaID();*/
         ?>"><?php echo $actores; ?></a>
     </p>
-
-    <p>
-        <?php echo $pelicula[0]->getSinopsis(); ?>
-    </p>
-
-
-
-
-<div class="contenedorComent">
+    <hr size=1 >
+    <details>
+        <summary>Sinopsis</summary>
+        <p><?php echo $pelicula[0]->getSinopsis(); ?></p>
+    </details>
+  <div class="contenedorComent">
 
     <form action="PagComent.php" id="comment" method="post">
-        <textarea name="comment" rows="10" cols="150" maxlength="555" placeholder="Comente lo que piense de la pelicula" ></textarea>
+        <textarea name="comment" rows="8"  maxlength="555" placeholder="Comente lo que piense de la pelicula" ></textarea>
         <input type="submit" name="boton" value="Comentar" >
     </form>
 
-    <h2>Comentarios</h2>
-
-    <div class="contenedorComentarios"><?php
+    <div class="contenedorComentarios">
+        <h2 class="h2Coment">Comentarios</h2><?php
 
             $UsuarioID=$_SESSION["usrID"];
 
@@ -157,12 +163,15 @@ $_SESSION["peliID"]=$pelicula[0]->getPeliculaID();
 
             // Muestro los comentarios:
             // quien lo escribio, la fecha y el comentario
-            while($coment=$result->fetch_object()){?>
-                <h3><?php echo $coment->NomUsuario ?></h3>
-                <h5><?php echo $coment->Fecha ?></h5>
-                <p><?php echo $coment->Comentario ?></p><?php
-            }
-?>
+
+            while($coment=$result->fetch_object()){ ?>
+            <div class="contenedorComentario">
+                <p class="p1"><?php echo $coment->NomUsuario ?></p>
+                <p class="p2"><?php echo $coment->Fecha ?></p>
+                <p class="p3"><?php echo $coment->Comentario ?></p>
+            </div>
+                <hr><?php
+            } ?>
 
     </div>
 

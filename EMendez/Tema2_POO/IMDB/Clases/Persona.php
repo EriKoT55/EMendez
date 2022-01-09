@@ -106,9 +106,9 @@ class Persona
     }
 
     /**
-     * @return array
+     * @return mixed
      */
-    public function getTrabajo(): array
+    public function getTrabajo()
     {
         return $this->Trabajo;
     }
@@ -117,24 +117,24 @@ class Persona
      * @param array $Trabajo
      * @return void
      */
-    public function setTrabajo(array $Trabajo): void
+    public function setTrabajo( $Trabajo): void
     {
         $this->Trabajo = $Trabajo;
     }
 
     /**
-     * @return array
+     * @return mixed
      */
-    public function getPeliculas(): array
+    public function getPeliculas()
     {
         return $this->Peliculas;
     }
 
     /**
-     * @param array $Peliculas
+     * @param $Peliculas
      * @return void
      */
-    public function setPeliculas(array $Peliculas):void
+    public function setPeliculas($Peliculas):void
     {
         $this->Peliculas = $Peliculas;
     }

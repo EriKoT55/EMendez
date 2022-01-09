@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 include_once( "Clases/bd.php" );
 session_start();
 $conn = new bd();
@@ -51,7 +52,7 @@ $usrValido = "";
 $correoValido = "";
 $contraValida = "";
 
-if( isset( $_POST["user"] ) ) {
+
 
     if( isset( $_POST["user"] ) ) {
         // Me devuelve la longitud del string dado strlen
@@ -69,9 +70,9 @@ if( isset( $_POST["user"] ) ) {
             <?php
         }
     }
-}
 
-if( isset( $_POST["correo"] ) ) {
+
+
 
     if( isset( $_POST["correo"] ) ) {
         //Me devuelve la longitud del string dado strlen
@@ -90,9 +91,9 @@ if( isset( $_POST["correo"] ) ) {
             <?php
         }
     }
-}
 
-if( isset( $_POST["passwd"] ) ) {
+
+
 
     if( isset( $_POST["passwd"] ) ) {
         if( strlen( $_POST["passwd"] ) < 100 ) {
@@ -114,7 +115,7 @@ if( isset( $_POST["passwd"] ) ) {
             <?php
         }
     }
-}
+
 
 if( isset( $_POST["user"] ) && isset( $_POST["correo"] ) && isset( $_POST["passwd"] ) ) {
     if( isset( $usrValido ) && isset( $correoValido ) && isset( $contraValida ) ) {
@@ -137,7 +138,6 @@ if( isset( $_POST["user"] ) && isset( $_POST["correo"] ) && isset( $_POST["passw
 //VARIABLES DE SESSION
             $_SESSION["Ini"] = true;
             $_SESSION["user"] = $usrValido;
-            //Si no esta iniciada claramente no habra ID de usuario
             $_SESSION["usrID"] = $arrUsr[0]["UsuarioID"];
             ?>
             <script>

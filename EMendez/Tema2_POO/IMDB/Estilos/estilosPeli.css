@@ -154,6 +154,8 @@ a li#cerrarSesion:hover{
     color:grey;
 }
 /*********************  Maquetacion de la informacion de la pelicula  ******************/
+
+/***  PARTE SUPERIOR  ***/
 .contenedorPl{
     margin:30px;
 }
@@ -172,22 +174,179 @@ a li#cerrarSesion:hover{
 .contenedorPl .contenedorFechDur p{
     margin-top: 0;
     padding-right: 15px;
+    color: #c4c4c4;
 }
 .contenedorPl .contenedorFechDur .bold{
     font-weight: bold;
 }
 .contenedorPl .contenedorCal p{
     margin-top: 0;
+    color: #c4c4c4;
 }
 .contenedorPl .contenedorCal p span{
     font-weight: bold;
     font-size: large;
 }
-/*QUITAR ESTILOS A LOS LINKS DE LOS ACOTRES Y DIRECTORES*/
+
+/***  MULTIMEDIA ***/
+
+.contenedorMultimedia{
+    display: flex;
+    background-color: #090300;
+
+}
+.contenedorMultimedia .contenedorIMGS {
+    width: 37%;
+    height: 400px;
+    margin: 10px;
+    margin-left: 15px;
+    box-shadow: #9f9f9f 0px 0px 3px 0.5px;
+    /*Para que se oculte lo que salga del contenedor*/
+    overflow: hidden;
+}
+.contenedorMultimedia .contenedorIMGS img{
+    width: 100%;
+    height: 400px;
+}
+.contenedorMultimedia .contenedorIMGS:hover img {
+    transform: scale(1.03);
+    -webkit-transform:scale(1.03);
+}
+.contenedorMultimedia .contenedorTrailer {
+    width:80%;
+    height:400px;
+    margin: 10px;
+    margin-right: 15px;
+    box-shadow: #9f9f9f 0px 0px 1px 0.1px;
+    /*Para que se oculte lo que salga del contenedor*/
+    overflow: hidden;
+}
+.contenedorMultimedia .contenedorTrailer iframe {
+    width:100%;
+    height:400px;
+}
+.contenedorMultimedia .contenedorTrailer iframe:hover {
+    transform: scale(1.02);
+    -webkit-transform:scale(1.02);
+}
+/*** Generos ***/
+.contenedorGeneros {
+    display: flex;
+}
+.contenedorGeneros p{
+    background-color: #502500;
+    margin-left:10px;
+    padding: 7px;
+    border: #797979 2px solid ;
+    border-radius: 20px;
+    color:white;
+}
+.contenedorGeneros p:hover{
+    background-color: rgba(192, 93, 0);
+}
+/*** ACTORES DIRECTORES ***/
+
+p{
+    color: white;
+}
 a{
     text-decoration: none;
     color:gray;
 }
-p, h3,h5{
-    color:grey;
+
+
+/*** SINOPSIS ***/
+summary{
+    cursor: pointer;
+    list-style: none;
+    color:white;
+    font-size: large;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+summary:after{
+    background-color: black;
+    border-radius: 5px;
+    color: white;
+    font-size: large;
+    content: "+";
+    float: left;
+    margin: 0 5px 0 0;
+    width: 25px;
+    text-align: center;
+    font-weight: bold;
+}
+details[open] summary:after{
+    content: "-";
+}
+details p{
+    color: #a6a6a6;
+    font-size: large;
+    line-height: 1.5;
+    word-spacing: 2px;
+}
+
+/*** COMENTARIOS ***/
+#comment textarea{
+    width: 99%;
+}
+#comment input{
+    box-shadow: gray  -1px 1px 2px,
+    gray 0px 0px 3px 2px inset;
+    font-weight: bold;
+    border-radius: 5px;
+}
+#comment input:hover{
+    background-color: black;
+    color: white;
+    box-shadow: white 0px 0px 2px 0.5px,
+    gray 0px 0px 3px 2px inset;
+}
+#comment input:active{
+    background-color: darkorange;
+    color: black;
+    border-radius: 5px;
+}
+.h2Coment{
+    color:white;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+.contenedorComentarios{
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    padding-bottom: 5px;
+}
+.contenedorComentarios .contenedorComentario{
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.4);
+    margin: 15px;
+    padding: 10px;
+}
+.contenedorComentarios .contenedorComentario p{
+    margin: 0;
+    color:white;
+}
+.contenedorComentarios .contenedorComentario .p1{
+    font-size: medium ;
+    margin-bottom: 3px;
+    color: #ff7e00;
+    font-weight: bold;
+    text-shadow: black 0px 0px 6px;
+}
+.contenedorComentarios .contenedorComentario .p2{
+   font-size: x-small;
+    margin-bottom: 10px;
+    text-shadow: black 0px 0px 6px;
+}
+.contenedorComentarios .contenedorComentario .p3{
+    padding:10px ;
+    border: #6b6b6b 1px solid;
+    border-radius: 10px;
+}
+.contenedorComentarios hr{
+    size: 1px;
+    background-color: white;
+    width: 90%;
+    margin:auto;
 }
