@@ -40,35 +40,17 @@ $_SESSION["peliID"]=$pelicula[0]->getPeliculaID();
 </head>
 <body>
 <nav class="contenedorMenu">
-    <form class="contenedorSearch" action="PagMain.php" method="get">
-        <button type="submit" class="icon"><i class="fa fa-search"></i></button>
-        <input type="search" id="buscar" placeholder="Buscar..."/>
-    </form>
-
-    <?php
-    //Buscador
-
-        if(isset($_GET)){
-
-        }
-
-    ?>
         <ul class="contenedorUL">
-
-            <?php
-
-                if($_SESSION["Ini"]==true) { //Peta y supuestamente las variables de session pueden utilizarse en
-                // cualquier archivo dentro del servidor, pero me dice que no esta inicializada
+            <li><a class="menu" href="PagMain.php">Pagina Principal</a></li>
+            <div class="contenedorUsrCerrIni"><?php
+                if($_SESSION["Ini"]==true) {
                 ?>
-
                 <li id="nomUsr"><a> <?php echo  $_SESSION["user"];?> </a></li>
 
-                <a href="?cerrarSesion=true"><li id="cerrarSesion">Cerrar Session</li></a>
-
-            <?php }else{ ?>
+                <a href="?cerrarSesion=true"><li id="cerrarSesion">Cerrar Session</li></a><?php
+                }else{ ?>
                 <li><a class="menu" href="PagInicioSession.php">Iniciar Session</a></li>
-            <?php } ?>
-                <li><a class="menu" href="PagMain.php">Pagina Principal</a></li>
+            <?php } ?></div>
         </ul>
 </nav>
 <div class="contenedorPl">
@@ -80,7 +62,7 @@ $_SESSION["peliID"]=$pelicula[0]->getPeliculaID();
             <p><?php echo $pelicula[0]->getDuracion(); ?> min</p>
         </div>
         <div class="contenedorCal">
-            <p><span><?php echo $pelicula[0]->getCalificacion(); ?></span>/10</p>
+            <a href="PagCalificacion.php"><p>⭐<span><?php echo $pelicula[0]->getCalificacion(); ?></span>/10</p></a>
         </div>
     </div>
     <div class="contenedorMultimedia">

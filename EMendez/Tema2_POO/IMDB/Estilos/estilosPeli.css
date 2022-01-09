@@ -9,8 +9,6 @@ nav.contenedorMenu{
     height: 50px;
     padding-top:15px;
     overflow: hidden;
-    display: flex;
-    justify-content:space-between;
     box-shadow: #b0b0b0 0px 0.5px 5px;
 }
 
@@ -127,8 +125,11 @@ deberia poner a todas los divs una clase igual y aplicar el display, PROBAR*/
     margin:0;
     padding:0;
     list-style-type: none;
+    justify-content:space-between;
 }
-
+.contenedorUL .contenedorUsrCerrIni{
+    display: flex;
+}
 .contenedorUL li{
     list-style-type: none;
     padding: 7px;

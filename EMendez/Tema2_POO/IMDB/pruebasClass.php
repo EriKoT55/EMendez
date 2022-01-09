@@ -3,7 +3,7 @@ include_once "Clases/bd.php";
 //session_start();
 $conn= new bd();
 $conn->local();
-$asdf=$conn->cogerPersonas();
+$asdf=$conn->insertCalificacion(5,1,1);
 
 
 //$bool=$_SESSION["Ini"];
@@ -18,14 +18,14 @@ $asdf=$conn->cogerPersonas();
          var_dump($arr);
         echo "<br>";*/
 
-    foreach ($asdf as $pers) {
+/*    foreach ($asdf as $pers) {
 
         echo "<br>";
         echo "<pre>";
         var_dump($pers);
         echo "<br>";
 
-    }
+    }*/
 //}
 
 

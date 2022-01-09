@@ -355,6 +355,57 @@ class bd extends mysqli
         return $objArrayPeli;
     }
 
+  /****************************** BUSCADOR *******************************************/
+
+    /** BUSCA LA PELICULA POR EL NOMBRE, CREA EL OBJ Y DEVUELE  LA PELICULA CORRESPONDIENTE
+     * @param $nom
+     * @return array
+     */
+    public function busq_pelXnom($nom){
+
+        $sql="SELECT p.PeliculaID , p.Nombre , p.Duracion , p.Fecha_Salida , p.Calificacion , p.Sinopsis,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Actores', psn.NombreCompleto
+                	)
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 2) AS Actores,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Directores', psn.NombreCompleto
+                	)
+                ) FROM Persona psn INNER JOIN PersPeli pp on psn.PersonaID = pp.PersonaID AND pp.PeliculaID = p.PeliculaID INNER JOIN TrabjPers tp on tp.PersonaID = psn.PersonaID WHERE tp.TrabajoID = 1) AS Directores,
+                (SELECT JSON_ARRAYAGG(
+                	JSON_OBJECT(
+                		'Genero', g.Nombre
+                	)
+                ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID AND gp.PeliculaID = p.PeliculaID) AS Genero,
+                m.img_url, m.trailer_url
+                FROM Peliculas p
+                INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID
+                WHERE p.Nombre like '%".$nom."%';";
+
+        $this->default();
+        $result=$this->query($sql);
+        $this->close();
+
+        $array_pelXnom=$result->fetch_all(MYSQLI_ASSOC);
+
+        $objArr_pelXnom=[];
+
+        foreach($array_pelXnom as $peli){
+            $newPeli=new Pelicula($peli["PeliculaID"],$peli["Nombre"],$peli["Duracion"],$peli["Fecha_Salida"],$peli["Calificacion"],$peli["Sinopsis"]);
+            $newPeli->setIMG( $peli["img_url"] );
+            $newPeli->setTrailer( $peli["trailer_url"] );
+            $newPeli->setGeneros( json_decode( $peli["Genero"], true ) );
+            $newPeli->setActores( json_decode( $peli["Actores"], true ) );
+            $newPeli->setDirectores( json_decode( $peli["Directores"], true ) );
+            $objArr_pelXnom[] = $newPeli;
+        }
+
+        return $objArr_pelXnom;
+
+    }
+
  /******************************* FILTRADO DE PELICULAS *******************************/
 
     /********** DE PEOR VALORADA A MEJOR
@@ -480,7 +531,7 @@ class bd extends mysqli
                 m.img_url, m.trailer_url
                 FROM Peliculas p
                 INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID;";
-
+    /** PODRIA HACER UN JOIN PARA COGER LOS GENEROS, PROBAAAR **/
         $this->default();
         $result = $this->query( $sql );
         $this->close();
@@ -668,6 +719,26 @@ class bd extends mysqli
     {
 
         $sql="INSERT INTO Comentarios(Comentario,PeliculaID,UsuarioID) VALUES ('".$Comentario."',".$PeliculaID.",".$UsuarioID.")";
+        $this->default();
+        if($this->query( $sql )==true){
+            return true;
+        }else{
+            return false;
+        }
+        $this->close();
+
+    }
+
+    /*********  DEBO GUARDAR LA CALIFICACION EN Peliculas y ahí hacer la media de esta
+     *  #### MAL ####
+     * @param $Calificacion
+     * @param $PeliculaID
+     * @param $UsuarioID
+     * @return bool
+     */
+    public function insertCalificacion($Calificacion,$PeliculaID,$UsuarioID){
+
+        $sql="INSERT INTO Comentarios(Calificacion,PeliculaID,UsuarioID) VALUES (".$Calificacion.",".$PeliculaID.",".$UsuarioID.")";
         $this->default();
         if($this->query( $sql )==true){
             return true;

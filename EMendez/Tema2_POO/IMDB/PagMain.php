@@ -37,21 +37,17 @@ $Generos=$conn->Generos();
 </head>
 <body>
 <nav class="contenedorMenu">
-    <!--Funcion del buscador, mostrara la pelicula o persona buscada-->
+    <!--Funcion del buscador, mostrara la pelicula  POSIBLE MEJORA, mostrar persona,genero,peli por calificacion...-->
     <div class="contenedorForms">
         <form class="contenedorSearch" action="PagMain.php" method="get">
         <input id="buscar" type="search" name="buscar" placeholder="Buscar..."/>
-        <button class="icon" type="submit" name="enviar"><i class="fa fa-search"></i></button>
+        <button class="icon" type="submit" ><i class="fa fa-search"></i></button>
         </form><?php
     //Buscador
     $ArrFiltradoPeli = $ArrObjPeli;
 
-    if (isset($_GET["enviar"])) {
-        $buscar=$_GET["buscar"];
-
-        //Hacer en bd y despues llamar a la funcion aqui
-        //$sql="";
-
+    if (isset($_GET["buscar"])) {
+        $ArrFiltradoPeli=$conn->busq_pelXnom($_GET["buscar"]);
     }
 
     ?>

@@ -1,0 +1,50 @@
+body{
+    background: #130601;
+    margin: 0;
+    padding: 0;
+}
+/*** NAV ***/
+nav{
+    /*vovler a poner el nav en la pagpMain*/
+    background-color: #804400;
+    width: 100%;
+    height: 60px;
+    overflow: hidden;
+}
+
+.contenedorUL{
+    float:left;
+}
+.contenedorUL ul li{
+    list-style-type: none;
+}
+li a{
+    color: black;
+    display: block;
+    padding:5px ;
+    text-decoration: none;
+}
+.contenedorUL ul li a:hover{
+    font-weight: bold;
+    background-color: #ffca88;
+}
+/*** INICIO SESION ***/
+.contenedorCalificacion{
+    text-align: center;
+    margin: 0 auto;
+    margin-top:50px;
+    padding-top: 5px;
+    background-color: #e77d00;
+    width: 240px;
+    height: 180px;
+    border-radius:5px ;
+}
+
+.contenedorCalificacion form input{
+    margin-top: 15px;
+    margin:5px;
+}
+.contenedorInicioSession form .cal{
+    padding: 5px;
+    font-weight: bold;
+}

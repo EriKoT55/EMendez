@@ -9,9 +9,8 @@ $PersonaID=$_GET["PersonaID"];
 
 if (isset($PersonaID)){
     //FUNCION SIN CREAR
-    $persona=$conn->getPersona();
-}
-
+    $persona=$conn->cogerPersona();
+}4
 
 ?>
 <!DOCTYPE html>
@@ -30,22 +29,19 @@ if (isset($PersonaID)){
     <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-<div >
-    <span class="icon"><i class="fa fa-search"></i></span>
-    <input type="search" id="buscar" placeholder="Search..." />
-</div>
-<!--Cambiar cada propiedad de pelicula por la de persona-->
+
+
 <div class="contenedorPrs">
     <h4><?php echo $persona->getNombreCompleto();?></h4>
     <p>Fecha de nacimiento: <?php echo $persona->getFechaNacimiento();?></p>
     <p><?php echo $persona->getTrabajo();?></p>
     <img src="<?php echo $persona->getIMG();?>">
-        <p>Peliculas en las cuales trabajo: <?php $textA=""; foreach ($persona->getPeliculas() as $pelicula){
-                $textA.=$pelicula.", ";
+        <p>Peliculas en las cuales trabajo: <?php $textA=""; foreach ($persona->getPeliculas() as $pers){
+                $textA.=$pers.", ";
             }
             //Elimina los dos ultimos caracteres, en ese caso la coma que sobra y el espacio de despues
-            $peliculas= substr($textA,0, -2);
-            echo $peliculas;
+            $personas= substr($textA,0, -2);
+            echo $personas;
             ?>
         </p>
     <p>
