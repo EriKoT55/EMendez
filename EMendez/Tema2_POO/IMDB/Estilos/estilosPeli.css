@@ -6,9 +6,12 @@ body{
 nav.contenedorMenu{
     background-color: #804400;
     width: 100%;
+    height: 50px;
     padding-top:15px;
     overflow: hidden;
-    display:inline-block;
+    display: flex;
+    justify-content:space-between;
+    box-shadow: #b0b0b0 0px 0.5px 5px;
 }
 
 /*               BUSCADOR                */
@@ -74,52 +77,111 @@ para que se aplique debe ponerse un contenedor que englobe a lo que quieres apli
     background-color: #ffc080;
 }
 
-/******************MENU*************************/
-.contenedorUL{
-    /*FUTURO QUITAR*/
-    float:right;
-    /*Si lo de abajo se descoloca*/
-    /*width: 250px;
-    height: 48px;*/
+/*              FORM FILTRADO               */
+/*Contiene lo de abajo hasta MENU*/
+.formFiltr{
+    width: 435px;
+    height: 30px;
+    display: flex;
 }
-.contenedorUL ul p, li{
-    list-style-type: none;
-    /*FUTURO QUITAR*/
-    float:left;
 
+/*Si le pongo ancho y largo a los contenedores se descuadra el nav y se pone debajo del search los select*/
+
+/* Hacer los respectivos HOVERS y al sumbit (boton) hacerle HOVER/ACTIVE*/
+
+.contenedorSelector{
+    width: 150px;
+    height: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
-.contenedorUL ul li a{
-    color:black;
+.Selector{
+    font-family: 'Readex Pro', sans-serif;
+    width: 150px;
+    height: 30px;
+    background-color: #fcefe5;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+}
+.contenedorSelector2{
+    margin-right: 5px;
+    width: 150px;
+    height: 30px;
+}
+button#submit{
+    font-family: 'Readex Pro', sans-serif;
+    margin-left: 5px;
+    margin-top:5px;
+    height: 23px;
+    width: 100px;
+    font-weight: bold;
+}
+
+/*           Menu  UL            */
+/*Probar para poder aplicar el display inline-block correctamente
+deberia poner a todas los divs una clase igual y aplicar el display, PROBAR*/
+.contenedorUL{
+    display: flex;
+    /*Si quito esto se añade por arte de magia 16px de margin*/
+    margin:0;
+    padding:0;
     list-style-type: none;
-    display: block;
-    padding:10px;
-    text-decoration: none;
 }
-.contenedorUL ul li a.menu:hover{
+
+.contenedorUL li{
+    list-style-type: none;
+    padding: 7px;
+    color: black;
+    display: block;
+}
+.contenedorUL li a {
+    list-style-type: none;
+    color: black;
+    padding: 7px;
+}
+.contenedorUL li a.menu:hover{
     font-weight: bold;
     background-color: #ffca88;
 }
 /*CERRAR SESION*/
-a li#cerrarSesion{
-    text-decoration: none;
-    color:black;
-    display: block;
-    padding:10px;
-}
 a li#cerrarSesion:hover{
     font-weight: bold;
     background-color: #ffca88;
 }
 /*NOMBRE USUARIO*/
 #nomUsr{
-color:grey;
+    color:grey;
 }
 /*********************  Maquetacion de la informacion de la pelicula  ******************/
 .contenedorPl{
-    color:gray;
-    /*text-align: ;*/
     margin:30px;
+}
+.contenedorSuperior{
+    display: flex;
+    justify-content:space-between;
+}
+.contenedorPl h1{
+    color:white;
+    font-size: xx-large;
+}
+.contenedorPl .contenedorFechDur{
+    display: flex;
 
+}
+.contenedorPl .contenedorFechDur p{
+    margin-top: 0;
+    padding-right: 15px;
+}
+.contenedorPl .contenedorFechDur .bold{
+    font-weight: bold;
+}
+.contenedorPl .contenedorCal p{
+    margin-top: 0;
+}
+.contenedorPl .contenedorCal p span{
+    font-weight: bold;
+    font-size: large;
 }
 /*QUITAR ESTILOS A LOS LINKS DE LOS ACOTRES Y DIRECTORES*/
 a{

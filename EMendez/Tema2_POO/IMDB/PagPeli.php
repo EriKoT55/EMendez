@@ -49,9 +49,8 @@ $_SESSION["peliID"]=$pelicula[0]->getPeliculaID();
         }
 
     ?>
-    <div class="contenedorUL">
-        <ul>
-            <li><a class="menu" href="PagMain.php">Pagina Principal</a></li>
+        <ul class="contenedorUL">
+
             <?php
 
                 if($_SESSION["Ini"]==true) { //Peta y supuestamente las variables de session pueden utilizarse en
@@ -65,13 +64,21 @@ $_SESSION["peliID"]=$pelicula[0]->getPeliculaID();
             <?php }else{ ?>
                 <li><a class="menu" href="PagInicioSession.php">Iniciar Session</a></li>
             <?php } ?>
+                <li><a class="menu" href="PagMain.php">Pagina Principal</a></li>
         </ul>
-    </div>
 </nav>
 <div class="contenedorPl">
-    <h4><?php echo $pelicula[0]->getNombre(); ?></h4>
-    <p>Fecha de salida(españa): <?php echo $pelicula[0]->getFechaSalida(); ?></p>
-    <p><?php echo $pelicula[0]->getDuracion(); ?> min</p>
+    <h1><?php echo $pelicula[0]->getNombre(); ?></h1>
+    <div class="contenedorSuperior">
+        <div class="contenedorFechDur">
+            <p>Fecha de salida(españa): <?php echo $pelicula[0]->getFechaSalida(); ?></p>
+            <p class="bold">|</p>
+            <p><?php echo $pelicula[0]->getDuracion(); ?> min</p>
+        </div>
+        <div class="contenedorCal">
+            <p><span><?php echo $pelicula[0]->getCalificacion(); ?></span>/10</p>
+        </div>
+    </div>
     <?php foreach ($pelicula[0]->getIMG() as $img){?>
     <img src="<?php echo $img["IMG"]?> ">
     <?php } ?>
@@ -124,7 +131,7 @@ $_SESSION["peliID"]=$pelicula[0]->getPeliculaID();
     </p>
 
 
-</div>
+
 
 <div class="contenedorComent">
 
@@ -159,7 +166,7 @@ $_SESSION["peliID"]=$pelicula[0]->getPeliculaID();
 
     </div>
 
+  </div>
 </div>
-
 </body>
 </html>

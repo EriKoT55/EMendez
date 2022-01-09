@@ -38,12 +38,11 @@ $Generos=$conn->Generos();
 <body>
 <nav class="contenedorMenu">
     <!--Funcion del buscador, mostrara la pelicula o persona buscada-->
-    <form class="contenedorSearch" action="PagMain.php" method="get">
+    <div class="contenedorForms">
+        <form class="contenedorSearch" action="PagMain.php" method="get">
         <input id="buscar" type="search" name="buscar" placeholder="Buscar..."/>
         <button class="icon" type="submit" name="enviar"><i class="fa fa-search"></i></button>
-    </form>
-
-    <?php
+        </form><?php
     //Buscador
     $ArrFiltradoPeli = $ArrObjPeli;
 
@@ -57,8 +56,7 @@ $Generos=$conn->Generos();
 
     ?>
     <form class="formFiltr" action="PagMain.php" method="get">
-        <div class="contenedorSelector">
-            <?php $criterioFiltracion = $_GET["criterioFiltracion"] ?>
+        <div class="contenedorSelector"><?php $criterioFiltracion = $_GET["criterioFiltracion"] ?>
             <select class="Selector" name="criterioFiltracion">
                 <option <?php echo($criterioFiltracion == "" ? "selected" : "") ?> value="unsorted">Normal</option>
                 <option <?php echo($criterioFiltracion == "calificacion" ? "selected" : "") ?> value="calificacion">
@@ -158,8 +156,8 @@ $Generos=$conn->Generos();
         ?>
         <button id="submit" type="submit">Filtrar</button>
     </form>
-    <div class="contenedorUL">
-        <ul>
+    </div>
+        <ul class="contenedorUL">
             <?php if($_SESSION["Ini"]==true) {?>
 
                 <li id="nomUsr"><a><?php echo $_SESSION["user"] ?></a></li>
@@ -170,20 +168,20 @@ $Generos=$conn->Generos();
             <li><a class="menu" href="PagInicioSession.php">Iniciar Session</a></li>
             <?php } ?>
         </ul>
-    </div>
+
 </nav>
 <div class="contenedor">
-    <?php foreach ($ArrFiltradoPeli as $pelis => $arrPeli){?>
+    <?php foreach ( $ArrFiltradoPeli as $pelis => $arrPelis){?>
         <div class="contenedorPelis">
-            <a href="PagPeli.php?PeliculaID=<?php echo $arrPeli->getPeliculaID(); ?>">
-                <img src="<?php echo $arrPeli->getIMG() ?>">
-                <p class="nomPeli"><?php echo $arrPeli->getNombre(); ?>
+            <a href="PagPeli.php?PeliculaID=<?php echo $arrPelis->getPeliculaID(); ?>">
+                <img src="<?php echo $arrPelis->getIMG() ?>">
+                <p class="nomPeli"><?php echo $arrPelis->getNombre(); ?>
                     (<?php
                     //Con esta funcion hago que me muestra lo de despues o antes del caracter que le pongo
                     //dependiendo si en el ultimo parametro pongo true(antes) o nada(despues)
-                    $anyo = strstr($arrPeli->getFechaSalida(), '-', true);
+                    $anyo = strstr($arrPelis->getFechaSalida(), '-', true);
                     echo $anyo; ?>)</p>
-                <p><?php  echo $arrPeli->getCalificacion(); ?></p>
+                <p><?php  echo $arrPelis->getCalificacion(); ?></p>
             </a>
         </div>
     <?php } ?>
