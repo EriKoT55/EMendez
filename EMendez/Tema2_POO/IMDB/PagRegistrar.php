@@ -123,6 +123,17 @@ if(isset($_POST["user"]) && isset($_POST["correo"]) && isset($_POST["passwd"])){
             //han sido enviados por (salida se inicio en C:\xampp\htdocs\EMendez\EMendez\Tema2_POO\IMDB\PagRegistrar.php:7
             //  in C:\xampp\htdocs\EMendez\EMendez\Tema2_POO\IMDB\PagRegistrar.php on line 108
             //header("Location: PagInicioSession.php");
+
+            /**NO ENTRA EL SCRIPT**/
+            echo "
+                 <script>
+                     window.alert('El usuario registrado');
+                 </script>
+                 <!-- #IDEA
+                    SE PODRIA PONER EL FONDO DIFUMINADO EN VEZ DE NEGRO AL SALIR EL ALERT, QUE SALIERA LA PAGINA 
+                    COMO SI ESTUVIERA DEBAJO DEL ALERT
+                -->
+                ";
         }else{
             echo "
                  <script>
