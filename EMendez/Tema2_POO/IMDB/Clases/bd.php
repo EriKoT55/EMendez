@@ -729,8 +729,8 @@ class bd extends mysqli
 
     }
 
-    /*********  DEBO GUARDAR LA CALIFICACION EN Peliculas y ahí hacer la media de esta
-     *  #### MAL ####
+    /*********  DEBO HACER LA MEDIA DE LAS CALIFICACIONES DADAS Y LA QUE ESTA EN PELICULA, DESPUES GUARDAR ESTA
+     *  #### ESTA MAL, ENCIMA ME PONE COMENTARIOS VACIOS ####
      * @param $Calificacion
      * @param $PeliculaID
      * @param $UsuarioID

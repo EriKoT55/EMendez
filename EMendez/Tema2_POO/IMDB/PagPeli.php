@@ -143,9 +143,9 @@ $_SESSION["peliID"]=$pelicula[0]->getPeliculaID();
             $result= $conn->query($sql);
             $conn->close();
 
-            // Muestro los comentarios:
-            // quien lo escribio, la fecha y el comentario
 
+             // Muestro los comentarios:
+             // quien lo escribio, la fecha y el comentario
             while($coment=$result->fetch_object()){ ?>
             <div class="contenedorComentario">
                 <p class="p1"><?php echo $coment->NomUsuario ?></p>
@@ -153,7 +153,7 @@ $_SESSION["peliID"]=$pelicula[0]->getPeliculaID();
                 <p class="p3"><?php echo $coment->Comentario ?></p>
             </div>
                 <hr><?php
-            } ?>
+            }?>
 
     </div>
 
