@@ -122,8 +122,8 @@ if( isset( $_POST["user"] ) && isset( $_POST["correo"] ) && isset( $_POST["passw
         if( $conn->existUsr( $usrValido, $correoValido, $contraValida ) ) {
             /* #### ERROR #### */
             //No se puede modificar la información del encabezado: los encabezados ya
-            //han sido enviados por (salida se inicio en C:\xampp\htdocs\EMendez\EMendez\Tema2_POO\IMDB\PagInicioSession.php:7
-            //  in C:\xampp\htdocs\EMendez\EMendez\Tema2_POO\IMDB\PagInicioSession.php on line 108
+            //han sido enviados por (salida se inicio en C:\xampp\htdocs\EMendez\EMendez\Tema2_POO_BD\IMDB\PagInicioSession.php:7
+            //  in C:\xampp\htdocs\EMendez\EMendez\Tema2_POO_BD\IMDB\PagInicioSession.php on line 108
             //En clase funciono y ahora peta
             // header("Location: PagMain.php");
 

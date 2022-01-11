@@ -120,14 +120,14 @@ if(isset($_POST["user"]) && isset($_POST["correo"]) && isset($_POST["passwd"])){
         if($conn->insertUsr($usrValido,$correoValido,$contraValida)){
             /*ERROR*/
             //No se puede modificar la información del encabezado: los encabezados ya
-            //han sido enviados por (salida se inicio en C:\xampp\htdocs\EMendez\EMendez\Tema2_POO\IMDB\PagRegistrar.php:7
-            //  in C:\xampp\htdocs\EMendez\EMendez\Tema2_POO\IMDB\PagRegistrar.php on line 108
+            //han sido enviados por (salida se inicio en C:\xampp\htdocs\EMendez\EMendez\Tema2_POO_BD\IMDB\PagRegistrar.php:7
+            //  in C:\xampp\htdocs\EMendez\EMendez\Tema2_POO_BD\IMDB\PagRegistrar.php on line 108
             //header("Location: PagInicioSession.php");
 
             /**NO ENTRA EL SCRIPT**/
             echo "
                  <script>
-                     window.alert('El usuario registrado');
+                     window.alert('El usuario ha sido registrado');
                  </script>
                  <!-- #IDEA
                     SE PODRIA PONER EL FONDO DIFUMINADO EN VEZ DE NEGRO AL SALIR EL ALERT, QUE SALIERA LA PAGINA 
