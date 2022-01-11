@@ -759,6 +759,12 @@ class bd extends mysqli
         $sql="SELECT c.Calificacion,p.Calificacion FROM Calificaciones c 
             JOIN Peliculas p on c.PeliculasID=p.PeliculasID";
 
+        $this->default();
+        $result=$this->query($sql);
+        $this->close();
+
+        $arrayCalif=$result->fetch_all(MYSQLI_ASSOC);
+
     }
 
 }
