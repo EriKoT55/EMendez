@@ -729,8 +729,8 @@ class bd extends mysqli
 
     }
 
-    /*********  DEBO HACER LA MEDIA DE LAS CALIFICACIONES DADAS Y LA QUE ESTA EN PELICULA, DESPUES GUARDAR ESTA
-     *  #### ESTA MAL, ENCIMA ME PONE COMENTARIOS VACIOS ####
+    /*********  INSERTA LAS CALIFICACIONES A LA BD
+     *
      * @param $Calificacion
      * @param $PeliculaID
      * @param $UsuarioID
@@ -738,7 +738,7 @@ class bd extends mysqli
      */
     public function insertCalificacion($Calificacion,$PeliculaID,$UsuarioID){
 
-        $sql="INSERT INTO Comentarios(Calificacion,PeliculaID,UsuarioID) VALUES (".$Calificacion.",".$PeliculaID.",".$UsuarioID.")";
+        $sql="INSERT INTO Calificaciones(Calificacion,PeliculaID,UsuarioID) VALUES (".$Calificacion.",".$PeliculaID.",".$UsuarioID.")";
         $this->default();
         if($this->query( $sql )==true){
             return true;
@@ -746,6 +746,18 @@ class bd extends mysqli
             return false;
         }
         $this->close();
+
+    }
+
+    /********* COGE LAS CALIFICACIONES Y HACE UNA MEDIA DE ESTAS DIFERENCIANDO LAS PELICULAS E INSERTA EL RESULTADO EN Peliculas
+     *
+     *
+     *
+     */
+    public function mediaCalificaciones_insert(){
+
+        $sql="SELECT c.Calificacion,p.Calificacion FROM Calificaciones c 
+            JOIN Peliculas p on c.PeliculasID=p.PeliculasID";
 
     }
 
