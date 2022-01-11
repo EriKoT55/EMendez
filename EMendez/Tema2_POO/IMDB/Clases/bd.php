@@ -530,8 +530,7 @@ class bd extends mysqli
                 ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID AND gp.PeliculaID = p.PeliculaID ) AS Genero,
                 m.img_url, m.trailer_url
                 FROM Peliculas p
-                INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID;
-                ";
+                INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID;";
     /** PODRIA HACER UN JOIN PARA COGER LOS GENEROS, PROBAAAR **/
         $this->default();
         $result = $this->query( $sql );
@@ -730,7 +729,7 @@ class bd extends mysqli
 
     }
 
-    /*********  DEBO HACER LA MEDIA DE LAS CALIFICACIONES DADAS Y LA QUE ESTA EN PELICULA, DESPUES GUARDAR ESTA EN PELICULAS
+    /*********  DEBO HACER LA MEDIA DE LAS CALIFICACIONES DADAS Y LA QUE ESTA EN PELICULA, DESPUES GUARDAR ESTA
      *  #### ESTA MAL, ENCIMA ME PONE COMENTARIOS VACIOS ####
      * @param $Calificacion
      * @param $PeliculaID

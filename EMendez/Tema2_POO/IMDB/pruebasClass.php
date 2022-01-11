@@ -3,7 +3,7 @@ include_once "Clases/bd.php";
 //session_start();
 $conn= new bd();
 $conn->local();
-$asdf=$conn->insertCalificacion(5,1,1);
+$asdf=$conn->insertCalificacion(7.2,1,2);
 
 
 //$bool=$_SESSION["Ini"];
