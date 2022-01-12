@@ -5,6 +5,7 @@ class Conexion{
     private $host, $user, $passwd, $bd, $charset;
 
     public function __construct(){
+        //ESTA EN EL CORREO
       $bd_config= require_once("config.php");
       $this->host= $bd_config["host"];
       $this->user= $bd_config["user"];
