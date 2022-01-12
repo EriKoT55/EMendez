@@ -37,6 +37,7 @@ body{
     color: #d7b300;
     font-weight: bold;
     font-size: x-large;
+    text-shadow: black 0px 1px 3px;
 }
 .contenedorHoteles .contenedorHotel .calificacionHotel{
     position: fixed;
@@ -47,5 +48,6 @@ body{
     font-size: large;
     font-weight: bold;
     background-color: green;
+    text-shadow: black 0px 1px 2px;
     border-radius: 15px;
 }
