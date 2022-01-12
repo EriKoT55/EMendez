@@ -81,7 +81,7 @@ function getSortedCharactersByStatus($characters)
     return $characters;
 }
 
-//Clases
+//A_Entidades
 
 function createCharacter(){
     global $characters;

@@ -7,6 +7,9 @@ body{
 .contenedorHoteles{
 
 }
+.contenedorHoteles a{
+    text-decoration:none
+}
 .contenedorHoteles .contenedorHotel{
     margin: 25px;
     width: 250px;

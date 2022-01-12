@@ -1,20 +1,31 @@
 <?php
+//require_once("config.php");
 
 /** creacion de la conexion a la BD */
-class Conexion{
-    private $host, $user, $passwd, $bd, $charset;
+class bd extends mysqli{
 
-    public function __construct(){
-        //ESTA EN EL CORREO
-      $bd_config= require_once("config.php");
-      $this->host= $bd_config["host"];
-      $this->user= $bd_config["user"];
-      $this->passwd= $bd_config["passwd"];
-      $this->bd= $bd_config["bd"];
-      $this->charset= $bd_config["charset"];
+    private $servername = "sql480.main-hosting.eu";//localhost
+    private $user = "u850300514_emendez";//root
+    private $passwd = "x43233702G";// nada o root
+    private $database = "u850300514_emendez"; //NOMBRE DE LA BD
+
+    public function default()
+    {
+        $this->local();
     }
 
-    public function conn(){
+    public function local()
+    {
+        //Creo la conexion
+        parent::__construct( $this->servername, $this->user, $this->passwd, $this->database );
+
+        // Me aseguro de si va bien la conexion
+        if( mysqli_connect_error() ) {
+            die( "Conexion fallida: " . mysqli_connect_error() );
+        }
+    }
+
+    /*public function conn(){
 
         try {
             $conn = new mysqli( $this->host, $this->user, $this->passwd, $this->bd );
@@ -26,7 +37,9 @@ class Conexion{
         }
 
         return $conn;
-    }
+    }*/
+
+
 }
 
 ?>

@@ -32,7 +32,6 @@ class bd extends mysqli
         $this->local();
     }
 
-
     public function local()
     {
         //Creo la conexion
