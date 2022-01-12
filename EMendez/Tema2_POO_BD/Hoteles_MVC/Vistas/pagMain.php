@@ -21,8 +21,8 @@
 
             <img class="imgHotel" src="../IMG/exe_madrid_norte.jpg">
             <h2 class="nomHotel"><?php echo "Manoliat" ?></h2>
-            <p class="percioHotel"><?php echo 50 ?></p>
-            <p class="calificacionHotel"><?php echo 7 ?></p>
+            <p >Desde <span class="percioHotel"><?php echo 50 ?>€</span> por noche</p>
+            <p class="calificacionHotel"><?php echo 7 ?>/10</p>
         </div><?php
     //}?>
 </div>

@@ -5,7 +5,6 @@ body{
 }
 
 .contenedorHoteles{
-background-color: white;
 
 }
 .contenedorHoteles .contenedorHotel{
@@ -14,27 +13,39 @@ background-color: white;
     height: 300px;
     /*border: 2px solid black;*/
     box-shadow:0px 0px 5px 1px ;
+    background-color: rgba(255, 255, 255, 0.71);
 }
 .contenedorHoteles .contenedorHotel .imgHotel{
-    box-shadow:0px 0px 5px 1px ;
+
     width: 250px;
-    height: 200px;
+    height: 240px;
 }
 .contenedorHoteles .contenedorHotel .nomHotel{
+    /*COMO PONER DONDE YO QUIERA EL NOMBRE Y NO SE DESCOLOQUE AL MOVER EL CONTENEDOR*/
     position:absolute;
-    top:170px;
-    color:white;
-    text-shadow: black 4px 0px 3px;
+    padding: 4px;
+    top: 200px;
+    left: 35px;
+    color: white;
+    box-shadow: black 0px 0px 15px 7px inset;
+    border-radius:10px ;
 }
 .contenedorHoteles .contenedorHotel .percioHotel{
-    position:absolute;
+    margin-left:10px;
+    margin: 12px;
     top:170px;
-    color:white;
-    text-shadow: black 4px 0px 3px;
+    color: #d7b300;
+    font-weight: bold;
+    font-size: x-large;
 }
 .contenedorHoteles .contenedorHotel .calificacionHotel{
-    position:absolute;
-    top:170px;
+    position: fixed;
+    padding: 3px;
+    top:265px;
+    left: 230px;
     color:white;
-    text-shadow: black 4px 0px 3px;
+    font-size: large;
+    font-weight: bold;
+    background-color: green;
+    border-radius: 15px;
 }
