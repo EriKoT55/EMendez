@@ -1,0 +1,40 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #abd1ff;
+}
+
+.contenedorHoteles{
+background-color: white;
+
+}
+.contenedorHoteles .contenedorHotel{
+    margin: 25px;
+    width: 250px;
+    height: 300px;
+    /*border: 2px solid black;*/
+    box-shadow:0px 0px 5px 1px ;
+}
+.contenedorHoteles .contenedorHotel .imgHotel{
+    box-shadow:0px 0px 5px 1px ;
+    width: 250px;
+    height: 200px;
+}
+.contenedorHoteles .contenedorHotel .nomHotel{
+    position:absolute;
+    top:170px;
+    color:white;
+    text-shadow: black 4px 0px 3px;
+}
+.contenedorHoteles .contenedorHotel .percioHotel{
+    position:absolute;
+    top:170px;
+    color:white;
+    text-shadow: black 4px 0px 3px;
+}
+.contenedorHoteles .contenedorHotel .calificacionHotel{
+    position:absolute;
+    top:170px;
+    color:white;
+    text-shadow: black 4px 0px 3px;
+}
