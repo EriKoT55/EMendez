@@ -7,7 +7,7 @@ include_once("");
 <head>
     <meta charset="UTF-8">
     <title>NAVEGATOR</title>
-    <link type="text/css" rel="stylesheet" href="../Estilos/estilosHotel.css">
+    <link type="text/css" rel="stylesheet" href="../A_Estilos/estilosHotel.css">
 </head>
 <body>
 <nav>
