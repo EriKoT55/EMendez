@@ -5,7 +5,8 @@ body{
 }
 
 .contenedorHoteles{
-
+    /*No hace nada*/
+    display: flex;
 }
 .contenedorHoteles a{
     text-decoration:none
@@ -26,7 +27,7 @@ body{
 }
 .contenedorHoteles .contenedorHotel .nomHotel{
     /*COMO PONER DONDE YO QUIERA EL NOMBRE Y NO SE DESCOLOQUE AL MOVER EL CONTENEDOR*/
-    position:absolute;
+
     padding: 4px;
     top: 200px;
     left: 35px;
@@ -37,17 +38,14 @@ body{
 .contenedorHoteles .contenedorHotel .percioHotel{
     margin-left:10px;
     margin: 12px;
-    top:170px;
     color: #d7b300;
     font-weight: bold;
     font-size: x-large;
     text-shadow: black 0px 1px 3px;
 }
 .contenedorHoteles .contenedorHotel .calificacionHotel{
-    position: fixed;
+
     padding: 3px;
-    top:265px;
-    left: 230px;
     color:white;
     font-size: large;
     font-weight: bold;

@@ -9,11 +9,12 @@ require_once ("../BD/bd.php");
  *
  * https://victorroblesweb.es/2014/07/15/ejemplo-php-poo-mvc/
  */
+
 class Main_modelo{
 
     private bd $bd;
 
-    public function __contruct(){
+    public function __construct(){
 
         $this->bd = new bd();
 
@@ -28,7 +29,15 @@ class Main_modelo{
 
         $arrHotel= $result->fetch_all(MYSQLI_ASSOC);
 
-        return $arrHotel;
+        $objArrHotel =[];
+
+        foreach ($arrHotel as $hotel){
+
+            $newHotel=new Hotel($hotel["HotelID"],$hotel["Nombre"],$hotel["Precio"],$hotel["Calificacion"],$hotel["IMG"],$hotel["Descripcion"],$hotel["Ubicacion"]);
+            $objArrHotel[]=$newHotel;
+        }
+
+        return $objArrHotel;
     }
 
 }

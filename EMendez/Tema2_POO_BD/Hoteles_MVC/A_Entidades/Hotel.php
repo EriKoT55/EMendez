@@ -4,7 +4,7 @@ class Hotel{
 
     private $HotelID, $Nombre, $Precio, $Calificacion, $IMG, $Descripcion, $Ubicacion;
 
-    public function __contruct($HotelID, $Nombre, $Precio, $Calificacion, $IMG, $Descripcion, $Ubicacion){
+    public function __construct($HotelID, $Nombre, $Precio, $Calificacion, $IMG, $Descripcion, $Ubicacion){
 
         $this->HotelID=(int) $HotelID;
         $this->Nombre=(string) $Nombre;

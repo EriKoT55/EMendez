@@ -12,7 +12,7 @@
 <body>
 <nav>
     <ul>
-        <li><a>Pagina Principal</a></li>
+        <li><a href="../Vistas/pagMain_vista.php">Pagina Principal</a></li>
     </ul>
 </nav>
 

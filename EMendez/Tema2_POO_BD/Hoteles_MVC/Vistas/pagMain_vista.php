@@ -1,6 +1,6 @@
 <?php
 //include_once("BD/bd.php");
-var_dump($as);
+//var_dump($hoteles->getHotelID());
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -17,17 +17,17 @@ var_dump($as);
 </nav>
 
 <div class="contenedorHoteles"><?php
-    //foreach(){ ?>
-        <a href="pagHotel.php?HotelID="<?php //echo ?>>
+    foreach($hoteles as $hotel){ ?>
+        <a href="pagHotel.php?HotelID=<?php echo $hotel->getHotelID() ?>">
             <div class="contenedorHotel">
 <!--PROBAR DE GUARDAR SOLO LA IMG SIN RUTA EN LA BD, haber si no peta-->
-            <img class="imgHotel" src="../A_IMG/exe_madrid_norte.jpg">
-            <h2 class="nomHotel"><?php echo "Manoliat" ?></h2>
-            <p>Desde <span class="percioHotel"><?php echo 50 ?>€</span> por noche</p>
-            <p class="calificacionHotel"><?php echo 7 ?>/10</p>
+            <img class="imgHotel" src="../<?php echo $hotel->getIMG() ?>">
+            <h2 class="nomHotel"><?php echo $hotel->getNombre() ?></h2>
+            <p>Desde <span class="percioHotel"><?php echo $hotel->getPrecio() ?>€</span> por noche</p>
+            <p class="calificacionHotel"><?php echo $hotel->getCalificacion() ?>/10</p>
         </div>
         </a><?php
-    //}?>
+    }?>
 </div>
 
 </body>
