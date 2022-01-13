@@ -6,12 +6,13 @@ body{
 
 .contenedorHoteles{
     /*No hace nada*/
-    display: flex;
+    float:left;
 }
 .contenedorHoteles a{
     text-decoration:none
 }
 .contenedorHoteles .contenedorHotel{
+    float:left;
     margin: 25px;
     width: 250px;
     height: 300px;
