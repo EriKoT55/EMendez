@@ -20,10 +20,13 @@ echo "<br>";
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300&display=swap" rel="stylesheet">
+    <!-- LINK BOOTSTRAP-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 </head>
 <body>
 <nav >
-    <h1><a href="../Controladores/Main_controlador.php">NAVEGATOR</a></h1>
+    <h3><a href="../Controladores/Main_controlador.php">NAVEGATOR</a></h3>
     <form>
 
     </form>
@@ -31,11 +34,11 @@ echo "<br>";
         <li></li>
     </ul>-->
 </nav>
-
-<div class="contenedorHoteles"><?php
+<!--PONER LAS ESTRELLAS, PERO DEJALO PARA LO ULTIMO-->
+<div class="contenedorHoteles row justify-content-center"><?php
     foreach($hoteles as $hotel){ ?>
-    <a href="../Controladores/Hotel_controlador.php?HotelID=<?php echo $hotel->getHotelID(); ?>">
         <div class="contenedorHotel">
+            <a href="../Controladores/Hotel_controlador.php?HotelID=<?php echo $hotel->getHotelID(); ?>">
             <img class="imgHotel" src="../<?php foreach ($hotel->getIMG() as $img){
                 echo $img["IMG"];
             } ?>">
@@ -43,9 +46,8 @@ echo "<br>";
             <p class="percioHotel">Desde <span ><?php echo $hotel->getPrecio(); ?>€</span> por noche</p>
             <p class="ubicacionHotel"><?php echo $hotel->getUbicacion(); ?></p>
             <h2 class="nomHotel"><?php echo $hotel->getNombre(); ?></h2>
-
-        </div>
-        </a><?php
+            </a>
+        </div><?php
     }?>
 </div>
 

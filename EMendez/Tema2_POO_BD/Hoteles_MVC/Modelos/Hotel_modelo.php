@@ -19,7 +19,7 @@ class Hotel_modelo{
      */
     public function getHotel($HotelID){
 
-        $sql="SELECT h.HotelID,h.Nombre,h.Precio,h.Calificacion,h.Descripcion,h.Ubicacion,
+        $sql="SELECT h.HotelID,h.Nombre,h.Precio,h.Calificacion,h.Descripcion,h.Ubicacion,h.Estrellas,h.Direccion,
             (SELECT JSON_ARRAYAGG(
             JSON_OBJECT(
                 'IMG',hm.img_url
@@ -36,7 +36,7 @@ class Hotel_modelo{
 
         foreach ($arrHotel as $hotel){
 
-            $newHotel=new Hotel($hotel["HotelID"],$hotel["Nombre"],$hotel["Precio"],$hotel["Calificacion"],$hotel["Descripcion"],$hotel["Ubicacion"]);
+            $newHotel=new Hotel($hotel["HotelID"],$hotel["Nombre"],$hotel["Precio"],$hotel["Calificacion"],$hotel["Descripcion"],$hotel["Ubicacion"],$hotel["Estrellas"],$hotel["Direccion"]);
             $newHotel->setIMG(json_decode($hotel["IMG"],true));
             $objArrHotel[]=$newHotel;
         }

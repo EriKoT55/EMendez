@@ -12,19 +12,20 @@ nav{
     height: 80px;
     box-shadow: #41565E 0px 0px 10px 3px,#41565E 0px 0px 13px 3px inset;
 }
-nav h1{
-    margin: 0;
-    padding-top: 25px;
+nav h3{
+    margin: 0px;
+    padding-top: 20px;
     padding-left: 15px;
 }
-nav h1 a{
+nav h3 a{
     text-decoration: none;
     color: white;
     font-weight: bold;
     text-shadow: black 0px 2px 3px;
 }
-nav h1 a:hover{
+nav h3 a:hover{
     color: #41565E;
+    text-decoration: none;
 }
 
 /******************* Contenedor Hotel ********************/
@@ -46,7 +47,6 @@ nav h1 a:hover{
 }
 .contenedorInfoHotel .contenedorSuperior .calificacionHotel{
     margin:0;
-    padding-top: 18px;
     padding-left: 5px;
     padding-right: 5px;
     text-align: center;

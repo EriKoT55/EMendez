@@ -17,10 +17,12 @@ echo "<br>";
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300&display=swap" rel="stylesheet">
 <!--PONER EL LINK DE BOOSTRAP PARA HACER RESPONSIVE LA PAGINA-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 </head>
 <body>
 <nav>
-    <h1><a href="../Controladores/Main_controlador.php">NAVEGATOR</a></h1>
+    <h3><a href="../Controladores/Main_controlador.php">NAVEGATOR</a></h3>
     <!--<ul>
         <li><a href="../>Inicias Sesion</a></li>
     </ul>-->
