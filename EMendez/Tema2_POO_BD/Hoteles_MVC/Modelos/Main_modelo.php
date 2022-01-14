@@ -20,9 +20,23 @@ class Main_modelo{
 
     }
 
+    /** DEVUELVE LA INFORMACION DE TODOS LOS HOTELES
+     * @return array
+     */
     public function getHotel(){
-
-        $sql="SELECT * FROM Hoteles;";
+/* PETA
+Fatal error: Uncaught Error: Call to a member function fetch_all() on bool in C:\xampp\htdocs\EMendez\EMendez\Tema2_POO_BD\Hoteles_MVC\Modelos\Main_modelo.php on line 36
+        $sql="SELECT h.HotelID,h.Nombre,h.Precio,h.Calificacion,h.Descripcion,h.Ubicacion,
+            (SELECT JSON_ARRAYAGG(
+                JSON_OBJECT(
+                    'IMG',hm.img_url
+                )
+            )FROM Hotel_Multimedia hm JOIN Hotel h on hm.HotelID=h.HotelID WHERE ) AS IMG
+            FROM Hoteles h;";
+*/
+        $sql="SELECT h.HotelID,h.Nombre,h.Precio,h.Calificacion,h.Descripcion,h.Ubicacion,hm.img_url
+             FROM Hoteles h
+             JOIN Hotel_Multimedia hm on h.HotelID=hm.HotelID;";
         $this->bd->default();
         $result=$this->bd->query($sql);
         $this->bd->close();
@@ -33,12 +47,19 @@ class Main_modelo{
 
         foreach ($arrHotel as $hotel){
 
-            $newHotel=new Hotel($hotel["HotelID"],$hotel["Nombre"],$hotel["Precio"],$hotel["Calificacion"],$hotel["IMG"],$hotel["Descripcion"],$hotel["Ubicacion"]);
+            $newHotel=new Hotel($hotel["HotelID"],$hotel["Nombre"],$hotel["Precio"],$hotel["Calificacion"],$hotel["Descripcion"],$hotel["Ubicacion"]);
+            $newHotel->setIMG($hotel["img_url"]);
             $objArrHotel[]=$newHotel;
         }
 
         return $objArrHotel;
     }
+
+    /************************ FILTRADO: PRECIO,CALIFICACION,UBICACION *****************************/
+
+    /*public function (){
+
+    }*/
 
 }
 

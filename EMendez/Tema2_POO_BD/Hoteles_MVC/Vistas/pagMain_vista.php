@@ -1,6 +1,14 @@
 <?php
 //include_once("BD/bd.php");
-//var_dump($hoteles->getHotelID());
+/*
+echo "<br>";
+echo "<pre>";
+var_dump($hoteles);
+echo "<br>";
+*/
+/** COMINACION DE COLORES
+ * https://color.adobe.com/es/create/color-wheel
+ */
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -8,12 +16,20 @@
     <meta charset="UTF-8">
     <title>NAVEGATOR</title>
     <link type="text/css" rel="stylesheet" href="../A_Estilos/estilosMain.css">
+    <!--Link fuente texto-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-<nav>
-    <ul>
-        <!--<li></li>-->
-    </ul>
+<nav >
+    <h1><a href="../Controladores/Main_controlador.php">NAVEGATOR</a></h1>
+    <form>
+
+    </form>
+    <!--<ul>
+        <li></li>
+    </ul>-->
 </nav>
 
 <div class="contenedorHoteles"><?php

@@ -4,13 +4,12 @@ class Hotel{
 
     private $HotelID, $Nombre, $Precio, $Calificacion, $IMG, $Descripcion, $Ubicacion;
 
-    public function __construct($HotelID, $Nombre, $Precio, $Calificacion, $IMG, $Descripcion, $Ubicacion){
+    public function __construct($HotelID, $Nombre, $Precio, $Calificacion, $Descripcion, $Ubicacion){
 
         $this->HotelID=(int) $HotelID;
         $this->Nombre=(string) $Nombre;
         $this->Precio=(float) $Precio;
         $this->Calificacion=(float) $Calificacion;
-        $this->IMG=(string) $IMG;
         $this->Descripcion=(string) $Descripcion;
         $this->Ubicacion=(string) $Ubicacion;
 
