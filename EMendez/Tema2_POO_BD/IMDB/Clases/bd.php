@@ -526,11 +526,14 @@ class bd extends mysqli
                 	JSON_OBJECT(
                 		'Genero', g.Nombre
                 	)
-                ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID AND gp.PeliculaID = p.PeliculaID ) AS Genero,
+                ) FROM Genero g INNER JOIN GenPeli gp on gp.GeneroID = g.GeneroID AND gp.PeliculaID = p.PeliculaID WHERE g.Nombre='".$NomGen."' ) AS Genero,
                 m.img_url, m.trailer_url
                 FROM Peliculas p
-                INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID;";
-    /** PODRIA HACER UN JOIN PARA COGER LOS GENEROS, PROBAAAR **/
+                INNER JOIN Multimedia m on p.PeliculaID = m.PeliculaID ;";
+        /** ESTA SQL ME DEVOLVERA TODAS LAS PELICULAS Y LAS QUE NO TIENEN ESE GENERO TENDRAN NULL, FILTRARLAS EJ: if($pelis->getGeneros == null ) **/
+    /** ### es otra idea ###
+     * PODRIA HACER UN JOIN PARA COGER LOS GENEROS, PROBAAAR *
+     */
         $this->default();
         $result = $this->query( $sql );
         $this->close();

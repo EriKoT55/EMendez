@@ -1,6 +1,6 @@
 <?php
 require_once("../A_Entidades/Hotel.php");
-require_once ("../BD/bd.php");
+require_once("../BD/bd.php");
 
 /*
  * https://www.logitravel.com/hoteles/espana/madrid--eyJjaXR5IjoiNDUyMiJ9
@@ -10,11 +10,13 @@ require_once ("../BD/bd.php");
  * https://victorroblesweb.es/2014/07/15/ejemplo-php-poo-mvc/
  */
 
-class Main_modelo{
+class Main_modelo
+{
 
     private bd $bd;
 
-    public function __construct(){
+    public function __construct()
+    {
 
         $this->bd = new bd();
 
@@ -23,33 +25,28 @@ class Main_modelo{
     /** DEVUELVE LA INFORMACION DE TODOS LOS HOTELES
      * @return array
      */
-    public function getHotel(){
-/* PETA
-Fatal error: Uncaught Error: Call to a member function fetch_all() on bool in C:\xampp\htdocs\EMendez\EMendez\Tema2_POO_BD\Hoteles_MVC\Modelos\Main_modelo.php on line 36
-        $sql="SELECT h.HotelID,h.Nombre,h.Precio,h.Calificacion,h.Descripcion,h.Ubicacion,
+    public function getHoteles()
+    {
+        $sql = "SELECT h2.HotelID,h2.Nombre,h2.Precio,h2.Calificacion,h2.Descripcion,h2.Ubicacion,
             (SELECT JSON_ARRAYAGG(
-                JSON_OBJECT(
-                    'IMG',hm.img_url
-                )
-            )FROM Hotel_Multimedia hm JOIN Hotel h on hm.HotelID=h.HotelID WHERE ) AS IMG
-            FROM Hoteles h;";
-*/
-        $sql="SELECT h.HotelID,h.Nombre,h.Precio,h.Calificacion,h.Descripcion,h.Ubicacion,hm.img_url
-             FROM Hoteles h
-             JOIN Hotel_Multimedia hm on h.HotelID=hm.HotelID;";
+            JSON_OBJECT(
+                'IMG',hm.img_url
+            )
+        )FROM Hotel_Multimedia hm JOIN Hoteles h1 on hm.HotelID=h1.HotelID WHERE h1.HotelID = h2.HotelID) AS IMG
+            FROM Hoteles h2 ";
         $this->bd->default();
-        $result=$this->bd->query($sql);
+        $result = $this->bd->query($sql);
         $this->bd->close();
 
-        $arrHotel= $result->fetch_all(MYSQLI_ASSOC);
+        $arrHotel = $result->fetch_all(MYSQLI_ASSOC);
 
-        $objArrHotel =[];
+        $objArrHotel = [];
 
-        foreach ($arrHotel as $hotel){
+        foreach ($arrHotel as $hotel) {
 
-            $newHotel=new Hotel($hotel["HotelID"],$hotel["Nombre"],$hotel["Precio"],$hotel["Calificacion"],$hotel["Descripcion"],$hotel["Ubicacion"]);
-            $newHotel->setIMG($hotel["img_url"]);
-            $objArrHotel[]=$newHotel;
+            $newHotel = new Hotel($hotel["HotelID"], $hotel["Nombre"], $hotel["Precio"], $hotel["Calificacion"], $hotel["Descripcion"], $hotel["Ubicacion"]);
+            $newHotel->setIMG(json_decode($hotel["IMG"],true));
+            $objArrHotel[] = $newHotel;
         }
 
         return $objArrHotel;

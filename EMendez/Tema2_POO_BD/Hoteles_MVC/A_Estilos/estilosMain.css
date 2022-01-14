@@ -40,10 +40,22 @@ nav h1 a:hover{
     box-shadow:black 0px 0px 5px 1px,
        black 0px 0px 10px 1px inset;
     background-color:#438DAB;
+    background-color:#438DAB;overflow: hidden;
+
+}
+.contenedorHoteles .contenedorHotel:hover{
+    box-shadow:#214D5E 0px 0px 5px 2px,
+    black 0px 0px 10px 1px inset;
+
 }
 .contenedorHoteles .contenedorHotel .imgHotel{
     width: 280px;
     height: 260px;
+
+}
+.contenedorHoteles .contenedorHotel:hover .imgHotel{
+    transform: scale(1.03);
+    -webkit-transform:scale(1.03);
 }
 .contenedorHoteles .contenedorHotel .nomHotel{
     position: relative;

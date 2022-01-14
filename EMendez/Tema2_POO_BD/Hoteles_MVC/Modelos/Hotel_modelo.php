@@ -19,9 +19,13 @@ class Hotel_modelo{
      */
     public function getHotel($HotelID){
 
-        $sql="SELECT h.*,hm.img_url FROM Hoteles h
-        JOIN Hotel_Multimedia hm on h.HotelID=hm.HotelID
-        WHERE h.HotelID=".$HotelID.";";
+        $sql="SELECT h.HotelID,h.Nombre,h.Precio,h.Calificacion,h.Descripcion,h.Ubicacion,
+            (SELECT JSON_ARRAYAGG(
+            JSON_OBJECT(
+                'IMG',hm.img_url
+            )
+        )FROM Hotel_Multimedia hm JOIN Hoteles h on hm.HotelID=h.HotelID WHERE h.HotelID=".$HotelID.") AS IMG
+            FROM Hoteles h WHERE h.HotelID=".$HotelID.";";
         $this->bd->default();
         $result=$this->bd->query($sql);
         $this->bd->close();
@@ -33,7 +37,7 @@ class Hotel_modelo{
         foreach ($arrHotel as $hotel){
 
             $newHotel=new Hotel($hotel["HotelID"],$hotel["Nombre"],$hotel["Precio"],$hotel["Calificacion"],$hotel["Descripcion"],$hotel["Ubicacion"]);
-            $newHotel->setIMG($hotel["img_url"]);
+            $newHotel->setIMG(json_decode($hotel["IMG"],true));
             $objArrHotel[]=$newHotel;
         }
 

@@ -1,5 +1,10 @@
 <?php
-
+/*
+echo "<br>";
+echo "<pre>";
+var_dump($hotel[0]->getIMG()[0]);
+echo "<br>";
+*/
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -28,10 +33,12 @@
     <p class="ubicacionHotel"><?php echo $hotel[0]->getUbicacion() ?></p>
     </div>
     <div class="contenedorCentrar">
-    <img class="imgHotel" src="../<?php echo $hotel[0]->getIMG(); ?>">
+    <img class="imgHotel" src="../<?php foreach ($hotel[0]->getIMG() as $img){
+        echo $img["IMG"];
+    } ?>">
     <p class="precioHotel"><?php echo $hotel[0]->getPrecio(); ?>€</p>
     </div>
-    <p class="descripcionHotel"><?php echo $hotel[0]->getDescripcion() ?></p>
+    <p class="descripcionHotel"><?php echo $hotel[0]->getDescripcion(); ?></p>
 
 </div>
 

@@ -36,8 +36,9 @@ echo "<br>";
     foreach($hoteles as $hotel){ ?>
     <a href="../Controladores/Hotel_controlador.php?HotelID=<?php echo $hotel->getHotelID(); ?>">
         <div class="contenedorHotel">
-            <!--PROBAR DE GUARDAR SOLO LA IMG SIN RUTA EN LA BD, haber si no peta-->
-            <img class="imgHotel" src="../<?php echo $hotel->getIMG(); ?>">
+            <img class="imgHotel" src="../<?php foreach ($hotel->getIMG() as $img){
+                echo $img["IMG"];
+            } ?>">
             <p class="calificacionHotel"><?php echo $hotel->getCalificacion(); ?>/10</p>
             <p class="percioHotel">Desde <span ><?php echo $hotel->getPrecio(); ?>€</span> por noche</p>
             <p class="ubicacionHotel"><?php echo $hotel->getUbicacion(); ?></p>
