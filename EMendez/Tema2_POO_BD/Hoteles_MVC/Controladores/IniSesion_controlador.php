@@ -1,6 +1,7 @@
 <?php
 error_reporting(0);
 require_once( "../Modelos/IniSesion_modelo.php" );
+
 session_start();
 $conn = new IniSesion_modelo();
 

@@ -1,4 +1,7 @@
 <?php
+session_start();
+$user = $_SESSION["user"];
+$iniTrue = $_SESSION["Ini"];
 /*
 echo "<br>";
 echo "<pre>";
@@ -24,7 +27,15 @@ echo "<br>";
 <nav>
     <h3><a href="../Controladores/Main_controlador.php">NAVEGATOR</a></h3>
     <ul>
-        <li><a href="../Controladores/IniSesion_controlador.php">Inicias Sesion</a></li>
+        <?php
+        if( $iniTrue==true ) { ?>
+        <li><?php echo $user ?></li>
+        <a href="?cerrarSesion=true"><li id="cerrarSesion">Cerrar Sesion</li></a>
+        <?php
+        } else { ?>
+        <li><a href="../Controladores/IniSesion_controlador.php">Inicio Sesion</a></li>
+        <?php
+        } ?>
     </ul>
 </nav>
 
