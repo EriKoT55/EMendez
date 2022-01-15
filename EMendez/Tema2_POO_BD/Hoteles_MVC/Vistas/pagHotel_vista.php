@@ -20,12 +20,12 @@ echo "<br>";
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
           integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 </head>
-<body>
+<body style="background-color: #57B8DE">
 <nav>
     <h3><a href="../Controladores/Main_controlador.php">NAVEGATOR</a></h3>
-    <!--<ul>
-        <li><a href="../>Inicias Sesion</a></li>
-    </ul>-->
+    <ul>
+        <li><a href="../Controladores/IniSesion_controlador.php">Inicias Sesion</a></li>
+    </ul>
 </nav>
 
 <div class="contenedorInfoHotel">

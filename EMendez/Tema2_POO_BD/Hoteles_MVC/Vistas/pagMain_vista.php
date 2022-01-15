@@ -1,5 +1,7 @@
 <?php
-//include_once("BD/bd.php");
+session_start();
+$user = $_SESSION["user"];
+$iniTrue = $_SESSION["Ini"];
 /*
 echo "<br>";
 echo "<pre>";
@@ -27,12 +29,22 @@ echo "<br>";
 <body>
 <nav>
     <h3><a href="../Controladores/Main_controlador.php">NAVEGATOR</a></h3>
-    <form>
+    <form action="../Controladores/Main_controlador.php" method="get">
 
     </form>
-    <!--<ul>
-        <li></li>
-    </ul>-->
+    <ul>
+
+        <?php
+        if( $iniTrue==true ) { ?>
+            <li><?php echo $user ?></li>
+            <a href="?cerrarSesion=true"><li id="cerrarSesion">Cerrar Sesion</li></a>
+        <?php
+        } else { ?>
+            <li><a href="../Controladores/IniSesion_controlador.php">Inicio Sesion</a></li>
+        <?php
+        } ?>
+
+    </ul>
 </nav>
 
 <div id="contenedorHoteles" class=" row justify-content-center"><?php

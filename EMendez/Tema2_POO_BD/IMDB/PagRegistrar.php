@@ -1,7 +1,7 @@
 <?php
-include_once ("Clases/bd.php");
+include_once( "Clases/bd.php" );
 
-$conn= new bd();
+$conn = new bd();
 $conn->local();
 ?>
 <!DOCTYPE html>
@@ -34,31 +34,32 @@ $conn->local();
     </div>
 </nav>
 <div class="contenedorRegistrar">
-<h2>Registro</h2>
+    <h2>Registro</h2>
     <form action="PagRegistrar.php" method="post">
         <!--<input name="nombre"  class="nombre" type="text" placeholder="Nombre completo">-->
         <input name="user" class="user" type="text" placeholder="Nombre Usuario" required>
-       <!-- <input name="nacimiento" pattern="[0-9]{4}\-[0-9]{2}\-[0-9]{2}$" class="fecha" type="text" placeholder="anyo-mes-dia">
-        <input name="descripcion" class="descripcion" type="text" placeholder="descripcion">
-        TAMBIEN QUE PUEDA METER UNA IMG -->
-        <input name="correo" pattern="[A-Za-z]+\@[a-z]\.[a-z]" class="correo" placeholder="Correo" required> <!--type="email" -->
+        <!-- <input name="nacimiento" pattern="[0-9]{4}\-[0-9]{2}\-[0-9]{2}$" class="fecha" type="text" placeholder="anyo-mes-dia">
+         <input name="descripcion" class="descripcion" type="text" placeholder="descripcion">
+         TAMBIEN QUE PUEDA METER UNA IMG -->
+        <input name="correo" pattern="[A-Za-z]+\@[a-z]\.[a-z]" class="correo" placeholder="Correo" required>
+        <!--type="email" -->
         <input name="passwd" class="contra" type="password" placeholder="Contrasenya" required>
-        <input name="confirm"class="contra" type="password" placeholder="Repite Contrasenya" required>
+        <input name="confirm" class="contra" type="password" placeholder="Repite Contrasenya" required>
         <input class="reg" type="submit" value="Registrarse">
     </form>
 </div>
 <?php
-$usrValido="";
-$correoValido="";
-$contraValida="";
-if(isset($_POST["user"])){
+$usrValido = "";
+$correoValido = "";
+$contraValida = "";
 
-    if(isset($_POST["user"])){
-        //Me devuelve la longitud del string dado strlen
-        if(strlen($_POST["user"])<45){
-            $usrValido=$_POST["user"];
-        }else{
-            echo "
+
+if( isset( $_POST["user"] ) ) {
+    //Me devuelve la longitud del string dado strlen
+    if( strlen( $_POST["user"] ) < 45 ) {
+        $usrValido = $_POST["user"];
+    } else {
+        echo "
                  <script>
                      window.alert('El nombre de usuario no debe pasar de 45 caracteres');
                  </script>
@@ -68,18 +69,16 @@ if(isset($_POST["user"])){
                     COMO SI ESTUVIERA DEBAJO DEL ALERT
                  -->
                 ";
-        }
     }
 }
 
-if(isset($_POST["correo"])){
 
-    if(isset($_POST["correo"])){
-        //Me devuelve la longitud del string dado strlen
-        if(strlen($_POST["correo"])<150){
-            $correoValido=$_POST["correo"];
-        }else{
-            echo "
+if( isset( $_POST["correo"] ) ) {
+    //Me devuelve la longitud del string dado strlen
+    if( strlen( $_POST["correo"] ) < 150 ) {
+        $correoValido = $_POST["correo"];
+    } else {
+        echo "
                  <script>
                      window.alert('El correo no puede pasar de 150 caracteres');
                  </script>
@@ -90,18 +89,17 @@ if(isset($_POST["correo"])){
                   --> 
                 ";
 
-        }
     }
 }
 
-if(isset($_POST["passwd"])){
 
-    if(isset($_POST["passwd"]) && isset($_POST["confirm"])){
-        if( $_POST["passwd"]==$_POST["confirm"] && strlen($_POST["passwd"])<100 && strlen($_POST["confirm"])<100){
+if( isset( $_POST["passwd"] ) ) {
+    if( isset( $_POST["passwd"] ) && isset( $_POST["confirm"] ) ) {
+        if( $_POST["passwd"]==$_POST["confirm"] && strlen( $_POST["passwd"] ) < 100 && strlen( $_POST["confirm"] ) < 100 ) {
             //Encripto la contraseña con password_hash, recomendada su utilizacion (PHP Manual)
             //HASEO LAS DOS CONTRASEÑAS PARA QUE ESTE PROTEGIDA
-            $contraValida=password_hash($_POST["passwd"],PASSWORD_DEFAULT);
-        }else{
+            $contraValida = password_hash( $_POST["passwd"], PASSWORD_DEFAULT );
+        } else {
             echo "
                <script>
                      window.alert('La contraseña no coincide y/o no puede pasar de 100 caracteres');
@@ -115,9 +113,9 @@ if(isset($_POST["passwd"])){
     }
 }
 
-if(isset($_POST["user"]) && isset($_POST["correo"]) && isset($_POST["passwd"])){
-    if(isset($usrValido) && isset($correoValido) && isset($contraValida)){
-        if($conn->insertUsr($usrValido,$correoValido,$contraValida)){
+if( isset( $_POST["user"] ) && isset( $_POST["correo"] ) && isset( $_POST["passwd"] ) ) {
+    if( isset( $usrValido ) && isset( $correoValido ) && isset( $contraValida ) ) {
+        if( $conn->insertUsr( $usrValido, $correoValido, $contraValida ) ) {
             /*ERROR*/
             //No se puede modificar la información del encabezado: los encabezados ya
             //han sido enviados por (salida se inicio en C:\xampp\htdocs\EMendez\EMendez\Tema2_POO_BD\IMDB\PagRegistrar.php:7
@@ -134,7 +132,7 @@ if(isset($_POST["user"]) && isset($_POST["correo"]) && isset($_POST["passwd"])){
                     COMO SI ESTUVIERA DEBAJO DEL ALERT
                 -->
                 ";
-        }else{
+        } else {
             echo "
                  <script>
                      window.alert('El usuario ya fue registrado');
