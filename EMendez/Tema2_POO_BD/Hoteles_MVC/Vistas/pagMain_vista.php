@@ -25,7 +25,7 @@ echo "<br>";
           integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 </head>
 <body>
-<nav >
+<nav>
     <h3><a href="../Controladores/Main_controlador.php">NAVEGATOR</a></h3>
     <form>
 
@@ -34,21 +34,52 @@ echo "<br>";
         <li></li>
     </ul>-->
 </nav>
-<!--PONER LAS ESTRELLAS, PERO DEJALO PARA LO ULTIMO-->
-<div class="contenedorHoteles row justify-content-center"><?php
-    foreach($hoteles as $hotel){ ?>
+
+<div id="contenedorHoteles" class=" row justify-content-center"><?php
+    foreach( $hoteles as $hotel ) { ?>
         <div class="contenedorHotel">
-            <a href="../Controladores/Hotel_controlador.php?HotelID=<?php echo $hotel->getHotelID(); ?>">
-            <img class="imgHotel" src="../<?php foreach ($hotel->getIMG() as $img){
+        <a href="../Controladores/Hotel_controlador.php?HotelID=<?php
+        echo $hotel->getHotelID(); ?>">
+            <img class="imgHotel" src="../<?php
+            foreach( $hotel->getIMG() as $img ) {
                 echo $img["IMG"];
             } ?>">
-            <p class="calificacionHotel"><?php echo $hotel->getCalificacion(); ?>/10</p>
-            <p class="percioHotel">Desde <span ><?php echo $hotel->getPrecio(); ?>€</span> por noche</p>
-            <p class="ubicacionHotel"><?php echo $hotel->getUbicacion(); ?></p>
-            <h2 class="nomHotel"><?php echo $hotel->getNombre(); ?></h2>
-            </a>
+            <?php
+            $calificacion = $hotel->getCalificacion();
+            if( $calificacion > 7 && $calificacion <= 10 ) {
+                ?><p class="calificacionHotel" style="background-color:green"><?php
+                echo $calificacion ?>/10</p><?php
+            } else if( $calificacion >= 5 && $calificacion <= 7 ) {
+                ?><p class="calificacionHotel" style="background-color:#d0be00"><?php
+                echo $calificacion ?>/10</p><?php
+            } else {
+                ?><p class="calificacionHotel" style="background-color:red"><?php
+                echo $calificacion ?>/10</p><?php
+            }
+            ?>
+            <p class="percioHotel">Desde <span><?php
+                    echo $hotel->getPrecio(); ?>€</span> por noche</p>
+            <p class="ubicacionHotel"><?php
+                echo $hotel->getUbicacion(); ?></p>
+            <p class="estrellasHotel"> <?php
+                $estrellas = $hotel->getEstrellas();
+                if( $estrellas==1 ) {
+                    echo "⭐";
+                } else if( $estrellas==2 ) {
+                    echo "⭐⭐";
+                } else if( $estrellas==3 ) {
+                    echo "⭐⭐⭐";
+                } else if( $estrellas==4 ) {
+                    echo "⭐⭐⭐⭐";
+                } else {
+                    echo "⭐⭐⭐⭐⭐";
+                } ?></p>
+            <h4 class="nomHotel"><?php
+                echo $hotel->getNombre(); ?></h4>
+
+        </a>
         </div><?php
-    }?>
+    } ?>
 </div>
 
 </body>
