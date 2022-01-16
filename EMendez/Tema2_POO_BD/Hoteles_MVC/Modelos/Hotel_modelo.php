@@ -22,6 +22,7 @@ class Hotel_modelo{
         $sql="SELECT h.HotelID,h.Nombre,h.Precio,h.Calificacion,h.Descripcion,h.Ubicacion,h.Estrellas,h.Direccion,
             (SELECT JSON_ARRAYAGG(
             JSON_OBJECT(
+                
                 'IMG',hm.img_url
             )
         )FROM Hotel_Multimedia hm JOIN Hoteles h on hm.HotelID=h.HotelID WHERE h.HotelID=".$HotelID.") AS IMG

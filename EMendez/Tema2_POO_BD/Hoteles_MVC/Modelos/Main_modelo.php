@@ -34,6 +34,7 @@ class Main_modelo
             )
         )FROM Hotel_Multimedia hm JOIN Hoteles h1 on hm.HotelID=h1.HotelID WHERE h1.HotelID = h2.HotelID) AS IMG
             FROM Hoteles h2 ";
+
         $this->bd->default();
         $result = $this->bd->query($sql);
         $this->bd->close();

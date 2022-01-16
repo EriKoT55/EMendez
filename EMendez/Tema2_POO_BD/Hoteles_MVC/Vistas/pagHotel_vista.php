@@ -59,7 +59,8 @@ echo "<br>";
 <div class="contenedorInfoHotel">
     <div class="contenedorSuperior">
         <?php
-        $calificacion = $hotel[0]->getCalificacion();
+        foreach($hotelArrayOBJ as $hotel){
+        $calificacion = $hotel->getCalificacion();
         if( $calificacion > 7 && $calificacion <= 10 ) {
             ?><p class="calificacionHotel" style="background-color:green"><?php
             echo $calificacion ?>/10</p><?php
@@ -72,9 +73,9 @@ echo "<br>";
         }
         ?>
         <h1 class="nomHotel"><?php
-            echo $hotel[0]->getNombre(); ?></h1>
+            echo $hotel->getNombre(); ?></h1>
         <p class="estrellasHotel"> <?php
-            $estrellas = $hotel[0]->getEstrellas();
+            $estrellas = $hotel->getEstrellas();
             if( $estrellas==1 ) {
                 echo "⭐";
             } else if( $estrellas==2 ) {
@@ -87,22 +88,20 @@ echo "<br>";
                 echo "⭐⭐⭐⭐⭐";
             } ?></p>
         <p class="ubicacionHotel"><?php
-            echo $hotel[0]->getUbicacion() ?></p>
+            echo $hotel->getUbicacion() ?></p>
         <p class="direccionHotel"><?php
-            echo $hotel[0]->getDireccion() ?></p>
+            echo $hotel->getDireccion() ?></p>
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-8">
                 <div id="carouselExampleControls" class="carousel slide carousel-fade" data-ride="carousel">
+
                     <div class="carousel-inner"><?php
-                        for( $i = 0; $i < count( $hotel[0]->getIMG() ); $i++ ) {
-                            ?>
-                            <div class="carousel-item active">
-                            <img class="d-block w-50" width="850px" height="700px" src="../<?php
-                            foreach( $hotel[0]->getIMG() as $img ) {
-                                echo $img["IMG"];
-                            } ?>">
+                        foreach( $hotel->getIMG() as $img ) {
+                            ?>                                                  <!--IF CORTO-->
+                            <div class="carousel-item <?php echo (  $hotel->getIMG()[0] == $img ? "active" :"")?>">
+                            <img class="d-block w-100" width="850px" height="700px" src="../<?php echo $img["IMG"]; ?>">
                             </div><?php
                         } ?>
                     </div>
@@ -121,9 +120,10 @@ echo "<br>";
         </div>
     </div>
     <p class="precioHotel"><?php
-        echo $hotel[0]->getPrecio(); ?>€</p>
+        echo $hotel->getPrecio(); ?>€</p>
     <p class="descripcionHotel"><?php
-        echo $hotel[0]->getDescripcion(); ?></p>
+        echo $hotel->getDescripcion();
+        }?></p>
 
 </div>
 

@@ -2,12 +2,8 @@
 session_start();
 $user = $_SESSION["user"];
 $inicio = $_SESSION["Ini"];
-/*
-echo "<br>";
-echo "<pre>";
-var_dump($hoteles);
-echo "<br>";
-*/
+
+
 /** COMBINACION DE COLORES
  * https://color.adobe.com/es/create/color-wheel
  */
@@ -61,8 +57,8 @@ echo "<br>";
         <a href="../Controladores/Hotel_controlador.php?HotelID=<?php
         echo $hotel->getHotelID(); ?>">
             <img class="imgHotel" src="../<?php
-            foreach( $hotel->getIMG() as $img ) {
-                echo $img["IMG"];
+            foreach( $hotel->getIMG()[0] as $img ) {
+                echo $img;
             } ?>">
             <?php
             $calificacion = $hotel->getCalificacion();
