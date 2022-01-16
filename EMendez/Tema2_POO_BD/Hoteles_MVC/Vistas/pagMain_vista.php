@@ -1,14 +1,14 @@
 <?php
 session_start();
 $user = $_SESSION["user"];
-$iniTrue = $_SESSION["Ini"];
+$inicio = $_SESSION["Ini"];
 /*
 echo "<br>";
 echo "<pre>";
 var_dump($hoteles);
 echo "<br>";
 */
-/** COMINACION DE COLORES
+/** COMBINACION DE COLORES
  * https://color.adobe.com/es/create/color-wheel
  */
 ?>
@@ -26,24 +26,32 @@ echo "<br>";
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
           integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 </head>
-<body>
-<nav>
-    <h3><a href="../Controladores/Main_controlador.php">NAVEGATOR</a></h3>
-    <form action="../Controladores/Main_controlador.php" method="get">
+<body id="body">
 
-    </form>
-    <ul>
+<nav id="nav" class="navbar navbar-expand-lg ">
 
+    <h3 id="h3"><a href="../Controladores/Main_controlador.php">NAVEGATOR</a></h3>
+
+    <ul class="nav nav-tabs mr-2">
         <?php
-        if( $iniTrue==true ) { ?>
-            <li><?php echo $user ?></li>
-            <a href="?cerrarSesion=true"><li id="cerrarSesion">Cerrar Sesion</li></a>
-        <?php
+        if( $inicio==true ) { ?>
+            <li id="dropLI" class="nav-item dropdown ">
+                <a id="dropA" class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown"
+                   aria-expanded="false">
+                    <?php
+                    echo $user ?>
+                </a>
+                <div id="dropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a id="divDropA" class="dropdown-item" href="?cerrarSesion=true">Cerrar Sesion</a>
+                </div>
+            </li>
+            <?php
         } else { ?>
-            <li><a href="../Controladores/IniSesion_controlador.php">Inicio Sesion</a></li>
-        <?php
+            <li id="LI" class="nav-item"><a id="A" class="nav-link active" href="../Controladores/IniSesion_controlador.php">Inicio
+                    Sesion</a></li>
+            <?php
         } ?>
-
     </ul>
 </nav>
 
@@ -94,5 +102,12 @@ echo "<br>";
     } ?>
 </div>
 
+<!-- SCRIPTS BOOTSTRAP-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
 </body>
 </html>

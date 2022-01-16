@@ -44,10 +44,10 @@
     <div class="row justify-content-center ">
         <div id="contenedorIni" class="col-sm-6 mt-5 ">
             <h1 class="text-center mt-2 mb-4">Inicio Session</h1>
-
+            <!-------  FORM  ------->
             <form action="../Controladores/IniSesion_controlador.php" method="post">
-                <div class="form-group">
-                    <label for="contraseñya">Nombre Usuario</label>
+                <div >
+                    <label for="usuario">Nombre Usuario</label>
                     <input name="usuario" type="text" class="form-control" id="usuario">
                 </div>
                 <div class="form-group">

@@ -1,32 +1,76 @@
-body{
+#body{
     margin: 0;
     padding: 0;
     background-color: #CDEBF7;
     font-family: 'Readex Pro', sans-serif;
 }
 /******************* NAV ********************/
-nav{
-    margin-bottom: 30px;
+#nav{
+    background-color: #57B8DE;
     width: 100%;
     height: 80px;
-    background-color: #57B8DE;
     box-shadow: #41565E 0px 0px 10px 3px,#41565E 0px 0px 13px 3px inset;
-
+    display: flex;
+    justify-content:space-between;
 }
-nav h3{
-    margin: 0;
-    padding-top: 20px;
-    padding-left: 15px;
+/*** H3 ***/
+#nav #h3{
+    margin-right: 25px;
 }
-nav h3 a{
+#nav #h3 a{
     text-decoration: none;
-    color: white;
+    color:white;
     font-weight: bold;
     text-shadow: black 0px 2px 3px;
 }
-nav h3 a:hover{
+#nav #h3 a:hover{
     color: #41565E;
     text-decoration: none;
+}
+/*** LI ***/
+
+#nav ul #LI #A{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    background-color: #57B8DE;
+    text-shadow: black 1px 2px 7px;
+    box-shadow: black 1px 1px 5px 1px inset;
+}
+#nav ul #LI:hover #A{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    background-color: #44b5e5;
+}
+
+/*** DROP LI ***/
+#nav ul #dropLI #dropA{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    background-color: #57B8DE;
+    text-shadow: black 1px 2px 7px;
+    box-shadow: black 1px 1px 5px 1px inset;
+}
+#nav ul #dropLI #dropdown{
+    background-color: #57B8DE;
+    border-radius: 5px;
+    border: 1px solid white;
+    text-shadow: black 1px 2px 7px;
+    box-shadow: black 1px 1px 5px 1px inset;
+}
+#nav ul #dropLI #dropdown a{
+    border-radius: 5px;
+    color: white;
+}
+#nav ul #dropLI #dropdown:hover a{
+    background-color:#57B8DE ;
+    color: white;
+    /*PARA QUE NO SE NOTE EL SOMBREADO DEL HOVER POR DEFECTO DEL BOOTSTRAP*/
+    width: 1px;
+    margin-left:7px;
+    border-radius: 5px;
 }
 /******************** MAQUETACION HOTEL ********************/
 #contenedorHoteles{

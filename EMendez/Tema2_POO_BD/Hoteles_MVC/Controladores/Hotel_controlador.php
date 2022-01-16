@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(0);
 require_once( "../Modelos/Hotel_modelo.php" );
 //require_once("../Vistas/pagMain_vista.php");
