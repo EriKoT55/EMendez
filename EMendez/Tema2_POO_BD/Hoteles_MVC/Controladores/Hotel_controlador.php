@@ -13,6 +13,12 @@ if( isset( $HotelID ) ) {
     $hotelArrayOBJ = $conn->getHotel( $HotelID );
 }
 
+/*
+echo "<br>";
+echo "<pre>";
+var_dump($hotelArrayOBJ);
+echo "<br>";
+*/
 if(isset($_GET["cerrarSesion"])){
     session_unset();
     session_destroy();
@@ -20,5 +26,5 @@ if(isset($_GET["cerrarSesion"])){
     //header("Location:../Controladores/Hotel_controlador.php?HotelID=".$HotelID."");
 }
 
-require_once( "../Vistas/pagHotel_vista.php" );
+require_once( "../Vistas/Hotel_vista.php" );
 ?>

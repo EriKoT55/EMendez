@@ -27,11 +27,11 @@ echo "<br>";
 </head>
 <body id="body">
 
-<nav id="nav" class="navbar navbar-expand-lg ">
+<nav id="nav" class="navbar navbar-expand-lg">
 
-    <h3 id="h3"><a href="../Controladores/Main_controlador.php">NAVEGATOR</a></h3>
+    <h3 id="h3" class="col-4  col-sm-6"><a href="../Controladores/Main_controlador.php">NAVEGATOR</a></h3>
 
-    <ul class="nav nav-tabs mr-2">
+    <ul class="nav nav-tabs mr-2  ">
         <?php
         if( $inicio==true ) { ?>
             <li id="dropLI" class="nav-item dropdown ">
@@ -56,25 +56,25 @@ echo "<br>";
 
 </nav>
 
-<div class="contenedorInfoHotel">
-    <div class="contenedorSuperior">
+<div id="contenedorInfoHotel" class="container">
+    <div id="contenedorSuperior" class="row justify-content-center">
         <?php
         foreach($hotelArrayOBJ as $hotel){
         $calificacion = $hotel->getCalificacion();
         if( $calificacion > 7 && $calificacion <= 10 ) {
-            ?><p class="calificacionHotel" style="background-color:green"><?php
+            ?><p id="calificacionHotel" class="col-4 col-sm-3 col-md-2 col-lg-2 " style="background-color:green"><?php
             echo $calificacion ?>/10</p><?php
         } else if( $calificacion >= 5 && $calificacion <= 7 ) {
-            ?><p class="calificacionHotel" style="background-color:yellow"><?php
+            ?><p id="calificacionHotel" class="col-4 col-sm-3 col-md-2 col-lg-2 " style="background-color:yellow"><?php
             echo $calificacion ?>/10</p><?php
         } else {
-            ?><p class="calificacionHotel" style="background-color:red"><?php
+            ?><p id="calificacionHotel" class="col-4 col-sm-3 col-md-2 col-lg-2 " style="background-color:red"><?php
             echo $calificacion ?>/10</p><?php
         }
         ?>
-        <h1 class="nomHotel"><?php
+        <h1 id="nomHotel" class="col-10 col-sm-12 col-md-7 col-lg-6 text-center"><?php
             echo $hotel->getNombre(); ?></h1>
-        <p class="estrellasHotel"> <?php
+        <p id="estrellasHotel" class="col-3 col-sm-10 col-md-1 col-lg-1  text-center"> <?php
             $estrellas = $hotel->getEstrellas();
             if( $estrellas==1 ) {
                 echo "⭐";
@@ -87,21 +87,20 @@ echo "<br>";
             } else {
                 echo "⭐⭐⭐⭐⭐";
             } ?></p>
-        <p class="ubicacionHotel"><?php
-            echo $hotel->getUbicacion() ?></p>
-        <p class="direccionHotel"><?php
-            echo $hotel->getDireccion() ?></p>
+    </div>
+    <div id="contenedor2Superior" class="row col-12 col-sm-12 col-md-12 col-lg-12">
+        <p class="col-10 col-sm-12 col-md-6 col-lg-4 text-center"><?php
+            echo $hotel->getUbicacion()."&nbsp;&nbsp;&nbsp;".$hotel->getDireccion() ?></p>
     </div>
     <div class="container">
-        <div class="row">
-            <div class="col-sm-8">
+        <div class="row justify-content-center">
+            <div class=" col-12 col-sm-12 col-md-10 col-lg-8">
                 <div id="carouselExampleControls" class="carousel slide carousel-fade" data-ride="carousel">
-
                     <div class="carousel-inner"><?php
                         foreach( $hotel->getIMG() as $img ) {
                             ?>                                                  <!--IF CORTO-->
                             <div class="carousel-item <?php echo (  $hotel->getIMG()[0] == $img ? "active" :"")?>">
-                            <img class="d-block w-100" width="850px" height="700px" src="../<?php echo $img["IMG"]; ?>">
+                            <img class="d-block w-100" width="450px" height="500px" src="../<?php echo $img["IMG"]; ?>">
                             </div><?php
                         } ?>
                     </div>
@@ -118,8 +117,14 @@ echo "<br>";
                 </div>
             </div>
         </div>
-    </div>
-    <p class="precioHotel"><?php
+    </div><?php
+    $numhabitaciones=0;
+    foreach($hotel->getHabitaciones() as $habitaciones) {
+        $numhabitaciones = $habitaciones["habitaciones"] ;
+    }
+    ?>
+    <p class="habitacionesHotel"><?php echo "Numero de habitaciones: ".$numhabitaciones ?></p>
+    <p id="precioHotel"><?php
         echo $hotel->getPrecio(); ?>€</p>
     <p class="descripcionHotel"><?php
         echo $hotel->getDescripcion();

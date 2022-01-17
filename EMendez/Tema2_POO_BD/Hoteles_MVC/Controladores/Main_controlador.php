@@ -11,6 +11,6 @@ if(isset($_GET["cerrarSesion"])){
     session_destroy();
 }
 
-require_once ("../Vistas/pagMain_vista.php");
+require_once ("../Vistas/Main_vista.php");
 
 ?>

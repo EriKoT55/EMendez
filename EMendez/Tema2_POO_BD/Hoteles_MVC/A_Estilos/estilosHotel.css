@@ -77,24 +77,21 @@
 
 /******************* Contenedor Hotel ********************/
 
-.contenedorInfoHotel{
-    margin: 50px;
+#contenedorInfoHotel{
+    margin-top: 30px;
     padding: 50px;
     background-color: #57B8DE;
     border-radius:5px;
-    overflow: hidden;
+
 }
-.contenedorInfoHotel .contenedorSuperior{
-    width: 500px;
+#contenedorInfoHotel #contenedorSuperior{
     color:white;
     font-weight: bold;
     text-shadow: black 0px 2px 3px;
+    margin-bottom: 15px;
 }
-.contenedorInfoHotel .contenedorSuperior .calificacionHotel{
-    margin:0;
-    padding-left: 5px;
-    padding-right: 5px;
-    width: 100px;
+#contenedorInfoHotel #contenedorSuperior #calificacionHotel{
+    height: 60px;
     text-align: center;
     font-size: xx-large;
     font-weight: bold;
@@ -103,25 +100,20 @@
     text-shadow: black 0px 2px 2px;
     box-shadow: black 1px 2px 5px 4px;
     border-radius: 35px;
+    padding-top: 5px;
 }
-.contenedorInfoHotel .contenedorSuperior .nomHotel{
-    margin-left:10px;
+
+#contenedorInfoHotel #contenedorSuperior #estrellasHotel{
+    margin-top: 15px;
 }
-.contenedorInfoHotel .contenedorSuperior .ubicacionHotel{
-    margin-left:110px;
-    margin-top:-20px;
-}
-.contenedorInfoHotel .contenedorCentral  {
+#contenedorInfoHotel #contenedor2Superior {
+    color:white;
+    font-size: large;
+    text-shadow: black 0px 2px 3px;
 
 }
-.contenedorInfoHotel .contenedorCentrar .imgHotel {
-    width: 400px;
-    height: 550px;
-}
-.contenedorInfoHotel .contenedorCentrar .precioHotel {
-    position: relative;
-    bottom: 700px;
-    left: 350px;
+
+#contenedorInfoHotel #precioHotel {
     color: #d7b300;
     font-weight: bold;
     font-size: x-large;

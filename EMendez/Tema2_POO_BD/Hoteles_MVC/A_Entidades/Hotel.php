@@ -2,7 +2,7 @@
 
 class Hotel{
 
-    private $HotelID, $Nombre, $Precio, $Calificacion,$IMG, $Descripcion, $Ubicacion,$Estrellas,$Direccion;
+    private $HotelID, $Nombre, $Precio, $Calificacion,$IMG, $Descripcion, $Ubicacion,$Estrellas,$Direccion,$Habitaciones;
 
     public function __construct($HotelID, $Nombre, $Precio, $Calificacion, $Descripcion, $Ubicacion,$Estrellas,$Direccion){
 
@@ -160,6 +160,24 @@ class Hotel{
     {
         $this->Direccion = $Direccion;
     }
+
+    /**SI PONGO : array al no estar todos los campos llenos de todos los hoteles peta
+     * @return array
+     */
+    public function getHabitaciones()
+    {
+        return $this->Habitaciones;
+    }
+
+    /**
+     * @param array $Habitaciones
+     * @return void
+     */
+    public function setHabitaciones( $Habitaciones ):void
+    {
+        $this->Habitaciones = $Habitaciones;
+    }
+
 
 }
 
