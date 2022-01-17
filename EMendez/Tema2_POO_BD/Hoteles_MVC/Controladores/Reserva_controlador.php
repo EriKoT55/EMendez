@@ -52,8 +52,9 @@ if(isset($huespedes)){
 if(isset($entrada) && isset($salida) && isset($huespedes)){
     if(isset($entradaValid) && isset($salidaValid) && isset($huespedesValid)){
         if($conn/*-> FUNCION */){
-
+            header("Location: ../Controladores/Main_controlador.php");
         }
+
     }
 }
 

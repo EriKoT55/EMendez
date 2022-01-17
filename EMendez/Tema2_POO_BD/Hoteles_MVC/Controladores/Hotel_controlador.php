@@ -22,8 +22,7 @@ echo "<br>";
 if(isset($_GET["cerrarSesion"])){
     session_unset();
     session_destroy();
-    header("Location:../Controladores/Main_controlador.php");
-    //header("Location:../Controladores/Hotel_controlador.php?HotelID=".$HotelID."");
+    header("Location:../Controladores/Hotel_controlador.php?HotelID=".$HotelID."");
 }
 
 require_once( "../Vistas/Hotel_vista.php" );

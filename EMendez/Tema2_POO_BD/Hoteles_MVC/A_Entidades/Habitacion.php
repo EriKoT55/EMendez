@@ -11,6 +11,7 @@ class Habitacion
      * @param $numHuespedes
      * @param $numHabitacion
      */
+
     public function __construct( $HabitacionID, $HotelID, $numHuespedes, $numHabitacion )
     {
         $this->HabitacionID = $HabitacionID;

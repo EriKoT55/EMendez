@@ -42,14 +42,12 @@ echo "<br>";
                     echo $user ?>
                 </a>
                 <div id="dropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a id="divDropA" class="dropdown-item" href="?cerrarSesion=true">Cerrar Sesion</a>
+                    <a id="divDropA" class="dropdown-item" href="?cerrarSesion=true&HotelID=<?php echo $hotelArrayOBJ[0]->getHotelID()  ?>">Cerrar Sesion</a>
                 </div>
             </li>
             <?php
         } else { ?>
-            <li id="LI" class="nav-item"><a id="A" class="nav-link active"
-                                            href="../Controladores/IniSesion_controlador.php">Inicio
-                    Sesion</a></li>
+            <li id="LI" class="nav-item"><a id="A" class="nav-link active" href="../Controladores/IniSesion_controlador.php">Inicio Sesion</a></li>
             <?php
         } ?>
     </ul>
@@ -129,7 +127,11 @@ echo "<br>";
     <p class="descripcionHotel"><?php
         echo $hotel->getDescripcion();
         }?></p>
-
+    <?php if($inicio==true){ ?>
+        <p><a href="../Controladores/Reserva_controlador.php">Reserva</a></p>
+    <?php }else{ ?>
+        <p><a href="../Controladores/IniSesion_controlador.php">Reserva</a></p>
+    <?php } ?>
 </div>
 
 <!-- SCRIPTS BOOTSTRAP-->

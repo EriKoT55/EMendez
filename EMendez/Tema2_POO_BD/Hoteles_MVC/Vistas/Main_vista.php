@@ -54,8 +54,7 @@ $inicio = $_SESSION["Ini"];
 <div id="contenedorHoteles" class=" row justify-content-center"><?php
     foreach( $hoteles as $hotel ) { ?>
         <div class="contenedorHotel">
-        <a href="../Controladores/Hotel_controlador.php?HotelID=<?php
-        echo $hotel->getHotelID(); ?>">
+        <a href="../Controladores/Hotel_controlador.php?HotelID=<?php echo $hotel->getHotelID(); ?>">
             <img class="imgHotel" src="../<?php
             foreach( $hotel->getIMG()[0] as $img ) {
                 echo $img;
