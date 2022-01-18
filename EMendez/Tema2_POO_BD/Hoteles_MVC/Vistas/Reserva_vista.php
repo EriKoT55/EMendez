@@ -50,7 +50,7 @@ PREGUNTAR SI ES POSIBLE DAR ALGO DE INFORMACION DEL HOTEL EN LA RESERVA SIN SER 
                     <label for="salida">Salida</label>
                     <input type="date" id="salida" name="salida" class="form-control"
                            min="<?php
-                           echo $minDate2 ?>" max="2022-12-31" required>
+                           echo date( "Y-m-d" ) ?>" max="2022-12-31" required>
                 </div>
                 <div class="form-group">
                     <label for="huespedes">De cuantas personas estamos hablando:</label>

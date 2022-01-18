@@ -34,6 +34,7 @@ class Registrar_modelo
         } else {
             return false;
         }
+
         $this->bd->close();
 
     }

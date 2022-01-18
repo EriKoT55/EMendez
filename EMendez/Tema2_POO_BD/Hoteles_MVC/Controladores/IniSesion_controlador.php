@@ -81,4 +81,5 @@ if( isset( $user ) && isset( $correo ) && isset( $contra ) ) {
 }
 
 require_once( "../Vistas/IniSesion_vista.php" );
+
 ?>

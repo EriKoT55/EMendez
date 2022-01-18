@@ -20,21 +20,22 @@ $salidaValid="";
 $huespedesValid="";
 
 if(isset($entrada)){
-    if(strlen($entrada)<15){
+    if(isset($entrada)){
         $entradaValid=$entrada;
     }else{
         echo "<script>
-                windows.alert('');
+                window.alert('');
             </script>";
+
     }
 }
 
 if(isset($salida)){
-    if(strlen($salida)<15){
+    if($salida>=$entradaValid){
         $salidaValid=$salida;
     }else{
         echo "<script>
-                windows.alert('');
+                window.alert('Se introdujo una fecha incorrecta');
             </script>";
     }
 }
@@ -44,7 +45,7 @@ if(isset($huespedes)){
         $huespedesValid=$huespedes;
     }else {
         echo "<script>
-                windows.alert('');
+                window.alert('');
             </script>";
     }
 }
@@ -52,7 +53,7 @@ if(isset($huespedes)){
 if(isset($entrada) && isset($salida) && isset($huespedes)){
     if(isset($entradaValid) && isset($salidaValid) && isset($huespedesValid)){
         if($conn/*-> FUNCION */){
-            header("Location: ../Controladores/Main_controlador.php");
+            //header("Location: ../Controladores/Main_controlador.php");
         }
 
     }
