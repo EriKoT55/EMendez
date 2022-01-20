@@ -52,10 +52,20 @@ if(isset($huespedes)){
 
 if(isset($entrada) && isset($salida) && isset($huespedes)){
     if(isset($entradaValid) && isset($salidaValid) && isset($huespedesValid)){
-        if($conn/*-> FUNCION */){
-            //header("Location: ../Controladores/Main_controlador.php");
-        }
-
+        /*if($conn->ComprobarDisponibilidad($entradaValid,$salidaValid,$huespedesValid)){
+            if($conn->InsertReserv($entradaValid,$salidaValid,$huespedesValid)){
+                header("Location: ../Controladores/Main_controlador.php");
+            }
+        }else{
+            echo "<script>
+                    window.alert('No hay disponibilidad para esas fechas');
+                </script>";
+        }*/
+        $fechaSalida=new DateTime($salidaValid);
+        $fechaEntrada= new DateTime($entradaValid);
+/* https://stackoverflow.com/questions/2040560/finding-the-number-of-days-between-two-dates */
+    $result= $fechaEntrada->diff($fechaSalida)->format("%r%a");
+    echo $result;
     }
 }
 

@@ -20,7 +20,6 @@ class Reserva_modelo
         $sql="INSERT INTO (Fecha_entrada,Fecha_salida,Huespedes) VALUES (".$entrada.",".$salida.",".$huespedes.")";
 
 
-
         $this->bd->default();
 
         if($this->bd->query($sql)==true){
@@ -33,12 +32,21 @@ class Reserva_modelo
 
     }
 
-    public function ComprobarDisponibilidad(){
+    public function ComprobarDisponibilidad($entrada,$salida,$huespedes){
         /** Necesito ir sumando uno en la Fecha_entrada hasta llegar a Fecha_salida  **/
-        $sql="";
 
 
+        $sql="SELECT hr.*,hh.* FROM Hotel_Reserva hr 
+                JOIN Hotel_Habitacion hh on hr.HotelID=hh.HotelID";
+        $this->bd->default();
+        $result=$this->bd->query($sql);
 
+/** entre DateTime metere la feha salida y entrada */
+        $fechaSalida=new DateTime();
+        $fechaEntrada= new DateTime();
+        /* https://stackoverflow.com/questions/2040560/finding-the-number-of-days-between-two-dates */
+        $result= $fechaEntrada->diff($fechaSalida)->format("%r%a");
+        echo $result;
     }
 
 }
