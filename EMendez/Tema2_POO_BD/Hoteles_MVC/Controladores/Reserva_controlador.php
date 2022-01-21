@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once ("../Modelos/Reserva_modelo.php");
 /**
  * TENGO PENSADO QUE CUANDO SELECCIONES EL DIA DE ENTRADA, YA NO PUEDAS SELECCIONAR
@@ -52,20 +53,16 @@ if(isset($huespedes)){
 
 if(isset($entrada) && isset($salida) && isset($huespedes)){
     if(isset($entradaValid) && isset($salidaValid) && isset($huespedesValid)){
-        /*if($conn->ComprobarDisponibilidad($entradaValid,$salidaValid,$huespedesValid)){
-            if($conn->InsertReserv($entradaValid,$salidaValid,$huespedesValid)){
+        if($conn->ComprobarDisponibilidad($entradaValid,$salidaValid,$_SESSION["hotelID"],$huespedesValid)){
+            if($conn->InsertReserv($entradaValid,$salidaValid,"",$_SESSION["userID"],$huespedesValid)){
                 header("Location: ../Controladores/Main_controlador.php");
             }
         }else{
             echo "<script>
                     window.alert('No hay disponibilidad para esas fechas');
                 </script>";
-        }*/
-        $fechaSalida=new DateTime($salidaValid);
-        $fechaEntrada= new DateTime($entradaValid);
-/* https://stackoverflow.com/questions/2040560/finding-the-number-of-days-between-two-dates */
-    $result= $fechaEntrada->diff($fechaSalida)->format("%r%a");
-    echo $result;
+        }
+
     }
 }
 

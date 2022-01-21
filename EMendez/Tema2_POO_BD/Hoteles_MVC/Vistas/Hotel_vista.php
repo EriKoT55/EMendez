@@ -2,6 +2,7 @@
 session_start();
 $user = $_SESSION["user"];
 $inicio = $_SESSION["Ini"];
+$_SESSION["hotelID"]=$hotelArrayOBJ[0]->getHotelID();
 /*
 echo "<br>";
 echo "<pre>";
