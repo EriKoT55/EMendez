@@ -40,7 +40,7 @@ class Reserva_modelo
         $result=$this->bd->query( $sql );
 
 
-        //NO UTILIZADA TODAVIA
+        //NO UTILIZADA TODAVIAA
         //$arrHabiResv=$resultQ->fetch_all(MYSQLI_ASSOC);
 
 
