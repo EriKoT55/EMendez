@@ -12,15 +12,10 @@ class Reserva_modelo
         $this->bd = new bd();
     }
 
-    /** INSERTAR RESERVA POR FECHA_ENTRADA, FECHA_SALIDA Y HUESPEDES
-     *  COMPROBAR SI ES POSIBLE LA RESERVA, NO SE SI EN LA MISMA FUNCION O EN OTRA
-     */
-
     public function InsertReserv( $entrada, $salida, $usuarioID, $huespedes ) : bool
     {
 
         $sql = "INSERT INTO (Fecha_entrada,Fecha_salida,UsuarioID,Huespedes) VALUES (" . $entrada . "," . $salida . "," . $usuarioID . "," . $huespedes . ")";
-
 
         $this->bd->default();
 
