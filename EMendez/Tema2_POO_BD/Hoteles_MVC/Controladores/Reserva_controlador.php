@@ -54,7 +54,15 @@ if(isset($huespedes)){
 if(isset($entrada) && isset($salida) && isset($huespedes)){
     if(isset($entradaValid) && isset($salidaValid) && isset($huespedesValid)){
         if($conn->ComprobarDisponibilidad($entradaValid,$salidaValid,$_SESSION["hotelID"],$huespedesValid)){
-            if($conn->InsertReserv($entradaValid,$salidaValid,"",$_SESSION["userID"],$huespedesValid)){
+
+            if($conn->InsertReserv($entradaValid,$salidaValid,$_SESSION["userID"],$huespedesValid)){
+
+                $numHabitacion=$conn->numHabitacion($entradaValid, $salidaValid, $_SESSION["hotelID"], $_SESSION["userID"], $huespedesValid);
+
+                echo "<script>
+                    window.alert(".$numHabitacion.");
+                </script>";
+
                 header("Location: ../Controladores/Main_controlador.php");
             }
         }else{

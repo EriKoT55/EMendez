@@ -119,7 +119,8 @@ echo "<br>";
     </div><?php
     $numhabitaciones=0;
     foreach($hotel->getHabitaciones() as $habitaciones) {
-        $numhabitaciones = $habitaciones["habitaciones"] ;
+        $numhabitaciones++;
+         $habitaciones["habitaciones"] ;
     }
     ?>
     <p class="habitacionesHotel"><?php echo "Numero de habitaciones: ".$numhabitaciones ?></p>

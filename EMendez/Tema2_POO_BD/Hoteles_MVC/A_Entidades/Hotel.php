@@ -161,6 +161,7 @@ class Hotel{
         $this->Direccion = $Direccion;
     }
 
+    //ESTO ES UNA CERDADA LO QUE HE HECHO
     /**SI PONGO : array al no estar todos los campos llenos de todos los hoteles peta
      * @return array
      */
