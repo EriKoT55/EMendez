@@ -1,6 +1,6 @@
 <?php
 require_once( "../BD/bd.php" );
-
+//asdf
 class Reserva_modelo
 {
 
