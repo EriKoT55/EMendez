@@ -54,7 +54,7 @@ if(isset($huespedes)){
 if(isset($entrada) && isset($salida) && isset($huespedes)){
     if(isset($entradaValid) && isset($salidaValid) && isset($huespedesValid)){
         if($conn->ComprobarDisponibilidad($entradaValid,$salidaValid,$_SESSION["hotelID"],$huespedesValid)){
-
+                //COMRPOBAR DISPONIBILIDAD DEVOLVERA UN ALERT CON EL NUMERO DE LA HABITACION
             if($conn->InsertReserv($entradaValid,$salidaValid,$_SESSION["userID"],$huespedesValid)){
 
                 $numHabitacion=$conn->numHabitacion($entradaValid, $salidaValid, $_SESSION["hotelID"], $_SESSION["userID"], $huespedesValid);
