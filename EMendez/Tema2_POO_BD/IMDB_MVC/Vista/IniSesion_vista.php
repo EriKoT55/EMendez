@@ -54,7 +54,7 @@
                     <input name="correo" type="email" class="form-control" id="correo" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
-                    <label for="contraseñya">Contraseña</label>
+                    <label for="contrasenya">Contraseña</label>
                     <input name="contrasenya" type="password" class="form-control" id="contrasenya">
                 </div>
                 <div>

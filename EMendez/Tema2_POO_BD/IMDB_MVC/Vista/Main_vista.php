@@ -106,7 +106,9 @@ error_reporting(0);
     </div>
 
     <!--HACER INICIO SESSION-->
-
+    <ul>
+        <li></li>
+    </ul>
 </nav>
 <div class="contenedor"><?php
     foreach ( $ArrObjPeli as $pelis => $arrPelis){?>

@@ -24,4 +24,3 @@ class bd extends mysqli{
 }
 
 ?>
-
