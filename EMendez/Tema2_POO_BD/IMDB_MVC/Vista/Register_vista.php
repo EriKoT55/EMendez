@@ -19,7 +19,7 @@
         #contenedorIni {
             background-color: #54A5C4;
             border-radius: 10px;a
-            padding-bottom: 15px;
+        padding-bottom: 15px;
             font-weight: bold;
         }
 
