@@ -26,7 +26,29 @@
         <td><?php echo $country->getCode(); ?></td>
         <td><?php echo $country->getName(); ?></td>
         <td><?php echo $country->getPopulation(); ?></td>
+        <td><?php echo $country->getGNP(); ?></td>
+        <td><?php echo $country->getCapital(); ?></td>
+        <td><?php echo $country->getUserid(); ?></td>
+        <td><?php
+            $contadorL=0;
+            foreach ( $country->getLenguage() as $lenguage){
+                $contadorL++;
+                $lenguage["lenguage"];
+            }
+            echo $contadorL;
+            ?>
+        </td>
+        <td><?php
+            $contadorC=0;
+            foreach ( $country->getCities() as $cities){
+                $contadorC++;
+                $cities["nameCities"];
+            }
+            echo $contadorL;
+            ?>
+        </td>
     <?php }?>
+        <td> <?php echo $_SESSION["user"] ?></td>
     </tr>
 </table>
 
