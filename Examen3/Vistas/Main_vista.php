@@ -6,6 +6,12 @@
 <title>
     CONQUISTA
 </title>
+    <style>
+        table,tr,td,th{
+            border-collapse: collapse;
+            border:1px solid black;
+        }
+    </style>
 </head>
 <body>
 <h1>Countries</h1>
@@ -27,8 +33,6 @@
         <td><?php echo $country->getName(); ?></td>
         <td><?php echo $country->getPopulation(); ?></td>
         <td><?php echo $country->getGNP(); ?></td>
-        <td><?php echo $country->getCapital(); ?></td>
-        <td><?php echo $country->getUserid(); ?></td>
         <td><?php
             $contadorL=0;
             foreach ( $country->getLenguage() as $lenguage){
@@ -64,9 +68,34 @@
         <th>Owner</th>
         <th>Action</th>
     </tr>
+    <?php foreach ($countriesObjArr as $countries){?>
     <tr>
-        <?php /** DATOS DEL USUSARIO */ ?>
+        <td><?php echo $countries->getCode(); ?></td>
+        <td><?php echo $countries->getName(); ?></td>
+        <td><?php echo $countries->getPopulation(); ?></td>
+        <td><?php echo $countries->getGNP(); ?></td>
+        <td><?php
+            $contadorL=0;
+            foreach ( $countries->getLenguage() as $lenguage){
+                $contadorL++;
+                $lenguage["lenguage"];
+            }
+            echo $contadorL;
+            ?>
+        </td>
+        <td><?php
+            $contadorC=0;
+            foreach ( $countries->getCities() as $cities){
+                $contadorC++;
+                $cities["nameCities"];
+            }
+            echo $contadorL;
+            ?>
+        </td>
+        <td><?php ?></td>
+        <td><a href="">¡Ataque!</a></td>
     </tr>
+    <?php }?>
 </table>
 
 </body>

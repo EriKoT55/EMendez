@@ -1,6 +1,7 @@
 <?php
 require_once("../BD/bd.php");
 require_once("../A_Entidades/Country.php");
+require_once("../A_Entidades/User.php");
 
 class Main_modelo
 {
@@ -40,7 +41,7 @@ class Main_modelo
 
         foreach ($arrCountries AS $countries){
 
-            $newCountry= new Country($countries["Code"],$countries["Name"],$countries["Population"],$countries["GNP"],$countries["Capital"],$countries["Userid"]);
+            $newCountry= new Country($countries["Code"],$countries["Name"],$countries["Population"],$countries["GNP"],$countries["Capital"],$countries["UserId"]);
             $newCountry->setLenguage(json_decode($countries["lenguage"],true));
             $newCountry->setCities(json_decode($countries["cities"],true));
             $countriesArrObj[]=$newCountry;
@@ -99,6 +100,27 @@ class Main_modelo
         $arrCodeRand=$result->fetch_all(MYSQLI_ASSOC);
 
         return $arrCodeRand;
+
+    }
+
+    public function getUserT($id){
+
+        $this->bd->default();
+
+        $sql="SELECT * FROM users WHERE Id = '".$id."';";
+
+        $result=$this->bd->query($sql);
+        $this->bd->close();
+        $arrUser = $result->fetch_all(MYSQLI_ASSOC);
+
+        $userObjArr = [];
+
+        foreach ($arrUser as $user) {
+
+            $userObjArr[] = new User($user["Id"], $user["Mail"], $user["Password"]);
+
+        }
+        return $userObjArr;
 
     }
 

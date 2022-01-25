@@ -1,5 +1,6 @@
 <?php
 require_once ("../Modelos/Main_modelo.php");
+
 session_start();
 
 $conn= new Main_modelo();
@@ -17,6 +18,14 @@ echo "<br>";
 */
 
 $countryObjArr=$conn->getCountry($codeRandom);
+$countriesObjArr=$conn->getCountries();
+
+/*INTENTO DE COGER EL CORREO PARA PONERLO EN OWNER*/
+foreach ($countriesObjArr as $countries){
+
+   $user=$conn->getUserT($countries->getUserid());
+
+}
 
 require_once ("../Vistas/Main_vista.php");
 ?>
