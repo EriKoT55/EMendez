@@ -22,7 +22,11 @@
         <th>Owner</th>
     </tr>
     <tr>
-    <?php /** DATOS DEL USUSARIO */ ?>
+    <?php foreach ($countryObjArr as $country) {?>
+        <td><?php echo $country->getCode(); ?></td>
+        <td><?php echo $country->getName(); ?></td>
+        <td><?php echo $country->getPopulation(); ?></td>
+    <?php }?>
     </tr>
 </table>
 
