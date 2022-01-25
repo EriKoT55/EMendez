@@ -12,7 +12,7 @@ class Usuario
      */
     public function __construct($UsuarioID,$NomUsuario, $Correo, $Contrasenya )
     {
-        $this->UsuarioID = $UsuarioID;
+        $this->UsuarioID =(int) $UsuarioID;
         $this->NomUsuario=$NomUsuario;
         $this->Correo = $Correo;
         $this->Contrasenya = $Contrasenya;
@@ -21,13 +21,13 @@ class Usuario
     /**
      * @return mixed
      */
-    public function getUsuarioID()
+    public function getUsuarioID():int
     {
         return $this->UsuarioID;
     }
 
     /**
-     * @param mixed $Usuario
+     * @param mixed $UsuarioID
      */
     public function setUsuarioID($UsuarioID)
     {

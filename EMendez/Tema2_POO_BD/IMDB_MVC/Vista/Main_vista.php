@@ -1,6 +1,6 @@
 <?php
 error_reporting(0);
-//session_start();
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -106,8 +106,12 @@ error_reporting(0);
     </div>
 
     <!--HACER INICIO SESSION-->
-    <ul>
-        <li></li>
+    <ul><?php if($_SESSION["Iniciado"] == true){  ?>
+        <li><?php echo $_SESSION["user"] ?></li>
+            <li><a href="?cerrarSesion=true">cerrar sesion</a></li>
+        <?php }else{?>
+        <li ><a href="../Controlador/IniSesion_controlador.php">iniciar sesion</a></li>
+        <?php }?>
     </ul>
 </nav>
 <div class="contenedor"><?php

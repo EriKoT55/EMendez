@@ -1,6 +1,7 @@
 <?php
 require_once ("../A_EstructuraBD/bd.php");
 require_once ("../A_Entidades/Usuario.php");
+
 class IniSesion_modelo
 {
 
@@ -18,7 +19,6 @@ class IniSesion_modelo
         $this->bd->default();
         $result=$this->bd->query($sql);
         $this->bd->close();
-
         $arrUser=$result->fetch_all(MYSQLI_ASSOC);
 
         $passVerify=password_verify($contra,$arrUser[0]["Contrasenya"]);
@@ -26,7 +26,8 @@ class IniSesion_modelo
         if($nomUser == $arrUser[0]["NomUsuario"] && $correo== $arrUser[0]["Correo"]) {
             if($passVerify==true) {
                 foreach( $arrUser as $user ) {
-                    $arrObjUser[] = new Usuario( $user["UsuarioID"], $user["NomUsuario"], $user["Correo"], $user["Contrasenya"] );
+                    $newUsuario = new Usuario( $user["UsuarioID"], $user["NomUsuario"], $user["Correo"], $user["Contrasenya"] );
+                    $arrObjUser[]=$newUsuario;
                 }
                 return $arrObjUser;
             }else{
@@ -34,7 +35,6 @@ class IniSesion_modelo
             }
 
         }
-    //return $arrUser;
     }
 
 }
