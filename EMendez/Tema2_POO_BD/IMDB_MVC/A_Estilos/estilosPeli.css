@@ -1,0 +1,354 @@
+body{
+    background: #130601;
+    margin:0;
+    padding: 0;
+    font-family: 'Readex Pro', sans-serif;
+}
+nav.contenedorMenu{
+    background-color: #804400;
+    width: 100%;
+    height: 50px;
+    padding-top:15px;
+    overflow: hidden;
+    box-shadow: #b0b0b0 0px 0.5px 5px;
+}
+
+/*               BUSCADOR                */
+.contenedorSearch{
+    /* Al parecer no hace nada si no pones un height, si lo pones se descueadra todo*/
+    width: 300px;
+    height: 30px;
+    margin-left:15px;
+    white-space: nowrap;
+    position: relative;
+}
+.contenedorSearch .icon{
+    position:absolute;
+    left:85%;
+    margin-top: 1px;
+    /*z-index:1;*/
+    color:gray;
+    background-color:#424250 ;
+    border: none;
+    width: 44px;
+    height: 28px;
+    border-radius: 5px;
+
+    /*Transicion soportada para todos los navegadores*/
+    -webkit-transition: background .55s ease;
+    -moz-transition: background .55s ease;
+    -ms-transition: background .55s ease;
+    -o-transition: background .55s ease;
+    transition: background .55s ease;
+
+}
+.contenedorSearch input#buscar{
+    width: 300px;
+    height: 30px;
+    background: #424250;
+    border:1px solid white;
+    font-size: 10pt;
+    float:left;
+    padding-left: 45px;
+    font-weight: bold;
+    border-radius: 5px;
+    color:white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+
+    /*Transicion soportada para todos los navegadores*/
+    -webkit-transition: background .55s ease;
+    -moz-transition: background .55s ease;
+    -ms-transition: background .55s ease;
+    -o-transition: background .55s ease;
+    transition: background .55s ease;
+}
+
+.contenedorSearch input#buscar:hover ,.contenedorSearch input#buscar:active  ,.contenedorSearch input#buscar:focus {
+    background-color: darkorange;
+    color:black;
+}
+/*Pongo la .icon despues del hover para que se aplique en el las propiedades dadas
+para que se aplique debe ponerse un contenedor que englobe a lo que quieres aplicar las propiedades
+*/
+.contenedorSearch:hover button.icon{
+    color:black;
+    background-color: #ffc080;
+}
+
+/*              FORM FILTRADO               */
+/*Contiene lo de abajo hasta MENU*/
+.formFiltr{
+    width: 435px;
+    height: 30px;
+    display: flex;
+}
+
+/*Si le pongo ancho y largo a los contenedores se descuadra el nav y se pone debajo del search los select*/
+
+/* Hacer los respectivos HOVERS y al sumbit (boton) hacerle HOVER/ACTIVE*/
+
+.contenedorSelector{
+    width: 150px;
+    height: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.Selector{
+    font-family: 'Readex Pro', sans-serif;
+    width: 150px;
+    height: 30px;
+    background-color: #fcefe5;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+}
+.contenedorSelector2{
+    margin-right: 5px;
+    width: 150px;
+    height: 30px;
+}
+button#submit{
+    font-family: 'Readex Pro', sans-serif;
+    margin-left: 5px;
+    margin-top:5px;
+    height: 23px;
+    width: 100px;
+    font-weight: bold;
+}
+
+/*           Menu  UL            */
+/*Probar para poder aplicar el display inline-block correctamente
+deberia poner a todas los divs una clase igual y aplicar el display, PROBAR*/
+.contenedorUL{
+    display: flex;
+    /*Si quito esto se añade por arte de magia 16px de margin*/
+    margin:0;
+    padding:0;
+    list-style-type: none;
+    justify-content:space-between;
+}
+.contenedorUL .contenedorUsrCerrIni{
+    display: flex;
+}
+.contenedorUL li{
+    list-style-type: none;
+    padding: 7px;
+    color: black;
+    display: block;
+}
+.contenedorUL li a {
+    list-style-type: none;
+    color: black;
+    padding: 7px;
+}
+.contenedorUL li a.menu:hover{
+    font-weight: bold;
+    background-color: #ffca88;
+}
+/*CERRAR SESION*/
+a li#cerrarSesion:hover{
+    font-weight: bold;
+    background-color: #ffca88;
+}
+/*NOMBRE USUARIO*/
+#nomUsr{
+    color:grey;
+}
+/*********************  Maquetacion de la informacion de la pelicula  ******************/
+
+/***  PARTE SUPERIOR  ***/
+.contenedorPl{
+    margin:30px;
+}
+.contenedorSuperior{
+    display: flex;
+    justify-content:space-between;
+}
+.contenedorPl h1{
+    color:white;
+    font-size: xx-large;
+}
+.contenedorPl .contenedorFechDur{
+    display: flex;
+
+}
+.contenedorPl .contenedorFechDur p{
+    margin-top: 0;
+    padding-right: 15px;
+    color: #c4c4c4;
+}
+.contenedorPl .contenedorFechDur .bold{
+    font-weight: bold;
+}
+.contenedorPl .contenedorCal p{
+    margin-top: 0;
+    color: #c4c4c4;
+}
+.contenedorPl .contenedorCal p span{
+    font-weight: bold;
+    font-size: large;
+}
+
+/***  MULTIMEDIA ***/
+
+.contenedorMultimedia{
+    display: flex;
+    background-color: #090300;
+
+}
+.contenedorMultimedia .contenedorIMGS {
+    width: 37%;
+    height: 400px;
+    margin: 10px;
+    margin-left: 15px;
+    box-shadow: #9f9f9f 0px 0px 3px 0.5px;
+    /*Para que se oculte lo que salga del contenedor*/
+    overflow: hidden;
+}
+.contenedorMultimedia .contenedorIMGS img{
+    width: 100%;
+    height: 400px;
+}
+.contenedorMultimedia .contenedorIMGS:hover img {
+    transform: scale(1.03);
+    -webkit-transform:scale(1.03);
+}
+.contenedorMultimedia .contenedorTrailer {
+    width:80%;
+    height:400px;
+    margin: 10px;
+    margin-right: 15px;
+    box-shadow: #9f9f9f 0px 0px 1px 0.1px;
+    /*Para que se oculte lo que salga del contenedor*/
+    overflow: hidden;
+}
+.contenedorMultimedia .contenedorTrailer iframe {
+    width:100%;
+    height:400px;
+}
+.contenedorMultimedia .contenedorTrailer iframe:hover {
+    transform: scale(1.02);
+    -webkit-transform:scale(1.02);
+}
+/*** Generos ***/
+.contenedorGeneros {
+    display: flex;
+}
+.contenedorGeneros p{
+    background-color: #502500;
+    margin-left:10px;
+    padding: 7px;
+    border: #797979 2px solid ;
+    border-radius: 20px;
+    color:white;
+}
+.contenedorGeneros p:hover{
+    background-color: rgba(192, 93, 0);
+}
+/*** ACTORES DIRECTORES ***/
+
+p{
+    color: white;
+}
+a{
+    text-decoration: none;
+    color:gray;
+}
+
+
+/*** SINOPSIS ***/
+summary{
+    cursor: pointer;
+    list-style: none;
+    color:white;
+    font-size: large;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+summary:after{
+    background-color: black;
+    border-radius: 5px;
+    color: white;
+    font-size: large;
+    content: "+";
+    float: left;
+    margin: 0 5px 0 0;
+    width: 25px;
+    text-align: center;
+    font-weight: bold;
+}
+details[open] summary:after{
+    content: "-";
+}
+details p{
+    color: #a6a6a6;
+    font-size: large;
+    line-height: 1.5;
+    word-spacing: 2px;
+}
+
+/*** COMENTARIOS ***/
+#comment textarea{
+    width: 99%;
+}
+#comment input{
+    box-shadow: gray  -1px 1px 2px,
+    gray 0px 0px 3px 2px inset;
+    font-weight: bold;
+    border-radius: 5px;
+}
+#comment input:hover{
+    background-color: black;
+    color: white;
+    box-shadow: white 0px 0px 2px 0.5px,
+    gray 0px 0px 3px 2px inset;
+}
+#comment input:active{
+    background-color: darkorange;
+    color: black;
+    border-radius: 5px;
+}
+.h2Coment{
+    color:white;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+.contenedorComentarios{
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    padding-bottom: 5px;
+}
+.contenedorComentarios .contenedorComentario{
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.4);
+    margin: 15px;
+    padding: 10px;
+}
+.contenedorComentarios .contenedorComentario p{
+    margin: 0;
+    color:white;
+}
+.contenedorComentarios .contenedorComentario .p1{
+    font-size: medium ;
+    margin-bottom: 3px;
+    color: #ff7e00;
+    font-weight: bold;
+    text-shadow: black 0px 0px 6px;
+}
+.contenedorComentarios .contenedorComentario .p2{
+   font-size: x-small;
+    margin-bottom: 10px;
+    text-shadow: black 0px 0px 6px;
+}
+.contenedorComentarios .contenedorComentario .p3{
+    padding:10px ;
+    border: #6b6b6b 1px solid;
+    border-radius: 10px;
+}
+.contenedorComentarios hr{
+    size: 1px;
+    background-color: white;
+    width: 90%;
+    margin:auto;
+}

@@ -19,7 +19,7 @@
         #contenedorIni {
             background-color: #54A5C4;
             border-radius: 10px;a
-            padding-bottom: 15px;
+        padding-bottom: 15px;
             font-weight: bold;
         }
 
@@ -44,7 +44,7 @@
             <h1 class="text-center mt-2 mb-4">Registrar</h1>
 
             <!--------  FORM  ----------->
-            <form action="../Controladores/Registrar_controlador.php" method="post">
+            <form action="../Controlador/Register_controlador.php" method="post">
                 <div class="form-group">
                     <label for="usuario">Nombre Usuario</label>
                     <input name="user" type="text" class="form-control" id="usuario" required>
