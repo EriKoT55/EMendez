@@ -29,7 +29,7 @@ $fuerzaUser=$poblacion+$gnp;
  * DEBO TENER MENOS FUNCIONES Y UNIR ALGUNA PARA QUE SE APLIQUEN LOS CAMBIOS
  */
 if($fuerzaUser>$fuerzaNPC){
-    $countriesATK[0]->setUserid($_SESSION["userID"]);
+    //$countriesATK[0]->setUserid($_SESSION["userID"]);
     echo "ganaste";
 }else{
     echo "ERES BIEN PUTO";

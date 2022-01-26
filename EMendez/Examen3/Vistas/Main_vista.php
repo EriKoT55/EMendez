@@ -108,7 +108,7 @@ error_reporting(0);
             foreach($user as $usr ){
                echo $usr->getMail();
             } ?></td>
-        <td><a href="../Controladores/Main_controlador.php?Code=<?php echo $countries->getCode(); ?>">¡Ataque!</a></td>
+        <td><a href="../Controladores/Atack_controlador.php?Code=<?php echo $countries->getCode(); ?>">¡Ataque!</a></td>
     </tr>
     <?php }?>
 </table>
