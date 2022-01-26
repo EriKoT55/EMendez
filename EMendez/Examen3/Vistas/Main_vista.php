@@ -112,6 +112,6 @@ error_reporting(0);
     </tr>
     <?php }?>
 </table>
-
+<a href="../Controladores/IniSesion_controlador.php">Logout</a>
 </body>
 </html>

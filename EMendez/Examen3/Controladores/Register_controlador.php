@@ -1,6 +1,6 @@
 <?php
+error_reporting(0);
 require_once ("../Modelos/Register_modelo.php");
-
 $conn= new Register_modelo();
 
 $mail=$_POST["mail"];
