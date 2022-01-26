@@ -16,7 +16,7 @@ $countryObjArr=$conn->getCountryUsr($_SESSION["userID"]);
 //DEVUELVE LOS OBJETOS PAISES
 $countriesObjArr=$conn->getCountries();
 
-// DAÑO DEL PAIS ATACADO
+// DAÑO DEL PAIS ATACADOS
 $fuerzaNPC=$countriesATK[0]->getPopulation()+$countriesATK[0]->getGNP();
 
 // DAÑO DEL USUARIO
