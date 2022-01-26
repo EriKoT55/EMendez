@@ -104,11 +104,11 @@ error_reporting(0);
             ?>
         </td>
         <td><?php
-            $user=$conn->getUserT($countries->getUserid());
+            $user=$conn->getUserXtable($countries->getUserid());
             foreach($user as $usr ){
                echo $usr->getMail();
             } ?></td>
-        <td><a href="">¡Ataque!</a></td>
+        <td><a href="../Controladores/Main_controlador.php?Code=<?php echo $countries->getCode(); ?>">¡Ataque!</a></td>
     </tr>
     <?php }?>
 </table>

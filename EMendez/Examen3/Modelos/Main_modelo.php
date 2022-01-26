@@ -11,9 +11,11 @@ class Main_modelo
     public function __construct()
     {
         $this->bd = new bd();
-
     }
 
+    /**
+     * @return array
+     */
     public function getCountries()
     {
 
@@ -47,10 +49,16 @@ class Main_modelo
             $countriesArrObj[]=$newCountry;
 
         }
+
         return $countriesArrObj;
+
     }
 
-    public function getCountry($userID)
+    /**
+     * @param $userID
+     * @return array
+     */
+    public function getCountryUsr($userID)
     {
 
         $sql = "SELECT co.*,
@@ -84,10 +92,59 @@ class Main_modelo
             $countriesArrObj[]=$newCountry;
 
         }
+
         return $countriesArrObj;
+
     }
 
-    public function getUserT($id){
+    /**
+     * @param $code
+     * @return array
+     */
+    public function getCountryATK($code)
+    {
+
+        $sql = "SELECT co.*,
+	        (SELECT JSON_ARRAYAGG(
+		        JSON_OBJECT(
+			    'lenguage',cl.Language   
+			    )
+	        )FROM countrylanguages cl JOIN countries co1 on cl.CountryCode=co1.Code WHERE co1.Code = '".$code."') AS lenguage,
+            (SELECT JSON_ARRAYAGG(
+		        JSON_OBJECT(
+			    'nameCities',ci.Name   
+			    )
+	        )FROM cities ci JOIN countries co1 on ci.CountryCode=co1.Code WHERE co1.Code = '".$code."') AS cities
+	        FROM countries co
+            WHERE co.Code='".$code."';
+           ";
+
+        $this->bd->default();
+        $result = $this->bd->query($sql);
+        $this->bd->close();
+
+        $arrCountries=$result->fetch_all(MYSQLI_ASSOC);
+
+        $countriesArrObj=[];
+
+        foreach ($arrCountries AS $countries){
+
+            $newCountry= new Country($countries["Code"],$countries["Name"],$countries["Population"],$countries["GNP"],$countries["Capital"],$countries["UserId"]);
+            $newCountry->setLenguage(json_decode($countries["lenguage"],true));
+            $newCountry->setCities(json_decode($countries["cities"],true));
+            $countriesArrObj[]=$newCountry;
+
+        }
+
+        return $countriesArrObj;
+
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public function getUserXtable($id){
 
         $this->bd->default();
 
@@ -104,6 +161,7 @@ class Main_modelo
             $userObjArr[] = new User($user["Id"], $user["Mail"], $user["Password"]);
 
         }
+
         return $userObjArr;
 
     }

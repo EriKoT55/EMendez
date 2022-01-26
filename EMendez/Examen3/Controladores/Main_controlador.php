@@ -19,7 +19,7 @@ if(!isset($_SESSION["Iniciado"])){
 $conn= new Main_modelo();
 
 //DEVUELVE EL OBJETO PAIS DEL USUARIOID, DADO ALEATORIAMENTE
-$countryObjArr=$conn->getCountry($_SESSION["userID"]);
+$countryObjArr=$conn->getCountryUsr($_SESSION["userID"]);
 
 //DEVUELVE LOS OBJETOS PAISES
 $countriesObjArr=$conn->getCountries();

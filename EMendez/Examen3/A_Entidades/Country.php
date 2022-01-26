@@ -17,8 +17,8 @@ class Country
     {
         $this->Code = $Code;
         $this->Name = $Name;
-        $this->Population = $Population;
-        $this->GNP = $GNP;
+        $this->Population =(int) $Population;
+        $this->GNP =(int) $GNP;
         $this->Capital = $Capital;
         $this->Userid =(int) $Userid;
     }
@@ -56,7 +56,7 @@ class Country
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getPopulation()
     {
@@ -64,15 +64,15 @@ class Country
     }
 
     /**
-     * @param mixed $Population
+     * @param int $Population
      */
-    public function setPopulation($Population)
+    public function setPopulation( $Population )
     {
         $this->Population = $Population;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getGNP()
     {
@@ -80,9 +80,9 @@ class Country
     }
 
     /**
-     * @param mixed $GNP
+     * @param int $GNP
      */
-    public function setGNP($GNP)
+    public function setGNP( $GNP )
     {
         $this->GNP = $GNP;
     }
@@ -104,7 +104,7 @@ class Country
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getUserid()
     {
@@ -112,9 +112,9 @@ class Country
     }
 
     /**
-     * @param mixed $Userid
+     * @param int $Userid
      */
-    public function setUserid($Userid)
+    public function setUserid( $Userid )
     {
         $this->Userid = $Userid;
     }
