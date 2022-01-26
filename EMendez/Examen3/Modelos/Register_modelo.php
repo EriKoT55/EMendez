@@ -30,6 +30,14 @@ class Register_modelo
         $sql="INSERT INTO users(Mail,Password) VALUES ('".$correo."','".$password."')";
 
         if($this->bd->query($sql)){
+
+            $sql1="SELECT Code FROM countries ORDER BY RAND() LIMIT 1";
+            $result=$this->bd->query($sql1);
+            $arrCodeRandom=$result->fetch_all(MYSQLI_ASSOC);
+
+            $sql2="UPDATE countries set UserId=(SELECT Id FROM users WHERE Mail LIKE '".$correo."') WHERE Code LIKE '".$arrCodeRandom[0]["Code"]."'";
+            $this->bd->query($sql2);
+
             $this->bd->close();
             return true;
         }else{
@@ -38,6 +46,7 @@ class Register_modelo
         }
 
     }
+
 
 
 }

@@ -6,9 +6,7 @@ session_start();
 $conn= new Main_modelo();
 
 //RANDOMIZA EL PAIS PARA EL USUSARIO
-if($_SESSION["Iniciado"]) {
-    $codeRandom = $conn->randomCountry()[0]["Code"];
-}
+
 
 /*
 echo "<br>";
@@ -17,15 +15,14 @@ var_dump($conn->getCountry($codeRandom));
 echo "<br>";
 */
 
-$countryObjArr=$conn->getCountry($codeRandom);
+$countryObjArr=$conn->getCountry($_SESSION["userID"]);
 $countriesObjArr=$conn->getCountries();
 
-/*INTENTO DE COGER EL CORREO PARA PONERLO EN OWNER*/
+/*NO SE COMO HACERLO EN EL CONTROLADOR PARA NO TENER QUE LLAMAR A LA FUNCION EN LA VISTA
 foreach ($countriesObjArr as $countries){
-
-   $user=$conn->getUserT($countries->getUserid());
-
+  $user[]=$conn->getUserT($countries->getUserid());
 }
+*/
 
 require_once ("../Vistas/Main_vista.php");
 ?>

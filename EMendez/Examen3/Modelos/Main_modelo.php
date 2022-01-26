@@ -50,7 +50,7 @@ class Main_modelo
         return $countriesArrObj;
     }
 
-    public function getCountry($code)
+    public function getCountry($userID)
     {
 
         $sql = "SELECT co.*,
@@ -58,14 +58,14 @@ class Main_modelo
 		        JSON_OBJECT(
 			    'lenguage',cl.Language   
 			    )
-	        )FROM countrylanguages cl JOIN countries co1 on cl.CountryCode=co1.Code WHERE co1.Code = '".$code."') AS lenguage,
+	        )FROM countrylanguages cl JOIN countries co1 on cl.CountryCode=co1.Code WHERE co1.UserId = '".$userID."') AS lenguage,
             (SELECT JSON_ARRAYAGG(
 		        JSON_OBJECT(
 			    'nameCities',ci.Name   
 			    )
-	        )FROM cities ci JOIN countries co1 on ci.CountryCode=co1.Code WHERE co1.Code = '".$code."') AS cities
+	        )FROM cities ci JOIN countries co1 on ci.CountryCode=co1.Code WHERE co1.UserId = '".$userID."') AS cities
 	        FROM countries co
-            WHERE co.Code='".$code."';
+            WHERE co.UserId='".$userID."';
            ";
 
         $this->bd->default();
@@ -78,29 +78,13 @@ class Main_modelo
 
         foreach ($arrCountries AS $countries){
 
-            $newCountry= new Country($countries["Code"],$countries["Name"],$countries["Population"],$countries["GNP"],$countries["Capital"],$countries["Userid"]);
+            $newCountry= new Country($countries["Code"],$countries["Name"],$countries["Population"],$countries["GNP"],$countries["Capital"],$countries["UserId"]);
             $newCountry->setLenguage(json_decode($countries["lenguage"],true));
             $newCountry->setCities(json_decode($countries["cities"],true));
             $countriesArrObj[]=$newCountry;
 
         }
         return $countriesArrObj;
-    }
-
-    public function randomCountry(){
-
-        $sql="SELECT Code FROM countries ORDER BY RAND() LIMIT 1";
-
-        $this->bd->default();
-
-        $result=$this->bd->query($sql);
-
-        $this->bd->close();
-
-        $arrCodeRand=$result->fetch_all(MYSQLI_ASSOC);
-
-        return $arrCodeRand;
-
     }
 
     public function getUserT($id){

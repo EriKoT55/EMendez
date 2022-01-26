@@ -20,7 +20,7 @@ class Country
         $this->Population = $Population;
         $this->GNP = $GNP;
         $this->Capital = $Capital;
-        $this->Userid = $Userid;
+        $this->Userid =(int) $Userid;
     }
 
     /**

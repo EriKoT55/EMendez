@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -37,7 +38,9 @@
             $contadorL=0;
             foreach ( $country->getLenguage() as $lenguage){
                 $contadorL++;
-                $lenguage["lenguage"];
+                if($lenguage["lenguage"]==null){
+                    $contadorL=0;
+                }
             }
             echo $contadorL;
             ?>
@@ -46,9 +49,12 @@
             $contadorC=0;
             foreach ( $country->getCities() as $cities){
                 $contadorC++;
-                $cities["nameCities"];
+                //$cities["nameCities"];
+                if($cities["nameCities"]==null){
+                    $contadorC=0;
+                }
             }
-            echo $contadorL;
+            echo $contadorC;
             ?>
         </td>
     <?php }?>
@@ -78,7 +84,10 @@
             $contadorL=0;
             foreach ( $countries->getLenguage() as $lenguage){
                 $contadorL++;
-                $lenguage["lenguage"];
+                if($lenguage["lenguage"]==null){
+                    $contadorL=0;
+                }
+                //$lenguage["lenguage"];
             }
             echo $contadorL;
             ?>
@@ -87,12 +96,18 @@
             $contadorC=0;
             foreach ( $countries->getCities() as $cities){
                 $contadorC++;
-                $cities["nameCities"];
+                if($cities["nameCities"]==null){
+                    $contadorC=0;
+                }
             }
-            echo $contadorL;
+            echo $contadorC;
             ?>
         </td>
-        <td><?php ?></td>
+        <td><?php
+            $user=$conn->getUserT($countries->getUserid());
+            foreach($user as $usr ){
+               echo $usr->getMail();
+            } ?></td>
         <td><a href="">¡Ataque!</a></td>
     </tr>
     <?php }?>

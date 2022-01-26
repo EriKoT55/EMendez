@@ -12,6 +12,7 @@ if($mail!="" && $passw!="" && $repeat!=""){
     if(isset($mail) && isset($passw)==isset($repeat)){
         $passwHash=password_hash($passw,PASSWORD_DEFAULT);
         if($conn->insertUser($mail,$passwHash)){
+
             header("Location:../Controladores/IniSesion_controlador.php");
         }else{
             //CAMBIAR die POR UN echo SI PETA
