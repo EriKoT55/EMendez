@@ -32,17 +32,19 @@ class Reserva_modelo
     public function ComprobarDisponibilidad( $entrada, $salida, $hotelID, $huespedes )
     {
 
-        $sql = "SELECT hh.HotelID,hh.HabitacionID ,hr.Fecha_entrada,hr.Fecha_salida,hr.HuespedesFROM Hotel_Reserva hr 
+
+        $sql = "SELECT hh.HabitacionID,hr.Fecha_entrada,hr.Fecha_salida FROM Hotel_Reserva hr 
                 JOIN Hotel_Habitaciones hh on hr.HabitacionID=hh.HabitacionID
                 WHERE hh.HotelID= " . $hotelID . " AND hh.numHuespedes=" . $huespedes . " AND hr.Fecha_entrada BETWEEN '" . $entrada . "' and '" . $salida . "'
                 AND hr.Fecha_salida BETWEEN '" . $entrada . "' and '" . $entrada . "';";
+
         $this->bd->default();
         $result=$this->bd->query( $sql );
 
         $arrResHab=$result->fetch_all(MYSQLI_ASSOC);
 
         foreach ($arrResHab as $resHab){
-
+            if(){}
 //aqui deberia estar el sql pero no comprendo
 
         }

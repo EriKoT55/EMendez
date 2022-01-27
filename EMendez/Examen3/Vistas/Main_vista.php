@@ -82,6 +82,7 @@ error_reporting(0);
         <td><?php echo $countries->getGNP(); ?></td>
         <td><?php
             $contadorL=0;
+            /** PODRIA HACER UN COUNT WHERE EN EL SQL Y ASI NO CONTARLOS AQUÍ */
             foreach ( $countries->getLenguage() as $lenguage){
                 $contadorL++;
                 if($lenguage["lenguage"]==null){
