@@ -11,9 +11,9 @@ $minDate2=$_GET["entrada"];
 $conn= new Reserva_modelo();
 
 //Variables del form
-$entrada=$_GET["entrada"];
-$salida=$_GET["salida"];
-$huespedes=$_GET["huespedes"];
+$entrada=$_POST["entrada"];
+$salida=$_POST["salida"];
+$huespedes=$_POST["huespedes"];
 
 //Variables
 $entradaValid="";
@@ -53,7 +53,7 @@ if(isset($huespedes)){
 
 if(isset($entrada) && isset($salida) && isset($huespedes)){
     if(isset($entradaValid) && isset($salidaValid) && isset($huespedesValid)){
-        if($conn->ComprobarDisponibilidad($entradaValid,$salidaValid,$_SESSION["hotelID"],$huespedesValid)){
+        //if($conn->ComprobarDisponibilidad($entradaValid,$salidaValid,$_SESSION["hotelID"]/*,$huespedesValid*/)){
                 //COMRPOBAR DISPONIBILIDAD DEVOLVERA UN ALERT CON EL NUMERO DE LA HABITACION
             if($conn->InsertReserv($entradaValid,$salidaValid,$_SESSION["userID"],$huespedesValid)){
 
@@ -64,7 +64,7 @@ if(isset($entrada) && isset($salida) && isset($huespedes)){
                 </script>";
 
                 header("Location: ../Controladores/Main_controlador.php");
-            }
+            //}
         }else{
             echo "<script>
                     window.alert('No hay disponibilidad para esas fechas');

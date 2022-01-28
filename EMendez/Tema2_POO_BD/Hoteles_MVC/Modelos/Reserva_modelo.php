@@ -12,7 +12,7 @@ class Reserva_modelo
         $this->bd = new bd();
     }
 
-    public function InsertReserv( $entrada, $salida, $habitacionID, $usuarioID, $huespedes ) : bool
+    public function InsertReserv( $entrada, $salida, $habitacionID, $usuarioID/*, $huespedes */) : bool
     {
 
         $sql = "INSERT INTO (Fecha_entrada,Fecha_salida,HabitacionID,UsuarioID,Huespedes) VALUES (" . $entrada . "," . $salida . ",".$habitacionID."," . $usuarioID . "," . $huespedes . ")";
@@ -29,24 +29,34 @@ class Reserva_modelo
 
     }
 
-    public function ComprobarDisponibilidad( $entrada, $salida, $hotelID, $huespedes )
+    public function ComprobarDisponibilidad( $entrada, $salida, $hotelID /*,$huespedes*/)
     {
 
-
+    /** explicación de la query
+     * https://stackoverflow.com/questions/2545947/check-overlap-of-date-ranges-in-mysql *
+     */
         $sql = "SELECT hh.HabitacionID,hr.Fecha_entrada,hr.Fecha_salida FROM Hotel_Reserva hr 
                 JOIN Hotel_Habitaciones hh on hr.HabitacionID=hh.HabitacionID
-                WHERE hh.HotelID= " . $hotelID . " AND hh.numHuespedes=" . $huespedes . " AND hr.Fecha_entrada BETWEEN '" . $entrada . "' and '" . $salida . "'
-                AND hr.Fecha_salida BETWEEN '" . $entrada . "' and '" . $entrada . "';";
+                WHERE hh.HotelID= " . $hotelID . " AND( 
+                (hr.Fecha_entrada BETWEEN '".$entrada."' and '".$salida."')
+                OR 
+                (hr.Fecha_salida BETWEEN '".$entrada."' and '".$salida."')
+                OR
+                ('".$entrada."' BETWEEN hr.Fecha_entrada and hr.Fecha_salida)
+                OR
+                ('".$salida."' BETWEEN hr.Fecha_entrada and hr.Fecha_salida));";
 
         $this->bd->default();
         $result=$this->bd->query( $sql );
 
         $arrResHab=$result->fetch_all(MYSQLI_ASSOC);
-
+    /** QUEDA COGER LO QUE ME DEVUELVE EL SQL (QUE SON LAS HABITACIONES EN NO DISPONIBLES EN ESE RANGO DE FECHAS)
+     * AHORA HARIA UNA SELECT CON TODAS LAS HABITACIONES Y COMPARARIA LOS ID'S DE LAS NO DISPOBLES CON EL TOTAL
+     */
         foreach ($arrResHab as $resHab){
-            if(){}
-//aqui deberia estar el sql pero no comprendo
-
+            if(){
+                //aqui deberia estar el sql
+            }
         }
 
         //NO UTILIZADA TODAVIAA
