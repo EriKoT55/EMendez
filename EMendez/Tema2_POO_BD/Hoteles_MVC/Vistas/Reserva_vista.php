@@ -39,7 +39,8 @@ PREGUNTAR SI ES POSIBLE DAR ALGO DE INFORMACION DEL HOTEL EN LA RESERVA SIN SER 
     <div class="row justify-content-center ">
         <div id="contenedorReserva" class="col-sm-6 mt-5 ">
             <h1 class="text-center mt-2 mb-4">Reserva</h1>
-            <form action="../Controladores/Reserva_controlador.php" method="post">
+            <form action="../Controladores/Reserva_controlador.php" method="post
+">
                 <div class="form-group">
                     <label for="entrada">Entrada</label>
                     <input type="date" id="entrada" name="entrada" class="form-control"
@@ -50,6 +51,7 @@ PREGUNTAR SI ES POSIBLE DAR ALGO DE INFORMACION DEL HOTEL EN LA RESERVA SIN SER 
                     <label for="salida">Salida</label>
                     <input type="date" id="salida" name="salida" class="form-control"
                            min="<?php
+                           //HARE UN SCRIPT PARA QUE LA FECHA MINIMA SEA LA SELECCIONADA EN LA FECHA ENTRADA CON DOM
                            echo date( "Y-m-d" ) ?>" max="2022-12-31" required>
                 </div>
                 <div class="form-group">
