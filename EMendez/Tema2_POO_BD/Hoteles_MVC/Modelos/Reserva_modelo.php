@@ -17,7 +17,7 @@ class Reserva_modelo
     public function InsertReserv( $entrada, $salida, $habitacionID, $usuarioID, $huespedes ): bool
     {
 
-        $sql = "INSERT INTO (Fecha_entrada,Fecha_salida,HabitacionID,UsuarioID,Huespedes) VALUES (" . $entrada . "," . $salida . "," . $habitacionID . "," . $usuarioID . "," . $huespedes . ")";
+        $sql = "INSERT INTO Hotel_Reserva (Fecha_entrada,Fecha_salida,HabitacionID,UsuarioID,Huespedes) VALUES ('" . $entrada . "','" . $salida . "'," . $habitacionID . "," . $usuarioID . "," . $huespedes . ")";
 
         $this->bd->default();
 

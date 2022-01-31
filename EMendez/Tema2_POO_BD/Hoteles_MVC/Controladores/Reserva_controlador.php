@@ -12,16 +12,16 @@ $minDate2 = $_GET["entrada"];
 $conn = new Reserva_modelo();
 
 //Variables del form
-$entrada = $_POST["entrada"];
-$salida = $_POST["salida"];
-$huespedes = $_POST["huespedes"];
+$entrada = $_GET["entrada"];
+$salida = $_GET["salida"];
+$huespedes = $_GET["huespedes"];
 
 //Variables
-$entradaValid = "";
-$salidaValid = "";
-$huespedesValid = "";
+$entradaValid = 0;
+$salidaValid = 0;
+$huespedesValid = 0;
 
-if( $entrada!="" ) {
+if( $entrada!=0 ) {
     if( isset( $entrada ) ) {
         $entradaValid = $entrada;
     } else {
@@ -31,7 +31,7 @@ if( $entrada!="" ) {
 
     }
 }
-if( $salida!="" ) {
+if( $salida!=0 ) {
     if( isset( $salida ) ) {
         if( $salida >= $entradaValid ) {
             $salidaValid = $salida;
@@ -43,13 +43,13 @@ if( $salida!="" ) {
     }
 }
 
-if( $huespedes!="" ) {
+if( $huespedes!=0 ) {
     if( isset( $huespedes ) ) {
         if( $huespedes < 99 ) {
             $huespedesValid = $huespedes;
         } else {
             echo "<script>
-                window.alert('');
+                window.alert('Se excedio el numero de huespedes');
             </script>";
         }
     }
@@ -59,15 +59,15 @@ echo "<br>";
 echo "<pre>";
 var_dump($result);
 echo "<br>";*/
-if( $entradaValid!="" && $huespedesValid!="" && $salidaValid!="" ) {
+if( $entradaValid!=0 && $huespedesValid!=0 && $salidaValid!=0 ) {
     if( isset( $entradaValid ) && isset( $salidaValid ) && isset( $huespedesValid ) ) {
+        /** SI NO HAY NINGUNA RESERVA ENTRE ESOS DIAS TODA VA BIEN, PERO SI HAY ALGUNA LA PANTALLA SE MUESTRA EN BLACO, MIRAR FUNCION COMPROBAR*/
         $objHabitacion = $conn->ComprobarDisponibilidad( $entradaValid, $salidaValid, $_SESSION["hotelID"] );
         $habitacionID = $objHabitacion[0]->getHabitacionID();
         $numHabitacion = $objHabitacion[0]->getNumHabitacion();
         //$habitacionIdRand=rand(1,count($habitacionID)); NO FUNCIONARIA PORQUE DEVUELVE NUMEROS QUE NO SON CONSECUTIVOS
         //$numHabitacionRank=rand();
         if( $habitacionID > 0 ) {
-            // DA FALSE AL INSERTAR COMPROBAR PORQUE PETA EN ESTA PARTE
             if( $conn->InsertReserv( $entradaValid, $salidaValid, $habitacionID, $_SESSION["userID"], $huespedesValid ) ) {
 
                 echo "<script>
