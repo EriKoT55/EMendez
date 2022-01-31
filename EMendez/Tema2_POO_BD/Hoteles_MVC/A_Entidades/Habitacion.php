@@ -14,14 +14,14 @@ class Habitacion
 
     public function __construct( $HabitacionID, $HotelID, $numHuespedes, $numHabitacion )
     {
-        $this->HabitacionID = $HabitacionID;
-        $this->HotelID = $HotelID;
-        $this->numHuespedes = $numHuespedes;
-        $this->numHabitacion = $numHabitacion;
+        $this->HabitacionID = (int)$HabitacionID;
+        $this->HotelID =(int) $HotelID;
+        $this->numHuespedes =(int) $numHuespedes;
+        $this->numHabitacion =(int) $numHabitacion;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getHabitacionID()
     {
@@ -29,7 +29,7 @@ class Habitacion
     }
 
     /**
-     * @param mixed $HabitacionID
+     * @param int $HabitacionID
      */
     public function setHabitacionID( $HabitacionID )
     {
@@ -37,7 +37,7 @@ class Habitacion
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getHotelID()
     {
@@ -45,7 +45,7 @@ class Habitacion
     }
 
     /**
-     * @param mixed $HotelID
+     * @param int $HotelID
      */
     public function setHotelID( $HotelID )
     {
@@ -53,7 +53,7 @@ class Habitacion
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getNumHuespedes()
     {
@@ -61,7 +61,7 @@ class Habitacion
     }
 
     /**
-     * @param mixed $numHuespedes
+     * @param int $numHuespedes
      */
     public function setNumHuespedes( $numHuespedes )
     {
@@ -69,7 +69,7 @@ class Habitacion
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getNumHabitacion()
     {
@@ -77,7 +77,7 @@ class Habitacion
     }
 
     /**
-     * @param mixed $numHabitacion
+     * @param int $numHabitacion
      */
     public function setNumHabitacion( $numHabitacion )
     {

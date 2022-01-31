@@ -1,5 +1,5 @@
 <?php
-
+//error_reporting(0);
 
 ?>
 
@@ -18,7 +18,7 @@
 
         #contenedorIni {
             background-color: #54A5C4;
-            border-radius: 10px;a
+            border-radius: 10px;
             padding-bottom: 15px;
             font-weight: bold;
         }

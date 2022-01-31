@@ -1,6 +1,7 @@
 <?php
 
-class User{
+class User
+{
 
     private $UsuarioID, $Nombre, $Contrasenya, $Correo;
 
@@ -12,14 +13,14 @@ class User{
      */
     public function __construct( $UsuarioID, $Nombre, $Contrasenya, $Correo )
     {
-        $this->UsuarioID = $UsuarioID;
-        $this->Nombre = $Nombre;
-        $this->Contrasenya = $Contrasenya;
-        $this->Correo = $Correo;
+        $this->UsuarioID = (int)$UsuarioID;
+        $this->Nombre = (string)$Nombre;
+        $this->Contrasenya = (string)$Contrasenya;
+        $this->Correo = (string)$Correo;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getUsuarioID()
     {
@@ -27,7 +28,7 @@ class User{
     }
 
     /**
-     * @param mixed $UsuarioID
+     * @param int $UsuarioID
      */
     public function setUsuarioID( $UsuarioID )
     {
@@ -35,7 +36,7 @@ class User{
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getNombre()
     {
@@ -43,7 +44,7 @@ class User{
     }
 
     /**
-     * @param mixed $Nombre
+     * @param string $Nombre
      */
     public function setNombre( $Nombre )
     {
@@ -51,7 +52,7 @@ class User{
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getContrasenya()
     {
@@ -59,7 +60,7 @@ class User{
     }
 
     /**
-     * @param mixed $Contrasenya
+     * @param string $Contrasenya
      */
     public function setContrasenya( $Contrasenya )
     {
@@ -67,7 +68,7 @@ class User{
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCorreo()
     {
@@ -75,12 +76,14 @@ class User{
     }
 
     /**
-     * @param mixed $Correo
+     * @param string $Correo
      */
     public function setCorreo( $Correo )
     {
         $this->Correo = $Correo;
     }
+
+
 
 }
 ?>

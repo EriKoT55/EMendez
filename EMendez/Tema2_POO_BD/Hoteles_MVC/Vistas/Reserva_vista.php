@@ -1,3 +1,6 @@
+<?php
+error_reporting( 0 );
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,6 +23,7 @@
             padding-bottom: 15px;
             font-weight: bold;
         }
+
         #btnRes {
             background-color: #08465E;
         }
@@ -31,16 +35,15 @@
 </head>
 <body id="body">
 
-    <!--
+<!--
 PREGUNTAR SI ES POSIBLE DAR ALGO DE INFORMACION DEL HOTEL EN LA RESERVA SIN SER UN DOLOR DE CABEZA
-    -->
+-->
 
 <div class="container ">
     <div class="row justify-content-center ">
         <div id="contenedorReserva" class="col-sm-6 mt-5 ">
             <h1 class="text-center mt-2 mb-4">Reserva</h1>
-            <form action="../Controladores/Reserva_controlador.php" method="post
-">
+            <form action="../Controladores/Reserva_controlador.php" method="post">
                 <div class="form-group">
                     <label for="entrada">Entrada</label>
                     <input type="date" id="entrada" name="entrada" class="form-control"
