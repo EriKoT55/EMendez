@@ -88,7 +88,6 @@ class Main_modelo
     }
 
     public function getCountryNPC($code){
-
         $sql="SELECT co1.*,
         (SELECT JSON_ARRAYAGG(
             JSON_OBJECT(
@@ -123,6 +122,12 @@ class Main_modelo
         return $objArrCountries;
 
     }
+    public function countryATK($userID,$code){
+        $sql="UPDATE countries SET UserId = ".$userID." WHERE Code like '".$code."' ";
+        $this->bd->default();
+        $this->bd->query($sql);
+        $this->bd->close();
+    }
 
     public function userXcountry($userID){
 
@@ -138,15 +143,6 @@ class Main_modelo
 
     }
 
-    public function countryATK($userID,$code){
 
-        $sql="UPDATE countries SET UserId = ".$userID." WHERE Code like '".$code."' ";
-
-        $this->bd->default();
-        if($this->bd->query($sql)){
-
-        }
-        $this->bd->close();
-    }
 
 }
