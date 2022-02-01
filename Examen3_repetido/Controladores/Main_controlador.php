@@ -36,5 +36,7 @@ if(isset($_GET["devolver"])==true && isset($_GET["filmID"])){
 
 }
 $objArrFilmsUsr=$conn->getFilmsUsr($_SESSION["userID"]);
+$objArrFilms=$conn->getFilms();
+
 require_once ("../Vistas/Main_vista.php");
 ?>

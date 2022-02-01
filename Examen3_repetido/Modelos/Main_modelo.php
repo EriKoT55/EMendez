@@ -122,7 +122,6 @@ class Main_modelo
 
         $this->bd->default();
         $this->bd->query($sql);
-
         $this->bd->close();
 
     }
