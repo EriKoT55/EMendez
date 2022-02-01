@@ -20,17 +20,22 @@ $countriesObjArr=$conn->getCountries();
 $fuerzaNPC=$countriesATK[0]->getPopulation()+$countriesATK[0]->getGNP();
 
 // DAÑO DEL USUARIO
-$poblacion= $conn->getCountryUsr($_SESSION["userID"])[0]->getPopulation();
-$gnp= $conn->getCountryUsr($_SESSION["userID"])[0]->getGNP();
+$userCountries=$conn->getCountryUsr($_SESSION["userID"]);
+$fuerzaUser=0;
+$poblacion=0;
+$gnp=0;
+foreach($userCountries as $userCountry) {
+    $poblacion+= $userCountry->getPopulation();
+    $gnp+= $userCountry->getGNP();
+}
 $fuerzaUser=$poblacion+$gnp;
 
-/** DARLE UNA VUELTA
- * COMO QUITAR EL PAIS VENCIDO DE LA TABLA Y PASARLO A LA DEL USUARIO
- * DEBO TENER MENOS FUNCIONES Y UNIR ALGUNA PARA QUE SE APLIQUEN LOS CAMBIOS
- */
 if($fuerzaUser>$fuerzaNPC){
     //$countriesATK[0]->setUserid($_SESSION["userID"]);
-    echo "ganaste";
+    if($conn->winAttack($code,$_SESSION["userID"])) {
+
+        echo "ganaste";
+    }
 }else{
     echo "ERES BIEN PUTO";
 }

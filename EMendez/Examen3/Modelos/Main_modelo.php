@@ -61,19 +61,19 @@ class Main_modelo
     public function getCountryUsr($userID)
     {
 
-        $sql = "SELECT co.*,
+        $sql = "SELECT co2.*,
 	        (SELECT JSON_ARRAYAGG(
 		        JSON_OBJECT(
 			    'lenguage',cl.Language   
 			    )
-	        )FROM countrylanguages cl JOIN countries co1 on cl.CountryCode=co1.Code WHERE co1.UserId = '".$userID."') AS lenguage,
+	        )FROM countrylanguages cl JOIN countries co1 on cl.CountryCode=co1.Code WHERE co1.Code=co2.Code ) AS lenguage,
             (SELECT JSON_ARRAYAGG(
 		        JSON_OBJECT(
 			    'nameCities',ci.Name   
 			    )
-	        )FROM cities ci JOIN countries co1 on ci.CountryCode=co1.Code WHERE co1.UserId = '".$userID."') AS cities
-	        FROM countries co
-            WHERE co.UserId='".$userID."';
+	        )FROM cities ci JOIN countries co1 on ci.CountryCode=co1.Code WHERE co1.Code=co2.Code ) AS cities
+	        FROM countries co2
+            WHERE co2.UserId=".$userID.";
            ";
 
         $this->bd->default();
@@ -163,6 +163,28 @@ class Main_modelo
         }
 
         return $userObjArr;
+
+    }
+
+
+    public function winAttack($code,$userID){
+
+        $this->bd->default();
+
+        $sql="UPDATE countries set UserId=(SELECT Id FROM users WHERE Id LIKE ".$userID.") WHERE Code LIKE '".$code."'";
+
+        if($this->bd->query($sql)){
+            return true;
+        }else{
+            return false;
+        }
+
+
+    }
+
+    //BORARRIA EL COUNTRI DE LA TABLA CON UN DELETE, LO QUE QUIERO ES QUE NO SE MUESTRE
+
+    public function borrarCountri(){
 
     }
 

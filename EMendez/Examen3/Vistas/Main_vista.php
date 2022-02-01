@@ -28,8 +28,9 @@ error_reporting(0);
         <th>NumCities</th>
         <th>Owner</th>
     </tr>
-    <tr>
+
     <?php foreach ($countryObjArr as $country) {?>
+    <tr>
         <td><?php echo $country->getCode(); ?></td>
         <td><?php echo $country->getName(); ?></td>
         <td><?php echo $country->getPopulation(); ?></td>
@@ -57,9 +58,11 @@ error_reporting(0);
             echo $contadorC;
             ?>
         </td>
-    <?php }?>
         <td> <?php echo $_SESSION["user"] ?></td>
     </tr>
+    <?php }?>
+
+
 </table>
 
 <h2>Other Countries</h2>
@@ -74,7 +77,12 @@ error_reporting(0);
         <th>Owner</th>
         <th>Action</th>
     </tr>
-    <?php foreach ($countriesObjArr as $countries){?>
+
+
+    <?php
+
+    foreach ($countriesObjArr as $countries){
+        if($countries->getUserid()!=$_SESSION["userID"]){?>
     <tr>
         <td><?php echo $countries->getCode(); ?></td>
         <td><?php echo $countries->getName(); ?></td>
@@ -111,7 +119,9 @@ error_reporting(0);
             } ?></td>
         <td><a href="../Controladores/Atack_controlador.php?Code=<?php echo $countries->getCode(); ?>">¡Ataque!</a></td>
     </tr>
-    <?php }?>
+    <?php
+        }
+    }?>
 </table>
 <a href="../Controladores/IniSesion_controlador.php">Logout</a>
 </body>
