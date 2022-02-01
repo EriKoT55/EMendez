@@ -1,24 +1,21 @@
 <?php
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <title></title>
+<html lang="en" data-lt-installed="true"><head>
+    <meta charset="UTF-8">
+    <title>World Game</title>
 </head>
 <body>
 <h1>Sign up</h1>
-<form method="post" action="../Controladores/Register_controlador.php">
-    <label>Mail: </label>
-    <input name="mail" type="email" required>
+<form method="post">
+    Mail: <input type="text" name="mail">
     <br>
-    <label>Password:</label>
-    <input name="password" type="password" required>
+    Password: <input type="password" name="password">
     <br>
-    <label>Repeat Password:</label>
-    <input name="repeat" type="password" required>
+    Repeat password: <input type="password" name="confirm">
     <br>
-    <input type="submit">
+    <input type="submit" value="submit">
 </form>
+<span>Already have an account? <a href="../Controladores/Login_controlador.php">Login</a></span>
 
-</body>
-</html>
+</body></html>
+

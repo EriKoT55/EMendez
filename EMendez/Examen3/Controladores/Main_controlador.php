@@ -1,34 +1,50 @@
 <?php
-//PARA QUITAR LOS ERRORES DADOS POR EL ISSET AL NO HACER EL INICIO DE SESION
-error_reporting(0);
 require_once ("../Modelos/Main_modelo.php");
-/*
-echo "<br>";
-echo "<pre>";
-var_dump($conn->getCountry($codeRandom));
-echo "<br>";
-*/
 session_start();
 
-//OBLIGO A INICIAR SESSION
-if(!isset($_SESSION["Iniciado"])){
-    header("Location:../Controladores/IniSesion_controlador.php");
+//AL NO HABER INICIADO SESSION ME MANDA AL LOGIN
+if(!isset($_SESSION["Iniciada"])){
+    header("Location: ../Controladores/Login_controlador.php");
 }
 
-//CONEXION AL MODELO MAIN
-$conn= new Main_modelo();
+$conn=new Main_modelo();
 
-//DEVUELVE EL OBJETO PAIS DEL USUARIOID, DADO ALEATORIAMENTE
-$countryObjArr=$conn->getCountryUsr($_SESSION["userID"]);
+$countries=$conn->getCountries();
 
-//DEVUELVE LOS OBJETOS PAISES
-$countriesObjArr=$conn->getCountries();
+$countriesUsr=$conn->getCountryUser($_SESSION["userID"]);
 
-/*NO SE COMO HACERLO EN EL CONTROLADOR PARA NO TENER QUE LLAMAR A LA FUNCION EN LA VISTA
-foreach ($countriesObjArr as $countries){
-  $user[]=$conn->getUserT($countries->getUserid());
+if($_GET["Ataque"]!="") {
+    if( isset( $_GET["Ataque"] )==true ) {
+
+        if( isset( $_GET["Code"] ) ) {
+            $countriesAtacado = $conn->getCountryNPC( $_GET["Code"] );
+        }
+
+        $population=0;
+        $gnp=0;
+        foreach($countriesUsr as $countryUsr){
+
+            $population+=$countryUsr->getPopulation();
+            $gnp+=$countryUsr->getGNP();
+        }
+
+        $fuerzaUsr=$population+$gnp;
+
+        $populationNPC=$countriesAtacado[0]->getPopulation();
+        $gnpNPC=$countriesAtacado[0]->getGNP();
+
+        $fuerzaNPC=$populationNPC+$gnpNPC;
+
+        if($fuerzaUsr>$fuerzaNPC){
+            $conn->countryATK($_SESSION["userID"],$_GET["Code"]);
+        }else{
+            echo "pierdes";
+        }
+
+    }
 }
-*/
-
+//PARA QUE SE ACTUALICE LA LOS PAISES DEL USUARIO
+$countriesUsr=$conn->getCountryUser($_SESSION["userID"]);
 require_once ("../Vistas/Main_vista.php");
+
 ?>

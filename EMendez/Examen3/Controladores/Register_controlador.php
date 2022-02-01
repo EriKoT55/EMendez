@@ -1,24 +1,30 @@
 <?php
+require_once( "../Modelos/Register_modelo.php" );
 error_reporting(0);
-require_once ("../Modelos/Register_modelo.php");
-$conn= new Register_modelo();
+$conn = new Register_modelo();
 
-$mail=$_POST["mail"];
-$passw=$_POST["password"];
-$repeat=$_POST["repeat"];
 
-//REALIZO ESTE IF A PARA NO RECIBIR ERRORES Y QUE NO PETE
-if($mail!="" && $passw!="" && $repeat!=""){
-    if(isset($mail) && isset($passw)==isset($repeat)){
-        $passwHash=password_hash($passw,PASSWORD_DEFAULT);
-        if($conn->insertUser($mail,$passwHash)){
 
-            header("Location:../Controladores/IniSesion_controlador.php");
-        }else{
-            //CAMBIAR die POR UN echo SI PETA
-            die("ERROR al hacer el registro");
+$email = $_POST["mail"];
+$password = $_POST["password"];
+$confirm=$_POST["confirm"];
+
+if( $email!="" && $password!="" && $confirm!="" ) {
+    if( isset( $email ) && isset( $password )==isset($confirm) ) {
+        if( $conn->insertUsr( $email, $password )==true) {
+
+            header("Location: ../Controladores/Login_controlador.php");
+        } else {
+            echo "<script>
+                window.alert('ERROR EN AL INTRODUCIR LOS DATOS');
+            </script>";
         }
+    } else {
+        echo "<script>
+                window.alert('ALGUNO DE LOS DATOS NO FUE INTRODUCIDO');
+            </script>";
     }
 }
-require_once ("../Vistas/Register_vista.php");
+
+require_once( "../Vistas/Register_vista.php" );
 ?>

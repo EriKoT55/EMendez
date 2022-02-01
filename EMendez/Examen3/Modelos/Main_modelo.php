@@ -1,191 +1,148 @@
 <?php
-require_once("../BD/bd.php");
-require_once("../A_Entidades/Country.php");
-require_once("../A_Entidades/User.php");
+require_once ("../BD/bd.php");
+require_once ("../A_Entidades/Country.php");
 
 class Main_modelo
 {
+
     private bd $bd;
 
 
-    public function __construct()
+    public function __construct( )
     {
         $this->bd = new bd();
     }
 
-    /**
-     * @return array
-     */
-    public function getCountries()
-    {
+    public function getCountries(){
 
-        $sql = "SELECT co2.*,
-	        (SELECT JSON_ARRAYAGG(
-		        JSON_OBJECT(
-			    'lenguage',cl.Language   
-			    )
-	        )FROM countrylanguages cl JOIN countries co1 on cl.CountryCode=co1.Code WHERE co1.Code = co2.Code) AS lenguage,
-            (SELECT JSON_ARRAYAGG(
-		        JSON_OBJECT(
-			    'nameCities',ci.Name   
-			    )
-	        )FROM cities ci JOIN countries co1 on ci.CountryCode=co1.Code WHERE co1.Code = co2.Code) AS cities
-	        FROM countries co2 
-           ";
+        $sql="SELECT co1.*,
+        (SELECT JSON_ARRAYAGG(
+            JSON_OBJECT(
+               'leng',cl.Language
+            )
+            )FROM countrylanguages cl JOIN countries co2 on cl.CountryCode=co2.Code WHERE co2.Code=co1.Code) as 'leng',
+        (SELECT JSON_ARRAYAGG(
+            JSON_OBJECT(
+            'city',ci.Name
+            )
+            )FROM cities ci JOIN countries co2 on ci.CountryCode=co2.Code WHERE co2.Code=co1.Code) as 'city'
+         FROM countries co1;";
 
         $this->bd->default();
-        $result = $this->bd->query($sql);
-        $this->bd->close();
-
-        $arrCountries=$result->fetch_all(MYSQLI_ASSOC);
-
-        $countriesArrObj=[];
-
-        foreach ($arrCountries AS $countries){
-
-            $newCountry= new Country($countries["Code"],$countries["Name"],$countries["Population"],$countries["GNP"],$countries["Capital"],$countries["UserId"]);
-            $newCountry->setLenguage(json_decode($countries["lenguage"],true));
-            $newCountry->setCities(json_decode($countries["cities"],true));
-            $countriesArrObj[]=$newCountry;
-
-        }
-
-        return $countriesArrObj;
-
-    }
-
-    /**
-     * @param $userID
-     * @return array
-     */
-    public function getCountryUsr($userID)
-    {
-
-        $sql = "SELECT co2.*,
-	        (SELECT JSON_ARRAYAGG(
-		        JSON_OBJECT(
-			    'lenguage',cl.Language   
-			    )
-	        )FROM countrylanguages cl JOIN countries co1 on cl.CountryCode=co1.Code WHERE co1.Code=co2.Code ) AS lenguage,
-            (SELECT JSON_ARRAYAGG(
-		        JSON_OBJECT(
-			    'nameCities',ci.Name   
-			    )
-	        )FROM cities ci JOIN countries co1 on ci.CountryCode=co1.Code WHERE co1.Code=co2.Code ) AS cities
-	        FROM countries co2
-            WHERE co2.UserId=".$userID.";
-           ";
-
-        $this->bd->default();
-        $result = $this->bd->query($sql);
-        $this->bd->close();
-
-        $arrCountries=$result->fetch_all(MYSQLI_ASSOC);
-
-        $countriesArrObj=[];
-
-        foreach ($arrCountries AS $countries){
-
-            $newCountry= new Country($countries["Code"],$countries["Name"],$countries["Population"],$countries["GNP"],$countries["Capital"],$countries["UserId"]);
-            $newCountry->setLenguage(json_decode($countries["lenguage"],true));
-            $newCountry->setCities(json_decode($countries["cities"],true));
-            $countriesArrObj[]=$newCountry;
-
-        }
-
-        return $countriesArrObj;
-
-    }
-
-    /**
-     * @param $code
-     * @return array
-     */
-    public function getCountryATK($code)
-    {
-
-        $sql = "SELECT co.*,
-	        (SELECT JSON_ARRAYAGG(
-		        JSON_OBJECT(
-			    'lenguage',cl.Language   
-			    )
-	        )FROM countrylanguages cl JOIN countries co1 on cl.CountryCode=co1.Code WHERE co1.Code = '".$code."') AS lenguage,
-            (SELECT JSON_ARRAYAGG(
-		        JSON_OBJECT(
-			    'nameCities',ci.Name   
-			    )
-	        )FROM cities ci JOIN countries co1 on ci.CountryCode=co1.Code WHERE co1.Code = '".$code."') AS cities
-	        FROM countries co
-            WHERE co.Code='".$code."';
-           ";
-
-        $this->bd->default();
-        $result = $this->bd->query($sql);
-        $this->bd->close();
-
-        $arrCountries=$result->fetch_all(MYSQLI_ASSOC);
-
-        $countriesArrObj=[];
-
-        foreach ($arrCountries AS $countries){
-
-            $newCountry= new Country($countries["Code"],$countries["Name"],$countries["Population"],$countries["GNP"],$countries["Capital"],$countries["UserId"]);
-            $newCountry->setLenguage(json_decode($countries["lenguage"],true));
-            $newCountry->setCities(json_decode($countries["cities"],true));
-            $countriesArrObj[]=$newCountry;
-
-        }
-
-        return $countriesArrObj;
-
-    }
-
-    /**
-     * @param $id
-     * @return array
-     */
-    public function getUserXtable($id){
-
-        $this->bd->default();
-
-        $sql="SELECT * FROM users WHERE Id = '".$id."';";
 
         $result=$this->bd->query($sql);
+
         $this->bd->close();
-        $arrUser = $result->fetch_all(MYSQLI_ASSOC);
 
-        $userObjArr = [];
+        $arrCountries=$result->fetch_all(MYSQLI_ASSOC);
 
-        foreach ($arrUser as $user) {
+        $objArrCountries=[];
 
-            $userObjArr[] = new User($user["Id"], $user["Mail"], $user["Password"]);
+        foreach($arrCountries as $arrCountry){
 
+            $newCountry= new Country($arrCountry["Code"],$arrCountry["Name"],$arrCountry["Population"],$arrCountry["GNP"],$arrCountry["Capital"],$arrCountry["UserId"]);
+            $newCountry->setLanguages(json_decode($arrCountry["leng"],true));
+            $newCountry->setCities(json_decode($arrCountry["city"],true));
+            $objArrCountries[]=$newCountry;
         }
 
-        return $userObjArr;
+        return $objArrCountries;
 
     }
 
+    public function getCountryUser($userID){
 
-    public function winAttack($code,$userID){
+        $sql="SELECT co1.*,
+        (SELECT JSON_ARRAYAGG(
+            JSON_OBJECT(
+               'leng',cl.Language
+            )
+            )FROM countrylanguages cl JOIN countries co2 on cl.CountryCode=co2.Code WHERE co2.Code=co1.Code) as 'leng',
+        (SELECT JSON_ARRAYAGG(
+            JSON_OBJECT(
+            'city',ci.Name
+            )
+            )FROM cities ci JOIN countries co2 on ci.CountryCode=co2.Code WHERE co2.Code=co1.Code) as 'city'
+         FROM countries co1 WHERE co1.UserId=".$userID.";";
 
         $this->bd->default();
 
-        $sql="UPDATE countries set UserId=(SELECT Id FROM users WHERE Id LIKE ".$userID.") WHERE Code LIKE '".$code."'";
+        $result=$this->bd->query($sql);
 
-        if($this->bd->query($sql)){
-            return true;
-        }else{
-            return false;
+        $this->bd->close();
+
+        $arrCountries=$result->fetch_all(MYSQLI_ASSOC);
+
+        $objArrCountries=[];
+
+        foreach($arrCountries as $arrCountry){
+
+            $newCountry= new Country($arrCountry["Code"],$arrCountry["Name"],$arrCountry["Population"],$arrCountry["GNP"],$arrCountry["Capital"],$arrCountry["UserId"]);
+            $newCountry->setLanguages(json_decode($arrCountry["leng"],true));
+            $newCountry->setCities(json_decode($arrCountry["city"],true));
+            $objArrCountries[]=$newCountry;
         }
 
+        return $objArrCountries;
 
     }
 
-    //BORARRIA EL COUNTRI DE LA TABLA CON UN DELETE, LO QUE QUIERO ES QUE NO SE MUESTRE
+    public function getCountryNPC($code){
+        $sql="SELECT co1.*,
+        (SELECT JSON_ARRAYAGG(
+            JSON_OBJECT(
+               'leng',cl.Language
+            )
+            )FROM countrylanguages cl JOIN countries co2 on cl.CountryCode=co2.Code WHERE co2.Code=co1.Code) as 'leng',
+        (SELECT JSON_ARRAYAGG(
+            JSON_OBJECT(
+            'city',ci.Name
+            )
+            )FROM cities ci JOIN countries co2 on ci.CountryCode=co2.Code WHERE co2.Code=co1.Code) as 'city'
+         FROM countries co1 WHERE co1.Code='".$code."';";
 
-    public function borrarCountri(){
+        $this->bd->default();
+
+        $result=$this->bd->query($sql);
+
+        $this->bd->close();
+
+        $arrCountries=$result->fetch_all(MYSQLI_ASSOC);
+
+        $objArrCountries=[];
+
+        foreach($arrCountries as $arrCountry){
+
+            $newCountry= new Country($arrCountry["Code"],$arrCountry["Name"],$arrCountry["Population"],$arrCountry["GNP"],$arrCountry["Capital"],$arrCountry["UserId"]);
+            $newCountry->setLanguages(json_decode($arrCountry["leng"],true));
+            $newCountry->setCities(json_decode($arrCountry["city"],true));
+            $objArrCountries[]=$newCountry;
+        }
+
+        return $objArrCountries;
 
     }
+    public function countryATK($userID,$code){
+        $sql="UPDATE countries SET UserId = ".$userID." WHERE Code like '".$code."' ";
+        $this->bd->default();
+        $this->bd->query($sql);
+        $this->bd->close();
+    }
+
+    public function userXcountry($userID){
+
+        $sql="SELECT Mail FROM users WHERE Id=".$userID.";";
+
+        $this->bd->default();
+        $result=$this->bd->query($sql);
+        $this->bd->close();
+
+        $arrMail=$result->fetch_all(MYSQLI_ASSOC);
+
+        return $arrMail[0]["Mail"];
+
+    }
+
+
 
 }

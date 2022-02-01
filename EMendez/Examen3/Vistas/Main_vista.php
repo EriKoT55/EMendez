@@ -1,22 +1,25 @@
 <?php
 error_reporting(0);
+
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<title>
-    CONQUISTA
-</title>
+<html lang="en" data-lt-installed="true"><head>
+    <meta charset="UTF-8">
+    <title>World Game</title>
     <style>
-        table,tr,td,th{
+        table, th, td {
+            border: 1px solid black;
             border-collapse: collapse;
-            border:1px solid black;
+            padding: 5px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
 <h1>Countries</h1>
-
+<br>
 <h2>My countries</h2>
 <table>
     <tr>
@@ -28,44 +31,38 @@ error_reporting(0);
         <th>NumCities</th>
         <th>Owner</th>
     </tr>
-
-    <?php foreach ($countryObjArr as $country) {?>
-    <tr>
-        <td><?php echo $country->getCode(); ?></td>
-        <td><?php echo $country->getName(); ?></td>
-        <td><?php echo $country->getPopulation(); ?></td>
-        <td><?php echo $country->getGNP(); ?></td>
-        <td><?php
-            $contadorL=0;
-            foreach ( $country->getLenguage() as $lenguage){
-                $contadorL++;
-                if($lenguage["lenguage"]==null){
-                    $contadorL=0;
+    <?php foreach($countriesUsr as $countryUsr){  ?>
+        <tr>
+            <td><?php echo $countryUsr->getCode() ?></td>
+            <td><?php echo $countryUsr->getName() ?></td>
+            <td><?php echo $countryUsr->getPopulation() ?></td>
+            <td><?php echo $countryUsr->getGNP() ?></td>
+            <td><?php $contL=0;
+                foreach($countryUsr->getLanguages() as $lenguagesUsr){
+                    if($lenguagesUsr==null){
+                        $contL=0;
+                    }
+                    $contL++;
                 }
-            }
-            echo $contadorL;
-            ?>
-        </td>
-        <td><?php
-            $contadorC=0;
-            foreach ( $country->getCities() as $cities){
-                $contadorC++;
-                //$cities["nameCities"];
-                if($cities["nameCities"]==null){
-                    $contadorC=0;
+                echo $contL;
+                ?></td>
+            <td><?php $contC=0;
+                foreach($countryUsr->getCities() as $citiesUsr){
+                    if($citiesUsr==null){
+                        $contC=0;
+                    }
+                    $contC++;
                 }
-            }
-            echo $contadorC;
-            ?>
-        </td>
-        <td> <?php echo $_SESSION["user"] ?></td>
-    </tr>
-    <?php }?>
-
-
+                echo $contC;
+                ?></td>
+            <td><?php $owner=$conn->userXcountry($_SESSION["userID"]);
+                echo $owner ?></td>
+        </tr>
+    <?php }  ?>
 </table>
-
-<h2>Other Countries</h2>
+<br>
+<h2>Other countries</h2>
+<br>
 <table>
     <tr>
         <th>Code</th>
@@ -75,54 +72,41 @@ error_reporting(0);
         <th>NumLanguages</th>
         <th>NumCities</th>
         <th>Owner</th>
-        <th>Action</th>
     </tr>
-
-
-    <?php
-
-    foreach ($countriesObjArr as $countries){
-        if($countries->getUserid()!=$_SESSION["userID"]){?>
+<?php foreach($countries as $country){
+        if($country->getUserId()!=$_SESSION["userID"]){
+    ?>
     <tr>
-        <td><?php echo $countries->getCode(); ?></td>
-        <td><?php echo $countries->getName(); ?></td>
-        <td><?php echo $countries->getPopulation(); ?></td>
-        <td><?php echo $countries->getGNP(); ?></td>
-        <td><?php
-            $contadorL=0;
-            /** PODRIA HACER UN COUNT WHERE EN EL SQL Y ASI NO CONTARLOS AQUÍ */
-            foreach ( $countries->getLenguage() as $lenguage){
-                $contadorL++;
-                if($lenguage["lenguage"]==null){
-                    $contadorL=0;
+        <td><?php echo $country->getCode() ?></td>
+        <td><?php echo $country->getName() ?></td>
+        <td><?php echo $country->getPopulation() ?></td>
+        <td><?php echo $country->getGNP() ?></td>
+        <td><?php $contL=0;
+            foreach($country->getLanguages() as $lenguages){
+                if($lenguages==null){
+                    $contL=0;
                 }
-                //$lenguage["lenguage"];
+                $contL++;
             }
-            echo $contadorL;
-            ?>
-        </td>
-        <td><?php
-            $contadorC=0;
-            foreach ( $countries->getCities() as $cities){
-                $contadorC++;
-                if($cities["nameCities"]==null){
-                    $contadorC=0;
+            echo $contL;
+            ?></td>
+        <td><?php $contC=0;
+            foreach($country->getCities() as $cities){
+                if($cities==null){
+                    $contC=0;
                 }
+                $contC++;
             }
-            echo $contadorC;
-            ?>
-        </td>
-        <td><?php
-            $user=$conn->getUserXtable($countries->getUserid());
-            foreach($user as $usr ){
-               echo $usr->getMail();
-            } ?></td>
-        <td><a href="../Controladores/Atack_controlador.php?Code=<?php echo $countries->getCode(); ?>">¡Ataque!</a></td>
+            echo $contC;
+            ?></td>
+        <td><?php $owner=$conn->userXcountry($country->getUserId());
+            echo $owner ?></td>
+        <td><a href="?Ataque=true&Code=<?php echo $country->getCode() ?>">¡ATAQUE!</a></td>
     </tr>
-    <?php
-        }
-    }?>
+<?php }
+}  ?>
 </table>
-<a href="../Controladores/IniSesion_controlador.php">Logout</a>
-</body>
-</html>
+
+<a href="../Controladores/Logout_controlador.php">Logout</a>
+
+</body></html>

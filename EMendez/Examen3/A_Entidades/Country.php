@@ -3,7 +3,7 @@
 class Country
 {
 
-    private $Code,$Name,$Population,$GNP,$Capital,$Userid,$Lenguage,$Cities;
+    private $Code, $Name, $Population, $GNP, $Capital, $UserId, $Languages, $Cities;
 
     /**
      * @param $Code
@@ -11,20 +11,20 @@ class Country
      * @param $Population
      * @param $GNP
      * @param $Capital
-     * @param $Userid
+     * @param $UserId
      */
-    public function __construct($Code, $Name, $Population, $GNP, $Capital, $Userid)
+    public function __construct( $Code, $Name, $Population, $GNP, $Capital, $UserId )
     {
-        $this->Code = $Code;
-        $this->Name = $Name;
+        $this->Code =(string)$Code;
+        $this->Name =(string) $Name;
         $this->Population =(int) $Population;
-        $this->GNP =(int) $GNP;
-        $this->Capital = $Capital;
-        $this->Userid =(int) $Userid;
+        $this->GNP = (int)$GNP;
+        $this->Capital = (string)$Capital;
+        $this->UserId = (int)$UserId;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCode()
     {
@@ -32,15 +32,15 @@ class Country
     }
 
     /**
-     * @param mixed $Code
+     * @param string $Code
      */
-    public function setCode($Code)
+    public function setCode( $Code )
     {
         $this->Code = $Code;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
@@ -48,9 +48,9 @@ class Country
     }
 
     /**
-     * @param mixed $Name
+     * @param string $Name
      */
-    public function setName($Name)
+    public function setName( $Name )
     {
         $this->Name = $Name;
     }
@@ -88,7 +88,7 @@ class Country
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCapital()
     {
@@ -96,9 +96,9 @@ class Country
     }
 
     /**
-     * @param mixed $Capital
+     * @param string $Capital
      */
-    public function setCapital($Capital)
+    public function setCapital( $Capital )
     {
         $this->Capital = $Capital;
     }
@@ -106,33 +106,33 @@ class Country
     /**
      * @return int
      */
-    public function getUserid()
+    public function getUserId()
     {
-        return $this->Userid;
+        return $this->UserId;
     }
 
     /**
-     * @param int $Userid
+     * @param int $UserId
      */
-    public function setUserid( $Userid )
+    public function setUserId( $UserId )
     {
-        $this->Userid = $Userid;
+        $this->UserId = $UserId;
     }
 
     /**
      * @return mixed
      */
-    public function getLenguage()
+    public function getLanguages()
     {
-        return $this->Lenguage;
+        return $this->Languages;
     }
 
     /**
-     * @param mixed $Lenguage
+     * @param mixed $Languages
      */
-    public function setLenguage($Lenguage): void
+    public function setLanguages( $Languages )
     {
-        $this->Lenguage = $Lenguage;
+        $this->Languages = $Languages;
     }
 
     /**
@@ -146,7 +146,7 @@ class Country
     /**
      * @param mixed $Cities
      */
-    public function setCities($Cities): void
+    public function setCities( $Cities )
     {
         $this->Cities = $Cities;
     }
