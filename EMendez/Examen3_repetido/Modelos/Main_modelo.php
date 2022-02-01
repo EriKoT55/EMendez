@@ -118,7 +118,7 @@ class Main_modelo
      */
     public function devolverPeli ($filmID){
 
-        $sql="UPDATE film set user_id= IS NULL WHERE film_id=".$filmID." ";
+        $sql="UPDATE film set user_id= NULL WHERE film_id=".$filmID." ";
 
         $this->bd->default();
         $this->bd->query($sql);

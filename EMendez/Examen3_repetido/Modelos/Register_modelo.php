@@ -24,7 +24,7 @@ public function insertUsr($mail,$contra){
 
     $contraHashed=password_hash($contra,PASSWORD_DEFAULT);
 
-    $sql="INSERT INTO user (mail,password) VALUES ('".$mail."','".$contraHashed."')";
+    $sql="INSERT INTO user (mail,password) VALUES ('".$mail."','".$contraHashed."');";
 
     if($this->bd->query($sql)){
 

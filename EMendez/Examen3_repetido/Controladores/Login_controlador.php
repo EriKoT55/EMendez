@@ -1,5 +1,6 @@
 <?php
 require_once ("../Modelos/Login_modelo.php");
+error_reporting(0);
 
 session_start();
 $conn= new Login_modelo();

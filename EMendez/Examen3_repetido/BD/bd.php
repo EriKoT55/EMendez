@@ -5,8 +5,8 @@ class bd extends mysqli
 
     private $servername="localhost";
     private $username="root";
-    private $password="Ageofempires2*";
-    private $database="Sakila";
+    private $password="root";
+    private $database="films";
 
     public function default(){
         $this->local();

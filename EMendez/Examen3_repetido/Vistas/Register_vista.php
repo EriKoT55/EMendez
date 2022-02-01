@@ -12,7 +12,7 @@
     <br>
     Password: <input type="password" name="password" required>
     <br>
-    Confirm passowrd: <input type="password" name="confirm" required>
+    Confirm password: <input type="password" name="confirm" required>
     <br>
     <input type="submit" value="submit">
 </form>

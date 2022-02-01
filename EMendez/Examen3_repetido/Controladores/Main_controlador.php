@@ -1,6 +1,6 @@
 <?php
 require_once ("../Modelos/Main_modelo.php");
-//error_reporting(0);
+error_reporting(0);
 session_start();
 
 /*foreach ($conn->getFilms() as $films){

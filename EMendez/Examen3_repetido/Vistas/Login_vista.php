@@ -15,7 +15,7 @@
     <br>
     <input type="submit" value="submit">
 </form>
-<span>Don't have an account? <a href="../Controladores/Login_controlador.php">Create account</a></span>
+<span>Don't have an account? <a href="../Controladores/Register_controlador.php">Create account</a></span>
 
 </body>
 </html>
