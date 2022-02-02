@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="c407bf13-010e-4ead-a987-2ad1b5fa116b" name="Local" url="http://localhost/EMendez">
+        <fileTransfer mountedRoot="$USER_HOME$/C:\Users\erik5\C:\xampp\htdocs\EMendez" accessType="MOUNT" port="0" />
+      </webServer>
+      <webServer id="b6e6753a-2248-49c6-9b40-869de13d7143" name="ftp" url="http://ftp.dawsonferrer.com">
+        <fileTransfer host="ftp.dawsonferrer.com" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
