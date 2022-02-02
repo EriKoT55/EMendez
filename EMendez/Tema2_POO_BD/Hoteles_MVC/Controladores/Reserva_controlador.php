@@ -54,21 +54,29 @@ if( $huespedes!=0 ) {
         }
     }
 }
-/*$result=$conn->ComprobarDisponibilidad($entradaValid,$salidaValid,$_SESSION["hotelID"]);
+$result=$conn->ComprobarDisponibilidad($entradaValid,$salidaValid,$_SESSION["hotelID"]);
+
 echo "<br>";
 echo "<pre>";
 var_dump($result);
-echo "<br>";*/
+echo "<br>";
+
+/*
 if( $entradaValid!=0 && $huespedesValid!=0 && $salidaValid!=0 ) {
     if( isset( $entradaValid ) && isset( $salidaValid ) && isset( $huespedesValid ) ) {
-        /** SI NO HAY NINGUNA RESERVA ENTRE ESOS DIAS TODA VA BIEN, PERO SI HAY ALGUNA LA PANTALLA SE MUESTRA EN BLACO, MIRAR FUNCION COMPROBAR*/
+        /** SI NO HAY NINGUNA RESERVA ENTRE ESOS DIAS TODA VA BIEN, PERO SI HAY ALGUNA LA PANTALLA SE MUESTRA EN BLACO, MIRAR FUNCION COMPROBAR*//*
         $objHabitacion = $conn->ComprobarDisponibilidad( $entradaValid, $salidaValid, $_SESSION["hotelID"] );
-        $habitacionID = $objHabitacion[0]->getHabitacionID();
+        $habitacionID = [];
+        foreach($objHabitacion as $habitaciones){
+            $habitacionID[]=$habitaciones->getHabitacionID();
+        }
+
+    $randHab=rand(0,count($habitacionID));
         $numHabitacion = $objHabitacion[0]->getNumHabitacion();
         //$habitacionIdRand=rand(1,count($habitacionID)); NO FUNCIONARIA PORQUE DEVUELVE NUMEROS QUE NO SON CONSECUTIVOS
         //$numHabitacionRank=rand();
         if( $habitacionID > 0 ) {
-            if( $conn->InsertReserv( $entradaValid, $salidaValid, $habitacionID, $_SESSION["userID"], $huespedesValid ) ) {
+            if( $conn->InsertReserv( $entradaValid, $salidaValid, $habitacionID[$randHab], $_SESSION["userID"], $huespedesValid ) ) {
 
                 echo "<script>
                         window.alert(" . $numHabitacion . ");
@@ -83,6 +91,6 @@ if( $entradaValid!=0 && $huespedesValid!=0 && $salidaValid!=0 ) {
             }
         }
     }
-}
+}*/
 require_once( "../Vistas/Reserva_vista.php" );
 ?>

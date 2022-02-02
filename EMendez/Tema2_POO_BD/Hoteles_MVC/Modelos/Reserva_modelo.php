@@ -84,13 +84,18 @@ class Reserva_modelo
          * CUANDO CONSIGA  LE DARE UNA HABITACION, QUE NO ESTE ENTRE ESAS FECHAS Y SEA RANDOM DEL OBJETO
          */
 // SI NO HAY RESERVAS PARA ESAS FECHAS, SIGNIFICA QUE HAY DISPO ENTONCES TRUE, SINO ENTRA AL BUCLE Y EMPIEZA A COMPARAR
+        $objArrHabitacion = [];
         if( count( $arrResHab ) > 0 ) {
-            $objArrHabitacion = [];
-            for( $i = 0; $i < count( $arrResHab1 ); $i++ ) {
                 for( $j = 0; $j < count( $arrResHab ); $j++ ) {
+                    for( $i = 0; $i < count( $arrResHab1 ); $i++ ) {
                     //NO SE SI PONER EL 3 BUCLE AQUI
+                        //COMPARA EL PRIMERO Y CLARO AL SER IGUAL ME HACE EL RETURN Y ACABA LA FUNCION,
+                        //DEBERIA IR COMPARANDO LOS ID'S, IR METIENDO LOS ID'S EN UN ARRAY PARA LA POSTERIOR COMPARACIÓN,
+                        //PERO DARLE UNA VUELTA
                     if( $arrResHab1[$i]["HabitacionID"]==$arrResHab[$j]["HabitacionID"] ) {
+                        //QUITAR ESTE RETURN
                         return new Habitacion( 0, 0, 0, 0 );
+
                     } else {
                         //O AQUI
                         /*for($k=0;$k<count($arrResHab2);$k++) {
@@ -98,21 +103,22 @@ class Reserva_modelo
                             if( $arrResHab1[$j]["Fecha_entrada"]==$arrResHab[$k]["Fecha_entrada"] && $arrResHab1[$j]["Fecha_salida"]==$arrResHab[$k]["Fecha_salida"] ) {
                                 return false;
                             }*/
-
                         $objArrHabitacion[$i] = new Habitacion( $arrResHab1[$i]["HabitacionID"], $arrResHab1[$i]["HotelID"], $arrResHab1[$i]["numHuespedes"], $arrResHab1[$i]["numHabitacion"] );
                         //NO SE SI QUITAR LOS CORCHETES o ponerle corchetes
                         return $objArrHabitacion;
+
                     }
                 }
             }
-        } else {
+
+        }
             //COMO NO HAY HABITACIONES RESERVADAS PUEDO DARLE CUALQUIERA TODAS ESTAN DISPONIBLES
             foreach( $arrResHab1 as $reshab1 ) {
                 $objArrHabitacion[] = new Habitacion( $reshab1["HabitacionID"], $reshab1["HotelID"], $reshab1["numHuespedes"], $reshab1["numHabitacion"] );
             }
             //SUPUESTAMENTE ESTOY DEVOLVIENDO UN OBJ, pero me devuelve un array
             return $objArrHabitacion;
-        }
+
 
 
         /** Necesito ir sumando uno en la Fecha_entrada hasta llegar a Fecha_salida O NO, PODRIA PLANTEARLO DE OTRA MANERA **/
