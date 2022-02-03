@@ -118,7 +118,7 @@ class Reserva_modelo
                 //AQUI ESTAN LAS HABITACIONES CON DISPO, PERO TENGO EL MISMO PROBLEMA AHORA DEBO COMPARARLAS
                 // Y 1 ES DIFERENTE DE 2 YA NO ENTRARIA
                 $habsDispo=array_diff($reservNoDisp, $totalHabs);
-                if() {
+                if($habsDispo[$i]) {
                     $objArrHabitacion[] = new Habitacion( $habs["HabitacionID"], $habs["HotelID"], $habs["numHuespedes"], $habs["numHabitacion"] );
                 }
                 $i++;
