@@ -101,15 +101,24 @@ class Reserva_modelo
              * POR QUE EL ARRAY RECORRE 1 A 1, COMO PODRIA HACER QUE RECORRIENDO UNO A UNO ME QUITARA EL 8,
              * SIN CONTAR QUE AL  HABER MAS HABITACIONES QUE RESERVAS PETA EL arrResHab
              */
+            $reservNoDisp=[];
+            $totalHabs=[];
+            $habsDispo=[];
             foreach( $arrHab as $habs ) {
                 //AQUI ESTABA DESESPERADO, para que no pete arrResHab y salga del bucle, tampoco funciona
                 if($i==count($arrHab)){
                     break;
                 }
+                $reservNoDisp=$arrResHab[$i]["HabitacionID"];
+                $totalHabs=$habs["HabitacionID"];
 //SI LOS ID'S DE LAS HABTIACIONES RESERVADAS SON DIFERENTES A LOS ID'S DE LAS HABITACIONES, me crea los objetos que son diferentes a las reservas
                 /** https://www.w3schools.com/php/func_array_diff.asp */
-                //array_diff($arrResHab[$i]["HabitacionID"],$habs["HabitacionID"])
-                if($arrResHab[$i]["HabitacionID"] != $habs["HabitacionID"] ) {
+                /*$habsDispo[]=array_diff($reservNoDisp, $totalHabs);*/
+                /*$arrResHab[$i]["HabitacionID"] != $habs["HabitacionID"] */
+                //AQUI ESTAN LAS HABITACIONES CON DISPO, PERO TENGO EL MISMO PROBLEMA AHORA DEBO COMPARARLAS
+                // Y 1 ES DIFERENTE DE 2 YA NO ENTRARIA
+                $habsDispo=array_diff($reservNoDisp, $totalHabs);
+                if() {
                     $objArrHabitacion[] = new Habitacion( $habs["HabitacionID"], $habs["HotelID"], $habs["numHuespedes"], $habs["numHabitacion"] );
                 }
                 $i++;
