@@ -2,6 +2,7 @@
 require_once( "../BD/bd.php" );
 require_once ("../A_Entidades/Habitacion.php");
 
+
 //asdf
 class Reserva_modelo
 {
@@ -91,8 +92,9 @@ class Reserva_modelo
         }else{
             $dispo=true;
         }
+
         if($dispo==true){
-            $i=0;
+            //$i=0;
             /** PROBLEMA
              * ME RECORRE LOS ARRAYS, EN EL PRIMER ARRAY ESTA EL 1 Y EL 8 Y EN EL SEGUNDO 1 2 3 7 8
              * PRIMERA VUELTA 1 ES DIFERENTE DE 1 NO, ENTONCES NO LO METE,
@@ -101,20 +103,32 @@ class Reserva_modelo
              * POR QUE EL ARRAY RECORRE 1 A 1, COMO PODRIA HACER QUE RECORRIENDO UNO A UNO ME QUITARA EL 8,
              * SIN CONTAR QUE AL  HABER MAS HABITACIONES QUE RESERVAS PETA EL arrResHab
              */
-            $reservNoDisp=[];
-            $totalHabs=[];
-            $habsDispo=[];
-            foreach( $arrHab as $habs ) {
-                //AQUI ESTABA DESESPERADO, para que no pete arrResHab y salga del bucle, tampoco funciona
-                if($i==count($arrHab)){
-                    break;
+            $objArrHabitacion=[];
+            for($i=0;$i<count($arrResHab);$i++){
+                for($j=$i;$j<count($arrHab);$j++){
+                    if($arrResHab[$i]["HabitacionID"]!=$arrHab[$j]["HabitacionID"]){
+                        $objArrHabitacion= new Habitacion($arrHab[$j]["HabitacionID"],$arrHab["HotelID"],$arrHab["numHuespedes"],$arrHab["numHuespedes"]);
+                    }else{
+                        $objArrHabitacion= new Habitacion(0,0,0,0);
+                    }
                 }
-                $reservNoDisp=$arrResHab[$i]["HabitacionID"];
-                $totalHabs=$habs["HabitacionID"];
-//SI LOS ID'S DE LAS HABTIACIONES RESERVADAS SON DIFERENTES A LOS ID'S DE LAS HABITACIONES, me crea los objetos que son diferentes a las reservas
-                /** https://www.w3schools.com/php/func_array_diff.asp */
+            }
+    return $objArrHabitacion;
+            /*
+                       $reservNoDisp=[];
+                       $totalHabs=[];
+                       $habsDispo=[];
+                      foreach( $arrHab as $habs ) {
+                           //AQUI ESTABA DESESPERADO, para que no pete arrResHab y salga del bucle, tampoco funciona
+                           if($i==count($arrHab)){
+                               break;
+                           }
+                           $reservNoDisp=$arrResHab[$i]["HabitacionID"];
+                           $totalHabs=$habs["HabitacionID"];
+           //SI LOS ID'S DE LAS HABTIACIONES RESERVADAS SON DIFERENTES A LOS ID'S DE LAS HABITACIONES, me crea los objetos que son diferentes a las reservas
+                           /** https://www.w3schools.com/php/func_array_diff.asp */
                 /*$habsDispo[]=array_diff($reservNoDisp, $totalHabs);*/
-                /*$arrResHab[$i]["HabitacionID"] != $habs["HabitacionID"] */
+                /*$arrResHab[$i]["HabitacionID"] != $habs["HabitacionID"] *//*
                 //AQUI ESTAN LAS HABITACIONES CON DISPO, PERO TENGO EL MISMO PROBLEMA AHORA DEBO COMPARARLAS
                 // Y 1 ES DIFERENTE DE 2 YA NO ENTRARIA
                 $habsDispo=array_diff($reservNoDisp, $totalHabs);
@@ -125,7 +139,7 @@ class Reserva_modelo
             }
             return $objArrHabitacion;
         }else{
-            return new Habitacion(0,0,0,0);
+            return new Habitacion(0,0,0,0);*/
         }
 
         /** Necesito ir sumando uno en la Fecha_entrada hasta llegar a Fecha_salida O NO, PODRIA PLANTEARLO DE OTRA MANERA **/
