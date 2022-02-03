@@ -95,7 +95,34 @@ class Reserva_modelo
 
         if($dispo==true){
             //$i=0;
-            /** PROBLEMA
+           /** PROBLEMA
+            * EN UN ARRAY TENGO 1 Y 8, y en el otro 1 2 3 7 8
+            * EN LA VUELTA CERO DE $j, 1 ES IGUAL A 1 ENTONCES, NO LO METE
+            * EN LA VUELTA UNO DE $j, 1 ES DIFERENTE DE 8 ENTONCES, LO METE,
+            * Y ME METE TODOS, HASTA LLEGAR A LA VUELTA CUATRO DE $j, AHORA EMPEZARA LA VUELTA UNO DE $i
+            * $j EMPIEZA AHORA DESDE LA VUELTA UNO, YA QUE EL 1 YA HA SIDO COMPROBADO ENTONCES YA NO HACE FALTA VOLVER A COMPROBARLO
+            * EN LA VUELTA UNO de $i y LA VUELTA UNO DE $j, 8 ES DIFERENTE DE 2 ENTONCES LO METE
+            * ASI HASTA LLEGAR A LA VUELTA UNO DE $i Y LA VUELTA CUANTRO DE $j, en la cual 8 ES IGUAL A 8 Y NO LO METE
+            * PROBLEMA
+            * ME HA METIDO ESTOS ID'S 2,3,7,8,2,3,7 EN $objArrHabitacion
+            */
+            $objArrHabitacion=[];
+            for($i=0;$i<count($arrResHab);$i++){
+                for($j=$i;$j<count($arrHab);$j++){
+                    if($arrResHab[$i]["HabitacionID"]!=$arrHab[$j]["HabitacionID"]){
+                        $objArrHabitacion[]= new Habitacion($arrHab[$j]["HabitacionID"],$arrHab["HotelID"],$arrHab["numHuespedes"],$arrHab["numHuespedes"]);
+                    }/*else{
+                DEBERIA SALIR DEL IF E IR AL ELSE Y DEVOLVERME EL OBJETO HABITACION 0
+                        $dispo=false;
+                SI NO CREO EL OBJECTO AQUI LO GUARDO EN LA VARIABLE Y DESPUES LO DEVOLVERE
+                $objArrHabitacion = new Habitacion(0, 0, 0, 0);
+                    }*/
+                }
+            }
+            //ME METE TODOS LOS DIFERENTES QUE SON TODOS MENOS EL PRIMEO POR QUE 1 ES IGUAL A 1 ENTONCES NO ENTRA
+    return $objArrHabitacion;
+            /*
+             *  /** PROBLEMA
              * ME RECORRE LOS ARRAYS, EN EL PRIMER ARRAY ESTA EL 1 Y EL 8 Y EN EL SEGUNDO 1 2 3 7 8
              * PRIMERA VUELTA 1 ES DIFERENTE DE 1 NO, ENTONCES NO LO METE,
              * SEGUNDA VUELTA 8 ES DIFERENTE DE 2 SI, ME LO METE YA EL RESTO ENTRAN
@@ -103,18 +130,7 @@ class Reserva_modelo
              * POR QUE EL ARRAY RECORRE 1 A 1, COMO PODRIA HACER QUE RECORRIENDO UNO A UNO ME QUITARA EL 8,
              * SIN CONTAR QUE AL  HABER MAS HABITACIONES QUE RESERVAS PETA EL arrResHab
              */
-            $objArrHabitacion=[];
-            for($i=0;$i<count($arrResHab);$i++){
-                for($j=$i;$j<count($arrHab);$j++){
-                    if($arrResHab[$i]["HabitacionID"]!=$arrHab[$j]["HabitacionID"]){
-                        $objArrHabitacion= new Habitacion($arrHab[$j]["HabitacionID"],$arrHab["HotelID"],$arrHab["numHuespedes"],$arrHab["numHuespedes"]);
-                    }else{
-                        $objArrHabitacion= new Habitacion(0,0,0,0);
-                    }
-                }
-            }
-    return $objArrHabitacion;
-            /*
+             /*
                        $reservNoDisp=[];
                        $totalHabs=[];
                        $habsDispo=[];
@@ -137,9 +153,9 @@ class Reserva_modelo
                 }
                 $i++;
             }
-            return $objArrHabitacion;
-        }else{
-            return new Habitacion(0,0,0,0);*/
+            return $objArrHabitacion;*/
+        }else {
+            return new Habitacion(0, 0, 0, 0);
         }
 
         /** Necesito ir sumando uno en la Fecha_entrada hasta llegar a Fecha_salida O NO, PODRIA PLANTEARLO DE OTRA MANERA **/
