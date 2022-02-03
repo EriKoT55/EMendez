@@ -54,43 +54,55 @@ if( $huespedes!=0 ) {
         }
     }
 }
+/*
 $result=$conn->ComprobarDisponibilidad($entradaValid,$salidaValid,$_SESSION["hotelID"]);
+
+            PROBAR SI DEVUELVE UN OBJETO VACIO HACER UN FOR EACH
 
 echo "<br>";
 echo "<pre>";
-var_dump($result);
+var_dump($result[]->getHabitacionID());
 echo "<br>";
+*/
 
-/*
 if( $entradaValid!=0 && $huespedesValid!=0 && $salidaValid!=0 ) {
     if( isset( $entradaValid ) && isset( $salidaValid ) && isset( $huespedesValid ) ) {
-        /** SI NO HAY NINGUNA RESERVA ENTRE ESOS DIAS TODA VA BIEN, PERO SI HAY ALGUNA LA PANTALLA SE MUESTRA EN BLACO, MIRAR FUNCION COMPROBAR*//*
+        /** SI NO HAY NINGUNA RESERVA ENTRE ESOS DIAS TODA VA BIEN, PERO SI HAY ALGUNA LA PANTALLA SE MUESTRA EN BLACO, MIRAR FUNCION COMPROBAR*/
         $objHabitacion = $conn->ComprobarDisponibilidad( $entradaValid, $salidaValid, $_SESSION["hotelID"] );
+//DEBERIA HACER UNA FUNCION LA CUAL LE PASO EL ID DE LA HABITACION Y ME DEVUELVE EL NUMERO DE ESTA, EN VEZ DE ESTA MIERDA
         $habitacionID = [];
+        $habitacionID_if=0;
         foreach($objHabitacion as $habitaciones){
             $habitacionID[]=$habitaciones->getHabitacionID();
+            //SEGURAMENTE ME DEVUELVA UN NUM DE HABITACION DIFERENTE AL ID
+            $habitacionID_if=$habitaciones->getHabitacionID();
         }
+        $randHab=rand(0,count($habitacionID));
+        if( $habitacionID_if > 0 ) {
+            $arrNum=$conn->numHabitacion($habitacionID[$randHab]);
 
-    $randHab=rand(0,count($habitacionID));
-        $numHabitacion = $objHabitacion[0]->getNumHabitacion();
-        //$habitacionIdRand=rand(1,count($habitacionID)); NO FUNCIONARIA PORQUE DEVUELVE NUMEROS QUE NO SON CONSECUTIVOS
-        //$numHabitacionRank=rand();
-        if( $habitacionID > 0 ) {
             if( $conn->InsertReserv( $entradaValid, $salidaValid, $habitacionID[$randHab], $_SESSION["userID"], $huespedesValid ) ) {
 
-                echo "<script>
-                        window.alert(" . $numHabitacion . ");
-                    </script>";
-
-                header( "Location: ../Controladores/Main_controlador.php" );
-
+                ?><script>
+                     let numConfirm =window.confirm(<?php $arrNum["numHabitacion"] ?>);
+                     if(numConfirm==true){
+                        <?php header( "Location: ../Controladores/Main_controlador.php" ); ?>
+                    }else{
+                         <?php header( "Location: ../Controladores/Main_controlador.php" ); ?>
+                     }
+                </script>;
+                <?php
             } else {
                 echo "<script>
                     window.alert('No hay disponibilidad para esas fechas');
                 </script>";
             }
+        }else {
+            echo "<script>
+                    window.alert('No hay disponibilidad para esas fechas');
+                </script>";
         }
     }
-}*/
+}
 require_once( "../Vistas/Reserva_vista.php" );
 ?>

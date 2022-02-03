@@ -37,9 +37,17 @@ class Reserva_modelo
         /** explicación de la query
          * https://stackoverflow.com/questions/2545947/check-overlap-of-date-ranges-in-mysql *
          */
-        $sql = "SELECT hh.HabitacionID,hr.Fecha_entrada,hr.Fecha_salida FROM Hotel_Reserva hr 
+
+        /** PODRIA HACER UN hh.numHuespedes BETWEEN hh.numHuespedes and $huespedes
+         * para así tener las habitaciones con ese numero de personas, pero tiene pinta que hare algo parecido
+         * a las fechas, ya que un numero entre 3 y 5 es 4 y si el usuario mete 5 personas
+         * una habitacion de 4 no bastara.
+         */
+
+/* DEVUELVE LAS NO DISPONIBLES*/ /** $arrResHab */
+        $sql = "SELECT hh.*,hr.Fecha_entrada,hr.Fecha_salida FROM Hotel_Reserva hr 
                 JOIN Hotel_Habitaciones hh on hr.HabitacionID=hh.HabitacionID
-                WHERE hh.HotelID= " . $hotelID . " AND( 
+                WHERE hh.HotelID= " . $hotelID . "/*AND WHERE hh.numHuespedes=huespedes*/ AND( 
                 (hr.Fecha_entrada BETWEEN '" . $entrada . "' and '" . $salida . "')
                 OR 
                 (hr.Fecha_salida BETWEEN '" . $entrada . "' and '" . $salida . "')
@@ -48,78 +56,68 @@ class Reserva_modelo
                 OR
                 ('" . $salida . "' BETWEEN hr.Fecha_entrada and hr.Fecha_salida));";
 
-        $sql1 = "SELECT * FROM Hotel_Habitaciones WHERE HotelID= " . $hotelID . ";";
+/* DEVUELVE TODAS LAS HABITACIONES*/ /** $arrHab */
+        $sql2 = "SELECT * FROM Hotel_Habitaciones WHERE HotelID= " . $hotelID . ";";
 
-        /*$sql2="SELECT hh.HabitacionID,hr.Fecha_entrada,hr.Fecha_Salida FROM Hotel_Reserva hr
-                        JOIN Hotel_Habitaciones hh on hr.HabitacionID=hh.HabitacionID
-                        WHERE hh.HotelID= ".$hotelID.";";*/
+/* DEVUELVE TODAS LAS RESERVADAS HABITACIONES */ /** $arrResHab1 */
+        $sql1="SELECT hh.*,hr.Fecha_entrada,hr.Fecha_salida FROM Hotel_Reserva hr 
+                JOIN Hotel_Habitaciones hh on hr.HabitacionID=hh.HabitacionID
+                WHERE hh.HotelID= " . $hotelID . " ;";
 
         $this->bd->default();
         $result = $this->bd->query( $sql );
 
         $result1 = $this->bd->query( $sql1 );
 
-        //$result2=$this->bd->query( $sql2 );
+        $result2 = $this->bd->query( $sql2 );
         $this->bd->close();
 
         $arrResHab = $result->fetch_all( MYSQLI_ASSOC );
         $arrResHab1 = $result1->fetch_all( MYSQLI_ASSOC );
-        /*$arrResHab2=$result2->fetch_all(MYSQLI_ASSOC);*/
+        $arrHab = $result2->fetch_all( MYSQLI_ASSOC );
 
-        /** HECHO
-         * COGER LO QUE ME DEVUELVE EL SQL (QUE SON LAS HABITACIONES NO DISPONIBLES EN ESE RANGO DE FECHAS)
-         * AHORA HARIA UNA SELECT CON TODAS LAS HABITACIONES Y COMPARARIA LOS ID'S DE LAS NO DISPOBLES CON EL TOTAL
-         */
 
-        /** problema AL INSERTAR LA RESERVA DEBO INTRODUCIR HABITACIONID, PARA ELLO
-         *  DEBERIA CREAR EL OBJETO HABITACION PARA DEVOLVER EL NUMERO DE LA HABITACION Y DICHA ID
-         * PROBLEMA, con la comparacion anterior entre ID's solo se comparan los que estan en reserva cuando en HABITACIONID hay mas, por lo tanto no cerare un
-         * OBJETO HABITACION COMPLETO,
-         *
-         * SI QUITARA LAS FECHAS DE LOS DOS SELECTS Y COMPARARA LOS ID'S, iria bien hasta que estuvieran todas las habitaciones reservadas, en ese entonces
-         * deberia comparar fechas, pero claro no podria comparar fechas por que si las introduzco en la consulta lo anterior no se podra hacer, y estare en el punto inicial
-         *
-         * PODRIA CREAR OTRA CONSULTA CON LA CUAL SE COMPROBARA, SI LOS ID'S DE LAS HABITACIONES SON DIFERENTES, LAS FECHAS DE ESTOS SI SON IGUALES DEVUELVE OBJ USR 0 SINO OBJUSR
-         *
-         * CUANDO CONSIGA  LE DARE UNA HABITACION, QUE NO ESTE ENTRE ESAS FECHAS Y SEA RANDOM DEL OBJETO
-         */
-// SI NO HAY RESERVAS PARA ESAS FECHAS, SIGNIFICA QUE HAY DISPO ENTONCES TRUE, SINO ENTRA AL BUCLE Y EMPIEZA A COMPARAR
+// SI NO HAY RESERVAS PARA ESAS FECHAS, SIGNIFICA QUE HAY DISPO ENTONCES TRUE, ENTRA AL IF, ENTRA AL BUCLE Y EMPIEZA A COMPARAR
+// SI HAY ALGUN ID DIFERENTE, ESO QUE ES QUE HAY DISPO TRUE
         $objArrHabitacion = [];
         if( count( $arrResHab ) > 0 ) {
                 for( $j = 0; $j < count( $arrResHab ); $j++ ) {
-                    for( $i = 0; $i < count( $arrResHab1 ); $i++ ) {
-                    //NO SE SI PONER EL 3 BUCLE AQUI
-                        //COMPARA EL PRIMERO Y CLARO AL SER IGUAL ME HACE EL RETURN Y ACABA LA FUNCION,
-                        //DEBERIA IR COMPARANDO LOS ID'S, IR METIENDO LOS ID'S EN UN ARRAY PARA LA POSTERIOR COMPARACIÓN,
-                        //PERO DARLE UNA VUELTA
-                    if( $arrResHab1[$i]["HabitacionID"]==$arrResHab[$j]["HabitacionID"] ) {
-                        //QUITAR ESTE RETURN
-                        return new Habitacion( 0, 0, 0, 0 );
-
+                    if( $arrResHab1[$j]["HabitacionID"]==$arrResHab[$j]["HabitacionID"] ) {
+                       $dispo=false;
                     } else {
-                        //O AQUI
-                        /*for($k=0;$k<count($arrResHab2);$k++) {
-                            //CREO QUE ASI LA COMPARACION NO FUNCIONARA
-                            if( $arrResHab1[$j]["Fecha_entrada"]==$arrResHab[$k]["Fecha_entrada"] && $arrResHab1[$j]["Fecha_salida"]==$arrResHab[$k]["Fecha_salida"] ) {
-                                return false;
-                            }*/
-                        $objArrHabitacion[$i] = new Habitacion( $arrResHab1[$i]["HabitacionID"], $arrResHab1[$i]["HotelID"], $arrResHab1[$i]["numHuespedes"], $arrResHab1[$i]["numHabitacion"] );
-                        //NO SE SI QUITAR LOS CORCHETES o ponerle corchetes
-                        return $objArrHabitacion;
-
+                        $dispo=true;
                     }
                 }
-            }
-
+        }else{
+            $dispo=true;
         }
-            //COMO NO HAY HABITACIONES RESERVADAS PUEDO DARLE CUALQUIERA TODAS ESTAN DISPONIBLES
-            foreach( $arrResHab1 as $reshab1 ) {
-                $objArrHabitacion[] = new Habitacion( $reshab1["HabitacionID"], $reshab1["HotelID"], $reshab1["numHuespedes"], $reshab1["numHabitacion"] );
+        if($dispo==true){
+            $i=0;
+            /** PROBLEMA
+             * ME RECORRE LOS ARRAYS, EN EL PRIMER ARRAY ESTA EL 1 Y EL 8 Y EN EL SEGUNDO 1 2 3 7 8
+             * PRIMERA VUELTA 1 ES DIFERENTE DE 1 NO, ENTONCES NO LO METE,
+             * SEGUNDA VUELTA 8 ES DIFERENTE DE 2 SI, ME LO METE YA EL RESTO ENTRAN
+             * ME ENTRA UNO QUE NO QUIERO EL 8
+             * POR QUE EL ARRAY RECORRE 1 A 1, COMO PODRIA HACER QUE RECORRIENDO UNO A UNO ME QUITARA EL 8,
+             * SIN CONTAR QUE AL  HABER MAS HABITACIONES QUE RESERVAS PETA EL arrResHab
+             */
+            foreach( $arrHab as $habs ) {
+                //AQUI ESTABA DESESPERADO, para que no pete arrResHab y salga del bucle, tampoco funciona
+                if($i==count($arrHab)){
+                    break;
+                }
+//SI LOS ID'S DE LAS HABTIACIONES RESERVADAS SON DIFERENTES A LOS ID'S DE LAS HABITACIONES, me crea los objetos que son diferentes a las reservas
+                /** https://www.w3schools.com/php/func_array_diff.asp */
+                //array_diff($arrResHab[$i]["HabitacionID"],$habs["HabitacionID"])
+                if($arrResHab[$i]["HabitacionID"] != $habs["HabitacionID"] ) {
+                    $objArrHabitacion[] = new Habitacion( $habs["HabitacionID"], $habs["HotelID"], $habs["numHuespedes"], $habs["numHabitacion"] );
+                }
+                $i++;
             }
-            //SUPUESTAMENTE ESTOY DEVOLVIENDO UN OBJ, pero me devuelve un array
             return $objArrHabitacion;
-
-
+        }else{
+            return new Habitacion(0,0,0,0);
+        }
 
         /** Necesito ir sumando uno en la Fecha_entrada hasta llegar a Fecha_salida O NO, PODRIA PLANTEARLO DE OTRA MANERA **/
         /** entre DateTime metere la feha salida y entrada */
@@ -129,19 +127,18 @@ class Reserva_modelo
         $result = $fechaEntrada->diff($fechaSalida)->format("%r%a");*/
     }
 
-    /*ESTO IRA DENTRO DE LA COMPROBACION QUE SERA LA QUE DEVUELVA EL HOTEL ID Y EL NUMERO DE LA HABITACION
-    public function numHabitacion( $entrada, $salida, $hotelID, $huespedes )
+
+    public function numHabitacion($habID)
     {
         //HACER QUIERO COGER EL NUMERO DE LA HABITACION PARA CUANDO SE INSERTE LA RESERVA MOSTRAR ESE NUMERO AL USUARIO
-        $sql1 = "SELECT hh.numHabitacion,hh.HabitacionID FROM Hotel_Reserva hr
-                JOIN Hotel_Habitaciones hh on hr.HabitacionID=hh.HabitacionID WHERE
-                 hh.HotelID=" . $hotelID . " AND hr.Huespedes=" . $huespedes . ";";
-
-        $result = $this->bd->query( $sql1 );
+        $sql = "SELECT numHabitacion FROM Hotel_Habitaciones WHERE HabitacionID=".$habID." ;";
+        $this->bd->default();
+        $result = $this->bd->query( $sql );
+        $this->bd->close();
         $arrNumHabitacion = $result->fetch_all( MYSQLI_ASSOC );
 
         return $arrNumHabitacion;
-    }*/
+    }
 
     /** NO DEVUELVE NADA , POR QUE LE PASO EN LA CONDICION UN ARRAY, PERO NO DA ERROR, PORQUE ESTA EN UNA FILA,
      * AHORA COMO HAGO PARA QUE EL WHERE ENTRE EN EL ARRAY
