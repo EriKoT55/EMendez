@@ -32,9 +32,14 @@ class Reserva_modelo
 
     }
 
-    public function ComprobarDisponibilidad( $entrada, $salida, $hotelID /*,$huespedes*/ )
+    /** VA SUMANDO SI HAY DISPO O NO, SI HAY MAS DISPO ENTRARA EN EL IF Y DEVOLVERA LAS HABITACIONES DISPONIBLES
+     * @param $entrada
+     * @param $salida
+     * @param $hotelID
+     * @return array
+     */
+    public function ComprobarDisponibilidad( $entrada, $salida, $hotelID /*,$huespedes*/)
     {
-
         /** explicación de la query
          * https://stackoverflow.com/questions/2545947/check-overlap-of-date-ranges-in-mysql *
          */
@@ -77,24 +82,27 @@ class Reserva_modelo
         $arrResHab1 = $result1->fetch_all( MYSQLI_ASSOC );
         $arrHab = $result2->fetch_all( MYSQLI_ASSOC );
 
-
-// SI NO HAY RESERVAS PARA ESAS FECHAS, SIGNIFICA QUE HAY DISPO ENTONCES TRUE, ENTRA AL IF, ENTRA AL BUCLE Y EMPIEZA A COMPARAR
-// SI HAY ALGUN ID DIFERENTE, ESO QUE ES QUE HAY DISPO TRUE
-        $objArrHabitacion = [];
+        $numDispo=0;
+        $numNoDispo=0;
         if( count( $arrResHab ) > 0 ) {
-                for( $j = 0; $j < count( $arrResHab ); $j++ ) {
-                    if( $arrResHab1[$j]["HabitacionID"]==$arrResHab[$j]["HabitacionID"] ) {
-                       $dispo=false;
+            for( $j = 0; $j < count( $arrResHab ); $j++ ) {
+                //$dispo = true;
+                for($k=0;$k<count($arrResHab1);$k++) {
+                    if( $arrResHab1[$k]["HabitacionID"]==$arrResHab[$j]["HabitacionID"] ) {
+                        //$dispo = false;
+                        $numNoDispo++;
                     } else {
-                        $dispo=true;
+                        //$dispo = true;
+                        $numDispo++;
                     }
                 }
+            }
         }else{
-            $dispo=true;
+            //$dispo=true;
+            $numDispo++;
         }
 
-        if($dispo==true){
-            //$i=0;
+        if($numDispo>$numNoDispo){
            /** FUNCIONAMIENTO
             * EJEMPLO:
             * EN EL PRIMER ARRAY TENGO 1,2,3,7,8 Y EN EL SEGUNDO 1,3,7,8
@@ -115,17 +123,12 @@ class Reserva_modelo
                 for($j=0;$j<count($arrResHab);$j++){
                     if($arrResHab[$j]["HabitacionID"]==$arrHab[$i]["HabitacionID"]){
                         $diff=false;
-                        //break;
-                    }/*else{
-                        /*DEBERIA SALIR DEL IF E IR AL ELSE Y DEVOLVERME EL OBJETO HABITACION 0
-                          //      $dispo=false;
-                        SI NO CREO EL OBJECTO AQUI LO GUARDO EN LA VARIABLE Y DESPUES LO DEVOLVERE
-                        //$objArrHabitacion = new Habitacion(0, 0, 0, 0);*//*
-                        $diff=false;
-                    }*/
+                        break;
+                    }
                 }
                 if( $diff==true) {
-                    $objArrHabitacion = new Habitacion($arrHab[$i]["HabitacionID"], $arrHab[$i]["HotelID"], $arrHab[$i]["numHuespedes"], $arrHab[$i]["numHuespedes"]);
+                    //Lo meto en un array para no tener problema al cogerlo en el controlador.
+                    $objArrHabitacion[] = new Habitacion($arrHab[$i]["HabitacionID"], $arrHab[$i]["HotelID"], $arrHab[$i]["numHuespedes"], $arrHab[$i]["numHuespedes"]);
                 }
 
             }
@@ -133,15 +136,10 @@ class Reserva_modelo
             return $objArrHabitacion;
 
         }else {
-            return new Habitacion(0, 0, 0, 0);
+            $objArrHabitacion[]= new Habitacion(0, 0, 0, 0);
+            return $objArrHabitacion;
         }
 
-        /** Necesito ir sumando uno en la Fecha_entrada hasta llegar a Fecha_salida O NO, PODRIA PLANTEARLO DE OTRA MANERA **/
-        /** entre DateTime metere la feha salida y entrada */
-        /* $fechaSalida = new DateTime();
-        $fechaEntrada = new DateTime();
-        https://stackoverflow.com/questions/2040560/finding-the-number-of-days-between-two-dates
-        $result = $fechaEntrada->diff($fechaSalida)->format("%r%a");*/
     }
 
 
