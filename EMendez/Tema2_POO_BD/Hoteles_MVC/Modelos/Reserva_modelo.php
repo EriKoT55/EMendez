@@ -91,6 +91,7 @@ class Reserva_modelo
 
         $numDispo=0;
         $numNoDispo=0;
+
         if( count( $arrResHab ) > 0 ) {
             for( $j = 0; $j < count( $arrResHab ); $j++ ) {
                 //$dispo = true;
