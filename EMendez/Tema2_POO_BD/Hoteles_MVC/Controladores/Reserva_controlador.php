@@ -62,9 +62,6 @@ $habitacionID=[];
 foreach($result as $resu) {
 
     $habitacionID[]=$resu->getHabitacionID();
-
-
-
 }
 $randHab=rand(0,count($habitacionID));
 echo "<br>";
@@ -80,17 +77,17 @@ if( $entradaValid!=0 && $huespedesValid!=0 && $salidaValid!=0 ) {
         foreach($objHabitacion as $habitaciones){
             $habitacionID[]=$habitaciones->getHabitacionID();
         }
-        $randHab=rand(0,count($habitacionID));
+        $randHab=rand(0,(count($habitacionID)-1));
 
         if( $habitacionID[$randHab] > 0 ) {
             $arrNum=$conn->numHabitacion($habitacionID[$randHab]);
 
             if( $conn->InsertReserv( $entradaValid, $salidaValid, $habitacionID[$randHab], $_SESSION["userID"], $huespedesValid ) ) {
-
+/** ME GUSTARIA MOSTRAR EL NUMERO Y LLEVAR DESPUES AL INICIO */
                echo "<script>
                      window.alert(".$arrNum['numHabitacion'].");
                 </script>";
-        header( "Location: ../Controladores/Main_controlador.php" );
+        //header( "Location: ../Controladores/Main_controlador.php" );
             } else {
                 echo "<script>
                     window.alert('No hay disponibilidad para esas fechas');

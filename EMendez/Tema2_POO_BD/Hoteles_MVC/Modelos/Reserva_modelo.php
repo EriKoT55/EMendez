@@ -3,7 +3,6 @@ require_once( "../BD/bd.php" );
 require_once ("../A_Entidades/Habitacion.php");
 
 
-//asdf
 class Reserva_modelo
 {
 
@@ -15,6 +14,14 @@ class Reserva_modelo
         $this->bd = new bd();
     }
 
+    /**
+     * @param $entrada
+     * @param $salida
+     * @param $habitacionID
+     * @param $usuarioID
+     * @param $huespedes
+     * @return bool
+     */
     public function InsertReserv( $entrada, $salida, $habitacionID, $usuarioID, $huespedes ): bool
     {
 
@@ -142,7 +149,10 @@ class Reserva_modelo
 
     }
 
-
+    /**
+     * @param $habID
+     * @return array|mixed
+     */
     public function numHabitacion($habID)
     {
         //HACER QUIERO COGER EL NUMERO DE LA HABITACION PARA CUANDO SE INSERTE LA RESERVA MOSTRAR ESE NUMERO AL USUARIO
