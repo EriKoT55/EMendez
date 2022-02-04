@@ -129,6 +129,8 @@ class Reserva_modelo
                 //ANTES IGUALABA $j a $i y ese era el problema
                 for($j=0;$j<count($arrResHab);$j++){
                     if($arrResHab[$j]["HabitacionID"]==$arrHab[$i]["HabitacionID"]){
+                        //UTILIZO EL BREAK PARA CUANDO SEAN IGUALES SALGA DEL 2 BUCLE Y VAYA AL IF Y AL SER
+                        //FALSE NO METERA ESA HABITACION
                         $diff=false;
                         break;
                     }
@@ -155,7 +157,7 @@ class Reserva_modelo
      */
     public function numHabitacion($habID)
     {
-        //HACER QUIERO COGER EL NUMERO DE LA HABITACION PARA CUANDO SE INSERTE LA RESERVA MOSTRAR ESE NUMERO AL USUARIO
+        // QUIERO COGER EL NUMERO DE LA HABITACION PARA CUANDO SE INSERTE LA RESERVA MOSTRAR ESE NUMERO AL USUARIO
         $sql = "SELECT numHabitacion FROM Hotel_Habitaciones WHERE HabitacionID=".$habID." ;";
         $this->bd->default();
         $result = $this->bd->query( $sql );
