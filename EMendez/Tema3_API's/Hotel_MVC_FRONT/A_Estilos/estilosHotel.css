@@ -1,0 +1,121 @@
+#body{
+    margin:0 auto;
+    padding: 0;
+    background-color: #CDEBF7;
+    font-family: 'Readex Pro', sans-serif;
+
+}
+/******************* NAV ********************/
+#nav{
+    background-color: #57B8DE;
+    width: 100%;
+    height: 80px;
+    box-shadow: #41565E 0px 0px 10px 3px,#41565E 0px 0px 13px 3px inset;
+    display: flex;
+    justify-content:space-between;
+}
+/*** H3 ***/
+#nav #h3{
+    margin-right: 25px;
+}
+#nav #h3 a{
+    text-decoration: none;
+    color:white;
+    font-weight: bold;
+    text-shadow: black 0px 2px 3px;
+}
+#nav #h3 a:hover{
+    color: #41565E;
+    text-decoration: none;
+}
+/*** LI ***/
+
+#nav ul #LI #A{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    background-color: #57B8DE;
+    text-shadow: black 1px 2px 7px;
+    box-shadow: black 1px 1px 5px 1px inset;
+}
+#nav ul #LI:hover #A{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    background-color: #44b5e5;
+}
+
+/*** DROP LI ***/
+#nav ul #dropLI #dropA{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    background-color: #57B8DE;
+    text-shadow: black 1px 2px 7px;
+    box-shadow: black 1px 1px 5px 1px inset;
+}
+#nav ul #dropLI #dropdown{
+    background-color: #57B8DE;
+    border-radius: 5px;
+    border: 1px solid white;
+    text-shadow: black 1px 2px 7px;
+    box-shadow: black 1px 1px 5px 1px inset;
+}
+#nav ul #dropLI #dropdown a{
+    border-radius: 5px;
+    color: white;
+}
+#nav ul #dropLI #dropdown:hover a{
+    background-color:#57B8DE ;
+    color: white;
+    /*PARA QUE NO SE NOTE EL SOMBREADO DEL HOVER POR DEFECTO DEL BOOTSTRAP*/
+    width: 1px;
+    margin-left:7px;
+    border-radius: 5px;
+}
+
+
+/******************* Contenedor Hotel ********************/
+
+#contenedorInfoHotel{
+    margin-top: 30px;
+    padding: 50px;
+    background-color: #57B8DE;
+    border-radius:5px;
+
+}
+#contenedorInfoHotel #contenedorSuperior{
+    color:white;
+    font-weight: bold;
+    text-shadow: black 0px 2px 3px;
+    margin-bottom: 15px;
+}
+#contenedorInfoHotel #contenedorSuperior #calificacionHotel{
+    height: 60px;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bold;
+    color:white;
+    background-color: green;
+    text-shadow: black 0px 2px 2px;
+    box-shadow: black 1px 2px 5px 4px;
+    border-radius: 35px;
+    padding-top: 5px;
+}
+
+#contenedorInfoHotel #contenedorSuperior #estrellasHotel{
+    margin-top: 15px;
+}
+#contenedorInfoHotel #contenedor2Superior {
+    color:white;
+    font-size: large;
+    text-shadow: black 0px 2px 3px;
+
+}
+
+#contenedorInfoHotel #precioHotel {
+    color: #d7b300;
+    font-weight: bold;
+    font-size: x-large;
+    text-shadow: black 0px 1px 3px;
+}
