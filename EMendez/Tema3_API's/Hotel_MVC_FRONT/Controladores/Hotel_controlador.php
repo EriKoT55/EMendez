@@ -19,9 +19,7 @@ if(isset($_GET["cerrarSesion"])){
 
 
 //SI PONES FALSE DEVOLVERA UN ARRAY DE OBJETOS, SI PONES TRUE DEVOLVERA UN ARRAY ASOCIATIVO
-$hotelApi=json_decode(file_get_contents($api),false);
-
-var_dump($hotelApi);
+$hotelApiObj=json_decode(file_get_contents($api),false);
 
 require_once( "../Vistas/Hotel_vista.php" );
 ?>

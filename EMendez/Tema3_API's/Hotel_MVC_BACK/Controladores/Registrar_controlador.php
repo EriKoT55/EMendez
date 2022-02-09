@@ -57,24 +57,17 @@ if(isset($contra)){
 if(isset($contra) && isset($user) && isset($correo)){
     if(isset($correoValid) && isset($contraValid) && isset($usrValid)){
         if($conn->InsertUsuario($usrValid,$correoValid,$contraValid)){
-            //AQUI DEBERIA PONER UN SCRIPT Y UN ALERT, PERO AL ESTAR EN EL CONTROLADOR NO DEBERIA
-            header("Location: ../Controladores/IniSesion_controlador.php");
-            echo "
-                 <script>
-                     window.alert('El usuario ha sido registrado');
-                 </script>";
-
+            //NO SE SI FUNCIONARA MIRAR
+            echo json_encode(true);
 
         }else{
-            //AQUI DEBERIA PONER UN SCRIPT Y UN ALERT, PERO AL ESTAR EN EL CONTROLADOR NO DEBERIA
-            echo "
-                 <script>
-                     window.alert('El usuario ya fue registrado');
-                 </script>";
+
+            echo json_encode(false);
+
         }
     }
 }
 
-require_once( "../Vistas/Registrar_vista.php" );
+
 
 ?>

@@ -2,8 +2,6 @@
 
 error_reporting(0);
 require_once( "../Modelos/Hotel_modelo.php" );
-//require_once("../Vistas/pagMain_vista.php");
-session_start();
 
 $conn = new Hotel_modelo();
 
@@ -12,14 +10,13 @@ $HotelID = $_GET["HotelID"];
 if( isset( $HotelID ) ) {
     $hotelArrayOBJ = $conn->getHotel( $HotelID );
 }
+
 /*
 echo "<br>";
 echo "<pre>";
 var_dump($hotelArrayOBJ);
 echo "<br>";
 */
-
-
 
 echo json_encode($hotelArrayOBJ);
 

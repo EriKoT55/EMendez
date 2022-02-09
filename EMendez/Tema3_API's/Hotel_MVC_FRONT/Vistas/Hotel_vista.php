@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 $user = $_SESSION["user"];
 $inicio = $_SESSION["Ini"];
 //$_SESSION["hotelID"]=$hotelArrayOBJ[0]->getHotelID();
@@ -58,8 +58,8 @@ echo "<br>";
 <div id="contenedorInfoHotel" class="container">
     <div id="contenedorSuperior" class="row justify-content-center">
         <?php
-        foreach($hotelArrayOBJ as $hotel){
-        $calificacion = $hotel->getCalificacion();
+        foreach($hotelApiObj as $hotel){
+        $calificacion = $hotel->Calificacion;
         if( $calificacion > 7 && $calificacion <= 10 ) {
             ?><p id="calificacionHotel" class="col-4 col-sm-3 col-md-2 col-lg-2 " style="background-color:green"><?php
             echo $calificacion ?>/10</p><?php
@@ -72,9 +72,9 @@ echo "<br>";
         }
         ?>
         <h1 id="nomHotel" class="col-10 col-sm-12 col-md-7 col-lg-6 text-center"><?php
-            echo $hotel->getNombre(); ?></h1>
+            echo $hotel->Nombre; ?></h1>
         <p id="estrellasHotel" class="col-3 col-sm-10 col-md-1 col-lg-1  text-center"> <?php
-            $estrellas = $hotel->getEstrellas();
+            $estrellas = $hotel->Estrellas;
             if( $estrellas==1 ) {
                 echo "⭐";
             } else if( $estrellas==2 ) {
@@ -89,17 +89,17 @@ echo "<br>";
     </div>
     <div id="contenedor2Superior" class="row col-12 col-sm-12 col-md-12 col-lg-12">
         <p class="col-10 col-sm-12 col-md-6 col-lg-4 text-center"><?php
-            echo $hotel->getUbicacion()."&nbsp;&nbsp;&nbsp;".$hotel->getDireccion() ?></p>
+            echo $hotel->Ubicacion."&nbsp;&nbsp;&nbsp;".$hotel->Direccion ?></p>
     </div>
     <div class="container">
         <div class="row justify-content-center">
             <div class=" col-12 col-sm-12 col-md-10 col-lg-8">
                 <div id="carouselExampleControls" class="carousel slide carousel-fade" data-ride="carousel">
                     <div class="carousel-inner"><?php
-                        foreach( $hotel->getIMG() as $img ) {
+                        foreach( $hotel->IMG as $img ) {
                             ?>                                                  <!--IF CORTO-->
-                            <div class="carousel-item <?php echo (  $hotel->getIMG()[0] == $img ? "active" :"")?>">
-                            <img class="d-block w-100" width="450px" height="500px" src="../<?php echo $img["IMG"]; ?>">
+                            <div class="carousel-item <?php echo (  $hotel->IMG[0]->IMG == $img->IMG ? "active" :"")?>">
+                            <img class="d-block w-100" width="450px" height="500px" src="../<?php echo $img->IMG; ?>">
                             </div><?php
                         } ?>
                     </div>
@@ -118,16 +118,16 @@ echo "<br>";
         </div>
     </div><?php
     $numhabitaciones=0;
-    foreach($hotel->getHabitaciones() as $habitaciones) {
+    foreach($hotel->Habitaciones as $habitaciones) {
         $numhabitaciones++;
-         $habitaciones["habitaciones"] ;
+         $habitaciones->Habitaciones ;
     }
     ?>
     <p class="habitacionesHotel"><?php echo "Numero de habitaciones: ".$numhabitaciones ?></p>
     <p id="precioHotel"><?php
-        echo $hotel->getPrecio(); ?>€</p>
+        echo $hotel->Precio; ?>€</p>
     <p class="descripcionHotel"><?php
-        echo $hotel->getDescripcion();
+        echo $hotel->Descripcion;
         }?></p>
     <?php if($inicio==true){ ?>
         <p><a href="../Controladores/Reserva_controlador.php">Reserva</a></p>
