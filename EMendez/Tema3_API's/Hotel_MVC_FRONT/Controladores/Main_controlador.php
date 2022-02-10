@@ -19,6 +19,6 @@ foreach ($hotelApiObj as $hotel){
     }
 }*/
 
-require_once( "../Vistas/Main_vista.php" );
+require_once( "../Vistas/Main_vista.php");
 
 ?>

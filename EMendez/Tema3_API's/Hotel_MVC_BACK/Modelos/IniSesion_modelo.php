@@ -13,7 +13,7 @@ class IniSesion_modelo
     {
         $this->bd = new bd();
     }
-
+//CAMBIAR LA FUNCION QUE DEVUELVA EL OBJETO USUARIO Y SI NO UN OBJETO USUARIO CON ID 0 Y QUE ESTE VACIO
     public function existUsr( $user, $correo, $contra ): bool
     {
 

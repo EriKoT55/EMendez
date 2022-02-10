@@ -6,9 +6,10 @@ $conn = new IniSesion_modelo();
 
 
 // Variables del form
-$user = $_POST["usuario"];
-$correo = $_POST["correo"];
-$contra = $_POST["contrasenya"];
+$user = $_GET["usuario"];
+$correo = $_GET["correo"];
+$contra = $_GET["contrasenya"];
+
 
 // Variables
 $userValid = "";
@@ -53,23 +54,23 @@ if( isset( $contra ) ) {
 
 if( isset( $user ) && isset( $correo ) && isset( $contra ) ) {
     if( isset( $userValid ) && isset( $correoValid ) && isset( $contraValid ) ) {
-        if( $conn->existUsr( $userValid, $correoValid, $contraValid ) ) {
+        $userObjArr=$conn->existUsr( $userValid, $correoValid, $contraValid);
+        if( $userObjArr/*AQUI PARA COGER EL ID SI ES DIFERENTE DE 0 HACE EL JSON*/  ) {
 
-            $userID=$conn->UsrID($userValid);
-            $ini=[];
-            $ini=[$userID[0]["UsuarioID"],$userValid,true];
-//MIRAR NECESITO EL LINK
-            echo json_encode($ini);
+            $user=$conn->UsrID($userValid);
 
-        } else {
-            echo json_encode(false);
+
+            echo json_encode($user);
+
         }
 
-    } else{
-        echo json_encode(false);
-    }
+    } /*else{
+        $ini=[];
+        $ini=[false];
+        echo json_encode($ini);
+    }*/
 }
 
-
+//require_once( "../../Hotel_MVC_FRONT/Vistas/IniSesion_vista.php" );
 
 ?>
