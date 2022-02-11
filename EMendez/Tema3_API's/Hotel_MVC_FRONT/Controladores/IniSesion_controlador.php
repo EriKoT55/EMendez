@@ -8,16 +8,15 @@ $contra = $_POST["contrasenya"];
 
 $api="http://localhost/EMendez/Tema3_API's/Hotel_MVC_BACK/Controladores/IniSesion_controlador.php?usuario=".$user."&correo=".$correo."&contrasenya=".$contra."";
 
-$iniciada=json_decode(file_get_contents($api),true);
-//var_dump($iniciada);
+$userObjArr=json_decode(file_get_contents($api),false);
 
 if($contra!="" && $user!="" && $correo!="") {
     if (isset($user) && isset($correo) && isset($contra)) {
-        if ($iniciada[2] == true) {
+        if ($userObjArr->UsuarioID > 0) {
 
             $_SESSION["Ini"] = true;
-            $_SESSION["user"] = $iniciada[1];
-            $_SESSION["userID"] = $iniciada[0];
+            $_SESSION["user"] = $userObjArr->Nombre;
+            $_SESSION["userID"] = $userObjArr->UsuarioID;
 
             header("Location: ../Controladores/Main_controlador.php");
         } else {

@@ -14,7 +14,7 @@ class IniSesion_modelo
         $this->bd = new bd();
     }
 //CAMBIAR LA FUNCION QUE DEVUELVA EL OBJETO USUARIO Y SI NO UN OBJETO USUARIO CON ID 0 Y QUE ESTE VACIO
-    public function existUsr( $user, $correo, $contra ): bool
+    public function existUsr( $user, $correo, $contra )
     {
 
         $sql = "SELECT * FROM Hotel_Usuarios WHERE Nombre LIKE '" . $user . "' AND Correo LIKE '" . $correo . "';";
@@ -24,31 +24,19 @@ class IniSesion_modelo
 
         $arrUser = $result->fetch_all( MYSQLI_ASSOC );
 
-        $passVery = password_verify( $contra, $arrUser[0]["Contrasenya"] );
-        if($user==$arrUser[0]["Nombre"] && $correo==$arrUser[0]["Correo"]) {
-            if($passVery==true){
-                return true;
-            }else{
-                return false;
-            }
-        }else{
-            return false;
+
+        $userObjArr=[];
+        foreach ($arrUser as $usuario){
+            $userObjArr = new User($usuario["UsuarioID"],$usuario["Nombre"],$usuario["Contrasenya"],$usuario["Correo"]);
         }
 
-    }
+        $passVery = password_verify( $contra, $userObjArr->getContrasenya() );
 
-    public function UsrID($user){
-
-        $sql="SELECT UsuarioID FROM Hotel_Usuarios WHERE Nombre LIKE '".$user."';";
-
-        $this->bd->default();
-        $result=$this->bd->query($sql);
-        $this->bd->close();
-
-        $arrUsrID = $result->fetch_all(MYSQLI_ASSOC);
-
-        return $arrUsrID;
-
+        if($user==$userObjArr->getNombre() && $correo==$userObjArr->getCorreo() && $passVery==true) {
+            return $userObjArr;
+        }else{
+            return new User(0,"-","-","-");
+        }
     }
 
 }

@@ -1,59 +1,23 @@
 <?php
 //error_reporting(0);
 session_start();
-require_once( "../Modelos/Reserva_modelo.php" );
+
 /**
  * TENGO PENSADO QUE CUANDO SELECCIONES EL DIA DE ENTRADA, YA NO PUEDAS SELECCIONAR
  * EL DIA ANTERIOR, LO CONSIGO PERO TENGO QUE DARLE AL BOTON DE ENVIAR,
  * ############ COMO HACERLO SIN TENER QUE ENVIARLO ############
  */
-$minDate2 = $_GET["entrada"];
-
-$conn = new Reserva_modelo();
 
 //Variables del form
-$entrada = $_GET["entrada"];
-$salida = $_GET["salida"];
-$huespedes = $_GET["huespedes"];
+$entrada = $_POST["entrada"];
+$salida = $_POST["salida"];
+$huespedes = $_POST["huespedes"];
 
-//Variables
-$entradaValid = 0;
-$salidaValid = 0;
-$huespedesValid = 0;
 
-if( $entrada!=0 ) {
-    if( isset( $entrada ) ) {
-        $entradaValid = $entrada;
-    } else {
-        echo "<script>
-                window.alert('Se introdujo mal la fecha de entrada');
-            </script>";
+$api="http://localhost/EMendez/Tema3_API's/Hotel_MVC_BACK/Controladores/Reserva_controlador.php?entrada=".$entrada."&salida=".$salida."&huespedes=".$huespedes."";
 
-    }
-}
-if( $salida!=0 ) {
-    if( isset( $salida ) ) {
-        if( $salida >= $entradaValid ) {
-            $salidaValid = $salida;
-        } else {
-            echo "<script>
-                window.alert('Se introdujo una fecha incorrecta');
-            </script>";
-        }
-    }
-}
 
-if( $huespedes!=0 ) {
-    if( isset( $huespedes ) ) {
-        if( $huespedes < 99 ) {
-            $huespedesValid = $huespedes;
-        } else {
-            echo "<script>
-                window.alert('Se excedio el numero de huespedes');
-            </script>";
-        }
-    }
-}
+$objHabitacionApi=json_decode(file_get_contents($api),true);
 
 /*$result=$conn->ComprobarDisponibilidad($entradaValid,$salidaValid,$_SESSION["hotelID"]);
 
@@ -68,25 +32,21 @@ echo "<br>";
 echo "<pre>";
 var_dump($habitacionID[$randHab]);
 echo "<br>";*/
-if( $entradaValid!=0 && $huespedesValid!=0 && $salidaValid!=0 ) {
-    if( isset( $entradaValid ) && isset( $salidaValid ) && isset( $huespedesValid ) ) {
-        /** SI NO HAY NINGUNA RESERVA ENTRE ESOS DIAS TODA VA BIEN, PERO SI HAY ALGUNA LA PANTALLA SE MUESTRA EN BLACO, MIRAR FUNCION COMPROBAR*/
-        $objHabitacion = $conn->ComprobarDisponibilidad( $entradaValid, $salidaValid, $_SESSION["hotelID"] );
 
-        $habitacionID = [];
-        foreach($objHabitacion as $habitaciones){
-            $habitacionID[]=$habitaciones->getHabitacionID();
-        }
-        $randHab=rand(0,(count($habitacionID)-1));
+var_dump($objHabitacionApi);
 
-        if( $habitacionID[$randHab] > 0 ) {
-            $arrNum=$conn->numHabitacion($habitacionID[$randHab]);
+/*
+if( $entrada!=0 && $huespedes!=0 && $salida!=0 ) {
+    if( isset( $entrada ) && isset( $salida ) && isset( $huespedes ) ) {
+        /** SI NO HAY NINGUNA RESERVA ENTRE ESOS DIAS TODA VA BIEN, PERO SI HAY ALGUNA LA PANTALLA SE MUESTRA EN BLANCO, MIRAR FUNCION COMPROBAR*/
+/*
+            if( $objHabitacionApi[1]==true ) {
+/** ME GUSTARIA MOSTRAR EL NUMERO Y LLEVAR DESPUES AL INICIO *//*
 
-            if( $conn->InsertReserv( $entradaValid, $salidaValid, $habitacionID[$randHab], $_SESSION["userID"], $huespedesValid ) ) {
-/** ME GUSTARIA MOSTRAR EL NUMERO Y LLEVAR DESPUES AL INICIO */
-               echo "<script>
-                     window.alert(".$arrNum['numHabitacion'].");
+                echo "<script>
+                     window.alert(".$objHabitacionApi[0].");
                 </script>";
+
         //header( "Location: ../Controladores/Main_controlador.php" );
             } else {
                 echo "<script>
@@ -98,7 +58,7 @@ if( $entradaValid!=0 && $huespedesValid!=0 && $salidaValid!=0 ) {
                     window.alert('No hay disponibilidad para esas fechas');
                 </script>";
         }
-    }
-}
+}*/
+
 require_once( "../Vistas/Reserva_vista.php" );
 ?>

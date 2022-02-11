@@ -43,7 +43,7 @@ echo "<br>";
                     echo $user ?>
                 </a>
                 <div id="dropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a id="divDropA" class="dropdown-item" href="?cerrarSesion=true&HotelID=<?php echo $hotelArrayOBJ[0]->getHotelID()  ?>">Cerrar Sesion</a>
+                    <a id="divDropA" class="dropdown-item" href="?cerrarSesion=true&HotelID=<?php echo $hotelApiObj[0]->HotelID ?>">Cerrar Sesion</a>
                 </div>
             </li>
             <?php

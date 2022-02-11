@@ -1,13 +1,12 @@
 <?php
 //error_reporting(0);
-session_start();
+
 require_once( "../Modelos/Reserva_modelo.php" );
 /**
  * TENGO PENSADO QUE CUANDO SELECCIONES EL DIA DE ENTRADA, YA NO PUEDAS SELECCIONAR
  * EL DIA ANTERIOR, LO CONSIGO PERO TENGO QUE DARLE AL BOTON DE ENVIAR,
  * ############ COMO HACERLO SIN TENER QUE ENVIARLO ############
  */
-$minDate2 = $_GET["entrada"];
 
 $conn = new Reserva_modelo();
 
@@ -68,6 +67,9 @@ echo "<br>";
 echo "<pre>";
 var_dump($habitacionID[$randHab]);
 echo "<br>";*/
+
+$numHabYbool=[];
+
 if( $entradaValid!=0 && $huespedesValid!=0 && $salidaValid!=0 ) {
     if( isset( $entradaValid ) && isset( $salidaValid ) && isset( $huespedesValid ) ) {
         /** SI NO HAY NINGUNA RESERVA ENTRE ESOS DIAS TODA VA BIEN, PERO SI HAY ALGUNA LA PANTALLA SE MUESTRA EN BLACO, MIRAR FUNCION COMPROBAR*/
@@ -80,25 +82,17 @@ if( $entradaValid!=0 && $huespedesValid!=0 && $salidaValid!=0 ) {
         $randHab=rand(0,(count($habitacionID)-1));
 
         if( $habitacionID[$randHab] > 0 ) {
+
             $arrNum=$conn->numHabitacion($habitacionID[$randHab]);
 
-            if( $conn->InsertReserv( $entradaValid, $salidaValid, $habitacionID[$randHab], $_SESSION["userID"], $huespedesValid ) ) {
-/** ME GUSTARIA MOSTRAR EL NUMERO Y LLEVAR DESPUES AL INICIO */
-               echo "<script>
-                     window.alert(".$arrNum['numHabitacion'].");
-                </script>";
-        //header( "Location: ../Controladores/Main_controlador.php" );
-            } else {
-                echo "<script>
-                    window.alert('No hay disponibilidad para esas fechas');
-                </script>";
-            }
+            $numHabYbool=[$arrNum["numHabitacion"],true];
+            echo json_encode($numHabYbool);
+
         }else {
-            echo "<script>
-                    window.alert('No hay disponibilidad para esas fechas');
-                </script>";
+            $numHabYbool=[false];
+            echo json_encode($numHabYbool);
         }
     }
 }
-require_once( "../Vistas/Reserva_vista.php" );
+
 ?>

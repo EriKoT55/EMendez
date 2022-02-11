@@ -4,12 +4,11 @@ require_once( "../Modelos/IniSesion_modelo.php" );
 
 $conn = new IniSesion_modelo();
 
-
 // Variables del form
+
 $user = $_GET["usuario"];
 $correo = $_GET["correo"];
 $contra = $_GET["contrasenya"];
-
 
 // Variables
 $userValid = "";
@@ -55,20 +54,16 @@ if( isset( $contra ) ) {
 if( isset( $user ) && isset( $correo ) && isset( $contra ) ) {
     if( isset( $userValid ) && isset( $correoValid ) && isset( $contraValid ) ) {
         $userObjArr=$conn->existUsr( $userValid, $correoValid, $contraValid);
-        if( $userObjArr/*AQUI PARA COGER EL ID SI ES DIFERENTE DE 0 HACE EL JSON*/  ) {
-
-            $user=$conn->UsrID($userValid);
 
 
-            echo json_encode($user);
+            //$user=$conn->UsrID($userValid);
 
-        }
 
-    } /*else{
-        $ini=[];
-        $ini=[false];
-        echo json_encode($ini);
-    }*/
+            echo json_encode($userObjArr);
+
+
+
+    }
 }
 
 //require_once( "../../Hotel_MVC_FRONT/Vistas/IniSesion_vista.php" );
