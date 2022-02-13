@@ -1,8 +1,8 @@
 <?php
 error_reporting( 0 );
 session_start();
-
-$api="http://localhost/EMendez/Tema3_API's/Hotel_MVC_BACK/Controladores/Main_controlador.php";
+//Quitar uno EMendez en clase añadir uno en casa
+$api="http://localhost/EMendez/EMendez/Tema3_API's/Hotel_MVC_BACK/Controladores/Main_controlador.php";
 
 if( isset( $_GET["cerrarSesion"] ) ) {
     session_unset();
@@ -10,7 +10,7 @@ if( isset( $_GET["cerrarSesion"] ) ) {
 }
 
 $hotelApiObj=json_decode(file_get_contents($api));
-
+//var_dump($hotelApiObj);
 /*
 foreach ($hotelApiObj as $hotel){
     var_dump($hotel);

@@ -14,7 +14,8 @@ $conn = new Reserva_modelo();
 $entrada = $_GET["entrada"];
 $salida = $_GET["salida"];
 $huespedes = $_GET["huespedes"];
-
+$hotelID=$_GET["hotelID"];
+$userID=$_GET["userID"];
 //Variables
 $entradaValid = 0;
 $salidaValid = 0;
@@ -69,11 +70,11 @@ var_dump($habitacionID[$randHab]);
 echo "<br>";*/
 
 $numHabYbool=[];
-
+/** SIN HACER LA COMPROCACION DE LOS HUESPEDES **/
 if( $entradaValid!=0 && $huespedesValid!=0 && $salidaValid!=0 ) {
     if( isset( $entradaValid ) && isset( $salidaValid ) && isset( $huespedesValid ) ) {
-        /** SI NO HAY NINGUNA RESERVA ENTRE ESOS DIAS TODA VA BIEN, PERO SI HAY ALGUNA LA PANTALLA SE MUESTRA EN BLACO, MIRAR FUNCION COMPROBAR*/
-        $objHabitacion = $conn->ComprobarDisponibilidad( $entradaValid, $salidaValid, $_SESSION["hotelID"] );
+
+        $objHabitacion = $conn->ComprobarDisponibilidad( $entradaValid, $salidaValid,$hotelID);
 
         $habitacionID = [];
         foreach($objHabitacion as $habitaciones){
@@ -82,15 +83,16 @@ if( $entradaValid!=0 && $huespedesValid!=0 && $salidaValid!=0 ) {
         $randHab=rand(0,(count($habitacionID)-1));
 
         if( $habitacionID[$randHab] > 0 ) {
+            $arrNum = $conn->numHabitacion( $habitacionID[$randHab] );
+            if( $conn->InsertReserv( $entradaValid, $salidaValid, $habitacionID[$randHab], $userID, $huespedesValid ) ) {
 
-            $arrNum=$conn->numHabitacion($habitacionID[$randHab]);
+                $numHabYbool = [$arrNum[0]["numHabitacion"], true];
+                echo json_encode( $numHabYbool );
 
-            $numHabYbool=[$arrNum["numHabitacion"],true];
-            echo json_encode($numHabYbool);
-
-        }else {
-            $numHabYbool=[false];
-            echo json_encode($numHabYbool);
+            } else {
+                $numHabYbool = [false];
+                echo json_encode( $numHabYbool );
+            }
         }
     }
 }

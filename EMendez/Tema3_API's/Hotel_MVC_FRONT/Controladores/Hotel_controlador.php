@@ -1,5 +1,5 @@
 <?php
-//error_reporting(0);
+error_reporting(0);
 session_start();
 /*
 echo "<br>";
@@ -9,8 +9,8 @@ echo "<br>";
 */
 
 $HotelID = $_GET["HotelID"];
-$api="http://localhost/EMendez/Tema3_API's/Hotel_MVC_BACK/Controladores/Hotel_controlador.php?HotelID=".$HotelID."";
-
+$api="http://localhost/EMendez/EMendez/Tema3_API's/Hotel_MVC_BACK/Controladores/Hotel_controlador.php?HotelID=".$HotelID."";
+$_SESSION["hotelID"]=$HotelID;
 if(isset($_GET["cerrarSesion"])){
     session_unset();
     session_destroy();

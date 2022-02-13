@@ -6,7 +6,7 @@ $correo = $_POST["correo"];
 $contra = $_POST["contra"];
 $confirm = $_POST["confirm"];
 
-$api="http://localhost/EMendez/Tema3_API's/Hotel_MVC_BACK/Controladores/Registrar_controlador.php?user=".$user."&correo=".$correo."&contra=".$contra."&confirm=".$confirm."";
+$api="http://localhost/EMendez/EMendez/Tema3_API's/Hotel_MVC_BACK/Controladores/Registrar_controlador.php?user=".$user."&correo=".$correo."&contra=".$contra."&confirm=".$confirm."";
 $iniciado=json_decode(file_get_contents($api),true);
 
 

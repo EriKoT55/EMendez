@@ -1,5 +1,5 @@
 <?php
-//error_reporting(0);
+error_reporting( 0 );
 session_start();
 
 /**
@@ -9,15 +9,17 @@ session_start();
  */
 
 //Variables del form
-$entrada = $_POST["entrada"];
-$salida = $_POST["salida"];
-$huespedes = $_POST["huespedes"];
+$entrada = $_GET["entrada"];
+$salida = $_GET["salida"];
+$huespedes = $_GET["huespedes"];
+$hotelID = $_SESSION["hotelID"];
+$userID = $_SESSION["userID"];
+
+//PREGUNTAR SI HAY UNA MANERA DE HACERLO MENOS CHAPUCERA QUE ESTA
+$api = "http://localhost/EMendez/EMendez/Tema3_API's/Hotel_MVC_BACK/Controladores/Reserva_controlador.php?entrada=" . $entrada . "&salida=" . $salida . "&huespedes=" . $huespedes . "&hotelID=" . $hotelID . "&userID=" . $userID . "";
 
 
-$api="http://localhost/EMendez/Tema3_API's/Hotel_MVC_BACK/Controladores/Reserva_controlador.php?entrada=".$entrada."&salida=".$salida."&huespedes=".$huespedes."";
-
-
-$objHabitacionApi=json_decode(file_get_contents($api),true);
+$numReserv_y_bol = json_decode( file_get_contents( $api ), true );
 
 /*$result=$conn->ComprobarDisponibilidad($entradaValid,$salidaValid,$_SESSION["hotelID"]);
 
@@ -33,32 +35,29 @@ echo "<pre>";
 var_dump($habitacionID[$randHab]);
 echo "<br>";*/
 
-var_dump($objHabitacionApi);
 
-/*
 if( $entrada!=0 && $huespedes!=0 && $salida!=0 ) {
     if( isset( $entrada ) && isset( $salida ) && isset( $huespedes ) ) {
-        /** SI NO HAY NINGUNA RESERVA ENTRE ESOS DIAS TODA VA BIEN, PERO SI HAY ALGUNA LA PANTALLA SE MUESTRA EN BLANCO, MIRAR FUNCION COMPROBAR*/
-/*
-            if( $objHabitacionApi[1]==true ) {
-/** ME GUSTARIA MOSTRAR EL NUMERO Y LLEVAR DESPUES AL INICIO *//*
 
-                echo "<script>
-                     window.alert(".$objHabitacionApi[0].");
-                </script>";
+        if( $numReserv_y_bol[1]==true ) {
+            /** ME GUSTARIA MOSTRAR EL NUMERO Y LLEVAR DESPUES AL INICIO */
+            //HACE UNA COSA U OTRA PERO NO LAS DOS
 
-        //header( "Location: ../Controladores/Main_controlador.php" );
-            } else {
-                echo "<script>
-                    window.alert('No hay disponibilidad para esas fechas');
+            header( "Location: ../Controladores/Main_controlador.php" );
+            echo "<script>
+                     window.alert(" . $numReserv_y_bol[0] . ");
                 </script>";
-            }
-        }else {
+        } else {
             echo "<script>
                     window.alert('No hay disponibilidad para esas fechas');
                 </script>";
         }
-}*/
+    } else {
+        echo "<script>
+                    window.alert('No hay disponibilidad para esas fechas');
+                </script>";
+    }
+}
 
 require_once( "../Vistas/Reserva_vista.php" );
 ?>

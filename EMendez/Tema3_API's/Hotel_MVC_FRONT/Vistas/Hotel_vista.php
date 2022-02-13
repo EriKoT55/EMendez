@@ -120,7 +120,7 @@ echo "<br>";
     $numhabitaciones=0;
     foreach($hotel->Habitaciones as $habitaciones) {
         $numhabitaciones++;
-         $habitaciones->Habitaciones ;
+         $habitaciones->habitaciones ;
     }
     ?>
     <p class="habitacionesHotel"><?php echo "Numero de habitaciones: ".$numhabitaciones ?></p>

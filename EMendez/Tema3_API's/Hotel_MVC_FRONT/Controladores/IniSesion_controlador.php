@@ -6,7 +6,7 @@ $user = $_POST["usuario"];
 $correo = $_POST["correo"];
 $contra = $_POST["contrasenya"];
 
-$api="http://localhost/EMendez/Tema3_API's/Hotel_MVC_BACK/Controladores/IniSesion_controlador.php?usuario=".$user."&correo=".$correo."&contrasenya=".$contra."";
+$api="http://localhost/EMendez/EMendez/Tema3_API's/Hotel_MVC_BACK/Controladores/IniSesion_controlador.php?usuario=".$user."&correo=".$correo."&contrasenya=".$contra."";
 
 $userObjArr=json_decode(file_get_contents($api),false);
 
