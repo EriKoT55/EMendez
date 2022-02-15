@@ -8,7 +8,7 @@ $password=$_POST["password"];
 if($mail!="" && $password!="") {
     if( isset( $mail ) && isset( $password ) ) {
 
-        $api = "http://localhost/EMendez/EMendez/Tema3_API's/AttackCountries/AttackC_MC_BACK/Controladores/IniSesion_controlador.php?mail=" . $mail . "&password=" . $password . "";
+        $api = "http://localhost/EMendez/EMendez/Tema3_API's/Examen3_AttackCountries/AttackC_MC_BACK/Controladores/IniSesion_controlador.php?mail=" . $mail . "&password=" . $password . "";
 
         $objArrUserApi = json_decode( file_get_contents( $api ), false );
 

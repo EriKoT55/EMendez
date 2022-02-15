@@ -7,7 +7,7 @@ $confirm= $_POST["confirm"];
 if($mail!="" && $password!="" && $confirm!="") {
     if( isset( $mail ) && isset( $password )==isset( $confirm ) ) {
 
-        $api = "http://localhost/EMendez/EMendez/Tema3_API's/AttackCountries/AttackC_MC_BACK/Controladores/Register_controlador.php?mail=" . $mail . "&password=" . $password . "";
+        $api = "http://localhost/EMendez/EMendez/Tema3_API's/Examen3_AttackCountries/AttackC_MC_BACK/Controladores/Register_controlador.php?mail=" . $mail . "&password=" . $password . "";
 
         $apiArrBool = json_decode( file_get_contents( $api ), true );
 

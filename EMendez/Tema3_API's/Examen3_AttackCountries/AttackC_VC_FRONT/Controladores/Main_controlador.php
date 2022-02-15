@@ -12,7 +12,7 @@ $password=$_SESSION["password"];
 $action=$_GET["action"] ?? "";
 $Code=$_GET["Code"] ?? "";
 
-$api="http://localhost/EMendez/EMendez/Tema3_API's/AttackCountries/AttackC_MC_BACK/Controladores/Main_controlador.php?mail=".$mail."&userID=".$userID."&password=".$passowrd."&action=".$action."&Code=".$Code."";
+$api="http://localhost/EMendez/EMendez/Tema3_API's/Examen3_AttackCountries/AttackC_MC_BACK/Controladores/Main_controlador.php?mail=".$mail."&userID=".$userID."&password=".$passowrd."&action=".$action."&Code=".$Code."";
 
 //SI NO PONES NADA ES NO ASSOCIATIVO POR DEFECTO, QUIERE DECIR: OBJETO
 

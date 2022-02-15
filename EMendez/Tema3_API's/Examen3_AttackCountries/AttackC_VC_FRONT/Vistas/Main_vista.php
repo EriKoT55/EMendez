@@ -138,6 +138,6 @@
     } ?>
     </tbody>
 </table>
-
+<a href="../Controladores/Logout.php?logout=true">Logout</a>
 </body>
 </html>
