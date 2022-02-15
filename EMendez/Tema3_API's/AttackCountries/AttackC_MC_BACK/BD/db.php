@@ -3,10 +3,10 @@
 class db extends mysqli
 {
 
-    private $servername="";
-    private $user="";
-    private $password="";
-    private $bd="";
+    private $servername="localhost";
+    private $user="root";
+    private $password="root";
+    private $bd="ciudades";
 
     public function default(){
 
@@ -16,7 +16,7 @@ class db extends mysqli
 
     public function local(){
 
-        parent::construct($this->servername,$this->user,$this->password,$this->bd);
+        parent::__construct($this->servername,$this->user,$this->password,$this->bd);
 
         if(mysqli_connect_error()){
             die("Conexion fallida: ". mysqli_connect_error());

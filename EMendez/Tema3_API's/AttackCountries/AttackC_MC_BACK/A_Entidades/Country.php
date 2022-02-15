@@ -1,9 +1,9 @@
 <?php
 
-class Ciudad
+class Country
 {
 
-    public $Code,$Name,$Populatio,$GNP,$Capital,$UserId,$Lenguage,$CityName;
+    public $Code,$Name,$Population,$GNP,$Capital,$UserId,$Lenguage,$CityName,$Owner;
 
     /**
      * @param $Code
@@ -13,11 +13,11 @@ class Ciudad
      * @param $Capital
      * @param $UserId
      */
-    public function __construct($Code, $Name, $Populatio, $GNP, $Capital, $UserId)
+    public function __construct($Code, $Name, $Population, $GNP, $Capital, $UserId)
     {
         $this->Code =(string) $Code;
         $this->Name =(string) $Name;
-        $this->Populatio =(int) $Populatio;
+        $this->Population =(int) $Population;
         $this->GNP =(int) $GNP;
         $this->Capital =(string) $Capital;
         $this->UserId =(int) $UserId;
@@ -59,17 +59,17 @@ class Ciudad
     /**
      * @return int
      */
-    public function getPopulatio(): int
+    public function getPopulation(): int
     {
-        return $this->Populatio;
+        return $this->Population;
     }
 
     /**
-     * @param int $Populatio
+     * @param int $Population
      */
-    public function setPopulatio(int $Populatio): void
+    public function setPopulatio(int $Population): void
     {
-        $this->Populatio = $Populatio;
+        $this->Population = $Population;
     }
 
     /**
@@ -150,6 +150,22 @@ class Ciudad
     public function setCityName($CityName): void
     {
         $this->CityName = $CityName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOwner()
+    {
+        return $this->Owner;
+    }
+
+    /**
+     * @param mixed $Owner
+     */
+    public function setOwner( $Owner )
+    {
+        $this->Owner = $Owner;
     }
 
 }
